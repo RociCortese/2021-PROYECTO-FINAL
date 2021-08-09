@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('auth/login');
+    return view('welcome');
 });
 Auth::routes();
 
 // Nos mostrará el formulario de login.
-/*Route::get('login', 'App\Http\Controllers\AuthController@showLogin');
+Route::get('login', 'App\Http\Controllers\AuthController@showLogin');
 
 // Validamos los datos de inicio de sesión.
 Route::post('login', 'App\Http\Controllers\AuthController@postLogin');
@@ -35,10 +35,10 @@ Route::group(array('before' => 'auth'), function()
     Route::get('logout', 'App\Http\Controllers\AuthController@logOut');
 });
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
