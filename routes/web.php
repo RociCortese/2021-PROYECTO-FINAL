@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-// Nos mostrará el formulario de login.
+/*// Nos mostrará el formulario de login.
 Route::get('login', 'App\Http\Controllers\AuthController@showLogin');
 
 // Validamos los datos de inicio de sesión.
