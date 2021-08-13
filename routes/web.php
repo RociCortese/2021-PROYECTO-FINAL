@@ -21,7 +21,7 @@ Auth::routes();
 /*Route::get('login', 'App\Http\Controllers\AuthController@showLogin');*/
 
 // Validamos los datos de inicio de sesión.
-Route::post('login', 'App\Http\Controllers\AuthController@postLogin');
+//Route::post('login', 'App\Http\Controllers\AuthController@postLogin');
 
 // Nos indica que las rutas que están dentro de él sólo serán mostradas si antes el usuario se ha autenticado.
 /*{
