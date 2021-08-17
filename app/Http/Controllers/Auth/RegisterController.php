@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'dni' => ['required', 'int', 'min:1000000','max:99999999','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'telefono' => ['required', 'int'],
-            'password' => ['required', 'string', 'min:8','confirmed'],
+            'password' => ['required', 'string', 'min:8','confirmed', 'regex:/[a-z]{1}/','regex:/[A-Z]{1}/']
         ]);
 
     }

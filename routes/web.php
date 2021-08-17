@@ -16,6 +16,15 @@ Route::get('/', function () {
     return view('auth/login');
 });
 Auth::routes();
+Auth::routes(['verify' => true]);
+Route::get('verify', function () {
+    return view('auth/verify');
+});
+Route::get('profile', function () {
+// Solo podrán entrar los usuarios con tenga la verificación de correo
+})->middleware('verified');
+
+
 
 // Nos mostrará el formulario de login.
 /*Route::get('login', 'App\Http\Controllers\AuthController@showLogin');*/
