@@ -1164,7 +1164,7 @@ pre code {
 
 .col-9 {
   flex: 0 0 75%;
-  max-width: 75%;
+  max-width: 10%;
 }
 
 .col-10 {
