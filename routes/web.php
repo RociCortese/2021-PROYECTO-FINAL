@@ -25,9 +25,9 @@ Route::get('profile', function () {
 })->middleware('verified');
 
 
-
 // Nos mostrará el formulario de login.
 /*Route::get('login', 'App\Http\Controllers\AuthController@showLogin');*/
+
 
 // Validamos los datos de inicio de sesión.
 //Route::post('login', 'App\Http\Controllers\AuthController@postLogin');
@@ -43,7 +43,7 @@ Route::get('profile', function () {
     Route::get('logout', 'App\Http\Controllers\AuthController@logOut');
 });
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
