@@ -24,7 +24,7 @@
                       <i class="material-icons">person</i>
                   </span>
                 </div>
-                <input type="text" nombre="nombre" class="form-control" placeholder="{{ __('Nombre') }}" value="{{ old('nombre') }}" required>
+                <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre') }}" value="{{ old('nombre') }}" required>
               </div>
               @if ($errors->has('nombre'))
                 <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
@@ -42,7 +42,7 @@
                     <i class="material-icons">person</i>
                   </span>
                 </div>
-            <input type="text" apellido="apellido" class="form-control" placeholder="{{ __('Apellido') }}" value="{{ old('apellido') }}" required>
+            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido') }}" value="{{ old('apellido') }}" required>
               </div>
               @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -60,7 +60,7 @@
                     <i class="material-icons">badge</i>
                   </span>
                 </div>
-            <input type="text" dni="dni" class="form-control" placeholder="{{ __('DNI') }}" value="{{ old('DNI') }}" required>
+            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI') }}" value="{{ old('DNI') }}" required>
               </div>
               @if ($errors->has('dni'))
                 <div id="apellido-error" class="error text-danger pl-3" for="dni" style="display: block;">
@@ -76,7 +76,7 @@
                     <i class="material-icons">phone</i>
                   </span>
                 </div>
-            <input type="text" telefono="telefono" class="form-control" placeholder="{{ __('Telefono celular') }}" value="{{ old('telefono') }}" required>
+            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Telefono celular') }}" value="{{ old('telefono') }}" required>
               </div>
               @if ($errors->has('telefono'))
                 <div id="apellido-error" class="error text-danger pl-3" for="telefono" style="display: block;">

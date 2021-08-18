@@ -20,4 +20,3 @@ return [
     'throttled' => 'Por favor espere antes de volver a intentarlo.',
     'password' => 'Las contraseñas deben tener al menos seis caracteres y coincidir con la confirmación.'
 ];
-© 2021 GitHub, Inc.
