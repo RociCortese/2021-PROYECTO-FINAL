@@ -12,41 +12,39 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/*Login*/
 Route::get('/', function () {
     return view('auth/login');
 });
 Auth::routes();
+Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
+Route::get('/docente', 'App\Http\Controllers\DocenteController@index')->name('docente')->middleware('docente');
+Route::get('/familia', 'App\Http\Controllers\FamiliaController@index')->name('familia')->middleware('familia');
+
+/*Verificación de email*/
 Auth::routes(['verify' => true]);
 Route::get('verify', function () {
     return view('auth/verify');
 });
 Route::get('profile', function () {
-// Solo podrán entrar los usuarios con tenga la verificación de correo
 })->middleware('verified');
 
+/*Carga de archivos*/
+Route::get('formulario', 'App\Http\Controllers\StorageController@index');
+Route::post('storage/create', 'App\Http\Controllers\StorageController@save');
+Route::get('storage/{archivo}', function ($archivo) {
+     $public_path = public_path();
+     $url = $public_path.'/storage/'.$archivo;
+     //verificamos si el archivo existe y lo retornamos
+     if (Storage::exists($archivo))
+     {
+       return response()->download($url);
+     }
+     //si no se encuentra lanzamos un error 404.
+     abort(404);
 
-// Nos mostrará el formulario de login.
-/*Route::get('login', 'App\Http\Controllers\AuthController@showLogin');*/
-
-
-// Validamos los datos de inicio de sesión.
-//Route::post('login', 'App\Http\Controllers\AuthController@postLogin');
-
-// Nos indica que las rutas que están dentro de él sólo serán mostradas si antes el usuario se ha autenticado.
-/*{
-    // Esta será nuestra ruta de bienvenida.
-    Route::get('/', function()
-    {
-        return View::make('home');
-    });
-    // Esta ruta nos servirá para cerrar sesión.
-    Route::get('logout', 'App\Http\Controllers\AuthController@logOut');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
