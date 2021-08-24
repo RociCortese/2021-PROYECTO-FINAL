@@ -111,8 +111,9 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña') }}">
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña') }}" >
               </div>
+
               @if ($errors->has('password'))
                 <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
                   <strong>{{ $errors->first('password') }}</strong>
