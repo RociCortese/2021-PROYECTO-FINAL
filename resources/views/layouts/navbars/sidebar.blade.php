@@ -7,6 +7,7 @@
     <ul class="nav">
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" >
+
           <i class="material-icons">dashboard</i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>

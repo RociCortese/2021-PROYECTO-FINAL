@@ -18,6 +18,10 @@ class VerificationController extends Controller
     | be re-sent if the user didn't receive the original email message.
     |
     */
+     public function __construct()
+   {
+    $this->middleware('auth');
+   }
 
     use VerifiesEmails;
 
