@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'telefono',
         'password',
+        'idfiles',
     ];
 
     /**
@@ -43,4 +44,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function files()
+    {
+     return $this->belongsToMany(File::class);
+    }
 }
