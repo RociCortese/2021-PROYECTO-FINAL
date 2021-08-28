@@ -1,6 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
   <div class="container">
+    
     <div class="navbar-wrapper">
       <a class="navbar-brand" href="{{ route('login') }}">{{ $title }}</a>
     </div>
@@ -19,7 +20,7 @@
         </li>
         <li class="nav-item{{ $activePage == 'login' ? ' active' : '' }}">
           <a href="{{ route('login') }}" class="nav-link">
-            <i class="material-icons">login</i> {{ __('Login') }}
+            <i class="material-icons">login</i> {{ __('LOGIN') }}
           </a>
         </li>
        <!-- <li class="nav-item ">

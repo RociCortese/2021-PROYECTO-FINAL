@@ -1,9 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.main', ['class' => 'off-canvas-sidebar','activePage' => 'formulario', 'title' => __()]) 
 
 @section('content')
-
 <div class="container">
-
 <style media="screen">
 
   img{

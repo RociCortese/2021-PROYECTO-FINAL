@@ -35,8 +35,10 @@ Route::get('profile', function () {
 })->middleware('verified');
 
 /*Carga de archivos*/
+
 Route::get('formulario', 'App\Http\Controllers\StorageController@index')->name('formulario');
 Route::post('storage/create', 'App\Http\Controllers\StorageController@store');
+
 Route::get('storage/{archivo}', function ($archivo) {
      $public_path = public_path();
      $url = $public_path.'/storage/'.$archivo;
@@ -49,6 +51,15 @@ Route::get('storage/{archivo}', function ($archivo) {
      abort(404);
 
 });
+
+
+Route::get('home', function () {
+    //
+})->name('home');
+
+Route::get('profile/edit', function () {
+    //
+})->name('profile.edit');
 
 
 
