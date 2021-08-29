@@ -28,11 +28,12 @@ Auth::routes(['verify' => true]);
 Route::get('verify', function () {
     return view('auth/verify');
 });
+Route::get('profile', function () {
+})->middleware('verified');
 Route::get('verificado', function () {
     return view('auth/verificado');
 });
-Route::get('profile', function () {
-})->middleware('verified');
+
 
 /*Carga de archivos*/
 

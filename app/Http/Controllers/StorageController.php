@@ -25,8 +25,9 @@ public function store(Request $request)
 {
   /*Validación tipo de imagen*/
   $request ->validate([
-    'file'=>'required|image|max:2048'
+    'file'=>'required|image|max:2048|dimensions:min_width=128px,min_height=128px'
   ]);
+  
   /*Carga de imagen a la base de datos*/
   $files=new File();
   $files->file=$request->file;

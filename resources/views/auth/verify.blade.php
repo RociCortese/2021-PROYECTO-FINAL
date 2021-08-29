@@ -6,6 +6,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="logo" align="center">
+                     <img style="width:50px" src="img/success.png"class="simple-text logo-normal">
+                </div>
                 <div class="card-header">{{ __('El usuario ha sido registrado con éxito. Se le ha enviado el enlace para confirmar la cuenta al correo electrónico con el que se hizo el registro.') }}</div>
 
                 <div class="card-body">
