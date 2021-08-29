@@ -25,7 +25,7 @@ public function store(Request $request)
 {
   /*Validación tipo de imagen*/
   $request ->validate([
-    'file'=>'required|image|max:2048|dimensions:min_width=128px,min_height=128px'
+    'file'=>'required|image|max:2048|dimensions:min_width=128,min_height=128'
   ]);
   
   /*Carga de imagen a la base de datos*/
@@ -39,13 +39,18 @@ public function store(Request $request)
     $files->file=$nombreimagen;
   }
   $files->save();
-  return $files->file;
+  return redirect()->route('formulario');
   /*$users = Auth::user(); 
   $users->files()->attach($files->idfiles);
   $users->save();*/
   /*
   $users->idfiles=$files->id;
   $users->save();*/
-  
 }
+
+public function delete($id){
+   File::destroy($id);
+   return redirect()->route('formulario');
+        }
 }
+
