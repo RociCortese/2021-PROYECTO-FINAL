@@ -18,13 +18,7 @@
             <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
                 <i class="material-icons">image</i>
-                <span class="sidebar-normal">{{ __('Cargar Logo') }} </span>
-              </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
-              <a class="nav-link" href="#">
-                <span class="sidebar-mini"> UM </span>
-                <span class="sidebar-normal"> {{ __('User Management') }} </span>
+                <span class="sidebar-normal">{{ __('Cargar logo institucional') }} </span>
               </a>
             </li>
           </ul>

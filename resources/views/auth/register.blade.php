@@ -89,7 +89,6 @@
                   <strong>{{ $errors->first('telefono') }}</strong>
                 </div>
               @endif
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
              
 
             </div>
@@ -100,7 +99,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email (*)') }}" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico (*)') }}" value="{{ old('email') }}">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -151,7 +150,7 @@
             <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Registrarme') }}</button>
           </div>
           <div align="center">
-           <i></label> <small>(Los campos con (*) son obligatorios.)</small></i>
+           <i></label> <small>Los campos con (*) son obligatorios.</small></i>
       
           </div>
         </div>

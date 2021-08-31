@@ -12,7 +12,7 @@
         @csrf        
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('LOGIN') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('INICIAR SESIÓN') }}</strong></h4>
           </div>
           <div class="card-body">
             <p class="card-description text-center">
@@ -23,7 +23,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico') }}">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
