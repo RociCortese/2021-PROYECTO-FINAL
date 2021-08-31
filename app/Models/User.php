@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\File;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\hasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -16,14 +19,17 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+    protected $primaryKey = 'id';
+    protected $foreingKey = 'files_id';
     protected $fillable = [
+        'id',
         'nombre',
         'apellido',
         'dni',
         'email',
         'telefono',
         'password',
-        'idfiles',
+        'files_id',
     ];
 
     /**
@@ -45,8 +51,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function files()
+    public function file()
     {
-     return $this->belongsToMany(File::class);
-    }
+     return $this->belongsTo(File::class);
+ }
 }

@@ -17,6 +17,8 @@ class CreateFilesTable extends Migration
             $table->engine='InnoDB';
             $table->id();
             $table->string('file');
+            $table->timestamps();
+
         });
     }
 

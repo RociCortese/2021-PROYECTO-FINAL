@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use DB;
 
 class StorageController extends Controller
 {
@@ -39,18 +41,18 @@ public function store(Request $request)
     $files->file=$nombreimagen;
   }
   $files->save();
+
+  $users = Auth::user(); 
+  $users->file()->associate($files);
+  $users->save();
   return redirect()->route('formulario');
-  /*$users = Auth::user(); 
-  $users->files()->attach($files->idfiles);
-  $users->save();*/
-  /*
-  $users->idfiles=$files->id;
-  $users->save();*/
+  
 }
 
-public function delete($id){
-   File::destroy($id);
-   return redirect()->route('formulario');
-        }
+public function delete(){
+   $userfile = Auth::user()->file_id;
+   File::destroy($userfile);
+   return redirect()->route('formulario');       
+}
 }
 

@@ -39,7 +39,7 @@ Route::get('verificado', function () {
 
 Route::get('formulario', 'App\Http\Controllers\StorageController@index')->name('formulario');
 Route::post('storage/create', 'App\Http\Controllers\StorageController@store');
-Route::delete('storage/delete{id}', 'App\Http\Controllers\StorageController@delete')->name('delete');
+Route::delete('storage/delete', 'App\Http\Controllers\StorageController@delete')->name('delete');
 
 
 Route::get('home', function () {

@@ -77,17 +77,13 @@
                   </span>
                 </div>
             <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}">
-            <div>
-                <p> Debe ingresar su número sin el 0, ni el 15.</p>
-            </div>
+            
               </div>
               @if ($errors->has('telefono'))
                 <div id="apellido-error" class="error text-danger pl-3" for="telefono" style="display: block;">
                   <strong>{{ $errors->first('telefono') }}</strong>
                 </div>
               @endif
-
-
 
             </div>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
@@ -115,9 +111,6 @@
                   </span>
                 </div>
                 <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}" >
-                <div>
-                <p> La contraseña debe contener al menos 8 caracteres, icluyendo una minúscula y una mayúscula.</p>
-                </div>
               </div>
 
               @if ($errors->has('password'))
