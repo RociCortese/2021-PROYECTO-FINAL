@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
@@ -89,7 +91,6 @@
                   <strong>{{ $errors->first('telefono') }}</strong>
                 </div>
               @endif
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
              
 
             </div>

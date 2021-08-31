@@ -97,7 +97,6 @@
         echo'<img src="'.$rutaimagen.'" width="300px" height="300px"/>';?>
         </div>
         <div>
-
         <form action="{{route('delete')}}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" class="formEliminar">
           {{csrf_field()}}
           {{method_field('delete')}}
