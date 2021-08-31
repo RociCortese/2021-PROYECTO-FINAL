@@ -395,6 +395,7 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
+
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'type' => 'project',
