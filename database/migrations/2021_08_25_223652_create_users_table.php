@@ -15,18 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->engine='InnoDB';
-            $table->role='directivo';
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
+            $table->integer('dni');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('telefono');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->bigInteger('idfiles')->unsigned();
-            $table->foreign('idfiles')->references('id')->on('files');
+            $table->string('role')->default('directivo');
+            $table->bigInteger('files_id')->unsigned();
+            $table->foreign('files_id')->references('id')->on('files');
         });
     }
 

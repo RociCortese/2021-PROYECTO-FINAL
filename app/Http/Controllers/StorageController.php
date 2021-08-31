@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use DB;
 
 class StorageController extends Controller
 {
@@ -25,8 +27,9 @@ public function store(Request $request)
 {
   /*Validación tipo de imagen*/
   $request ->validate([
-    'file'=>'required|image|max:2048'
+    'file'=>'required|image|max:2048|dimensions:min_width=128,min_height=128'
   ]);
+  
   /*Carga de imagen a la base de datos*/
   $files=new File();
   $files->file=$request->file;
@@ -38,13 +41,18 @@ public function store(Request $request)
     $files->file=$nombreimagen;
   }
   $files->save();
-  return $files->file;
-  /*$users = Auth::user(); 
-  $users->files()->attach($files->idfiles);
-  $users->save();*/
-  /*
-  $users->idfiles=$files->id;
-  $users->save();*/
+
+  $users = Auth::user(); 
+  $users->file()->associate($files);
+  $users->save();
+  return redirect()->route('formulario');
   
 }
+
+public function delete(){
+   $userfile = Auth::user()->file_id;
+   File::destroy($userfile);
+   return redirect()->route('formulario');       
 }
+}
+

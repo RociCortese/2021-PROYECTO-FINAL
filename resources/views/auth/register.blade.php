@@ -24,7 +24,7 @@
                       <i class="material-icons">person</i>
                   </span>
                 </div>
-                <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre') }}" value="{{ old('nombre') }}">
+                <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre (*)') }}" value="{{ old('nombre') }}">
               </div>
               @if ($errors->has('nombre'))
                 <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
@@ -42,7 +42,7 @@
                     <i class="material-icons">person</i>
                   </span>
                 </div>
-            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido') }}" value="{{ old('apellido') }}">
+            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido (*)') }}" value="{{ old('apellido') }}">
               </div>
               @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -60,7 +60,7 @@
                     <i class="material-icons">badge</i>
                   </span>
                 </div>
-            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI') }}" value="{{ old('DNI') }}">
+            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI (*)') }}" value="{{ old('DNI') }}">
               </div>
               @if ($errors->has('dni'))
                 <div id="apellido-error" class="error text-danger pl-3" for="dni" style="display: block;">
@@ -76,15 +76,14 @@
                     <i class="material-icons">phone</i>
                   </span>
                 </div>
-            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Telefono celular') }}" value="{{ old('telefono') }}">
+            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}">
+            
               </div>
               @if ($errors->has('telefono'))
                 <div id="apellido-error" class="error text-danger pl-3" for="telefono" style="display: block;">
                   <strong>{{ $errors->first('telefono') }}</strong>
                 </div>
               @endif
-
-
 
             </div>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
@@ -94,7 +93,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email') }}" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Email (*)') }}" value="{{ old('email') }}">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -111,7 +110,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña') }}" >
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}" >
               </div>
 
               @if ($errors->has('password'))
@@ -138,18 +137,11 @@
               @endif
 
             </div>
-           <!-- <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="policy" name="policy" {{ old('policy', 1) ? 'checked' : '' }} >
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-                {{ __('I agree with the ') }} <a href="#">{{ __('Privacy Policy') }}</a>
-              </label>
-            </div>
-          </div>-->
           <div class="card-footer justify-content-center">
             <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Registrarme') }}</button>
+          </div>
+          <div>
+            <p> Los campos marcados con (*) son obligatorios.</p>
           </div>
         </div>
       </form>

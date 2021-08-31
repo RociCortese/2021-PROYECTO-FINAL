@@ -5,6 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="logo">
+                     <img style="width:50px" src="img/success.png"class="simple-text logo-normal">
+                </div>
                 <div class="card-header">{{ __('La cuenta ha sido verificada con éxito. Para poder comenzar a utilizarla dirigase')}} <a href="{{route('login')}}"> aquí </div>
             </div>
         </div>
