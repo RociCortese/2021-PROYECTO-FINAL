@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="container" style="height: auto;">
   <div class="row justify-content-center">
       <div class="col-lg-7 col-md-8">
@@ -17,6 +18,8 @@
                   {{ __('El usuario ha sido registrado con éxito. Se le ha enviado el enlace para confirmar la cuenta al correo electrónico con el que se hizo el registro.') }}
                 </div>
                 <div class="card-body" align="center">
+
+
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
                             {{ __('Se ha enviado un nuevo enlace de verificación a su dirección de correo electrónico.') }}

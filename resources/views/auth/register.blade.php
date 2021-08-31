@@ -20,7 +20,9 @@
                       <i class="material-icons">person</i>
                   </span>
                 </div>
-                <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre *') }}" value="{{ old('nombre') }}">
+
+           <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre (*)') }}" value="{{ old('nombre') }}">
+
               </div>
               @if ($errors->has('nombre'))
                 <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
@@ -38,7 +40,8 @@
                     <i class="material-icons">person</i>
                   </span>
                 </div>
-            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido *') }}" value="{{ old('apellido') }}">
+
+            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido (*)') }}" value="{{ old('apellido') }}">
               </div>
               @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -56,7 +59,9 @@
                     <i class="material-icons">badge</i>
                   </span>
                 </div>
-            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI') }}" value="{{ old('DNI *') }}">
+
+            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI (*)') }}" value="{{ old('DNI') }}">
+
               </div>
               @if ($errors->has('dni'))
                 <div id="apellido-error" class="error text-danger pl-3" for="dni" style="display: block;">
@@ -72,7 +77,11 @@
                     <i class="material-icons">phone</i>
                   </span>
                 </div>
-            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Telefono celular *') }}" value="{{ old('telefono') }}">
+
+
+
+            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}">
+            
 
               </div>
               @if ($errors->has('telefono'))
@@ -83,8 +92,6 @@
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
              
 
-
-
             </div>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
@@ -93,7 +100,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email *') }}" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Email (*)') }}" value="{{ old('email') }}">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -110,7 +117,9 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña *') }}" >
+
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}" >
+
               </div>
 
               @if ($errors->has('password'))
@@ -142,7 +151,8 @@
             <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Registrarme') }}</button>
           </div>
           <div align="center">
-           <i></label> <small>(Los campos con * son obligatorios.)</small></i>
+           <i></label> <small>(Los campos con (*) son obligatorios.)</small></i>
+      
           </div>
         </div>
       </form>
