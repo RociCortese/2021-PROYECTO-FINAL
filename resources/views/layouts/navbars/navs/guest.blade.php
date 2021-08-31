@@ -1,5 +1,8 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+  <div class="logo">
+    <img style="width:250px" src="img/header.png"class="simple-text logo-normal">
+  </div>
   <div class="container">
     
     <div class="navbar-wrapper">

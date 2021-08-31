@@ -1,4 +1,3 @@
-
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __()]) 
 
 
@@ -6,7 +5,6 @@
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-md-9 ml-auto mr-auto mb-3 text-center">
-    <!--  <h1><strong>BIENVENIDO</strong></h1>-->
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
 
@@ -70,11 +68,6 @@
         </div>
         </div>
       </form>
-        <!--<div class="col-6 text-right">
-            <a href="{{ route('register') }}" class="text-light">
-                <small>{{ __('Crear nueva cuenta') }}</small>
-            </a>
-        </div>-->
       </div>
     </div>
   </div>

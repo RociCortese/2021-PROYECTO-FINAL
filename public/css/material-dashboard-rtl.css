@@ -1117,6 +1117,7 @@ html[dir="rtl"] .main-panel {
 html[dir="rtl"] .card .card-header.card-header-tabs .nav-tabs-title {
   float: right;
   padding: 10px 0 10px 10px;
+  
 }
 
 html[dir="rtl"] .card.card-chart {

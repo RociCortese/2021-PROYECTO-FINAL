@@ -4592,6 +4592,7 @@ tbody.collapse.show {
 
 .card-title {
   margin-bottom: 0.75rem;
+  font-weight: bold;
 }
 
 .card-subtitle {
@@ -4604,7 +4605,7 @@ tbody.collapse.show {
 }
 
 .card-link:hover {
-  text-decoration: none;
+  text-decoration: solid;
 }
 
 .card-link+.card-link {
@@ -13608,7 +13609,7 @@ fieldset[disabled] .form-group .form-control {
 
 .page-header .category,
 .page-header .description {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0);
 }
 
 .page-header.page-header-small {
@@ -13725,6 +13726,7 @@ h6,
 
 .card-blog .card-title {
   font-weight: 700;
+  
 }
 
 h2.title {
@@ -16608,9 +16610,9 @@ label {
 .card {
   border: 0;
   margin-bottom: 30px;
-  margin-top: 30px;
-  border-radius: 6px;
-  color: #333333;
+  margin-top: 25px;
+  border-radius: 20px;
+  color: #000000;
   background: #fff;
   width: 100%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -16699,6 +16701,7 @@ label {
 
 .card .card-header .title {
   color: #fff;
+  
 }
 
 .card .card-header .nav-tabs {
@@ -18842,5 +18845,3 @@ Copyright (c) 2015 Daniel Eden
     list-style: none;
 }
 
-
-/*# sourceMappingURL=dashboard-free.css.map */

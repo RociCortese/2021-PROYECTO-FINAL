@@ -16,9 +16,9 @@
         <div class="panel-body">
           <form action="storage/create" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-              <label class="col-md-4 control-label">Nuevo Archivo</label>
-              <div class="col-md-6">
+            <div>
+              <h3>Nuevo Archivo</h3>
+              <div>
                 </div>
                 <input type="file" class="form-control" name="file" id="file" accept="image/*">
                 <br>
