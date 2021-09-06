@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth/login');
 });
+Route::get('home', function () {
+    //
+})->name('home');
+
+Route::get('profile/edit', function () {
+    //
+})->name('profile.edit');
 
 Auth::routes();
 Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
@@ -19,25 +26,20 @@ Route::get('verify', function () {
 });
 Route::get('profile', function () {
 })->middleware('verified');
+
 Route::get('verificado', function () {
     return view('auth/verificado');
 });
 
 
 /*Carga de archivos*/
-
 Route::get('formulario', 'App\Http\Controllers\StorageController@index')->name('formulario');
 Route::post('storage/create', 'App\Http\Controllers\StorageController@store');
 Route::delete('storage/delete', 'App\Http\Controllers\StorageController@delete')->name('delete');
 
+/*Carga de docentes*/
+Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 
-Route::get('home', function () {
-    //
-})->name('home');
-
-Route::get('profile/edit', function () {
-    //
-})->name('profile.edit');
 
 
 
