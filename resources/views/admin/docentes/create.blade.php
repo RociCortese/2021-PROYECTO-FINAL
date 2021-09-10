@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('Nuevo Docente')])
+@extends('layouts.main', ['activePage' => 'creardocente', 'titlePage' => __('Nuevo Docente')])
   
 @section('content')
 <div class="row">
@@ -6,9 +6,6 @@
         <div class="pull-left">
             <h2>Agregar nuevo docente</h2>
         </div>
-        <!--<div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('docentes.index') }}">Ver docentes</a>
-        </div>-->
     </div>
 </div>
    

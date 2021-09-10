@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activepage' => 'docente', 'titlePage => Docentes'])
+@extends('layouts.main' , ['activePage' => 'docente', 'titlePage => Docentes'])
 
 @section ('content')
  
@@ -16,7 +16,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="" class="btn btn-sm btn-facebook">Agregar Docente</a>
+                    <a href="{{ route('docente.create') }}" class="btn btn-sm btn-facebook">Agregar Docente</a>
                   </div>
                   
                 </div>
@@ -30,15 +30,15 @@
                       <th class="text-right">Acciones</th>
                     </thead>
                     <tbody>
-                      @forech($docentes as $doc)
+                      @foreach($docentes as $doc)
                       <tr>
-                        <td>{{$doc->iddocente}}</td>
+                        <td>{{$doc->id}}</td>
                         <td>{{$doc->dni}}</td>
-                        <td>{{$doc>nombre}}</td>
+                        <td>{{$doc->nombre}}</td>
                         <td>{{$doc->apellido}}</td>
                         <td></td>
                       </tr>
-                      @endforech
+                      @endforeach
                     </tbody>
                     
                   </table>
