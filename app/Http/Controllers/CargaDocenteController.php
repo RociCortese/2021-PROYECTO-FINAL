@@ -17,9 +17,12 @@ use Storage;
 
 class CargaDocenteController extends Controller
 {
-	public function index()
+	public function index(Request $request)
     {
-    	$docentes = Docente::all();
+    	//$docentes = Docente::all();
+        $nombre = $request->get('buscarnombre');
+        $apellido = $request->get('buscarapellido');
+        $docentes = Docente::nombres($nombre)->apellidos($apellido)->paginate(5);
         return view('admin.docentes.index', compact('docentes')); 
     }
 

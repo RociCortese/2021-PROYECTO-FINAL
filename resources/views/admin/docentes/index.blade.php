@@ -1,3 +1,5 @@
+@extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
   <head>
@@ -81,6 +83,11 @@
                               <div class="card-block">
                                 <a href="{{url ('admin/docentes/create') }}" class="btn btn-success mt-4 ml-3">  Agregar
                                 </a>
+                                <form>
+                                <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search">
+                                <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                              </form>
                                   
                                   <section class="example mt-4">
                                       
