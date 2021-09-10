@@ -18844,4 +18844,26 @@ Copyright (c) 2015 Daniel Eden
     margin-bottom: 0;
     list-style: none;
 }
-
+.one-half,
+.one-third {
+    position: relative;
+    margin-right: 4%;
+    float: left;
+        margin-bottom: 20px;
+ 
+}
+ 
+.one-half { width: 48%; }
+.one-third { width: 30.66%; }
+ 
+.last {
+    margin-right: 0 !important;
+    clear: right;
+}
+ 
+@media only screen and (max-width: 767px) {
+    .one-half, .one-third {
+        width: 100%;
+        margin-right: 0;
+    }
+}

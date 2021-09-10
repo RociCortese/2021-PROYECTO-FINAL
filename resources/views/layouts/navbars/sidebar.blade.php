@@ -5,7 +5,7 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
+     <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" >
 
           <i class="material-icons">dashboard</i>
@@ -15,10 +15,22 @@
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
-            <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
                 <i class="material-icons">image</i>
                 <span class="sidebar-normal">{{ __('Cargar logo institucional') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+        <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'docente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{url('admin/docentes')}}">
+                <i class="material-icons">person</i>
+                <span class="sidebar-normal">{{ __('Registro de Docentes') }} </span>
               </a>
             </li>
           </ul>

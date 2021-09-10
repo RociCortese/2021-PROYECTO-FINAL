@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('Nuevo Docente')])
   
 @section('content')
 <div class="row">
@@ -14,12 +14,9 @@
    
 <form action="{{ route('docentes.store') }}" method="POST">
     @csrf
-  
-     <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <label>DNI</label>
-                <input type="text" name="dni" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="dni" class="one-half" placeholder="DNI">
             </div>
             @if ($errors->has('dni'))
                 <div id="dni-error" class="error text-danger pl-3" for="dni" style="display: block;">
@@ -27,10 +24,12 @@
                 </div>
               @endif
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        
+
+<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" name="nombre" class="form-control" placeholder="Ingresar nombre del alumno">
+                
+                <input type="text" name="nombre" class="one-half last" placeholder="Nombre">
             </div>
             @if ($errors->has('nombre'))
                 <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
@@ -38,10 +37,10 @@
                 </div>
               @endif
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Apellido</label>
-                <input class="form-control" name="apellido" placeholder="Ingresar apellido del alumno"></input>
+                <input class="form-control" name="apellido">
             </div>
             @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -52,7 +51,7 @@
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Fecha de nacimiento</label>
-                <input type="date" name="fechanacimiento" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="date" name="fechanacimiento" class="form-control" >
             </div>
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
@@ -60,7 +59,7 @@
                 </div>
               @endif
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Género</label>
                 <select name="genero">
@@ -78,7 +77,7 @@
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Domicilio</label>
-                <input type="text" name="domicilio" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="domicilio" class="form-control" >
             </div>
             @if ($errors->has('domicilio'))
                 <div id="domicilio-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
@@ -89,7 +88,7 @@
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Localidad</label>
-                <input type="text" name="localidad" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="localidad" class="form-control">
             </div>
             @if ($errors->has('localidad'))
                 <div id="localidad-error" class="error text-danger pl-3" for="localidad" style="display: block;">
@@ -100,7 +99,7 @@
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Provincia</label>
-                <input type="text" name="provincia" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="provincia" class="form-control">
             </div>
             @if ($errors->has('provincia'))
                 <div id="provincia-error" class="error text-danger pl-3" for="provincia" style="display: block;">
@@ -126,10 +125,10 @@
                 </div>
               @endif
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
+       <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Teléfono</label>
-                <input type="text" name="telefono" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="telefono" class="form-control">
             </div>
             @if ($errors->has('telefono'))
                 <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
@@ -137,10 +136,10 @@
                 </div>
               @endif
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Correo electrónico</label>
-                <input type="text" name="email" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="email" class="form-control" >
             </div>
             @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -148,10 +147,10 @@
                 </div>
               @endif
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Legajo</label>
-                <input type="text" name="legajo" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="legajo" class="form-control">
             </div>
             @if ($errors->has('legajo'))
                 <div id="legajo-error" class="error text-danger pl-3" for="legajo" style="display: block;">
@@ -159,10 +158,10 @@
                 </div>
               @endif
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>Especialidad</label>
-                <input type="text" name="especialidad" class="form-control" placeholder="Ingresar nombre del alumno">
+                <input type="text" name="especialidad" class="form-control" >
             </div>
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">
@@ -172,7 +171,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset">Limpiar</button>
+                <button type="reset" class="btn btn-link">Limpiar</button>
         </div>
     </div>
    

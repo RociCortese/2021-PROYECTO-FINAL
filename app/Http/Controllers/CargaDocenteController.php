@@ -19,7 +19,7 @@ class CargaDocenteController extends Controller
 {
 	public function index()
     {
-    	$docentes = Docente::all();
+    	$docentes = Docente::paginate(5);
         return view('admin.docentes.index', compact('docentes')); 
     }
 

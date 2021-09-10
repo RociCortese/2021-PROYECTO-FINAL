@@ -42,4 +42,3 @@ Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 
 
 
-
