@@ -1,3 +1,4 @@
+
 @extends('layouts.main' , ['activePage' => 'docente', 'titlePage => Docentes'])
 
 @section ('content')
@@ -18,9 +19,7 @@
                   <div class="col-12 text-right">
 
                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Agregar Docente</a>
-
                   </div>
-                  
                 </div>
                 <div class="table-responsive">
                   <table class="table">
@@ -30,9 +29,15 @@
                       <th>Nombre</th>
                       <th>Apellido</th>
                       <th class="text-right">Acciones</th>
-                    </thead>
-                    <tbody>
-                      @foreach($docentes as $doc)
+                    </thead
+                                <form>
+                                <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search">
+                                <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                              </form>
+                                  
+                                        <tbody>
+                                          @foreach($docentes as $doc)
                                           <tr>
                                             <td class="v-align-middle">{{$doc->id}}</td>
                                             <td class="v-align-middle">{{$doc->dni}}</td>
@@ -69,3 +74,4 @@
 
 @endsection
 
+      

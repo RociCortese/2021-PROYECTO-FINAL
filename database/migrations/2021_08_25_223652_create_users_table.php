@@ -26,8 +26,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('role')->default('directivo');
-            $table->bigInteger('files_id')->unsigned();
-            $table->foreign('files_id')->references('id')->on('files');
         });
     }
 
