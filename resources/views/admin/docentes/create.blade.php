@@ -1,3 +1,4 @@
+
 @extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
   
 @section('content')
@@ -17,6 +18,7 @@
             <label class="col-sm-2 col-form-label">DNI</label>
             <div class="col-sm-7">
             <input type="text" name="dni" class="form-control">
+
             @if ($errors->has('dni'))
                 <div id="dni-error" class="error text-danger pl-3" for="dni" style="display: block;">
                   <strong>{{ $errors->first('dni') }}</strong>
