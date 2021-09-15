@@ -17,8 +17,8 @@
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
-                <i class="material-icons">image</i>
-                <span class="sidebar-normal">{{ __('Cargar logo institucional') }} </span>
+                <i class="material-icons">info</i>
+                <span class="sidebar-normal">{{ __('Información colegio') }} </span>
               </a>
             </li>
           </ul>

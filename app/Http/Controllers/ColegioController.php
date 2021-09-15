@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Models\Colegio;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use DB;
 
-class StorageController extends Controller
+class ColegioController extends Controller
 {
     public function __construct()
    {
@@ -20,15 +20,25 @@ class StorageController extends Controller
 
     public function index()
    {
-    return view('Archivos/cargaarchivo');
+    return view('Colegio/cargacolegio');
    }
 
-public function store(Request $request)
+   protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'file'=>'required|image|max:2048|dimensions:min_width=128,min_height=128'
+        ]);
+
+    }
+
+public function store(array $data)
 {
-  /*Validación tipo de imagen*/
-  $request ->validate([
-    'file'=>'required|image|max:2048|dimensions:min_width=128,min_height=128'
-  ]);
+   return Colegio::create([
+  'nombre' => $data['nombre'],
+  'direccion' => $data['direccion'],
+  'telefono' => $data['telefono'],
+        ]);
+ 
   
   /*Carga de imagen a la base de datos*/
   $files=new File();

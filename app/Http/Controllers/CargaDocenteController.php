@@ -22,7 +22,7 @@ class CargaDocenteController extends Controller
     	//$docentes = Docente::all();
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
-        $docentes = Docente::nombres($nombre)->apellidos($apellido)->paginate(5);
+        $docentes = Docente::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
         return view('admin.docentes.index', compact('docentes')); 
     }
 
@@ -35,19 +35,19 @@ class CargaDocenteController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-            'dni' => ['required', 'int', 'min:1000000','max:99999999','unique:users'],
-            'nombre' => ['required','alpha','max:50'],
-            'apellido' => ['required','alpha','max:50'],
+            'dni' => ['required', 'int','digits_between:7,8','unique:docentes'],
+            'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellido' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'fechanacimiento' => 'required',
             'genero' => ['required'],
-            'domicilio' => ['required','alpha','max:50'],
-            'localidad' => ['required','alpha','max:50'],
-            'provincia' => ['required','alpha','max:50'],
+            'domicilio' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'localidad' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'provincia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'estadocivil' => ['required'],
-            'telefono' => ['required','int'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'legajo' => ['required','int','max:20'],
-            'especialidad' => ['required','alpha','max:25'],
+            'telefono' => ['required','int','digits:value'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
+            'legajo' => ['required','int'],
+            'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
     
         Docente::create($request->all());

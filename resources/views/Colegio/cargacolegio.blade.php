@@ -1,7 +1,6 @@
 @extends('layouts.main', ['activePage' => 'formulario', 'titlePage' => __('')])
 
 @section('content')
-<div class="container">
 <style media="screen">
 
   img{
@@ -10,17 +9,41 @@
   }
 </style>
 
-<div>
-  <div class="col-md-10 col-md-offset-1">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class=" col-md-12"> 
           <form action="storage/create" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <h3>Nuevo Archivo</h3>
-            <div>
-              <div>
+            <div class="card">
+            <div class= "card-header card-header-primary">
+            <h4 class="card-tittle">Información de colegio</h4>
+            </div>
+            <div class="card-body">
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="nombre" id="nombre">
+              </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Dirección</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="direccion" id="direccion">
+              </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Teléfono</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="telefono" id="telefono">
+              </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Logo institucional</label>
+                <div class="col-sm-7">
                 <input type="file" class="form-control" name="file" id="file" accept="image/*">
               </div>
+            </div>
               <br>
               @error('file')
                 <small class="text-danger">{{$message}}</small>
@@ -46,13 +69,17 @@
                     })();
               </script>
              </div>
-            <div class="form-group">
-              <div class="col-md-6 col-md-offset-4">
-                <button type="submit" class="btn btn-primary">Cargar</button>
+            <div class="card-footer">
+          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
               </div>
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
 
         <!--Mostrar imagen cargada en base de datos-->
         <div>
