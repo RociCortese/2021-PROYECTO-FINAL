@@ -1,21 +1,7 @@
+@extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-  <head>
-    <title>Administrador</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/estilos.css') }}">
-
-  </head>
   <body>
     <div class="container mt-5">
       <div class="header">
@@ -81,6 +67,11 @@
                               <div class="card-block">
                                 <a href="{{url ('admin/docentes/create') }}" class="btn btn-success mt-4 ml-3">  Agregar
                                 </a>
+                                <form>
+                                <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search">
+                                <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                              </form>
                                   
                                   <section class="example mt-4">
                                       
@@ -124,6 +115,7 @@
                                           @endforeach
                                         </tbody>
                                       </table>
+                                      {{$docentes->links()}}
                                     </div>
                                   </section>
                               </div>
@@ -145,7 +137,7 @@
 
         </div>
     </div>
-
+    <!--
       <script crossorigin="anonymous" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
       <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -159,7 +151,7 @@
         else
           return false;
         }
-    </script>
+    </script>-->
   
   </body>
 

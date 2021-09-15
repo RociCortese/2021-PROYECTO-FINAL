@@ -15,10 +15,20 @@
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
-            <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
-                <i class="material-icons">image</i>
-                <span class="sidebar-normal">{{ __('Cargar logo institucional') }} </span>
+                <i class="material-icons">info</i>
+                <span class="sidebar-normal">{{ __('Información colegio') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="collapse show" >
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'docente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{url('admin/docentes')}}">
+                <i class="material-icons">how_to_reg</i>
+                <span class="sidebar-normal">{{ __('Registro de docentes') }} </span>
               </a>
             </li>
           </ul>
