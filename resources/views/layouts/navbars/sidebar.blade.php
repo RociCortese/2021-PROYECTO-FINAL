@@ -34,18 +34,6 @@
           </ul>
         </div>
       </li>
-        <li class="nav-item">
-        <div class="collapse show" >
-          <ul class="nav">
-          <li class="nav-item{{ $activePage == 'docente' ? ' active' : '' }}">
-              <a class="nav-link" href="{{url('admin/docentes')}}">
-                <i class="material-icons">how_to_reg</i>
-                <span class="sidebar-normal">{{ __('Registro de Docentes') }} </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
