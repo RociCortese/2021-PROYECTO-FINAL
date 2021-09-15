@@ -38,5 +38,9 @@ Route::post('storage/create', 'App\Http\Controllers\ColegioController@store');
 Route::delete('storage/delete', 'App\Http\Controllers\ColegioController@delete')->name('delete');
 
 /*Carga de docentes*/
+
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
+Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
+
+
 

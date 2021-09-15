@@ -19,6 +19,7 @@ class CargaDocenteController extends Controller
 {
 	public function index(Request $request)
     {
+
     	//$docentes = Docente::all();
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
