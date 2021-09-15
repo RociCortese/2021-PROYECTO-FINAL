@@ -39,6 +39,7 @@ Route::delete('storage/delete', 'App\Http\Controllers\StorageController@delete')
 
 /*Carga de docentes*/
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
+Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 
 
 

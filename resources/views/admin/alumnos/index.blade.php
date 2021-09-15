@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activePage' => 'docente', 'titlePage => Docentes'])
+@extends('layouts.main' , ['activePage' => 'alumno', 'titlePage => Docentes'])
 
 @section ('content')
  
@@ -10,13 +10,13 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title"> Docentes</h4>
-                <p class="card-category">Docentes Registrados</p>    
+                <h4 class="card-title"> Alumnos</h4>
+                <p class="card-category">Alumnos Registrados</p>    
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Agregar Docente</a>
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Agregar Alumno</a>
                   </div>
                   
                 </div>
@@ -30,13 +30,13 @@
                       <th class="text-right">Acciones</th>
                     </thead>
                     <tbody>
-                      @foreach($docentes as $doc)
+                      @foreach($alumnos as $alu)
                                           <tr>
-                                            <td class="v-align-middle">{{$doc->id}}</td>
-                                            <td class="v-align-middle">{{$doc->dni}}</td>
-                                            <td class="v-align-middle">{{$doc->nombre}}</td>
-                                            <td class="v-align-middle">{{$doc->apellido}}</td>
-                                            <td class="v-align-middle">{{$doc->acciones}}</td>
+                                            <td class="v-align-middle">{{$alu->id}}</td>
+                                            <td class="v-align-middle">{{$alu->dni}}</td>
+                                            <td class="v-align-middle">{{$alu->nombre}}</td>
+                                            <td class="v-align-middle">{{$alu->apellido}}</td>
+                                            <td class="v-align-middle">{{$alu->acciones}}</td>
                                                                                                  
                                           </tr>                                          
                                           @endforeach
@@ -47,7 +47,7 @@
                 
               </div>
               <div class="card-footer mr-auto">
-                {{$docentes->links() }}
+                {{$alumnos->links() }}
                 
               </div>
                 
