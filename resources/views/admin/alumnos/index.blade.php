@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activePage' => 'alumno', 'titlePage => Docentes'])
+@extends('layouts.main' , ['activePage' => 'alumno', 'titlePage => Alumnos'])
 
 @section ('content')
  
@@ -18,8 +18,11 @@
                   <div class="col-12 text-right">
                     <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Agregar Alumno</a>
                   </div>
-                  
                 </div>
+                @if ($alumnos->isEmpty())
+               <i><strong><div>Aún no hay alumnos creados</div></strong></i> 
+                
+                @else
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -29,21 +32,28 @@
                       <th>Apellido</th>
                       <th class="text-right">Acciones</th>
                     </thead>
+                    <form>
+                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
+                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
+                        <button class="btn btn-facebook" type="submit">Buscar</button>
+                    </form>
                     <tbody>
                       @foreach($alumnos as $alu)
-                                          <tr>
-                                            <td class="v-align-middle">{{$alu->id}}</td>
-                                            <td class="v-align-middle">{{$alu->dni}}</td>
-                                            <td class="v-align-middle">{{$alu->nombre}}</td>
-                                            <td class="v-align-middle">{{$alu->apellido}}</td>
-                                            <td class="v-align-middle">{{$alu->acciones}}</td>
-                                                                                                 
-                                          </tr>                                          
-                                          @endforeach
+                        <tr>
+                          <td class="v-align-middle">{{$alu->id}}</td>
+                          <td class="v-align-middle">{{$alu->dnialumno}}</td>
+                          <td class="v-align-middle">{{$alu->nombrealumno}}</td>
+                          <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
+                          <td class="v-align-middle">{{$alu->acciones}}</td>
+                          <td class="td-actions text-right">
+                          <a href="{ {route('show', alumno->$id)}}" class="btn btn-info"><i class="material-icons">person</i></a></td></a>
+                        </tr>                                          
+                      @endforeach
                     </tbody>
                     
                   </table>
                 </div>
+                @endif
                 
               </div>
               <div class="card-footer mr-auto">
@@ -63,6 +73,5 @@
 
    </div>
  </div>
-
 @endsection
 

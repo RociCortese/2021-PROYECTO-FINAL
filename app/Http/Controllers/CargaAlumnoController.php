@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alumno;
+use App\Models\Familia;
 use Session;
 use Redirect;
 use App\Http\Requests;
@@ -17,8 +18,10 @@ use Storage;
 
 class CargaAlumnoController extends Controller
 {
-	public function index()
+	public function index(Request $request)
     {
+        $nombre = $request->get('buscarnombre');
+        $apellido = $request->get('buscarapellido');
     	$alumnos = Alumno::paginate(5);
         return view('admin.alumnos.index', compact('alumnos')); 
     }
@@ -32,41 +35,58 @@ class CargaAlumnoController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-            'dni' => ['required', 'int', 'min:1000000','max:99999999','unique:users'],
-            'nombre' => ['required','alpha','max:50'],
-            'apellido' => ['required','alpha','max:50'],
+            'dnialumno' => ['required', 'int','digits_between:7,8','unique:alumnos'],
+            'nombrealumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidoalumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'fechanacimiento' => 'required',
-            'genero' => ['required'],
-            'grado' => ['required'],
-           
+            'generoalumno' => ['required'],
+            'domicilio' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'localidad' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'provincia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias'],
+            'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'generofamilia' => ['required'],
+            'telefono' => ['required'],
+            'email' => ['required'],
+            'vinculofamiliar' => ['required'],
+        
+
         ]);
+
     
-        Alumno::create($request->all());
+        $familia=new Familia();
+        $familia->nombrefamilia=$request->nombrefamilia;
+        $familia->apellidofamilia=$request->apellidofamilia;
+        $familia->dnifamilia=$request->dnifamilia;
+        $familia->generofamilia=$request->generofamilia;
+        $familia->telefono=$request->telefono;
+        $familia->email=$request->email;
+        $familia->vinculofamiliar=$request->vinculofamiliar;
+        $familia->save();
+
+        $alumno=new Alumno();
+        $alumno->nombrealumno=$request->nombrealumno;
+        $alumno->apellidoalumno=$request->apellidoalumno;
+        $alumno->dnialumno=$request->dnialumno;
+        $alumno->generoalumno=$request->generoalumno;
+        $alumno->fechanacimiento=$request->fechanacimiento;
+        $alumno->domicilio=$request->domicilio;
+        $alumno->localidad=$request->localidad;
+        $alumno->provincia=$request->provincia;
+        $alumno->familias_id=$familia->id;
+        $alumno->save();
+       
+        
      
         return redirect()->route('alumnos.index')
                         ->with('success','Post created successfully.');
     } 
-    /*
-    public function edit(Alumnos $id)
-    {
-    	$alu = Alumnos::findOrFail($id);
-         return view('admin.alumnos.editar', compact('alu'));
-    }
 
-      public function update(Alumnos $id)
+    public function show($id)
     {
-        $alu = Alumnos::findOrFail($id);
-		$alu->update();
+        $alumno=Alumno::findOrFail($id);
+        return view('admin.alumnos.show',compact('alumno')); 
+    }
    
-    	return redirect()->route('alumnos.index');
-    }
-
-    public function destroy(Alumnos $id)
-    {
-        $id->delete();
-
-        return redirect()->route('alumnos.index')
-            ->with('success', 'Project deleted successfully');
-    }*/
-
 }

@@ -1,5 +1,6 @@
 .card {
   font-size: .875rem;
+  
 }
 
 *,
@@ -1004,7 +1005,7 @@ pre code {
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
-  margin-left: -15px;
+  margin-left: -0px;
 }
 
 .no-gutters {

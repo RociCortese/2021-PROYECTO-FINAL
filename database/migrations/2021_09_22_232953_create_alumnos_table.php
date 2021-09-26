@@ -14,16 +14,19 @@ class CreateAlumnosTable extends Migration
     public function up()
     {
         Schema::create('alumnos', function (Blueprint $table) {
+            $table->engine='InnoDB';
             $table->increments('id');
-            $table->integer('dni');
-            $table->string('nombre');
-            $table->string('apellido');
+            $table->integer('dnialumno');
+            $table->string('nombrealumno');
+            $table->string('apellidoalumno');
             $table->date('fechanacimiento');
-            $table->string('genero');
+            $table->string('generoalumno');
             $table->string('domicilio');
             $table->string('localidad');
             $table->string('provincia');
             $table->timestamps();
+            $table->bigInteger('familias_id')->unsigned();
+            $table->foreign('familias_id')->references('id')->on('familias');
         });
     }
 

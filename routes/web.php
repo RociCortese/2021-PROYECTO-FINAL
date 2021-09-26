@@ -45,5 +45,6 @@ Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 Route::get('admin/{id}/ver', 'App\Http\Controllers\CargaDocenteController@show')->name('ver');
 Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 
+Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@show')->name('show');
 
 
