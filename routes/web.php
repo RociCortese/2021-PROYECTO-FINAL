@@ -42,5 +42,6 @@ Route::delete('storage/delete', 'App\Http\Controllers\ColegioController@delete')
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 
+Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@show')->name('show');
 
 

@@ -8,46 +8,49 @@
       <div class=" col-md-12"> 
         <form action="{{ route('alumnos.store') }}" method="POST" class="form-horizontal">
         @csrf
-        <div class="card">
-          <div class= "card-header card-header-primary">
-          <h4 class="card-tittle">AGREGAR NUEVO ALUMNO</h4>
+        <div class="card" >
+          <div class= "card-header card-header-primary" >
+          <h4 class="card-tittle">Agregar nuevo Alumno</h4>
           </div>
-        <div class="card-body">
+        <div class="card-body" >
+          
+          <div class="card" style="border: thin solid grey;">
+         <h4 class="card-tittle text-center"><strong>Datos del Alumno</strong></h4>
           <div class="row">
-            <label class="col-sm-2 col-form-label">DNI</label>
+            <label class="col-sm-2 col-form-label">DNI:</label>
             <div class="col-sm-7">
-            <input type="text" name="dni" class="form-control">
-            @if ($errors->has('dni'))
-                <div id="dni-error" class="error text-danger pl-3" for="dni" style="display: block;">
-                  <strong>{{ $errors->first('dni') }}</strong>
+            <input type="text" name="dnialumno" class="form-control">
+            @if ($errors->has('dnialumno'))
+                <div id="dnialumno-error" class="error text-danger pl-3" for="dnialumno" style="display: block;">
+                  <strong>{{ $errors->first('dnialumno') }}</strong>
                 </div>
               @endif
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Nombre</label>
+            <label class="col-sm-2 col-form-label">Nombre:</label>
             <div class="col-sm-7">
-            <input type="text" name="nombre" class="form-control">
-            @if ($errors->has('nombre'))
-                <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
-                  <strong>{{ $errors->first('nombre') }}</strong>
+            <input type="text" name="nombrealumno" class="form-control">
+            @if ($errors->has('nombrealumno'))
+                <div id="nombrealumno-error" class="error text-danger pl-3" for="nombrealumno" style="display: block;">
+                  <strong>{{ $errors->first('nombrealumno') }}</strong>
                 </div>
               @endif
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Apellido</label>
+            <label class="col-sm-2 col-form-label">Apellido:</label>
             <div class="col-sm-7">
-            <input class="form-control" name="apellido"></input>
-            @if ($errors->has('apellido'))
-                <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
-                  <strong>{{ $errors->first('apellido') }}</strong>
+            <input class="form-control" name="apellidoalumno"></input>
+            @if ($errors->has('apellidoalumno'))
+                <div id="apellidoalumno-error" class="error text-danger pl-3" for="apellidoalumno" style="display: block;">
+                  <strong>{{ $errors->first('apellidoalumno') }}</strong>
                 </div>
               @endif
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+            <label class="col-sm-2 col-form-label">Fecha de nacimiento:</label>
             <div class="col-sm-7">
             <input type="date" name="fechanacimiento" class="form-control" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>">
             @if ($errors->has('fechanacimiento'))
@@ -58,32 +61,153 @@
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Género</label>
+            <label class="col-sm-2 col-form-label">Género:</label>
             <div class="col-sm-7">
-            <select name="genero" class="form-control">
+            <select name="generoalumno" class="form-control">
                     <option></option>
                     <option value="Femenino">Femenino</option>
                     <option value="Masculino">Masculino</option>
                 </select>
-            @if ($errors->has('genero'))
-                <div id="genero-error" class="error text-danger pl-3" for="genero" style="display: block;">
-                  <strong>{{ $errors->first('genero') }}</strong>
+            @if ($errors->has('generoalumno'))
+                <div id="generoalumno-error" class="error text-danger pl-3" for="generoalumno" style="display: block;">
+                  <strong>{{ $errors->first('generoalumno') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+        
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Domicilio:</label>
+            <div class="col-sm-7">
+            <input type="text" name="domicilio" class="form-control">
+            @if ($errors->has('domicilio'))
+                <div id="grado-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
+                  <strong>{{ $errors->first('domicilio') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+
+           <div class="row">
+            <label class="col-sm-2 col-form-label">Localidad:</label>
+            <div class="col-sm-7">
+            <input type="text" name="localidad" class="form-control">
+            @if ($errors->has('localidad'))
+                <div id="grado-error" class="error text-danger pl-3" for="localidad" style="display: block;">
+                  <strong>{{ $errors->first('localidad') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+
+           <div class="row">
+            <label class="col-sm-2 col-form-label">Provincia:</label>
+            <div class="col-sm-7">
+            <input type="text" name="provincia" class="form-control">
+            @if ($errors->has('provincia'))
+                <div id="grado-error" class="error text-danger pl-3" for="provincia" style="display: block;">
+                  <strong>{{ $errors->first('provincia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          </div>
+
+
+          <div class="card" style="border: thin solid grey">
+          <h4 class="card-tittle text-center"><strong>Datos de la Familia</strong></h4>
+      
+          <div class="row">
+            <label class="col-sm-2 col-form-label">DNI:</label>
+            <div class="col-sm-7">
+            <input type="text" name="dnifamilia" class="form-control">
+            @if ($errors->has('dnifamilia'))
+                <div id="dnifamilia-error" class="error text-danger pl-3" for="dnifamilia" style="display: block;">
+                  <strong>{{ $errors->first('dnifamilia') }}</strong>
                 </div>
               @endif
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Grado</label>
+            <label class="col-sm-2 col-form-label">Nombre:</label>
             <div class="col-sm-7">
-            <input type="text" name="grado" class="form-control">
-            @if ($errors->has('domicilio'))
-                <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
-                  <strong>{{ $errors->first('grado') }}</strong>
+            <input type="text" name="nombrefamilia" class="form-control">
+            @if ($errors->has('nombrefamilia'))
+                <div id="nombrefamilia-error" class="error text-danger pl-3" for="nombrefamilia" style="display: block;">
+                  <strong>{{ $errors->first('nombrefamilia') }}</strong>
                 </div>
               @endif
             </div>
-          </div> 
-           
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Apellido:</label>
+            <div class="col-sm-7">
+            <input class="form-control" name="apellidofamilia"></input>
+            @if ($errors->has('apellidofamilia'))
+                <div id="apellidofamilia-error" class="error text-danger pl-3" for="apellidofamilia" style="display: block;">
+                  <strong>{{ $errors->first('apellidofamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Género:</label>
+            <div class="col-sm-7">
+            <select name="generofamilia" class="form-control">
+                    <option></option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Masculino">Masculino</option>
+                </select>
+            @if ($errors->has('generofamilia'))
+                <div id="generofamilia-error" class="error text-danger pl-3" for="generofamilia" style="display: block;">
+                  <strong>{{ $errors->first('generofamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+              <div class="row">
+            <label class="col-sm-2 col-form-label">Telefono:</label>
+            <div class="col-sm-7">
+            <input type="text" name="telefono" class="form-control">
+            @if ($errors->has('telefono'))
+                <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
+                  <strong>{{ $errors->first('telefono') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+
+           <div class="row">
+            <label class="col-sm-2 col-form-label">Correo electrónico:</label>
+            <div class="col-sm-7">
+            <input type="text" name="email" class="form-control">
+            @if ($errors->has('email'))
+                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                  <strong>{{ $errors->first('email') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Vínculo Familiar</label>
+            <div class="col-sm-7">
+              <select name="vinculofamiliar" class="form-control">
+                    <option></option>
+                    <option value="Madre">Madre</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Tutor">Tutor</option>  
+                </select>
+            @if ($errors->has('vinculofamiliar'))
+                <div id="vinculofamiliar-error" class="error text-danger pl-3" for="vinculofamiliar" style="display: block;">
+                  <strong>{{ $errors->first('vinculofamiliar') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+
+            </div>
+            <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
                 <button type="submit" class="btn btn-primary">Guardar</button>
