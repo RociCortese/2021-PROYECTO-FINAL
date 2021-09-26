@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Models\Colegio;
 
 class File extends Model
 {
@@ -12,10 +12,8 @@ class File extends Model
     protected $fillable= ['file'];
     protected $primaryKey = 'id';
 
-
-
- public function user()
+ public function colegio()
     {
-     return $this->hasOne(User::class, 'file_id', 'id');
+     return $this->hasOne(Colegio::class, 'files_id', 'id');
     }
 }

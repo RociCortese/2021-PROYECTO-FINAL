@@ -19,9 +19,14 @@ class CreateColegioTable extends Migration
             $table->timestamps();
             $table->string('nombre');
             $table->string('direccion');
+            $table->string('localidad');
+            $table->string('provincia');
             $table->string('telefono');
+            $table->string('email');
             $table->bigInteger('files_id')->unsigned();
             $table->foreign('files_id')->references('id')->on('files');
+            $table->bigInteger('direc_id')->unsigned();
+            $table->foreign('direct_id')->references('id')->on('users');
         });
     }
 

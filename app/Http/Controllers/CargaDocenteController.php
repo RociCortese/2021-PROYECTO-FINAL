@@ -45,7 +45,7 @@ class CargaDocenteController extends Controller
             'localidad' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'provincia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'estadocivil' => ['required'],
-            'telefono' => ['required','int','digits:value'],
+            'telefono' => ['required','int'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
@@ -56,6 +56,13 @@ class CargaDocenteController extends Controller
         return redirect()->route('docentes.index')
                         ->with('success','Post created successfully.');
     } 
+
+    public function show($id)
+    {
+      $doc=Docente::findOrFail($id);
+      return view('admin.docentes.show', compact('doc'));
+    }
+
     /*
     public function edit(Alumnos $id)
     {

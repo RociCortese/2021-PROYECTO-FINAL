@@ -35,11 +35,14 @@ Route::get('verificado', function () {
 /*Carga de archivos*/
 Route::get('formulario', 'App\Http\Controllers\ColegioController@index')->name('formulario');
 Route::post('storage/create', 'App\Http\Controllers\ColegioController@store');
-Route::delete('storage/delete', 'App\Http\Controllers\ColegioController@delete')->name('delete');
+Route::get('storage/{id}/editar', 'App\Http\Controllers\ColegioController@edit')->name('edit');
+Route::put('storage/{id}', 'App\Http\Controllers\ColegioController@update')->name('update');
+
 
 /*Carga de docentes*/
 
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
+Route::get('admin/{id}/ver', 'App\Http\Controllers\CargaDocenteController@show')->name('ver');
 Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 
 

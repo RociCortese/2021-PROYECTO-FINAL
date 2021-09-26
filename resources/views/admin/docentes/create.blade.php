@@ -10,7 +10,7 @@
         <form action="{{ route('docentes.store') }}" method="POST" class="form-horizontal">
         @csrf
         <div class="card">
-          <div class= "card-header card-header-primary">
+          <div class= "card-header card-header-primary" style="background-color: grey;">
           <h4 class="card-tittle">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
@@ -171,8 +171,8 @@
           </div>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-primary">Limpiar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>
       </div>

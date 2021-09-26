@@ -11,43 +11,83 @@
 
 <div class="content">
   <div class="container-fluid">
+<?php
+if($colegio->isEmpty()){?>
     <div class="row">
       <div class=" col-md-12"> 
           <form action="storage/create" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+            @csrf
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card">
-            <div class= "card-header card-header-primary">
-            <h4 class="card-tittle">Información de colegio</h4>
+            <div class= "card-header card-header-primary" style="background-color: grey;">
+            <h4 class="card-tittle">Cargar información de colegio</h4>
             </div>
             <div class="card-body">
             <div class="row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-7">
                 <input type="text" class="form-control" name="nombre" id="nombre">
+                @error('nombre')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
+              </div>
+            </div>
+             <div class="row">
+                <label class="col-sm-2 col-form-label">Teléfono</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="telefono" id="telefono">
+                @error('telefono')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
               </div>
             </div>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Dirección</label>
                 <div class="col-sm-7">
                 <input type="text" class="form-control" name="direccion" id="direccion">
+                @error('direccion')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
               </div>
             </div>
             <div class="row">
-                <label class="col-sm-2 col-form-label">Teléfono</label>
+                <label class="col-sm-2 col-form-label">Localidad</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="telefono" id="telefono">
+                <input type="text" class="form-control" name="localidad" id="localidad">
+                @error('localidad')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
+              </div>
+            </div>
+             <div class="row">
+                <label class="col-sm-2 col-form-label">Provincia</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="provincia" id="provincia">
+                @error('provincia')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
+              </div>
+            </div>
+             <div class="row">
+                <label class="col-sm-2 col-form-label">Correo electrónico</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="email" id="email">
+                @error('email')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
               </div>
             </div>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Logo institucional</label>
                 <div class="col-sm-7">
                 <input type="file" class="form-control" name="file" id="file" accept="image/*">
+                @error('file')
+                <small class="text-danger">{{$message}}</small>
+              @enderror  
               </div>
             </div>
               <br>
-              @error('file')
-                <small class="text-danger">{{$message}}</small>
-              @enderror  
+              
             </div>
             <!--Previsualizar la imagen que se va a cargar-->
              <div id="imagePreview">
@@ -78,14 +118,52 @@
           </form>
         </div>
       </div>
+      <?php 
+    }
+    else {?>
+<div class="card">
+    <div class= "card-header card-header-primary" style="background-color: grey;">
+    <h4 class="card-tittle">Información de colegio</h4>
     </div>
+ <div class="card-body row justify-content-center">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-user" style="border: 5px solid grey">
+         <div class="card-body ">
+           <p class="card-text">
+           <div class="author">
+  @if(session('success'))
+  <div class="alert alert-success" role="success">
+    {{session('success')}}
   </div>
-
-        <!--Mostrar imagen cargada en base de datos-->
-        <div>
-        <h3>Imagen cargada</h3>
-        <div class="img-box">
-        <?php
+  @endif
+      @foreach($colegio as $col)
+          <h3 class="tittle mt-3 text-center">Establecimiento {{$col->nombre}}</h3>
+                          <p class="description">
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle">
+                                  <label>Teléfono</label>&nbsp;&nbsp;{{$col->telefono}}
+                                </td>
+                                <td>
+                                  <label>Dirección</label>&nbsp;&nbsp;{{$col->direccion}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <label>Localidad</label>&nbsp;&nbsp;{{$col->localidad}}
+                                </td>
+                                <td>
+                                  <label>Provincia</label>&nbsp;&nbsp;{{$col->provincia}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <label>Email</label>&nbsp;&nbsp;{{$col->email}}
+                                </td>
+                                <td>
+                            <label>Logo institucional</label>&nbsp;&nbsp;
+                        <?php
         $Host ="localhost";
         $uname = "root";
         $pwd = '';
@@ -93,110 +171,41 @@
 
         $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
         mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
-        $userfile = Auth::user()->file_id;
-        if(is_null($userfile)){
-          $rutaimagen='';
-          echo 'Aún no se ha cargado ninguna imagen.';
-        }
-        else{
-        $image_query = mysqli_query($result,"select file, id from files where id=$userfile");
+        $image_query = mysqli_query($result,"select file from files where id=$col->files_id");
         while($rows = mysqli_fetch_array($image_query))
         {
             $img_src = $rows['file'];
-            $id= $rows['id'];
         }
         $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
-      }
-        ?>
+        echo'<img src="'.$rutaimagen.'" width="120px" height="120px"/>';?>
+      </td>
+    </tr>
+      </table>
+        <div class="text-right">
+        <a href="{{route('edit',$col->id)}}">
+            <button class="btn btn-sm btn-facebook" value="Editar">
+              Editar
+            </button>
+        </a>
         </div>
-        </div>
 
-        <!-- Eliminar imagen carga en base de datos-->
-
-        <?php 
-        if(is_null($userfile)){
-
-        }
-        else{
-        ?>
-        <div class="img-block">
-        <?php
-        echo'<img src="'.$rutaimagen.'" width="300px" height="300px"/>';?>
-        </div>
-        <div>
-        <form action="{{route('delete')}}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" class="formEliminar">
-          {{csrf_field()}}
-          {{method_field('delete')}}
-          <div class="form-group">
-              <div class="col-md-6 col-md-offset-4">
-                <button type="submit" class="btn btn-primary"  >Eliminar</button>
-              </div>
-            </div> 
-        </form>
-         </div>
-       <?php } ?>
-
-
-        
-    <!--Mostrar mensaje de alerta al eliminar-->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script>
-            (function(){
-              'use strict'
-              var forms = document.querySelectorAll('.formEliminar')
-              Array.prototype.slice.call(forms)
-              .forEach(function (form){
-                form.addEventListener('submit',function(event) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                  Swal.fire({
-                  title: '¿Estás seguro que deseas eliminar?',
-                  text: "¡No podrás revertir esto!",
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Si, borralo!'
-                  }).then((result) => {
-                  if (result.isConfirmed) {
-                  this.submit();
-                  Swal.fire(
-                  'Imagen eliminada',
-                  'Tu imagen ha sido eliminada.',
-                  'success'
-    )
-  }
-})
-                },false)
-              })
-            })()
-          </script>
-
-          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script>
-            (function(){
-              'use strict'
-              var forms = document.querySelectorAll('.formGuardar')
-              Array.prototype.slice.call(forms)
-              .forEach(function (form){
-                form.addEventListener('submit',function(event) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                  Swal.fire({
-  position: 'top-end',
-  icon: 'success',
-  title: 'Tu imagen se ha guardado correctamente',
-  showConfirmButton: false,
-  timer: 1500
-})
-                },false)
-              })
-            })()
-          </script>
-        </div>
       </div>
+                                                              
+        @endforeach
+      </p>
+              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+<?php
+}?>
+
     </div>
   </div>
+</div>
 
 @endsection
 
