@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\File;
+use App\Models\Colegio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\hasOne;
 
@@ -20,7 +21,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $primaryKey = 'id';
-    protected $foreingKey = 'files_id';
     protected $fillable = [
         'id',
         'nombre',
@@ -50,9 +50,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function file()
+     public function colegio()
     {
-     return $this->belongsTo(File::class);
- }
+     return $this->hasOne(Colegio::class, 'users_id', 'id');
+    }
 }

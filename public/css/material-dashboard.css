@@ -13625,9 +13625,15 @@ fieldset[disabled] .form-group .form-control {
 .page-header .title {
   margin-bottom: 15px;
 }
+.color.tittle{
+background-color: red;
+}
 
 .page-header .title+h4 {
   margin-top: 10px;
+}
+.color.tittle{
+background-color: red;
 }
 
 .page-header:after,
@@ -13704,6 +13710,9 @@ h6,
   font-size: 0.75rem;
   text-transform: uppercase;
   font-weight: 500;
+}
+.card-color{
+  background-color: #3C4858;
 }
 
 .title,

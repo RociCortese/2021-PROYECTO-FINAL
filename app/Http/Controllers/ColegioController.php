@@ -8,8 +8,8 @@ use App\Models\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Colegio;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use DB;
+use Input;
 
 class ColegioController extends Controller
 {
@@ -20,27 +20,25 @@ class ColegioController extends Controller
 
     public function index()
    {
-    return view('Colegio/cargacolegio');
+    //$colegio = Colegio::all();
+    $idusuario = Auth::user()->id;
+    $colegio = Colegio::usuario($idusuario)->get();
+    return view('Colegio/cargacolegio',compact('colegio'));
    }
 
-   protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'file'=>'required|image|max:2048|dimensions:min_width=128,min_height=128'
-        ]);
 
-    }
-
-public function store(array $data)
+public function store(Request $request)
 {
-   return Colegio::create([
-  'nombre' => $data['nombre'],
-  'direccion' => $data['direccion'],
-  'telefono' => $data['telefono'],
+   $request->validate([
+  'file'=> ['required','image','max:2048','dimensions:min_width=128,min_height=128'],
+  'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+  'telefono' => ['required','int'],
+  'direccion' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+  'localidad' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+  'provincia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+  'email' => ['required', 'string', 'email', 'max:255', 'unique:colegio'],
         ]);
- 
-  
-  /*Carga de imagen a la base de datos*/
+
   $files=new File();
   $files->file=$request->file;
   if($request->hasfile("file")){
@@ -52,17 +50,44 @@ public function store(array $data)
   }
   $files->save();
 
-  $users = Auth::user(); 
-  $users->file()->associate($files);
-  $users->save();
-  return redirect()->route('formulario');
-  
+  $colegio=new Colegio();
+  $colegio->nombre=$request->nombre;
+  $colegio->telefono=$request->telefono;
+  $colegio->direccion=$request->direccion;
+  $colegio->localidad=$request->localidad;
+  $colegio->provincia=$request->provincia;
+  $colegio->email=$request->email;
+  $colegio->users_id=Auth::user()->id;
+  $colegio->files_id=$files->id;
+  $colegio->save();
+
+  return redirect()->route('formulario')->with('success', 'El colegio se cargó correctamente');
+
 }
 
-public function delete(){
-   $userfile = Auth::user()->file_id;
-   File::destroy($userfile);
-   return redirect()->route('formulario');       
-}
+public function edit(Colegio $id)
+    {
+      //$col = Colegio::findOrFail($id);
+      return view('Colegio/editar', compact('id'));
+    }
+
+public function update(Request $request,$id)
+    {
+        $col = Colegio::findOrFail($id);
+        $files=new File();
+        $files->file=$request->file;
+        if($request->hasfile("file")){
+        $imagen=$request->file("file");
+        $nombreimagen = Str::slug($request->file).".".$imagen->guessExtension();
+        $ruta=public_path("file");
+        $imagen->move($ruta,$nombreimagen);
+        $files->file=$nombreimagen;
+         $files->save();
+        $col->files_id=$files->id;
+        }
+        $data= $request->only('nombre','direccion','telefono','localidad','provincia','email','file');
+        $col->update($data);
+        return redirect()->route('formulario');
+    }
 }
 
