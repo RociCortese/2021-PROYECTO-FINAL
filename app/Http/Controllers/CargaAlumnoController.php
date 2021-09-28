@@ -47,8 +47,8 @@ class CargaAlumnoController extends Controller
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'generofamilia' => ['required'],
-            'telefono' => ['required'],
-            'email' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
         
 
