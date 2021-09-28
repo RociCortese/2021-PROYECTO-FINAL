@@ -53,8 +53,7 @@ class CargaDocenteController extends Controller
     
         Docente::create($request->all());
      
-        return redirect()->route('docentes.index')
-                        ->with('success','Post created successfully.');
+        return redirect()->route('docentes.index')->with('success', 'El docente se cargó correctamente.');
     } 
 
     public function show($id)

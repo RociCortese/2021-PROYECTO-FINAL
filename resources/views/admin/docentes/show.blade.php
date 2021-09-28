@@ -18,7 +18,7 @@
                       <div class="card-body">
                         <p class="card-text" >
                           <div class="author">
-                            <h5 class="tittle mt-3">Docente {{$doc->nombre}} {{$doc->apellido}}</h5>
+                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombre}} {{$doc->apellido}} </strong></h5>
                           </div>
                           <p class="description">
                             <table class="table">

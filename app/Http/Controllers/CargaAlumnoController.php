@@ -22,7 +22,7 @@ class CargaAlumnoController extends Controller
     {
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
-    	$alumnos = Alumno::paginate(5);
+        $alumnos = Alumno::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
         return view('admin.alumnos.index', compact('alumnos')); 
     }
 
@@ -85,8 +85,10 @@ class CargaAlumnoController extends Controller
 
     public function show($id)
     {
-        $alumno=Alumno::findOrFail($id);
-        return view('admin.alumnos.show',compact('alumno')); 
+        $alu=Alumno::findOrFail($id);
+        $familia = Familia::findOrFail($id);
+        return view('admin.alumnos.show',compact('alu','familia')); 
     }
+
    
 }

@@ -48,3 +48,6 @@ Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@show')->name('show');
 
 
+/*Route::get('admin/{familia}/show', 'App\Http\Controllers\CargaFamiliaController@show')->name('show');*/
+
+

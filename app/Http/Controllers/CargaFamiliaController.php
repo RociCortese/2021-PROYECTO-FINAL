@@ -50,7 +50,13 @@ class CargaFamiliaController extends Controller
      
         return redirect()->route('familias.index')
                         ->with('success','Post created successfully.');
-    } 
+    }
+
+   /* public function show($id)
+    {
+        $familia=Familia::findOrFail($id);
+        return view('admin.alumnos.show',compact('familia')); 
+    } */
     /*
     public function edit(Alumnos $id)
     {

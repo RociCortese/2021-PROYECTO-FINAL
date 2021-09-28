@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary">
+              <div class="card-header card-header-primary" style="background-color: grey;"">
                 <h4 class="card-title"> Alumnos</h4>
                 <p class="card-category">Alumnos Registrados</p>    
               </div>
@@ -30,13 +30,15 @@
                       <th>DNI</th>
                       <th>Nombre</th>
                       <th>Apellido</th>
-                      <th class="text-right">Acciones</th>
+                      <th>Acciones</th>
                     </thead>
                     <form>
                         <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
-                        <button class="btn btn-facebook" type="submit">Buscar</button>
+                        <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                     </form>
+                    <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+
                     <tbody>
                       @foreach($alumnos as $alu)
                         <tr>
@@ -44,9 +46,8 @@
                           <td class="v-align-middle">{{$alu->dnialumno}}</td>
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
-                          <td class="v-align-middle">{{$alu->acciones}}</td>
-                          <td class="td-actions text-right">
-                          <a href="{ {route('show', alumno->$id)}}" class="btn btn-info"><i class="material-icons">person</i></a></td></a>
+                          <td class="td-actions td-actions v-align-middle">
+                          <a href="{{route('show', $alu->id)}}" class="btn btn-info" title="Ver mas Información"><i class="material-icons">person</i></a></a></td>
                         </tr>                                          
                       @endforeach
                     </tbody>
