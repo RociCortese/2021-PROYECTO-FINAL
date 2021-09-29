@@ -11,15 +11,12 @@ class Alumno extends Model
     protected $table = 'alumnos';
     protected $fillable = ['dnialumno','nombrealumno', 'apellidoalumno','fechanacimiento','generoalumno','domicilio','localidad','provincia'];
 
-    public function scopeNombres($query, $nombres) {
-        if ($nombres) {
-            return $query->where('nombrealumno','like',"%$nombres%");
-        }
-    }
-
     public function scopeApellidos($query, $apellidos) {
+
         if ($apellidos) {
             return $query->where('apellidoalumno','like',"%$apellidos%");
         }
     }
 }
+}
+
