@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="danger" data-background-color="white">
+<div class="sidebar" data-color="orange" data-background-color="white">
 
   <div class="logo">
     <img style="width:200px" src="img/LogoSnotra.jpg"class="simple-text logo-normal">

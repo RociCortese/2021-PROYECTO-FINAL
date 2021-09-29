@@ -9,7 +9,7 @@
         <form action="{{ route('alumnos.store') }}" method="POST" class="form-horizontal">
         @csrf
         <div class="card" >
-          <div class= "card-header card-header-primary" >
+          <div class= "card-header card-header-primary" style="background-color: grey;" >
           <h4 class="card-tittle">Agregar nuevo Alumno</h4>
           </div>
         <div class="card-body" >
@@ -213,11 +213,13 @@
             <label class="col-sm-2 col-form-label">Vínculo Familiar</label>
             <div class="col-sm-7">
               <select name="vinculofamiliar" id="opcionvinculo" class="form-control" value="{{ old('vinculofamiliar') }}">
+
                     <option></option>
                     <option value="Madre">Madre</option>
                     <option value="Padre">Padre</option>
                     <option value="Tutor">Tutor</option>  
                 </select>
+
             <script
                   src="https://code.jquery.com/jquery-3.2.0.min.js"
                   integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
@@ -240,8 +242,8 @@
             <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-primary">Limpiar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>
       </div>

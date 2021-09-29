@@ -57,10 +57,12 @@
                     </script>
                     @endif
                     
+
                     <form>
                       <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" autocomplete="off" value="{{$apellido}}">
                       <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                     </form>
+
                     <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>                        
                     <tbody>
                     @foreach($docentes as $doc)
@@ -73,38 +75,24 @@
                         <a href="{{ route('ver',$doc->id) }}" class="btn btn-info" title="Ver información">
                         <i class="material-icons">person</i></a>
                         </a>
-                    </td>                                                  
-                                          </tr>                                          
-                                          @endforeach
-
+                      </td>                                                  
+                    </tr>                                          
+                    @endforeach
                     </tbody>
-                
-                    
                   </table>
-                  
-                  
                 </div>
              @endif
-                
               </div>
-             <div class="card-footer mr-auto">
-                {{$docentes->links() }}
-                
-              </div>
-                
-              
+              <div class="card-footer mr-auto">
+                    {{ $docentes->links() }}
+                  </div>
             </div>
-            
           </div>
         </div>
-        
       </div>
-       
      </div>
-
    </div>
  </div>
-
 @endsection
 
       

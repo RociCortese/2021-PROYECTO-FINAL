@@ -26,6 +26,7 @@ class CargaDocenteController extends Controller
         $docentes = Docente::where('apellido','LIKE','%'.$apellido.'%')->Paginate(5);
         return view('admin.docentes.index', compact('apellido','docentes')); 
                     }
+
     }
     
 

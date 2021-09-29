@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'show', 'titlePage' => 'Detalles del alumno'])
+@extends('layouts.main', ['activePage' => 'alumno', 'titlePage' => 'Detalles del alumno'])
 
 @section('content')
 <div class="content">
@@ -6,131 +6,99 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-primary">
-            <div class="card-title">Usuarios</div>
-            <p class="card-category">Vista detallada del usuario {{ $alumno->nombrealumno }}</p>
+          <div class="card-header card-header-primary" style="background-color: grey;">
+            <div class="card-title">Alumnos Registrados</div>
+            <p class="card-category">Vista detallada del alumno: {{ $alu->nombrealumno }} {{ $alu->apellidoalumno }}</p>
           </div>
-          <!--body-->
-          <div class="card-body">
-            @if (session('success'))
-            <div class="alert alert-success" role="success">
-              {{ session('success') }}
-            </div>
-            @endif
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card card-user">
-                  <div class="card-body">
-                    <p class="card-text">
-                      <div class="author">
-                        <a href="#">
-                        </a>
+          <div class="card-body row justify-content-center ">
+                <div class="row ">
+                  <div class="col-md-14">
+                    <div class="card card-user" style="border: 5px solid grey">
+                      <div class="card-body">
+                        <p class="card-text" >
+                          <div class="author">
+                            <h5 class="tittle mt-3"><strong>ALUMNO: {{$alu->nombrealumno}} {{$alu->apellidoalumno}}</strong></h5>
+                          </div>
                         <p class="description">
-                        {{ $alumno->dnialumno }} <br>
-                        {{ $alumno->nombrealumno }} <br>
-                        {{ $alumno->apellidoalumno }} <br>
-                        {{ $alumno->fechanacimiento }}<br>
-                        {{ $alumno->generoalumno }}<br>
-                        {{ $alumno->domicilio }}<br>
-                        {{ $alumno->localidad }}<br>
-                        {{ $alumno->provincia }}<br>
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label>DNI:</label>  {{$alu->dnialumno}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Género:</label>  {{$alu->generoalumno}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Fecha de nacimiento:</label>  {{$alu->fechanacimiento}}
+                                </td> 
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label>Domicilio:</label>  {{$alu->domicilio}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Localidad:</label>  {{$alu->localidad}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Provincia:</label>  {{$alu->provincia}}
+                                </td>
+                                </tr>
+                           </table>
+                        </p>
+                        <div class="row ">
+                        <div class="col-md-14">
+                            <h5 class="tittle mt-3"><strong>DATOS DEL FAMILIAR: </strong></h5>
+                          </div>
+                        <p class="description">
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label>DNI:</label>  {{$familia->dnifamilia}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Apellido:</label>  {{$familia->apellidofamilia}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Nombre:</label>  {{$familia->nombrefamilia}}
+                                </td>
+                                </tr> 
+                              <tr>
+                                <td class="v-align-middle">
+                                <label>Género:</label>  {{$familia->generofamilia}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Teléfono:</label>  {{$familia->telefono}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Email:</label>  {{$familia->email}}
+                                </td>
+                                </tr>
+                                <tr>
+                                <td class="v-align-middle">
+                                <label>Vínculo Familiar:</label>  {{$familia->vinculofamiliar}}
+                                </td>
+                                </tr>                                
+                           </table>
                         </p>
                       </div>
-                    </p>
+                  <div class="card-footer" >
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+                  <a href="{{route('alumnos.index')}}" class="btn btn-sm btn-facebook">Volver</a>
                   </div>
-                  <div class="card-footer">
-                    <div class="button-container">
-                      <button class="btn btn-sm btn-primary">Editar</button>
-                    </div>
                   </div>
-                </div>
-              </div><!--end card user-->
 
-              <div class="col-md-4">
-                <div class="card card-user">
-                  <div class="card-body">
-                    <p class="card-text">
-                      <div class="author">
-                        <a href="#" class="d-flex">
-                          <img src="{{ asset('/img/default-avatar.png') }}" alt="image" class="avatar">
-                          <h5 class="title mx-3">{{ $user->name }}</h5>
-                        </a>
-                        <p class="description">
-                          {{ $user->username }} <br>
-                          {{ $user->email }} <br>
-                          {{ $user->created_at }}
-                        </p>
-                      </div>
-                    </p>
-                    <div class="card-description">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam officia corporis molestiae aliquid provident
-                      placeat.
-                    </div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="button-container">
-                      <a href="{{ route('users.index') }}" class="btn btn-sm btn-success mr-3"> Volver </a>
-                      <button class="btn btn-sm btn-primary">Editar</button>
-                    </div>
-                  </div>
-                </div>
-              </div><!--end card user 2-->
-
-              <!--Start third-->
-              <div class="col-md-4">
-                <div class="card card-user">
-                  <div class="card-body">
-                    <table class="table table-bordered table-striped">
-                      <tbody>
-                        <tr>
-                          <th>ID</th>
-                          <td>{{ $user->id }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Name</th>
-                          <td>{{ $user->name }}</td>
-                        </tr>
-                        <tr>
-                          <th>Email</th>
-                          <td><span class="badge badge-primary">{{ $user->email }}</span></td>
-                        </tr>
-                        <tr>
-                          <th>Username</th>
-                          <td>{!! $user->username !!}</td>
-                        </tr>
-                        <tr>
-                          <th>Created at</th>
-                          <td><a href="#" target="_blank">{{  $user->created_at  }}</a></td>
-                        </tr>
-                        <tr>
-                            <th>Roles</th>
-                            <td>
-                                @forelse ($user->roles as $role)
-                                    <span class="badge rounded-pill bg-dark text-white">{{ $role->name }}</span>
-                                @empty
-                                    <span class="badge badge-danger bg-danger">No roles</span>
-                                @endforelse
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="card-footer">
-                    <div class="button-container">
-                      <a href="{{#}}" class="btn btn-sm btn-success mr-3"> Volver </a>
-                      <a href="#" class="btn btn-sm btn-twitter"> Editar </a>
                     </div>
                   </div>
                 </div>
               </div>
-              <!--end third-->
+                  
 
-            </div>
-          </div>
-        </div>
-      </div>
+         </div>
+                 
     </div>
-  </div>
-</div>
+
+     </div>
+
+    </div>
+    </div>
 @endsection
