@@ -22,7 +22,7 @@ class CargaAlumnoController extends Controller
     {
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
-        $alumnos = Alumno::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
+        $alumnos = Alumno::nombres($nombre)->apellidos($apellido)->Paginate(5);
         return view('admin.alumnos.index', compact('alumnos')); 
     }
 

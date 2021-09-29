@@ -23,7 +23,7 @@ class CargaDocenteController extends Controller
     	//$docentes = Docente::all();
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
-        $docentes = Docente::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
+        $docentes = Docente::nombres($nombre)->apellidos($apellido)->Paginate(5);
         return view('admin.docentes.index', compact('docentes')); 
     }
 

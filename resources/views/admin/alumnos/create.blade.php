@@ -9,7 +9,7 @@
         <form action="{{ route('alumnos.store') }}" method="POST" class="form-horizontal">
         @csrf
         <div class="card" >
-          <div class= "card-header card-header-primary" >
+          <div class= "card-header card-header-primary" style="background-color: grey;" >
           <h4 class="card-tittle">Agregar nuevo Alumno</h4>
           </div>
         <div class="card-body" >
@@ -191,13 +191,15 @@
 
           <div class="row">
             <label class="col-sm-2 col-form-label">Vínculo Familiar</label>
-            <div class="col-sm-7">
-              <select name="vinculofamiliar" class="form-control">
+            <div class="col-sm-7"> 
+              <select name="vinculofamiliar" class=" form-control">
                     <option></option>
                     <option value="Madre">Madre</option>
                     <option value="Padre">Padre</option>
                     <option value="Tutor">Tutor</option>  
                 </select>
+        
+              
             @if ($errors->has('vinculofamiliar'))
                 <div id="vinculofamiliar-error" class="error text-danger pl-3" for="vinculofamiliar" style="display: block;">
                   <strong>{{ $errors->first('vinculofamiliar') }}</strong>
@@ -210,8 +212,8 @@
             <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-primary">Limpiar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>
       </div>

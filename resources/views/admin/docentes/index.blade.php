@@ -34,8 +34,9 @@
                       <th>Apellido</th>
                       <th>Acciones</th>
                     </thead>
+                            
                             @if(session('success'))
-                <div class="alert alert-success" role="success">
+                <div class="alert alert-success " role="success">
                       {{session('success')}}
                             </div>
                                   @endif
@@ -67,9 +68,8 @@
                 
               </div>
               <div class="card-footer mr-auto">
-                {{$docentes->links() }}
-                
-              </div>
+                    {{ $docentes->links() }}
+                  </div>
                 
               
             </div>
