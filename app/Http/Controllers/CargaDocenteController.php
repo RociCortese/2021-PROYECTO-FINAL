@@ -21,11 +21,13 @@ class CargaDocenteController extends Controller
     {
 
     	//$docentes = Docente::all();
-        $nombre = $request->get('buscarnombre');
-        $apellido = $request->get('buscarapellido');
-        $docentes = Docente::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
-        return view('admin.docentes.index', compact('docentes')); 
+        if($request){
+        $apellido = trim($request->get('buscarapellido'));
+        $docentes = Docente::where('apellido','LIKE','%'.$apellido.'%')->Paginate(5);
+        return view('admin.docentes.index', compact('apellido','docentes')); 
+                    }
     }
+    
 
     public function create()
     {
@@ -53,8 +55,7 @@ class CargaDocenteController extends Controller
     
         Docente::create($request->all());
      
-        return redirect()->route('docentes.index')
-                        ->with('success','Post created successfully.');
+        return redirect()->route('docentes.index')->with('success', 'El docente se cargó correctamente.');
     } 
 
     public function show($id)

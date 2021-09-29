@@ -20,16 +20,19 @@ class CargaAlumnoController extends Controller
 {
 	public function index(Request $request)
     {
-        $nombre = $request->get('buscarnombre');
-        $apellido = $request->get('buscarapellido');
-    	$alumnos = Alumno::paginate(5);
-        return view('admin.alumnos.index', compact('alumnos')); 
+        if($request){
+        $apellido = trim($request->get('buscarapellido'));
+        $alumnos = Alumno::where('apellidoalumno','LIKE','%'.$apellido.'%')->paginate(5);
+        return view('admin.alumnos.index', compact('apellido','alumnos')); 
+                    }
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $alumnos = Alumno::all();
-        return view('admin.alumnos.create', compact('alumnos'));
+        $apellidofamilia = $request->get('buscarapellidofamilia');
+        $alumnos = Alumno::apellidos($apellidofamilia)->paginate(5);
+        $familias= Familia::all();
+        return view('admin.alumnos.create', compact('alumnos','familias'))->with('success', 'El alumno se cargó correctamente.');
     }
 
     public function store(Request $request)
@@ -77,10 +80,8 @@ class CargaAlumnoController extends Controller
         $alumno->familias_id=$familia->id;
         $alumno->save();
        
-        
-     
         return redirect()->route('alumnos.index')
-                        ->with('success','Post created successfully.');
+                        ->with('success', 'El alumno se cargó correctamente.');
     } 
 
     public function show($id)
