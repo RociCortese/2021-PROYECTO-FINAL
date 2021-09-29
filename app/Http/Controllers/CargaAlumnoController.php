@@ -22,7 +22,7 @@ class CargaAlumnoController extends Controller
     {
         $nombre = $request->get('buscarnombre');
         $apellido = $request->get('buscarapellido');
-    	$alumnos = Alumno::paginate(5);
+        $alumnos = Alumno::nombres($nombre)->apellidos($apellido)->Paginate(5);
         return view('admin.alumnos.index', compact('alumnos')); 
     }
 
@@ -47,8 +47,8 @@ class CargaAlumnoController extends Controller
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'generofamilia' => ['required'],
-            'telefono' => ['required'],
-            'email' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
         
 
@@ -85,8 +85,10 @@ class CargaAlumnoController extends Controller
 
     public function show($id)
     {
-        $alumno=Alumno::findOrFail($id);
-        return view('admin.alumnos.show',compact('alumno')); 
+        $alu=Alumno::findOrFail($id);
+        $familia = Familia::findOrFail($id);
+        return view('admin.alumnos.show',compact('alu','familia')); 
     }
+
    
 }

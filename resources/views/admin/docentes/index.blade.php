@@ -34,26 +34,28 @@
                       <th>Apellido</th>
                       <th>Acciones</th>
                     </thead>
+                            
+                            @if(session('success'))
+                <div class="alert alert-success " role="success">
+                      {{session('success')}}
+                            </div>
+                                  @endif
                     <form>
                       <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre">
                       <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido">
                       <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                     </form>
                     <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
-                    
 
-                                  
-                                        <tbody>
-                                          @foreach($docentes as $doc)
-                                          <tr>
-                                            <td class="v-align-middle">{{$doc->id}}</td>
-                                            <td class="v-align-middle">{{$doc->dni}}</td>
-                                            <td class="v-align-middle">{{$doc->nombre}}</td>
-                                            <td class="v-align-middle">{{$doc->apellido}}</td>
-                                            <td class="td-actions v-align-middle">
-                                              <a href="{{ route('ver',$doc->id) }}" class="btn btn-info" title="Ver información">
-                                                <i class="material-icons">person</i></a>
-                                              </a></td>                                                  
+                        <tbody>
+                           @foreach($docentes as $doc)
+                              <tr>
+                                <td class="v-align-middle">{{$doc->id}}</td>
+                                <td class="v-align-middle">{{$doc->dni}}</td>
+                                <td class="v-align-middle">{{$doc->nombre}}</td>
+                                <td class="v-align-middle">{{$doc->apellido}}</td>
+                                <td class="td-actions v-align-middle">
+                                <a href="{{ route('ver',$doc->id) }}" class="btn btn-info" title="Ver información"><i class="material-icons">person</i></a></a></td>                                                  
                                           </tr>                                          
                                           @endforeach
 
@@ -66,9 +68,8 @@
                 
               </div>
               <div class="card-footer mr-auto">
-                {{$docentes->links() }}
-                
-              </div>
+                    {{ $docentes->links() }}
+                  </div>
                 
               
             </div>
