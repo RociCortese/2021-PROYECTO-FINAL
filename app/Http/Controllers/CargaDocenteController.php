@@ -65,6 +65,35 @@ class CargaDocenteController extends Controller
       return view('admin.docentes.show', compact('doc'));
     }
 
+    public function edit(Docente $id)
+    {
+      return view('admin.docentes.editar', compact('id'));
+    }
+
+public function update(Request $request,$id)
+    {
+        $doc = Docente::findOrFail($id);
+         $request->validate([
+            'dni' => ['required', 'int','digits_between:7,8','unique:docentes,dni,'. $id],
+            'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellido' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'fechanacimiento' => 'required',
+            'genero' => ['required'],
+            'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'estadocivil' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes,email,'. $id],
+            'legajo' => ['required','int'],
+            'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
+        ]);
+        $data= $request->only('dni','nombre','apellido','fechanacimiento','genero','domicilio','localidad','provincia','estadocivil','telefono','email','legajo','especialidad');
+        $doc->update($data);
+        return redirect()->route('docentes.index')->with('success','El docente se modificó correctamente.');
+    }
+
+
     public function destroy(Docente $id)
     {
         $id->delete();

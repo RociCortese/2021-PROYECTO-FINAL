@@ -46,6 +46,9 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
+                                <label>Estado civil</label>  {{$doc->estadocivil}}
+                                </td>
+                                <td class="v-align-middle">
                                 <label>Teléfono</label>  {{$doc->telefono}}
                                 </td>
                                 <td class="v-align-middle">
