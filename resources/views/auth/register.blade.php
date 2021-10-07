@@ -23,7 +23,7 @@
                   </span>
                 </div>
 
-           <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre (*)') }}" value="{{ old('nombre') }}">
+           <input type="text" name="nombre" class="form-control" placeholder="{{ __('Nombre (*)') }}" value="{{ old('nombre') }}" autocomplete="off">
 
               </div>
               @if ($errors->has('nombre'))
@@ -43,7 +43,7 @@
                   </span>
                 </div>
 
-            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido (*)') }}" value="{{ old('apellido') }}">
+            <input type="text" name="apellido" class="form-control" placeholder="{{ __('Apellido (*)') }}" value="{{ old('apellido') }}"autocomplete="off">
               </div>
               @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -62,7 +62,7 @@
                   </span>
                 </div>
 
-            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI (*)') }}" value="{{ old('DNI') }}">
+            <input type="text" name="dni" class="form-control" placeholder="{{ __('DNI (*)') }}" value="{{ old('dni') }}" autocomplete="off">
 
               </div>
               @if ($errors->has('dni'))
@@ -82,7 +82,7 @@
 
 
 
-            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}">
+            <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}" autocomplete="off">
             
 
               </div>
@@ -101,7 +101,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico (*)') }}" value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico (*)') }}" value="{{ old('email') }}" autocomplete="off">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -119,7 +119,7 @@
                   </span>
                 </div>
 
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}" >
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}"autocomplete="off" >
 
               </div>
 
@@ -138,7 +138,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirmar contraseña *') }}">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirmar contraseña *') }}" autocomplete="off">
               </div>
               @if ($errors->has('password_confirmation'))
                 <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">

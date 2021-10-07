@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary" style="background-color: grey;"">
+              <div class="card-header card-header-primary" style="background-color: grey;">
                 <h4 class="card-title"> Alumnos</h4>
                 <p class="card-category">Alumnos Registrados</p>    
               </div>
@@ -54,7 +54,7 @@
                     </script>
                                   @endif
                     <form>
-                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
+                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search" value="{{$apellido}}">
                         <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                     </form>
                     <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
@@ -66,9 +66,38 @@
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
                           <td class="td-actions td-actions v-align-middle">
-                          <a href="{{route('show', $alu->id)}}" class="btn btn-info" title="Ver mas Información"><i class="material-icons">person</i></a></a></td>
-                        </tr>                                          
+                          <a href="{{route('show', $alu->id)}}" class="btn btn-info" title="Ver mas Información"><i class="material-icons">person</i></a></a>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$alu->id}}">
+                            <i class="material-icons">delete_outline</i>
+                          </button>
+                          <div class="modal fade" id="myModal{{$alu->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea eliminar el alumno {{$alu->nombrealumno}}  {{$alu->apellidoalumno}}?</p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('destroy',$alu->id)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('DELETE')
+                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>              
+                      </td>
+
+                        </tr>  
+
                       @endforeach
+                      
                     </tbody>
                     
                   </table>
@@ -80,8 +109,6 @@
                 {{$alumnos->links() }}
                 
               </div>
-                
-              
             </div>
             
           </div>

@@ -29,23 +29,28 @@ class CargaAlumnoController extends Controller
 
     public function create(Request $request)
     {
-        $apellidofamilia = $request->get('buscarapellidofamilia');
-        $alumnos = Alumno::apellidos($apellidofamilia)->paginate(5);
-        $familias= Familia::all();
-        return view('admin.alumnos.create', compact('alumnos','familias'))->with('success', 'El alumno se cargó correctamente.');
+        if($request){
+        $apellidofam = trim($request->get('buscarapellidofamilia'));
+        $familias= Familia::where('apellidofamilia','LIKE','%'.$apellidofam.'%')->paginate(5);
+        return view('admin.alumnos.create', compact('apellidofam','familias'))->with('success', 'El alumno se cargó correctamente.');
+                    }
     }
 
     public function store(Request $request)
     {
+        $check=$request->check;
          $request->validate([
             'dnialumno' => ['required', 'int','digits_between:7,8','unique:alumnos'],
             'nombrealumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidoalumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'fechanacimiento' => 'required',
             'generoalumno' => ['required'],
-            'domicilio' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'localidad' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'provincia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            ]);
+            if(empty($check)){
+        $request->validate([
             'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias'],
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
@@ -53,11 +58,10 @@ class CargaAlumnoController extends Controller
             'telefono' => ['required','int'],
             'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
-        
-
-        ]);
-
-    
+            ]);
+            }
+         
+         if(empty($check)){
         $familia=new Familia();
         $familia->nombrefamilia=$request->nombrefamilia;
         $familia->apellidofamilia=$request->apellidofamilia;
@@ -67,7 +71,11 @@ class CargaAlumnoController extends Controller
         $familia->email=$request->email;
         $familia->vinculofamiliar=$request->vinculofamiliar;
         $familia->save();
-
+        $idfamilia=$familia->id;
+        }
+        else{
+            $idfamilia=$check;
+        }
         $alumno=new Alumno();
         $alumno->nombrealumno=$request->nombrealumno;
         $alumno->apellidoalumno=$request->apellidoalumno;
@@ -77,7 +85,7 @@ class CargaAlumnoController extends Controller
         $alumno->domicilio=$request->domicilio;
         $alumno->localidad=$request->localidad;
         $alumno->provincia=$request->provincia;
-        $alumno->familias_id=$familia->id;
+        $alumno->familias_id=$idfamilia;
         $alumno->save();
        
         return redirect()->route('alumnos.index')
@@ -87,9 +95,14 @@ class CargaAlumnoController extends Controller
     public function show($id)
     {
         $alu=Alumno::findOrFail($id);
-        $familia = Familia::findOrFail($id);
+        $familiaid=$alu->familias_id;
+        $familia = Familia::findOrFail($familiaid);
         return view('admin.alumnos.show',compact('alu','familia')); 
     }
 
-   
+     public function destroy(Alumno $id)
+    {
+        $id->delete();
+        return back()->with('success', 'El alumno se eliminó correctamente.');
+    }   
 }

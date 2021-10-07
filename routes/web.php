@@ -40,12 +40,16 @@ Route::put('storage/{id}', 'App\Http\Controllers\ColegioController@update')->nam
 
 
 /*Carga de docentes*/
-
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 Route::get('admin/{id}/ver', 'App\Http\Controllers\CargaDocenteController@show')->name('ver');
-Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
+Route::delete('admin/{id}/destroydoc', 'App\Http\Controllers\CargaDocenteController@destroy')->name('destroydoc');
 
+
+
+/*Carga de alumnos*/
+Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@show')->name('show');
+Route::delete('admin/{id}', 'App\Http\Controllers\CargaAlumnoController@destroy')->name('destroy');
 
 
 /*Route::get('admin/{familia}/show', 'App\Http\Controllers\CargaFamiliaController@show')->name('show');*/

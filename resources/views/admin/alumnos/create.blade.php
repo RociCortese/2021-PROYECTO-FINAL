@@ -1,20 +1,32 @@
 @extends('layouts.main', ['activePage' => 'alumno', 'titlePage' => __('')])
   
 @section('content')
-
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript">
+function mostrar() {
+    var x = document.getElementById('familiar');
+    if (x.style.display =='none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+$('#check').on('change', function() {
+        $( ".check" ).prop( "disabled", $(this).is(':checked'))
+});
+</script>
 <div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('alumnos.store') }}" method="POST" class="form-horizontal">
+        <form class="form-horizontal" name="formalumnos">
         @csrf
         <div class="card" >
           <div class= "card-header card-header-primary" style="background-color: grey;" >
-          <h4 class="card-tittle">Agregar nuevo Alumno</h4>
+          <h4 class="card-title">Agregar nuevo Alumno</h4>
           </div>
         <div class="card-body" >
-          
-          <div class="card" style="border: thin solid grey;">
+          <div class="card" style="border: 3px solid grey">
          <h4 class="card-tittle text-center"><strong>Datos del Alumno</strong></h4>
           <div class="row">
             <label class="col-sm-2 col-form-label">DNI</label>
@@ -122,11 +134,47 @@
             </div>
           </div>
           </div>
-
-
-          <div class="card" style="border: thin solid grey">
+          <div class="card" style="border: 3px solid grey">
           <h4 class="card-tittle text-center"><strong>Datos de la Familia</strong></h4>
-      
+            <input name="buscarapellidofamilia" class="form-control" type="search" placeholder="Buscar por apellido del familiar" value="{{$apellidofam}}">
+            <div class="card-footer">
+          <div>
+            <button class="btn btn-sm btn-facebook" type="submit" formaction="{{route('alumnos.create')}}">Buscar</button>
+            <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Limpiar</a>
+          </div>
+        </div>
+        <div>
+          
+          <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th>DNI</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                    </thead>
+                    <tbody>
+                      @foreach($familias as $fam)
+                        <tr>
+                          <td class="v-align-middle">{{$fam->id}}</td>
+                          <td class="v-align-middle">{{$fam->dnifamilia}}</td>
+                          <td class="v-align-middle">{{$fam->nombrefamilia}}</td>
+                          <td class="v-align-middle">{{$fam->apellidofamilia}}</td>
+                          <td class="v-align-middle">
+                          <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked"></td>                                      
+                      @endforeach
+                    </tbody>
+                    
+                  </table>
+                </div>
+                  <div class="card-footer mr-auto">
+                {{$familias->links() }}
+              </div>
+              <div class="card-footer">
+          <div class=" col-xs-12 col-sm-12 col-md-12 text-center">
+          <a class="btn btn-sm btn-facebook" name="botonalumnos" onclick="mostrar()" style="color: white;">Crear nuevo familiar</a>
+        </div>
+      </div>
+          <div id="familiar" style="display: none;">
           <div class="row">
             <label class="col-sm-2 col-form-label">DNI</label>
             <div class="col-sm-7">
@@ -237,12 +285,18 @@
               @endif
             </div>
           </div>
-
-            </div>
+            
             <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
+            </div>
+          </div>
+  
+  </div>
+
+
+
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-facebook" formaction="{{ route('alumnos.store') }}" formmethod="POST">Guardar</button>
                 <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>

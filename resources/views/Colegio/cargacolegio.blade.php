@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'formulario', 'titlePage' => __('')])
+@extends('layouts.main', ['activePage' => 'formulario', 'titlePage' => __('Colegio')])
 
 @section('content')
 <style media="screen">
@@ -17,16 +17,15 @@ if($colegio->isEmpty()){?>
       <div class=" col-md-12"> 
           <form action="storage/create" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card">
             <div class= "card-header card-header-primary" style="background-color: grey;">
-            <h4 class="card-tittle">Cargar información de colegio</h4>
+            <h4 class="card-title">Cargar información de colegio</h4>
             </div>
             <div class="card-body">
             <div class="row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="nombre" id="nombre">
+                <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" value="{{ old('nombre') }}">
                 @error('nombre')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -35,7 +34,7 @@ if($colegio->isEmpty()){?>
              <div class="row">
                 <label class="col-sm-2 col-form-label">Teléfono</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="telefono" id="telefono">
+                <input type="text" class="form-control" name="telefono" id="telefono" autocomplete="off" value="{{ old('telefono') }}">
                 @error('telefono')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -44,7 +43,7 @@ if($colegio->isEmpty()){?>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Dirección</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="direccion" id="direccion">
+                <input type="text" class="form-control" name="direccion" id="direccion" autocomplete="off" value="{{ old('direccion') }}">
                 @error('direccion')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -53,7 +52,7 @@ if($colegio->isEmpty()){?>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Localidad</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="localidad" id="localidad">
+                <input type="text" class="form-control" name="localidad" id="localidad" autocomplete="off" value="{{ old('localidad') }}">
                 @error('localidad')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -62,7 +61,7 @@ if($colegio->isEmpty()){?>
              <div class="row">
                 <label class="col-sm-2 col-form-label">Provincia</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="provincia" id="provincia">
+                <input type="text" class="form-control" name="provincia" id="provincia" autocomplete="off" value="{{ old('provincia') }}">
                 @error('provincia')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -71,7 +70,7 @@ if($colegio->isEmpty()){?>
              <div class="row">
                 <label class="col-sm-2 col-form-label">Correo electrónico</label>
                 <div class="col-sm-7">
-                <input type="text" class="form-control" name="email" id="email">
+                <input type="text" class="form-control" name="email" id="email" autocomplete="off" value="{{ old('email') }}">
                 @error('email')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -80,7 +79,7 @@ if($colegio->isEmpty()){?>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Logo institucional</label>
                 <div class="col-sm-7">
-                <input type="file" class="form-control" name="file" id="file" accept="image/*">
+                <input type="file" class="form-control" name="file" id="file" accept="image/*" value="{{ old('file') }}">
                 @error('file')
                 <small class="text-danger">{{$message}}</small>
               @enderror  
@@ -111,7 +110,7 @@ if($colegio->isEmpty()){?>
              </div>
             <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
               </div>
               </div>
             </div>
@@ -123,7 +122,7 @@ if($colegio->isEmpty()){?>
     else {?>
 <div class="card">
     <div class= "card-header card-header-primary" style="background-color: grey;">
-    <h4 class="card-tittle">Información de colegio</h4>
+    <h4 class="card-title">Información de colegio</h4>
     </div>
  <div class="card-body row justify-content-center">
   <div class="row">
@@ -133,9 +132,16 @@ if($colegio->isEmpty()){?>
            <p class="card-text">
            <div class="author">
   @if(session('success'))
-  <div class="alert alert-success" role="success">
-    {{session('success')}}
-  </div>
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
   @endif
       @foreach($colegio as $col)
           <h3 class="tittle mt-3 text-center">Establecimiento {{$col->nombre}}</h3>

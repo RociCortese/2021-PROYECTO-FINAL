@@ -23,7 +23,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico') }}">
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico') }}" autocomplete="off">
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">

@@ -11,7 +11,7 @@
         @csrf
         <div class="card">
           <div class= "card-header card-header-primary" style="background-color: grey;">
-          <h4 class="card-tittle">Agregar nuevo docente</h4>
+          <h4 class="card-title">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
           <div class="row">
