@@ -8,6 +8,8 @@
     height: auto;
   }
 </style>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 
 <div class="content">
   <div class="container-fluid">
@@ -183,7 +185,18 @@ if($colegio->isEmpty()){?>
             $img_src = $rows['file'];
         }
         $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px"/>';?>
+        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';?>
+        <script>
+        document.querySelector(".first").addEventListener("click", function() {
+        Swal.fire({
+  title: 'Sweet!',
+  text: 'Modal with a custom image.',
+  imageUrl: '$rutaimagen',
+  imageWidth: 400,
+  imageHeight: 200,
+  imageAlt: 'Custom image',
+})
+        </script>
       </td>
     </tr>
       </table>

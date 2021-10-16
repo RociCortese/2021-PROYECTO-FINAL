@@ -66,7 +66,8 @@
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
                           <td class="td-actions td-actions v-align-middle">
-                          <a href="{{route('show', $alu->id)}}" class="btn btn-info" title="Ver mas Información"><i class="material-icons">person</i></a></a>
+                          <a href="{{route('show', $alu->id)}}" class="btn btn-info" title="Ver mas Información alumno"><i class="material-icons">person</i></a>
+                          <a href="{{route('editaralumno',$alu->id)}}" class="btn btn-warning" title="Modificar alumno"><i class="material-icons">edit</i></a>
                           <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$alu->id}}">
                             <i class="material-icons">delete_outline</i>
                           </button>

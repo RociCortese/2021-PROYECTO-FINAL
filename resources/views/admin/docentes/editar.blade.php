@@ -174,8 +174,7 @@
           <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Actualizar</button>
-                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
       </div>

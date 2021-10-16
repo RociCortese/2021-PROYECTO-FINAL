@@ -75,7 +75,7 @@
                         <a href="{{ route('ver',$doc->id) }}" class="btn btn-info" title="Ver información docente">
                         <i class="material-icons">person</i></a>
                         </a>
-                        <a href="{{ route('edit',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
+                        <a href="{{ route('editardocente',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
                         <i class="material-icons">edit</i></a>
                         </a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Eliminar docente">

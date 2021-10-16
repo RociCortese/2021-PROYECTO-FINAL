@@ -2,7 +2,6 @@
 @extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
   
 @section('content')
-
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -51,7 +50,7 @@
           <div class="row">
             <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
             <div class="col-sm-7">
-            <input type="date" name="fechanacimiento" class="form-control" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimiento') }}">
+            <input type="date" name="fechanacimiento" class="form-control datepicker" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimiento') }}">
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
                   <strong>{{ $errors->first('fechanacimiento') }}</strong>

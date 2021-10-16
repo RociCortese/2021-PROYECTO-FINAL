@@ -70,7 +70,7 @@ class CargaDocenteController extends Controller
       return view('admin.docentes.editar', compact('id'));
     }
 
-public function update(Request $request,$id)
+    public function update(Request $request,$id)
     {
         $doc = Docente::findOrFail($id);
          $request->validate([

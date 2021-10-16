@@ -92,13 +92,59 @@ class CargaAlumnoController extends Controller
                         ->with('success', 'El alumno se cargó correctamente.');
     } 
 
-    public function show($id)
+    public function showalumnos($id)
     {
         $alu=Alumno::findOrFail($id);
         $familiaid=$alu->familias_id;
         $familia = Familia::findOrFail($familiaid);
-        return view('admin.alumnos.show',compact('alu','familia')); 
+        return view('admin.alumnos.showalumnos',compact('alu','familia')); 
     }
+
+    public function showfamilia($id)
+    {
+        $fam = Familia::findOrFail($id);
+        return view('admin.alumnos.showfamilias',compact('fam')); 
+    }
+
+     public function editaralumno($id)
+    {
+        $alu=Alumno::findOrFail($id);
+        $familiaid=$alu->familias_id;
+        $fam = Familia::findOrFail($familiaid);
+        return view('admin.alumnos.editaralumno', compact('alu','fam'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $alu= Alumno::findOrFail($id);
+        $request->validate([
+            'dnialumno' => ['required', 'int','digits_between:7,8','unique:alumnos,dnialumno,'. $id],
+            'nombrealumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidoalumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'fechanacimiento' => 'required',
+            'generoalumno' => ['required'],
+            'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+        ]);
+        $data= $request->only('dnialumno','nombrealumno','apellidoalumno','fechanacimiento','generoalumno','domicilio','localidad','provincia');
+        $alu->update($data);
+        $familiaid=$alu->familias_id;
+        $fam = Familia::findOrFail($familiaid);
+        $request->validate([
+            'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias,dnifamilia,'. $familiaid],
+            'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'generofamilia' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required','string', 'email', 'max:255','unique:familias,email,'.$familiaid],
+            'vinculofamiliar' => ['required'],
+        ]);
+        $data2= $request->only('dnifamilia','nombrefamilia','apellidofamilia','generofamilia','telefono','email','vinculofamiliar');
+        $fam->update($data2);
+        return redirect()->route('alumnos.index')->with('success','El alumno se modificó correctamente.');
+    }
+    
 
      public function destroy(Alumno $id)
     {

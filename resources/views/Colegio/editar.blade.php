@@ -11,7 +11,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card">
             <div class= "card-header card-header-primary" style="background-color: grey;">
-            <h4 class="card-tittle">Editar información de colegio</h4>
+            <h4 class="card-title">Editar información de colegio</h4>
             </div>
             <div class="card-body">
             <div class="row">
@@ -126,7 +126,7 @@
              
             <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Actualizar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
               </div>
               </div>
             </div>
