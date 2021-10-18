@@ -1,8 +1,8 @@
 <div class="sidebar" data-color="orange" data-background-color="white">
 
-  <div class="logo">
+  <!--<div class="logo">
     <img style="width:200px" src="img/LogoSnotra.jpg"class="simple-text logo-normal">
-  </div>
+  </div>-->
   <div class="sidebar-wrapper">
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">

@@ -17,67 +17,25 @@ use Storage;
 
 class CargaFamiliaController extends Controller
 {
-	public function index(Request $request)
+	public function editarfamilia(Familia $id)
     {
-
-    	$familias = Familia::all();
-        //$nombre = $request->get('buscarnombre');
-        //$apellido = $request->get('buscarapellido');
-        $familias = Familia::nombres($nombre)->apellidos($apellido)->simplePaginate(5);
-        return view('admin.familia.index', compact('familias')); 
+      return view('admin.alumnos.editarfam', compact('id'));
     }
 
-    public function create()
+    public function updatefamilia(Request $request, $id)
     {
-        $familias = Familia::all();
-        return view('admin.docentes.create', compact('docentes'));
-    }
-
-    public function store(Request $request)
-    {
-         $request->validate([
-            'dni' => ['required', 'int','digits_between:7,8','unique:docentes'],
-            'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'apellido' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'genero' => ['required'],
-            'telefono' => ['required','int','digits:value'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
+        $fam = Familia::findOrFail($id);
+        $request->validate([
+            'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias,dnifamilia,'. $id],
+            'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'generofamilia' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required','string', 'email', 'max:255', 'unique:familias,email,'.$id],
             'vinculofamiliar' => ['required'],
-          
         ]);
-    
-        Familia::create($request->all());
-     
-        return redirect()->route('familias.index')
-                        ->with('success','Post created successfully.');
+        $data= $request->only('dnifamilia','nombrefamilia','apellidofamilia','generofamilia','telefono','email','vinculofamiliar');
+        $fam->update($data);
+        return redirect()->route('alumnos.create')->with('success','La familia se modificó correctamente.');
     }
-
-   /* public function show($id)
-    {
-        $familia=Familia::findOrFail($id);
-        return view('admin.alumnos.show',compact('familia')); 
-    } */
-    /*
-    public function edit(Alumnos $id)
-    {
-    	$alu = Alumnos::findOrFail($id);
-         return view('admin.alumnos.editar', compact('alu'));
-    }
-
-      public function update(Alumnos $id)
-    {
-        $alu = Alumnos::findOrFail($id);
-		$alu->update();
-   
-    	return redirect()->route('alumnos.index');
-    }
-
-    public function destroy(Alumnos $id)
-    {
-        $id->delete();
-
-        return redirect()->route('alumnos.index')
-            ->with('success', 'Project deleted successfully');
-    }*/
-
 }

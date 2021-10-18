@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary" style="background-color: grey;"">
+              <div class="card-header card-header-primary" style="background-color: grey;">
                 <h4 class="card-title"> Alumnos</h4>
                 <p class="card-category">Alumnos Registrados</p>    
               </div>
@@ -32,7 +32,18 @@
                       <th>Apellido</th>
                       <th>Acciones</th>
                     </thead>
-                    
+                    @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                                  @endif
                     <div class="text-right"><button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
 
                     <div class="collapse" id="collapseExample">
@@ -44,7 +55,6 @@
                     <div class="text-right"><a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
                     </div>
                     </div>
-
                     <tbody>
 
                       @foreach($alumnos as $alu)
@@ -54,11 +64,10 @@
                           <td class="v-align-middle">{{$alu->dnialumno}}</td>
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
-                         <td class="td-actions v-align-middle">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver Información Docente">
+                          <td class="td-actions td-actions v-align-middle">
+                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver Información Docente">
                             <i class="material-icons">person</i>
                           </button>
-                            
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$alu->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -94,11 +103,49 @@
                                 </td>
                                 </tr>
                            </table>
+                         </div>
+                          </div>
+                          </div>
+                        </div>
+                          <a href="{{route('editaralumno',$alu->id)}}" class="btn btn-warning" title="Modificar alumno"><i class="material-icons">edit</i></a>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alu->id}}">
+                            <i class="material-icons">delete_outline</i>
+                          </button>
+                          <div class="modal fade" id="myModal2{{$alu->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea eliminar el alumno {{$alu->nombrealumno}}  {{$alu->apellidoalumno}}?</p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('destroy',$alu->id)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('DELETE')
+                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>              
+                      </td>
+
+                        </tr>  
+
+                      @endforeach
+
+                          
                         
                            </td>
-                           @endforeach                                            
-                    </tr>                                        
+                                              
+                    </tr>                                       
                      
+
                     </tbody>
                     
                   </table>
@@ -110,8 +157,6 @@
                 {{$alumnos->links() }}
                 
               </div>
-                
-              
             </div>
             
           </div>

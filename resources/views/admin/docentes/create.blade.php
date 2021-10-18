@@ -2,7 +2,6 @@
 @extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
   
 @section('content')
-
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -11,7 +10,7 @@
         @csrf
         <div class="card">
           <div class= "card-header card-header-primary" style="background-color: grey;">
-          <h4 class="card-tittle">Agregar nuevo docente</h4>
+          <h4 class="card-title">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
 
@@ -55,7 +54,6 @@
         <br>
 
         <div class="row">
-
           <div class="col form-group">
           <label><strong>Fecha de nacimiento</strong></label>
             <input type="date" name="fechanacimiento" class="form-control  datetimepicker" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimiento') }}">

@@ -127,8 +127,38 @@
                                 </td>
                               </tr>
                            </table>
-                        
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                        <a href="{{ route('editardocente',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
+                        <i class="material-icons">edit</i></a>
+                        </a>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$doc->id}}" title="Eliminar docente">
+                            <i class="material-icons">delete_outline</i>
+                          </button>
+                          <div class="modal fade" id="myModal2{{$doc->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea eliminar el docente {{$doc->nombre}}  {{$doc->apellido}}?</p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('destroydoc',$doc->id)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('DELETE')
+                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
                       </td>                                                  
                     </tr>                                          
                     @endforeach
@@ -148,5 +178,6 @@
    </div>
  </div>
 @endsection
+
 
       

@@ -40,14 +40,22 @@ Route::put('storage/{id}', 'App\Http\Controllers\ColegioController@update')->nam
 
 
 /*Carga de docentes*/
-
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 Route::get('admin/{id}/ver', 'App\Http\Controllers\CargaDocenteController@show')->name('ver');
+Route::delete('admin/{id}/destroydoc', 'App\Http\Controllers\CargaDocenteController@destroy')->name('destroydoc');
+Route::get('admin/{id}/editardoc', 'App\Http\Controllers\CargaDocenteController@edit')->name('editardocente');
+Route::put('admin/{id}', 'App\Http\Controllers\CargaDocenteController@update')->name('update');
+
+
+
+/*Carga de alumnos*/
 Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
+Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@showalumnos')->name('show');
+Route::get('admin/{id}/showfam', 'App\Http\Controllers\CargaAlumnoController@showfamilia')->name('showfam');
+Route::delete('admin/{id}', 'App\Http\Controllers\CargaAlumnoController@destroy')->name('destroy');
+Route::get('admin/{id}/editaralu', 'App\Http\Controllers\CargaAlumnoController@editaralumno')->name('editaralumno');
 
-Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@show')->name('show');
-
-
-/*Route::get('admin/{familia}/show', 'App\Http\Controllers\CargaFamiliaController@show')->name('show');*/
-
+Route::put('admin/{id}', 'App\Http\Controllers\CargaAlumnoController@updatealu')->name('updatealu');
+Route::get('admin/{id}/editarfam', 'App\Http\Controllers\CargaFamiliaController@editarfamilia')->name('editarfam');
+Route::put('admin/{id}', 'App\Http\Controllers\CargaFamiliaController@updatefamilia')->name('actualizarfam');
 
