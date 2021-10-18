@@ -36,6 +36,13 @@
         <script src="{{ asset('js/core/popper.min.js')}}"></script>
         <script src="{{ asset('js/core/bootstrap-material-design.min.js')}}"></script>
         <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-  
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script>
+$(function () {
+$("#datepicker").datepicker();
+});
+</script>
     </body>
 </html>

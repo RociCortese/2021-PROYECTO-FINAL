@@ -284,10 +284,10 @@ textarea {
 }
 
 fieldset {
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
+  min-width: 1;
+  padding: 1;
+  margin: 1;
+  border: solid;
 }
 
 legend {
@@ -622,6 +622,7 @@ th {
 label {
   display: inline-block;
   margin-bottom: .5rem;
+
 }
 
 button {
@@ -691,7 +692,7 @@ fieldset {
   min-width: 0;
   padding: 0;
   margin: 0;
-  border: 0;
+  border: solid;
 }
 
 legend {

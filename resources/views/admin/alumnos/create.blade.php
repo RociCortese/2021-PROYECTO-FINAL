@@ -1,6 +1,7 @@
 @extends('layouts.main', ['activePage' => 'alumno', 'titlePage' => __('')])
   
 @section('content')
+
 <script type="text/javascript" src="../jquery.js"></script>
 <script type="text/javascript">
 function mostrar() {
@@ -28,9 +29,11 @@ $('#check').on('change', function() {
         <div class="card-body" >
           <div class="card" style="border: 3px solid grey">
          <h4 class="card-tittle text-center"><strong>Datos del Alumno</strong></h4>
+
+
           <div class="row">
-            <label class="col-sm-2 col-form-label">DNI</label>
             <div class="col-sm-7">
+              <label>DNI</label>
             <input type="text" name="dnialumno" class="form-control" value="{{ old('dnialumno') }}">
             @if ($errors->has('dnialumno'))
                 <div id="dnialumno-error" class="error text-danger pl-3" for="dnialumno" style="display: block;">
@@ -38,10 +41,10 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Nombre</label>
-            <div class="col-sm-7">
+          
+            
+              <div class="col">
+                 <label>Nombre</label>
             <input type="text" name="nombrealumno" class="form-control" value="{{ old('nombrealumno') }}">
             @if ($errors->has('nombrealumno'))
                 <div id="nombrealumno-error" class="error text-danger pl-3" for="nombrealumno" style="display: block;">
@@ -49,7 +52,20 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
+              </div>
+
+  </div>
           </div>
+          
+
+
+         
+           
+          </div>
+
+
+
+
           <div class="row">
             <label class="col-sm-2 col-form-label">Apellido</label>
             <div class="col-sm-7">
@@ -62,16 +78,19 @@ $('#check').on('change', function() {
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
-            <div class="col-sm-7">
-            <input type="date" name="fechanacimiento" class="form-control" min="2006-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 5 years"));?>" value="{{ old('fechanacimiento') }}">
+            
+               <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+            <div class="col-sm-7"> 
+            <input type="date"  id="datepicker" name="fechanacimiento" class="form-control" min="2006-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 5 years"));?>" value="{{ old('fechanacimiento') }}">
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
                   <strong>{{ $errors->first('fechanacimiento') }}</strong>
                 </div>
               @endif
             </div>
-          </div>
+            </div>
+           
+         
           <div class="row">
             <label class="col-sm-2 col-form-label">Género</label>
             <div class="col-sm-7">

@@ -144,8 +144,6 @@ class CargaAlumnoController extends Controller
         $fam->update($data2);
         return redirect()->route('alumnos.index')->with('success','El alumno se modificó correctamente.');
     }
-    
-
      public function destroy(Alumno $id)
     {
         $id->delete();

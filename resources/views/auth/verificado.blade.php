@@ -1,3 +1,4 @@
+
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'verificado', 'title' => __('')])
 
 @section('content')

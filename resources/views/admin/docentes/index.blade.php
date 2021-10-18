@@ -72,16 +72,72 @@
                       <td class="v-align-middle">{{$doc->nombre}}</td>
                       <td class="v-align-middle">{{$doc->apellido}}</td>
                       <td class="td-actions v-align-middle">
-                        <a href="{{ route('ver',$doc->id) }}" class="btn btn-info" title="Ver información docente">
-                        <i class="material-icons">person</i></a>
-                        </a>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Ver Información Docente">
+                            <i class="material-icons">person</i>
+                          </button>
+                          <div class="modal fade bd-example-modal-lg" id="myModal{{$doc->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                          <div class="modal-header" style="background-color: lightblue;">
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detalla del Docente</strong></h5>
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body ">
+                            <div class="author">
+                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombre}} {{$doc->apellido}} </strong></h5>
+                          </div>
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>DNI:</strong></label>  {{$doc->dni}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Género:</strong></label>  {{$doc->genero}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Fecha de nacimiento:</strong></label>  {{$doc->fechanacimiento}}
+                                </td>
+                              </tr>
+                             
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Domicilio:</strong></label>  {{$doc->domicilio}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Localidad:</strong></label>  {{$doc->localidad}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Provincia:</strong></label>  {{$doc->provincia}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Teléfono:</strong></label>  {{$doc->telefono}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Email:</strong></label>  {{$doc->email}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Legajo:</strong></label>  {{$doc->legajo}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label><strong>Especialidad:</strong></label>  {{$doc->especialidad}}
+                                </td>
+                              </tr>
+                           </table>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
                         <a href="{{ route('editardocente',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
                         <i class="material-icons">edit</i></a>
                         </a>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Eliminar docente">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$doc->id}}" title="Eliminar docente">
                             <i class="material-icons">delete_outline</i>
                           </button>
-                          <div class="modal fade" id="myModal{{$doc->id}}" role="dialog">
+                          <div class="modal fade" id="myModal2{{$doc->id}}" role="dialog">
                           <div class="modal-dialog">
                           <div class="modal-content">
                           <div class="modal-header">
