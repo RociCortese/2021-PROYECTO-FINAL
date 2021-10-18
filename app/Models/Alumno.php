@@ -18,5 +18,5 @@ class Alumno extends Model
         }
     }
 }
-}
+
 

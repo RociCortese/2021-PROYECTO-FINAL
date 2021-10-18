@@ -84,11 +84,18 @@ class CargaAlumnoController extends Controller
                         ->with('success', 'El alumno se cargó correctamente.');
     } 
 
-    public function show($id)
+    public function showalumnos($id)
     {
         $alu=Alumno::findOrFail($id);
-        $familia = Familia::findOrFail($id);
-        return view('admin.alumnos.show',compact('alu','familia')); 
+        $familiaid=$alu->familias_id;
+        $familia = Familia::findOrFail($familiaid);
+        return view('admin.alumnos.showalumnos',compact('alu','familia')); 
+    }
+
+    public function showfamilia($id)
+    {
+        $fam = Familia::findOrFail($id);
+        return view('admin.alumnos.showfamilias',compact('fam')); 
     }
 
    

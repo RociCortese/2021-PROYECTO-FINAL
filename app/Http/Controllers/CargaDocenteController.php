@@ -59,7 +59,7 @@ class CargaDocenteController extends Controller
         return redirect()->route('docentes.index')->with('success', 'El docente se cargó correctamente.');
     } 
 
-    public function show($id)
+   public function show($id)
     {
       $doc=Docente::findOrFail($id);
       return view('admin.docentes.show', compact('doc'));

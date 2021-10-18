@@ -14,7 +14,7 @@
               <div class="card-body row justify-content-center ">
                 <div class="row ">
                   <div class="col-md-14">
-                    <div class="card card-user" style="border: 5px solid grey">
+                    <div class="card card-user" style="border: solid lightgrey;">
                       <div class="card-body">
                         <p class="card-text" >
                           <div class="author">
