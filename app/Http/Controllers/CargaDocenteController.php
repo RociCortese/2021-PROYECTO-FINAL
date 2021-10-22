@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Docente;
+use App\Models\User;
 use Session;
 use Redirect;
 use App\Http\Requests;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Input;
 use Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use App\Notifications\InvoicePaid;
+use App\Notifications\notifcreacion;
+
 
 class CargaDocenteController extends Controller
 {
@@ -53,9 +59,21 @@ class CargaDocenteController extends Controller
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
-    
         Docente::create($request->all());
-     
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $password = "";
+        for($i=0;$i<8;$i++) {
+        $password .= substr($str,rand(0,62),1);
+        }
+        $user=new User();
+        $user->email=$request->email;
+        $user->passwordenc=Crypt::encrypt($password);
+        $user->password=Hash::make($password);
+        $user->role='docente';
+        $user->idpersona='5';
+        $user->save();
+        $password=Crypt::decrypt($user->passwordenc);
+        $user->notify(new notifcreacion($request->email,$password));
         return redirect()->route('docentes.index')->with('success', 'El docente se cargó correctamente.');
     } 
 
