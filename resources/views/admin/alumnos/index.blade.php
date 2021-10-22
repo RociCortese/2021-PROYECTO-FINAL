@@ -9,20 +9,29 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary" style="background-color: grey;">
+              <div class="card-header card-header-info">
                 <h4 class="card-title"> Alumnos</h4>
                 <p class="card-category">Alumnos Registrados</p>    
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-default">Agregar Alumno</a>
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Agregar Alumno</a>
                   </div>
                 </div>
                 @if ($alumnos->isEmpty())
-               <i><strong><div>Aún no hay alumnos creados</div></strong></i> 
+               @if(empty($apellido))
+                  <div> Aún no hay alumnos creados.</div>
+                  @else
+                  <form>
+                      <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" value="{{$apellido}}">
+                      <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                      <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                    </form> 
+                  <div>No se encontraron resultados para el filtro aplicado.</div>
                 
-                @else
+                        @endif
+            @else
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -103,6 +112,7 @@
                                 </td>
                                 </tr>
                            </table>
+                            
                          </div>
                           </div>
                           </div>

@@ -37,6 +37,7 @@ public function store(Request $request)
   'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
   'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
   'email' => ['required', 'string', 'email', 'max:255', 'unique:colegio'],
+  'gestion' => ['required', 'string'],
         ]);
 
   $files=new File();
@@ -57,6 +58,7 @@ public function store(Request $request)
   $colegio->localidad=$request->localidad;
   $colegio->provincia=$request->provincia;
   $colegio->email=$request->email;
+  $colegio->gestion=$request->gestion;
   $colegio->users_id=Auth::user()->id;
   $colegio->files_id=$files->id;
   $colegio->save();

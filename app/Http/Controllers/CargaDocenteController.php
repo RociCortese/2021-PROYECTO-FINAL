@@ -65,7 +65,7 @@ class CargaDocenteController extends Controller
       return view('admin.docentes.show', compact('doc'));
     }
 
-    public function edit(Docente $id)
+    public function editardoc(Docente $id)
     {
       return view('admin.docentes.editar', compact('id'));
     }
