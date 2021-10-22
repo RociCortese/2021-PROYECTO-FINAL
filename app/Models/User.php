@@ -6,10 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\File;
-use App\Models\Colegio;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\hasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -21,15 +18,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $primaryKey = 'id';
+    protected $table = 'users';
     protected $fillable = [
         'id',
-        'nombre',
-        'apellido',
-        'dni',
         'email',
-        'telefono',
         'password',
-        'files_id',
+        'passwordenc',
+        'role',
+        'idpersona',
     ];
 
     /**
@@ -39,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $hidden = [
         'password',
+        'passwordenc',
         'remember_token',
     ];
 
@@ -50,8 +47,4 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-     public function colegio()
-    {
-     return $this->hasOne(Colegio::class, 'users_id', 'id');
-    }
 }

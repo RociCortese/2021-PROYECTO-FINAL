@@ -6,14 +6,13 @@
   <div class="sidebar-wrapper">
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
-        <a class="nav-link" >
-
+        <a class="nav-link">
           <i class="material-icons">dashboard</i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
       </li>
       <li class="nav-item">
-        <div class="collapse show" >
+        <div class="collapse show">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">

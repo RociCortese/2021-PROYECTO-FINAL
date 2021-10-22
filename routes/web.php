@@ -10,9 +10,9 @@ Route::get('home', function () {
     //
 })->name('home');
 
-Route::get('profile/edit', function () {
-    //
-})->name('profile.edit');
+Route::get('profile/edit', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.edit');
+Route::put('profile/edit', 'App\Http\Controllers\Auth\ProfileController@updatepersonal')->name('profile.updatepersonal');
+Route::put('profile/editar', 'App\Http\Controllers\Auth\ProfileController@updatecontra')->name('profile.updatecontra');
 
 Auth::routes();
 Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
