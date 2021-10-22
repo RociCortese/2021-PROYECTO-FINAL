@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary" style="background-color: grey;">
+              <div class="card-header card-header-info">
                 <h4 class="card-title "> Docentes</h4>
                 <p class="card-category">Docentes Registrados</p>    
               </div>
@@ -58,12 +58,19 @@
                     @endif
                     
 
-                    <form>
-                      <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" autocomplete="off" value="{{$apellido}}">
-                      <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                    </form>
+                       <div class="text-right"><button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
 
-                    <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>                        
+                    <div class="collapse" id="collapseExample">
+                    <div class="card card-body" style="border: thin solid lightgrey;">
+                      <form>
+                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
+                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button></div>
+                      </form>
+                    <div class="text-right"><a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
+                    </div>
+                    </div>
+
+                                           
                     <tbody>
                     @foreach($docentes as $doc)
                     <tr>

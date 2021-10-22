@@ -6,11 +6,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('update',$id->id) }}" method="POST" class="form-horizontal">
+        <form action="{{ route('docentes.update',$id->id) }}" method="POST" class="form-horizontal">
         @csrf
         @METHOD('PUT')
         <div class="card">
-          <div class= "card-header card-header-primary" style="background-color: grey;">
+          <div class= "card-header card-header-info">
           <h4 class="card-title">Modificar docente</h4>
           </div>
         <div class="card-body">

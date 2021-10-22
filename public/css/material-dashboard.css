@@ -5445,8 +5445,8 @@ button.close {
 }
 
 .badge-danger {
-  color: #ffffff;
-  background-color: #f44336;
+  color: #cc084b;
+  background-color: #f8b3ca;
 }
 
 .badge-danger[href]:hover,
@@ -8709,7 +8709,6 @@ a.text-danger:focus {
 
 .text-light {
   color: #000000 !important;
-  text-decoration: underline;
 }
 
 a.text-light:hover,
@@ -16776,7 +16775,7 @@ label {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: #FE7109 ;
+  background: #ef8e38;
 }
 
 .card .card-header-info .card-icon,
@@ -16785,7 +16784,7 @@ label {
 .card.bg-info,
 .card.card-rotate.bg-info .front,
 .card.card-rotate.bg-info .back {
-  background: linear-gradient(60deg, #26c6da, #00acc1);
+  background: linear-gradient(to right, #00467f, #a5cc82);
 }
 
 .card .card-header-success .card-icon,

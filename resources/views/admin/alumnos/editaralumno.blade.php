@@ -9,7 +9,7 @@
         @csrf
         @METHOD('PUT')
         <div class="card" >
-          <div class= "card-header card-header-primary" style="background-color: grey;" >
+          <div class= "card-header card-header-info">
           <h4 class="card-title">Editar alumno</h4>
           </div>
         <div class="card-body" >

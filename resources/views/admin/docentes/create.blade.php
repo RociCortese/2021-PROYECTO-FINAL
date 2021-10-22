@@ -9,7 +9,7 @@
         <form action="{{ route('docentes.store') }}" method="POST" class="form-horizontal">
         @csrf
         <div class="card">
-          <div class= "card-header card-header-primary" style="background-color: grey;">
+          <div class= "card-header card-header-info">
           <h4 class="card-title">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
@@ -18,7 +18,7 @@
 
         <div class="row">
           <div class="col">
-            <label><strong>DNI</strong></label>
+            <label class="text-light">DNI</label>
               <input type="text" name="dni" class="form-control" value="{{ old('dni') }}">
 
             @if ($errors->has('dni'))
@@ -30,7 +30,7 @@
           </div>
 
         <div class="col">
-            <label><strong>Nombre</strong></label>
+            <label class="text-light" >Nombre</label>
             <input type="text" name="nombre" class="form-control" value="{{ old('nombre') }}">
             @if ($errors->has('nombre'))
                 <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
@@ -41,7 +41,7 @@
 
 
         <div class="col">
-          <label><strong>Apellido</strong></label>
+          <label class="text-light">Apellido</label>
             <input class="form-control" name="apellido" value="{{ old('apellido') }}"></input>
             @if ($errors->has('apellido'))
                 <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
@@ -55,7 +55,7 @@
 
         <div class="row">
           <div class="col form-group">
-          <label><strong>Fecha de nacimiento</strong></label>
+          <label class="text-light">Fecha de nacimiento</label>
             <input type="date" name="fechanacimiento" class="form-control  datetimepicker" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimiento') }}">
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
@@ -80,7 +80,7 @@
           </div>
 
             <div class="col">
-                <label><strong>Género</strong></label>
+                <label class="text-light">Género</label>
                 <select name="genero" id="opciongenero" class="form-control" value="{{ old('genero') }}">
                     <option value="">Seleccione una opción</option>
                     <option value="Femenino">Femenino</option>
@@ -106,7 +106,7 @@
 
 
             <div class="col">
-              <label><strong>Estado civil</strong></label>
+              <label class="text-light">Estado civil</label>
             <select name="estadocivil" id="opcionestadocivil" class="form-control" value="{{ old('estadocivil') }}" >
                     <option value="">Seleccione una opción</option>
                     <option value="Soltera/o">Soltera/o</option>
@@ -140,7 +140,7 @@
         
         <div class="row">
           <div class="col">
-            <label ><strong>Domicilio</strong></label>
+            <label class="text-light" >Domicilio</label>
             <input type="text" name="domicilio" class="form-control" value="{{ old('domicilio') }}">
             @if ($errors->has('domicilio'))
                 <div id="domicilio-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
@@ -150,7 +150,7 @@
           </div>
 
             <div class="col">
-              <label><strong>Localidad</strong></label>
+              <label class="text-light">Localidad</label>
             <input type="text" name="localidad" class="form-control" value="{{ old('localidad') }}">
             @if ($errors->has('localidad'))
                 <div id="localidad-error" class="error text-danger pl-3" for="localidad" style="display: block;">
@@ -161,7 +161,7 @@
 
 
             <div class="col">
-                 <label><strong>Provincia</strong></label>
+                 <label class="text-light">Provincia</label>
             <input type="text" name="provincia" class="form-control" value="{{ old('provincia') }}">
             @if ($errors->has('provincia'))
                 <div id="provincia-error" class="error text-danger pl-3" for="provincia" style="display: block;">
@@ -177,7 +177,7 @@
         <div class="row">
 
           <div class="col">
-              <label><strong>Teléfono</strong></label>
+              <label class="text-light">Teléfono</label>
             <input type="text" name="telefono" class="form-control" value="{{ old('telefono') }}">
             @if ($errors->has('telefono'))
                 <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
@@ -187,7 +187,7 @@
           </div>
 
           <div class="col">
-            <label><strong>Correo electrónico</strong></label>
+            <label class="text-light">Correo electrónico</label>
             <input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Ingese su correo electrónico">
             @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -206,7 +206,7 @@
            
           <div class="row">
               <div class="col">
-            <label><strong>Legajo</strong></label>
+            <label class="text-light">Legajo</label>
             <input type="text" name="legajo" class="form-control" value="{{ old('legajo') }}">
             @if ($errors->has('legajo'))
                 <div id="legajo-error" class="error text-danger pl-3" for="legajo" style="display: block;">
@@ -216,7 +216,7 @@
               </div>
 
           <div class="col">
-            <label><strong>Especialidad</strong></label>
+            <label class="text-light">Especialidad</label>
             <input type="text" name="especialidad" class="form-control" value="{{ old('especialidad') }}">
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">

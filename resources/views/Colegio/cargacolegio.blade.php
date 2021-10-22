@@ -20,12 +20,12 @@ if($colegio->isEmpty()){?>
           <form action="storage/create" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
             @csrf
             <div class="card">
-            <div class= "card-header card-header-primary" style="background-color: grey;">
+            <div class= "card-header card-header-info">
             <h4 class="card-title">Cargar información de colegio</h4>
             </div>
             <div class="card-body">
             <div class="row">
-                <label class="col-sm-2 col-form-label">Nombre</label>
+                <label class="col-sm-2 col-form-label">Nombre del Colegio</label>
                 <div class="col-sm-7">
                 <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" value="{{ old('nombre') }}">
                 @error('nombre')
@@ -33,6 +33,32 @@ if($colegio->isEmpty()){?>
               @enderror 
               </div>
             </div>
+            <div class="row">
+                <label class="col-sm-2 col-form-label">Gestión</label>
+                <div class="col-sm-2">
+                  <div class="form-check form-check-radio">
+                  <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="privada" >Privada.
+                    <span class="circle">
+                    <span class="check"></span>
+                    </span>
+                    </label>
+                    </div>
+                     </div>
+                     <div class="col-sm-2">
+                    <div class="form-check form-check-radio">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="pública" checked>Pública.
+                            <span class="circle">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
+                    </div>
+                @error('gestion')
+                <small class="text-danger">{{$message}}</small>
+              @enderror 
+              </div>
              <div class="row">
                 <label class="col-sm-2 col-form-label">Teléfono</label>
                 <div class="col-sm-7">

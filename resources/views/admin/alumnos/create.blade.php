@@ -23,16 +23,20 @@ $('#check').on('change', function() {
         <form class="form-horizontal" name="formalumnos">
         @csrf
         <div class="card" >
-          <div class= "card-header card-header-primary" style="background-color: grey;" >
+          <div class= "card-header card-header-info">
           <h4 class="card-title">Agregar nuevo Alumno</h4>
           </div>
         <div class="card-body" >
-          <div class="card" style="border: 3px solid grey">
-         <h4 class="card-tittle text-center"><strong>Datos del Alumno</strong></h4>
 
+
+    <div class="card" style="border: thin solid lightgrey;">
+            <br>
+         <h4 class="card-tittle text-center"><strong>DATOS DEL ALUMNO</strong></h4>
+
+          <br>
 
           <div class="row">
-            <div class="col-sm-7">
+            <div class="col">
               <label>DNI</label>
             <input type="text" name="dnialumno" class="form-control" value="{{ old('dnialumno') }}">
             @if ($errors->has('dnialumno'))
@@ -43,44 +47,35 @@ $('#check').on('change', function() {
             </div>
           
             
-              <div class="col">
-                 <label>Nombre</label>
+          <div class="col">
+              <label>Nombre</label>
             <input type="text" name="nombrealumno" class="form-control" value="{{ old('nombrealumno') }}">
             @if ($errors->has('nombrealumno'))
-                <div id="nombrealumno-error" class="error text-danger pl-3" for="nombrealumno" style="display: block;">
+              <div id="nombrealumno-error" class="error text-danger pl-3" for="nombrealumno" style="display: block;">
                   <strong>{{ $errors->first('nombrealumno') }}</strong>
-                </div>
+              </div>
               @endif
             </div>
-              </div>
-
-  </div>
-          </div>
-          
 
 
-         
-           
-          </div>
-
-
-
-
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Apellido</label>
-            <div class="col-sm-7">
+          <div class="col">       
+              <label>Apellido</label>
             <input class="form-control" name="apellidoalumno" value="{{ old('apellidoalumno') }}"></input>
             @if ($errors->has('apellidoalumno'))
-                <div id="apellidoalumno-error" class="error text-danger pl-3" for="apellidoalumno" style="display: block;">
+              <div id="apellidoalumno-error" class="error text-danger pl-3" for="apellidoalumno" style="display: block;">
                   <strong>{{ $errors->first('apellidoalumno') }}</strong>
                 </div>
               @endif
             </div>
+
           </div>
-          <div class="row">
-            
-               <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
-            <div class="col-sm-7"> 
+
+              <br>
+
+        <div class="row">
+
+          <div class="col">
+               <label>Fecha de nacimiento</label>
             <input type="date"  id="datepicker" name="fechanacimiento" class="form-control" min="2006-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 5 years"));?>" value="{{ old('fechanacimiento') }}">
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
@@ -88,14 +83,11 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
-            </div>
            
-         
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Género</label>
-            <div class="col-sm-7">
+          <div class="col">
+            <label>Género</label>
             <select name="generoalumno" id="opciongenero" class="form-control" value="{{ old('generoalumno') }}">
-                    <option></option>
+                    <option value="">Seleccione una opción</option>
                     <option value="Femenino">Femenino</option>
                     <option value="Masculino">Masculino</option>
                 </select>
@@ -114,12 +106,17 @@ $('#check').on('change', function() {
                   <strong>{{ $errors->first('generoalumno') }}</strong>
                 </div>
               @endif
-            </div>
           </div>
-        
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Domicilio</label>
-            <div class="col-sm-7">
+
+  
+        </div>
+
+
+<br>
+      <div class="row">
+
+            <div class="col">
+            <label>Domicilio</label>
             <input type="text" name="domicilio" class="form-control" value="{{ old('domicilio') }}">
             @if ($errors->has('domicilio'))
                 <div id="grado-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
@@ -127,11 +124,10 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
-          </div>
+          
 
-           <div class="row">
-            <label class="col-sm-2 col-form-label">Localidad</label>
-            <div class="col-sm-7">
+        <div class="col">
+            <label>Localidad</label>
             <input type="text" name="localidad" class="form-control" value="{{ old('localidad') }}">
             @if ($errors->has('localidad'))
                 <div id="grado-error" class="error text-danger pl-3" for="localidad" style="display: block;">
@@ -139,11 +135,9 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
-          </div>
-
-           <div class="row">
-            <label class="col-sm-2 col-form-label">Provincia</label>
-            <div class="col-sm-7">
+          
+          <div class="col">
+            <label>Provincia</label>
             <input type="text" name="provincia" class="form-control" value="{{ old('provincia') }}">
             @if ($errors->has('provincia'))
                 <div id="grado-error" class="error text-danger pl-3" for="provincia" style="display: block;">
@@ -151,10 +145,21 @@ $('#check').on('change', function() {
                 </div>
               @endif
             </div>
-          </div>
-          </div>
-          <div class="card" style="border: 3px solid grey">
-          <h4 class="card-tittle text-center"><strong>Datos de la Familia</strong></h4>
+     
+
+
+  
+      </div>
+
+      <br>
+      <br>
+       
+        
+        </div>
+
+          <div class="card" style="border: thin solid lightgrey;">
+            <br>
+          <h4 class="card-tittle text-center"><strong>DATOS DE LA FAMILIA</strong></h4>
           @if(session('success'))
                     <div class="alert alert-success" role="success">
                     {{session('success')}}
@@ -176,7 +181,7 @@ $('#check').on('change', function() {
         </div>
         <div>
           <div class="col">
-            <span class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione el familiar correspondiente.</span>
+           <h4> <span class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione el familiar correspondiente.</span></h4>
           </div>
           <table class="table">
                     <thead class="text-primary">

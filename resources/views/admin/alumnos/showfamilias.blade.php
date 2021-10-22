@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-primary" style="background-color: grey;">
+          <div class="card-header card-header-info">
             <div class="card-title">Familia</div>
             <p class="card-category">Vista detallada del familiar: {{ $fam->nombrefamilia }} {{ $fam->apellidofamilia }}</p>
           </div>
