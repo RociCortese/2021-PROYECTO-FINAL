@@ -16,6 +16,17 @@ $('#check').on('change', function() {
         $( ".check" ).prop( "disabled", $(this).is(':checked'))
 });
 </script>
+<script>
+function deshabilitar(valor){
+var elemento = document.getElementById('check');
+var hipervinculo = document.getElementById('link');
+if(elemento.checked){
+hipervinculo.href = valor;
+}else{
+hipervinculo.href = '';
+}
+}
+</script>
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -195,7 +206,7 @@ $('#check').on('change', function() {
                       @foreach($familias as $fam)
                         <tr>
                           <td class="v-align-middle">
-                          <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked"></td>
+                          <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked" onclick="deshabilitar('');"></td>
                           <td class="v-align-middle">{{$fam->id}}</td>
                           <td class="v-align-middle">{{$fam->dnifamilia}}</td>
                           <td class="v-align-middle">{{$fam->nombrefamilia}}</td>
@@ -216,7 +227,7 @@ $('#check').on('change', function() {
               </div>
               <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center">
-          <a class="btn btn-sm btn-facebook" name="botonalumnos" onclick="mostrar()" style="color: white;">Crear nuevo familiar</a>
+          <a href="#" class="btn btn-sm btn-facebook" name="botonalumnos" onclick="mostrar()" id="link" style="color: white;">Crear nuevo familiar</a>
         </div>
       </div>
           <div id="familiar" style="display: none;">

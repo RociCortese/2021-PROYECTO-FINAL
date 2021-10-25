@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\Familia;
+use App\Models\User;
 use Session;
 use Redirect;
 use App\Http\Requests;
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Input;
 use Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use App\Notifications\InvoicePaid;
+use App\Notifications\notifcreacion;
 
 class CargaAlumnoController extends Controller
 {
@@ -22,8 +27,14 @@ class CargaAlumnoController extends Controller
     {
         if($request){
         $apellido = trim($request->get('buscarapellido'));
-        $alumnos = Alumno::where('apellidoalumno','LIKE','%'.$apellido.'%')->paginate(5);
-        return view('admin.alumnos.index', compact('apellido','alumnos')); 
+        $nombre = trim($request->get('buscarnombre'));
+        $dni = trim($request->get('buscardni'));
+        $alumnos = Alumno::orderby('id','DESC')
+           ->nombres($nombre)
+           ->apellidos($apellido)
+           ->dnis($dni)
+           ->paginate(5);
+        return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos')); 
                     }
     }
 
@@ -59,9 +70,8 @@ class CargaAlumnoController extends Controller
             'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
             ]);
-            }
-         
-         if(empty($check)){
+            } 
+        if(empty($check)){
         $familia=new Familia();
         $familia->nombrefamilia=$request->nombrefamilia;
         $familia->apellidofamilia=$request->apellidofamilia;
@@ -72,6 +82,21 @@ class CargaAlumnoController extends Controller
         $familia->vinculofamiliar=$request->vinculofamiliar;
         $familia->save();
         $idfamilia=$familia->id;
+        $emfam=$familia->email;
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $password = "";
+        for($i=0;$i<8;$i++) {
+        $password .= substr($str,rand(0,62),1);
+        }
+        $user=new User();
+        $user->email=$emfam;
+        $user->passwordenc=Crypt::encrypt($password);
+        $user->password=Hash::make($password);
+        $user->role='familia';
+        $user->idpersona=$idfamilia;
+        $user->save();
+        $password=Crypt::decrypt($user->passwordenc);
+        $user->notify(new notifcreacion($user->email,$password));
         }
         else{
             $idfamilia=$check;
@@ -87,7 +112,9 @@ class CargaAlumnoController extends Controller
         $alumno->provincia=$request->provincia;
         $alumno->familias_id=$idfamilia;
         $alumno->save();
-       
+        
+        
+        
         return redirect()->route('alumnos.index')
                         ->with('success', 'El alumno se cargó correctamente.');
     } 
