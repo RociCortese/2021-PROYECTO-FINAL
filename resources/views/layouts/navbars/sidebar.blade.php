@@ -3,6 +3,9 @@
   <!--<div class="logo">
     <img style="width:200px" src="img/LogoSnotra.jpg"class="simple-text logo-normal">
   </div>-->
+  <?php
+  if (Auth::user()->role =='directivo') { ?>
+                
   <div class="sidebar-wrapper">
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
@@ -46,5 +49,41 @@
           </ul>
         </div>
       </li>
+    </ul>
   </div>
+  <?php 
+}
+?>
+ <?php
+  if (Auth::user()->role =='docente') { ?>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+     <li class="nav-item{{ $activePage == 'dashboarddocente' ? ' active' : '' }}">
+        <a class="nav-link">
+          <i class="material-icons">dashboard</i>
+           <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
+        </a>
+      </li>
+  </div>
+
+<?php
+}
+?>
+
+?>
+ <?php
+  if (Auth::user()->role =='familia') { ?>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+     <li class="nav-item{{ $activePage == 'dashboarddocente' ? ' active' : '' }}">
+        <a class="nav-link">
+          <i class="material-icons">dashboard</i>
+           <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 
+        </a>
+      </li>
+  </div>
+
+<?php
+}
+?>
 </div>

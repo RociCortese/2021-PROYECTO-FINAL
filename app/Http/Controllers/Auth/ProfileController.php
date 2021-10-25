@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Directivo;
+use App\Models\Docente;
 use Illuminate\Support\Facades\Crypt;
 
 class ProfileController extends Controller
@@ -22,7 +23,7 @@ class ProfileController extends Controller
         }
         else if($user->role=='docente'){
         $docente = Docente::findOrFail($idusuario);
-        return view('perfil', compact('user','docente'));
+        return view('perfil', compact('user','docente','contra'));
         }
         else if($user->role=='familia'){
         $familia = Docente::findOrFail($idusuario);
@@ -48,7 +49,7 @@ class ProfileController extends Controller
         $persona = Directivo::findOrFail($idusuario);
         $data= $request->only('nombre','apellido','dni','telefono','email');
         }
-        else if($user->role=='docente'){
+        if($user->role=='docente'){
         $persona = Docente::findOrFail($idusuario);
         $data= $request->only('dni','nombre','apellido','fechanacimiento','genero','domicilio','localidad','provincia','estado civil','telefono','legajo','especialidad');
         }
