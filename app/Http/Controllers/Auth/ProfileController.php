@@ -51,10 +51,10 @@ class ProfileController extends Controller
         }
         if($user->role=='docente'){
         $persona = Docente::findOrFail($idusuario);
-        $data= $request->only('dni','nombre','apellido','fechanacimiento','genero','domicilio','localidad','provincia','estado civil','telefono','email','legajo','especialidad');
+        $data= $request->only('dni','nombre','apellido','fechanacimiento','genero','domicilio','localidad','provincia','estado civil','telefono','legajo','especialidad');
         }
         else if($user->role=='familia'){
-        $persona = Docente::findOrFail($idusuario);
+        $persona = Familia::findOrFail($idusuario);
         }
         $persona->update($data);
         return back()->with('success', 'La información personal se ha actualizado correctamente.');

@@ -25,12 +25,16 @@ class CargaDocenteController extends Controller
 {
 	public function index(Request $request)
     {
-
-    	//$docentes = Docente::all();
         if($request){
         $apellido = trim($request->get('buscarapellido'));
-        $docentes = Docente::where('apellido','LIKE','%'.$apellido.'%')->Paginate(5);
-        return view('admin.docentes.index', compact('apellido','docentes')); 
+        $nombre = trim($request->get('buscarnombre'));
+        $dni = trim($request->get('buscardni'));
+        $docentes = Docente::orderby('id','DESC')
+           ->nombres($nombre)
+           ->apellidos($apellido)
+           ->dnis($dni)
+           ->paginate(5);
+        return view('admin.docentes.index', compact('apellido','nombre','dni','docentes')); 
                     }
 
     }
@@ -59,7 +63,7 @@ class CargaDocenteController extends Controller
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
-        Docente::create($request->all());
+        $docentes= Docente::create($request->all());
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $password = "";
         for($i=0;$i<8;$i++) {
@@ -70,7 +74,7 @@ class CargaDocenteController extends Controller
         $user->passwordenc=Crypt::encrypt($password);
         $user->password=Hash::make($password);
         $user->role='docente';
-        $user->idpersona='5';
+        $user->idpersona=$docentes->id;
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
         $user->notify(new notifcreacion($request->email,$password));

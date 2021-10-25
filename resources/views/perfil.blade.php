@@ -354,7 +354,9 @@
             @csrf
             @method('put')
                 <div class="card ">
-              <div class="card-header card-header-info" >
+
+              <div class="card-header card-header-info">
+
                 <h4 class="card-title">{{ __('Contraseña') }}</h4>
               </div>
               <div class="card-body ">
