@@ -17,6 +17,18 @@ class Alumno extends Model
             return $query->where('apellidoalumno','like',"%$apellidos%");
         }
     }
+    public function scopeNombres($query, $nombres) {
+
+        if ($nombres) {
+            return $query->where('nombrealumno','like',"%$nombres%");
+        }
+    }
+    public function scopeDNIs($query, $dnis) {
+
+        if ($dnis) {
+            return $query->where('dnialumno','like',"%$dnis%");
+        }
+    }
 }
 
 

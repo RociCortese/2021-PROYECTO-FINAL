@@ -9,7 +9,7 @@
             @csrf
             @method('put')
             <div class="card ">
-              <div class="card-header card-header-primary" style="background-color: grey;">
+              <div class="card-header card-header-info">
                 <h4 class="card-title">{{ __('Información personal') }}</h4>
               </div>
               <div class="card-body ">
@@ -105,7 +105,7 @@
             @csrf
             @method('put')
                 <div class="card ">
-              <div class="card-header card-header-primary" style="background-color: grey;">
+              <div class="card-header card-header-info">
                 <h4 class="card-title">{{ __('Contraseña') }}</h4>
               </div>
               <div class="card-body ">
