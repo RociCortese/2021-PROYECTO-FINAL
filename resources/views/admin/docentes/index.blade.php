@@ -80,9 +80,9 @@
                     @foreach($docentes as $doc)
                     <tr>
                       <td class="v-align-middle">{{$doc->id}}</td>
-                      <td class="v-align-middle">{{$doc->dni}}</td>
-                      <td class="v-align-middle">{{$doc->nombre}}</td>
-                      <td class="v-align-middle">{{$doc->apellido}}</td>
+                      <td class="v-align-middle">{{$doc->dnidocente}}</td>
+                      <td class="v-align-middle">{{$doc->nombredocente}}</td>
+                      <td class="v-align-middle">{{$doc->apellidodocente}}</td>
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Ver Información Docente">
                             <i class="material-icons">person</i>
@@ -96,38 +96,38 @@
                           </div>
                           <div class="modal-body ">
                             <div class="author">
-                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombre}} {{$doc->apellido}} </strong></h5>
+                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombredocente}} {{$doc->apellidodocente}} </strong></h5>
                           </div>
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>DNI:</strong></label>  {{$doc->dni}}
+                                <label><strong>DNI:</strong></label>  {{$doc->dnidocente}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label><strong>Género:</strong></label>  {{$doc->genero}}
+                                <label><strong>Género:</strong></label>  {{$doc->generodocente}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label><strong>Fecha de nacimiento:</strong></label>  {{$doc->fechanacimiento}}
+                                <label><strong>Fecha de nacimiento:</strong></label>  {{$doc->fechanacimientodoc}}
                                 </td>
                               </tr>
                              
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Domicilio:</strong></label>  {{$doc->domicilio}}
+                                <label><strong>Domicilio:</strong></label>  {{$doc->domiciliodocente}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label><strong>Localidad:</strong></label>  {{$doc->localidad}}
+                                <label><strong>Localidad:</strong></label>  {{$doc->localidaddocente}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label><strong>Provincia:</strong></label>  {{$doc->provincia}}
+                                <label><strong>Provincia:</strong></label>  {{$doc->provinciadocente}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Teléfono:</strong></label>  {{$doc->telefono}}
+                                <label><strong>Teléfono:</strong></label>  {{$doc->telefonodocente}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label><strong>Email:</strong></label>  {{$doc->email}}
+                                <label><strong>Email:</strong></label>  {{$doc->emaildocente}}
                                 </td>
                               </tr>
                               <tr>

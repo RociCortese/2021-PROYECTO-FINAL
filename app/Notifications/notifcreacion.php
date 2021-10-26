@@ -11,7 +11,7 @@ class notifcreacion extends Notification
 {
     use Queueable;
 
-    protected $email;
+    protected $emaildocente;
     protected $password;
 
     /**
@@ -19,9 +19,9 @@ class notifcreacion extends Notification
      *
      * @return void
      */
-    public function __construct($email, $password)
+    public function __construct($emaildocente, $password)
     {
-        $this -> email = $email;
+        $this -> emaildocente = $emaildocente;
         $this -> password = $password;
     }
 
@@ -47,7 +47,7 @@ class notifcreacion extends Notification
         return (new MailMessage)
                     ->subject('Activación de cuenta')
                     ->line('Hemos creado una cuenta para ti. Puedes ingresar ahora con los siguientes datos:')
-                    ->line('Usuario: ' . $this -> email)
+                    ->line('Usuario: ' . $this -> emaildocente)
                     ->line('Contraseña: ' . $this -> password)
                     ->line('La primera vez que ingrese, le recomendamos modificar la contraseña.');
     }

@@ -49,17 +49,17 @@ class CargaDocenteController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-            'dni' => ['required', 'int','digits_between:7,8','unique:docentes'],
-            'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'apellido' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'fechanacimiento' => 'required',
-            'genero' => ['required'],
-            'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'estadocivil' => ['required'],
-            'telefono' => ['required','int'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
+            'dnidocente' => ['required', 'int','digits_between:7,8','unique:docentes'],
+            'nombredocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidodocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'fechanacimientodoc' => 'required',
+            'generodocente' => ['required'],
+            'domiciliodocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'localidaddocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'provinciadocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'estadocivildoc' => ['required'],
+            'telefonodocente' => ['required','int'],
+            'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
@@ -70,7 +70,7 @@ class CargaDocenteController extends Controller
         $password .= substr($str,rand(0,62),1);
         }
         $user=new User();
-        $user->email=$request->email;
+        $user->email=$request->emaildocente;
         $user->passwordenc=Crypt::encrypt($password);
         $user->password=Hash::make($password);
         $user->role='docente';
@@ -96,21 +96,21 @@ class CargaDocenteController extends Controller
     {
         $doc = Docente::findOrFail($id);
          $request->validate([
-            'dni' => ['required', 'int','digits_between:7,8','unique:docentes,dni,'. $id],
-            'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'apellido' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-            'fechanacimiento' => 'required',
-            'genero' => ['required'],
-            'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
-            'estadocivil' => ['required'],
-            'telefono' => ['required','int'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:docentes,email,'. $id],
+            'dnidocente' => ['required', 'int','digits_between:7,8','unique:docentes,dni,'. $id],
+            'nombredocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidodocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'fechanacimientodoc' => 'required',
+            'generodocente' => ['required'],
+            'domiciliodocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'localidaddocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'provinciadocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'estadocivildoc' => ['required'],
+            'telefonodocente' => ['required','int'],
+            'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes,email,'. $id],
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
-        $data= $request->only('dni','nombre','apellido','fechanacimiento','genero','domicilio','localidad','provincia','estadocivil','telefono','email','legajo','especialidad');
+        $data= $request->only('dnidocente','nombredocente','apellidodocente','fechanacimientodoc','generodocente','domiciliodocente','localidaddocente','provinciadocente','estadocivildoc','telefonodocente','emaildocente','legajo','especialidad');
         $doc->update($data);
         return redirect()->route('docentes.index')->with('success','El docente se modificó correctamente.');
     }
