@@ -23,22 +23,22 @@
               @enderror 
               </div>
             </div>
-               <div class="row">
+                <div class="row">
                 <label class="col-sm-2 col-form-label">Gestión</label>
-                <div class="col">
+                <div class="col-sm-2">
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >Privada.
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada" >Privada.
                     <span class="circle">
                     <span class="check"></span>
                     </span>
-                    </label>
+                    </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>Privada
                     </div>
                      </div>
-                     <div class="col">
+                     <div class="col-sm-2">
                     <div class="form-check form-check-radio">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>Pùblica.
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública.
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
@@ -49,7 +49,7 @@
                 <small class="text-danger">{{$message}}</small>
               @enderror 
               </div>
-          </div>
+          
              <div class="row">
                 <label class="col-sm-2 col-form-label">Teléfono</label>
                 <div class="col-sm-7">
@@ -149,7 +149,7 @@
             </div>
               
               
-            </div>
+            
              
             <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
@@ -157,10 +157,12 @@
               </div>
               </div>
             </div>
+     </div>
           </form>
         </div>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
+    
 
 @endsection

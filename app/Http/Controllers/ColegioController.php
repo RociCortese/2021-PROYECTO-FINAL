@@ -87,7 +87,7 @@ public function update(Request $request,$id)
          $files->save();
         $col->files_id=$files->id;
         }
-        $data= $request->only('nombre','direccion','telefono','localidad','provincia','email','file');
+        $data= $request->only('nombre', 'gestion','direccion','telefono','localidad','provincia','email','file');
         $col->update($data);
         return redirect()->route('formulario');
     }
