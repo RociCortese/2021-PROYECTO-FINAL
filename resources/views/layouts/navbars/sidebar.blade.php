@@ -69,13 +69,11 @@
 <?php
 }
 ?>
-
-?>
  <?php
   if (Auth::user()->role =='familia') { ?>
   <div class="sidebar-wrapper">
     <ul class="nav">
-     <li class="nav-item{{ $activePage == 'dashboarddocente' ? ' active' : '' }}">
+     <li class="nav-item{{ $activePage == 'dashboardfamilia' ? ' active' : '' }}">
         <a class="nav-link">
           <i class="material-icons">dashboard</i>
            <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 

@@ -18,7 +18,7 @@
 
         <div class="row">
           <div class="col">
-            <label class="text-light">DNI</label>
+            <label>DNI</label>
               <input type="text" name="dnidocente" class="form-control" value="{{ old('dnidocente') }}">
 
             @if ($errors->has('dnidocente'))
@@ -30,7 +30,7 @@
           </div>
 
         <div class="col">
-            <label class="text-light" >Nombre</label>
+            <label>Nombre</label>
             <input type="text" name="nombredocente" class="form-control" value="{{ old('nombredocente') }}">
             @if ($errors->has('nombredocente'))
                 <div id="nombredocente-error" class="error text-danger pl-3" for="nombredocente" style="display: block;">
@@ -41,7 +41,7 @@
 
 
         <div class="col">
-          <label class="text-light">Apellido</label>
+          <label>Apellido</label>
             <input class="form-control" name="apellidodocente" value="{{ old('apellidodocente') }}"></input>
             @if ($errors->has('apellidodocente'))
                 <div id="apellidodocente-error" class="error text-danger pl-3" for="apellidodocente" style="display: block;">
@@ -55,32 +55,17 @@
 
         <div class="row">
           <div class="col form-group">
-          <label class="text-light">Fecha de nacimiento</label>
-            <input type="date" name="fechanacimientodoc" class="form-control  datetimepicker" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimientodoc') }}">
+          <label>Fecha de nacimiento</label>
+            <input type="date" name="fechanacimientodoc" class="form-control" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{ old('fechanacimientodoc') }}">
             @if ($errors->has('fechanacimientodoc'))
                 <div id="fechanacimientodoc-error" class="error text-danger pl-3" for="fechanacimientodoc" style="display: block;">
                   <strong>{{ $errors->first('fechanacimientodoc') }}</strong>
                 </div>
               @endif
-<script>
-              $('.datetimepicker').datetimepicker({
-    icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-chevron-up",
-        down: "fa fa-chevron-down",
-        previous: 'fa fa-chevron-left',
-        next: 'fa fa-chevron-right',
-        today: 'fa fa-screenshot',
-        clear: 'fa fa-trash',
-        close: 'fa fa-remove'
-    }
-});
-</script>
           </div>
 
             <div class="col">
-                <label class="text-light">Género</label>
+                <label>Género</label>
                 <select name="generodocente" id="opciongenero" class="form-control" value="{{ old('generodocente') }}">
                     <option value="">Seleccione una opción</option>
                     <option value="Femenino">Femenino</option>
@@ -106,7 +91,7 @@
 
 
             <div class="col">
-              <label class="text-light">Estado civil</label>
+              <label>Estado civil</label>
             <select name="estadocivildoc" id="opcionestadocivil" class="form-control" value="{{ old('estadocivildoc') }}" >
                     <option value="">Seleccione una opción</option>
                     <option value="Soltera/o">Soltera/o</option>
@@ -140,7 +125,7 @@
         
         <div class="row">
           <div class="col">
-            <label class="text-light" >Domicilio</label>
+            <label>Domicilio</label>
             <input type="text" name="domiciliodocente" class="form-control" value="{{ old('domiciliodocente') }}">
             @if ($errors->has('domiciliodocente'))
                 <div id="domiciliodocente-error" class="error text-danger pl-3" for="domiciliodocente" style="display: block;">
@@ -150,7 +135,7 @@
           </div>
 
             <div class="col">
-              <label class="text-light">Localidad</label>
+              <label>Localidad</label>
             <input type="text" name="localidaddocente" class="form-control" value="{{ old('localidaddocente') }}">
             @if ($errors->has('localidaddocente'))
                 <div id="localidaddocente-error" class="error text-danger pl-3" for="localidaddocente" style="display: block;">
@@ -161,7 +146,7 @@
 
 
             <div class="col">
-                 <label class="text-light">Provincia</label>
+                 <label>Provincia</label>
             <input type="text" name="provinciadocente" class="form-control" value="{{ old('provinciadocente') }}">
             @if ($errors->has('provinciadocente'))
                 <div id="provinciadocente-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
@@ -177,7 +162,7 @@
         <div class="row">
 
           <div class="col">
-              <label class="text-light">Teléfono</label>
+              <label>Teléfono</label>
             <input type="text" name="telefonodocente" class="form-control" value="{{ old('telefonodocente') }}">
             @if ($errors->has('telefonodocente'))
                 <div id="telefonodocente-error" class="error text-danger pl-3" for="telefonodocente" style="display: block;">
@@ -187,7 +172,7 @@
           </div>
 
           <div class="col">
-            <label class="text-light">Correo electrónico</label>
+            <label>Correo electrónico</label>
             <input type="text" name="emaildocente" class="form-control" value="{{ old('emaildocente') }}" placeholder="Ingese su correo electrónico">
             @if ($errors->has('emaildocente'))
                 <div id="emaildocente-error" class="error text-danger pl-3" for="emaildocente" style="display: block;">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Directivo;
 use App\Models\Docente;
+use App\Models\Familia;
 use Illuminate\Support\Facades\Crypt;
 
 class ProfileController extends Controller
@@ -26,8 +27,8 @@ class ProfileController extends Controller
         return view('perfil', compact('user','docente','contra'));
         }
         else if($user->role=='familia'){
-        $familia = Docente::findOrFail($idusuario);
-        return view('perfil', compact('user','familia'));
+        $familia = Familia::findOrFail($idusuario);
+        return view('perfil', compact('user','familia','contra'));
         }
     }
 
@@ -70,6 +71,25 @@ class ProfileController extends Controller
         $persona = Docente::findOrFail($idusuario);
         $persona->emaildocente=auth()->user()->email;
         $data= $request->only('dnidocente','nombredocente','apellidodocente','fechanacimientodoc','generodocente','domiciliodocente','localidaddocente','provinciadocente','estadocivildoc','telefonodocente','legajo','especialidad');
+        $persona->update($data);
+        return back()->with('success', 'La información personal se ha actualizado correctamente.');
+        }
+
+        else if($user->role=='familia'){
+            $request->validate([
+            'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias,dnifamilia,'. $idusuario],
+            'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+            'generofamilia' => ['required'],
+            'telefono' => ['required','int'],
+            'email' => ['required','string', 'email', 'max:255', 'unique:familias,email,'.$idusuario],
+            'vinculofamiliar' => ['required'],
+            ]);
+        $emailmodificado=$request->only('email');
+        auth()->user()->update($emailmodificado);
+        $persona = Familia::findOrFail($idusuario);
+        $persona->email=auth()->user()->email;
+        $data= $request->only('dnifamilia','nombrefamilia','apellidofamilia','generofamilia','telefono','vinculofamiliar');
         $persona->update($data);
         return back()->with('success', 'La información personal se ha actualizado correctamente.');
         }

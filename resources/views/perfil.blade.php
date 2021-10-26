@@ -286,6 +286,123 @@
               </form>
                 @endif
 
+
+              @if ($user->role=='familia')
+                <form method="post" action="{{route('profile.updatepersonal')}}" autocomplete="off" class="form-horizontal">
+                @csrf
+                @method('put')
+            <div class="card ">
+              <div class="card-header card-header-info">
+                <h4 class="card-title">{{ __('Información personal') }}</h4>
+              </div>
+              <div class="card-body ">
+                @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif
+          <div class="card" style="border: thin solid grey">
+            <div class="row">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-7">
+            <input type="text" name="email" class="form-control" value="{{$familia->email}}">
+            @if ($errors->has('email'))
+                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                  <strong>{{ $errors->first('email') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">DNI</label>
+            <div class="col-sm-7">
+            <input type="text" name="dnifamilia" class="form-control" value="{{$familia->dnifamilia}}">
+            @if ($errors->has('dnifamilia'))
+                <div id="dnifamilia-error" class="error text-danger pl-3" for="dnifamilia" style="display: block;">
+                  <strong>{{ $errors->first('dnifamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-7">
+            <input type="text" name="nombrefamilia" class="form-control" value="{{$familia->nombrefamilia}}">
+            @if ($errors->has('nombrefamilia'))
+                <div id="nombrefamilia-error" class="error text-danger pl-3" for="nombrefamilia" style="display: block;">
+                  <strong>{{ $errors->first('nombrefamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-7">
+            <input class="form-control" name="apellidofamilia" value="{{$familia->apellidofamilia}}">
+            @if ($errors->has('apellidofamilia'))
+                <div id="apellidofamilia-error" class="error text-danger pl-3" for="apellidofamilia" style="display: block;">
+                  <strong>{{ $errors->first('apellidofamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Género</label>
+            <div class="col-sm-7">
+            <select name="generofamilia" class="form-control" value="{{$familia->generofamilia}}">
+                    <option></option>
+                    <option value="Femenino" <?php if($familia->generofamilia=='Femenino') echo 'selected="selected" ';?>>Femenino
+                    <option value="Masculino" <?php if($familia->generofamilia=='Masculino') echo 'selected="selected" ';?>>Masculino
+                </select>
+            @if ($errors->has('generofamilia'))
+                <div id="generofamilia-error" class="error text-danger pl-3" for="generofamilia" style="display: block;">
+                  <strong>{{ $errors->first('generofamilia') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+              <div class="row">
+            <label class="col-sm-2 col-form-label">Telefono</label>
+            <div class="col-sm-7">
+            <input type="text" name="telefono" class="form-control" value="{{$familia->telefono}}">
+            @if ($errors->has('telefono'))
+                <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
+                  <strong>{{ $errors->first('telefono') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Vínculo Familiar</label>
+            <div class="col-sm-7">
+              <select name="vinculofamiliar" class="form-control" value="{{$familia->vinculofamiliar}}">
+                    <option></option>
+                    <option value="Madre" <?php if($familia->vinculofamiliar=='Madre') echo 'selected="selected" ';?>>Madre
+                    <option value="Padre" <?php if($familia->vinculofamiliar=='Padre') echo 'selected="selected" ';?>>Padre
+                    <option value="Tutor" <?php if($familia->vinculofamiliar=='Tutor') echo 'selected="selected" ';?>>Tutor 
+                </select>
+            @if ($errors->has('vinculofamiliar'))
+                <div id="vinculofamiliar-error" class="error text-danger pl-3" for="vinculofamiliar" style="display: block;">
+                  <strong>{{ $errors->first('vinculofamiliar') }}</strong>
+                </div>
+              @endif
+            </div>
+          </div>
+        <div class="card-footer ml-auto mr-auto">
+                <button type="submit" class="btn btn-sm btn-facebook">{{ __('Actualizar cambios') }}</button>
+              </div>
+        </form>
+        @endif
+      </div>
+    </div>
             <form method="post" action="{{route('profile.updatecontra')}}" autocomplete="off" class="form-horizontal">
             @csrf
             @method('put')
