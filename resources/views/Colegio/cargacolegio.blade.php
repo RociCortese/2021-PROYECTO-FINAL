@@ -38,7 +38,7 @@ if($colegio->isEmpty()){?>
                 <div class="col-sm-2">
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="privada" >Privada.
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada" >Privada.
                     <span class="circle">
                     <span class="check"></span>
                     </span>
@@ -48,7 +48,7 @@ if($colegio->isEmpty()){?>
                      <div class="col-sm-2">
                     <div class="form-check form-check-radio">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="pública" checked>Pública.
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública.
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
@@ -149,7 +149,7 @@ if($colegio->isEmpty()){?>
     }
     else {?>
 <div class="card">
-    <div class= "card-header card-header-primary" style="background-color: grey;">
+    <div class= "card-header card-header-info">
     <h4 class="card-title">Información de colegio</h4>
     </div>
  <div class="card-body row justify-content-center">
@@ -172,7 +172,7 @@ if($colegio->isEmpty()){?>
                     </script>
   @endif
       @foreach($colegio as $col)
-          <h3 class="tittle mt-3 text-center">Establecimiento {{$col->nombre}}</h3>
+          <h3 class="tittle mt-3 text-center">Establecimiento "{{$col->nombre}}"</h3>
                           <p class="description">
                             <table class="table">
                               <tr>
@@ -181,6 +181,9 @@ if($colegio->isEmpty()){?>
                                 </td>
                                 <td>
                                   <label>Dirección</label>&nbsp;&nbsp;{{$col->direccion}}
+                                </td>
+                                <td>
+                                  <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
                                 </td>
                               </tr>
                               <tr>

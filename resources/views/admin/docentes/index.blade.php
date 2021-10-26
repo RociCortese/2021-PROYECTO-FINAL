@@ -80,9 +80,9 @@
                     @foreach($docentes as $doc)
                     <tr>
                       <td class="v-align-middle">{{$doc->id}}</td>
-                      <td class="v-align-middle">{{$doc->dni}}</td>
-                      <td class="v-align-middle">{{$doc->nombre}}</td>
-                      <td class="v-align-middle">{{$doc->apellido}}</td>
+                      <td class="v-align-middle">{{$doc->dnidocente}}</td>
+                      <td class="v-align-middle">{{$doc->nombredocente}}</td>
+                      <td class="v-align-middle">{{$doc->apellidodocente}}</td>
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Ver Información Docente">
                             <i class="material-icons">person</i>
