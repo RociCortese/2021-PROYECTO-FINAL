@@ -9,24 +9,24 @@ class Docente extends Model
 {
     use HasFactory;
     protected $table = 'docentes';
-    protected $fillable = ['dni','nombre', 'apellido','fechanacimiento','genero','domicilio','localidad','provincia','estadocivil','telefono','email','legajo','especialidad'];
+    protected $fillable = ['dnidocente','nombredocente', 'apellidodocente','fechanacimientodoc','generodocente','domiciliodocente','localidaddocente','provinciadocente','estadocivildoc','telefonodocente','emaildocente','legajo','especialidad'];
 
     public function scopeApellidos($query, $apellidos) {
 
         if ($apellidos) {
-            return $query->where('apellido','like',"%$apellidos%");
+            return $query->where('apellidodocente','like',"%$apellidos%");
         }
     }
     public function scopeNombres($query, $nombres) {
 
         if ($nombres) {
-            return $query->where('nombre','like',"%$nombres%");
+            return $query->where('nombredocente','like',"%$nombres%");
         }
     }
     public function scopeDNIs($query, $dnis) {
 
         if ($dnis) {
-            return $query->where('dni','like',"%$dnis%");
+            return $query->where('dnidocente','like',"%$dnis%");
         }
     }
 

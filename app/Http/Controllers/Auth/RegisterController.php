@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Directivo;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -70,18 +71,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        Directivo::create([
+        $directivo=Directivo::create([
             'nombre' => $data['nombre'],
             'apellido' => $data['apellido'],
             'dni' => $data['dni'],
             'email' => $data['email'],
             'telefono' => $data['telefono'], 
         ]); 
-        User::create([
+        $usuario=User::create([
             'role' =>'directivo',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'idpersona' =>'5',
+            'passwordenc' => Crypt::encrypt($data['password']),
+            'idpersona' =>$directivo->id,
         ]);
     }
 }

@@ -26,6 +26,15 @@ public function scopeUsuario($query, $usuario) {
  public function user()
     {
      return $this->belongsTo(User::class);
+    }
+
+ public function docente()
+    {
+     return $this->belongsTo(Docente::class);
+ }
+ public function alumno()
+    {
+     return $this->belongsTo(Alumno::class);
  }
 
 }

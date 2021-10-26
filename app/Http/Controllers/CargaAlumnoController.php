@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\Familia;
 use App\Models\User;
+use App\Models\Colegio;
+use Auth;
 use Session;
 use Redirect;
 use App\Http\Requests;
@@ -26,6 +28,8 @@ class CargaAlumnoController extends Controller
 	public function index(Request $request)
     {
         if($request){
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
         $apellido = trim($request->get('buscarapellido'));
         $nombre = trim($request->get('buscarnombre'));
         $dni = trim($request->get('buscardni'));
@@ -34,7 +38,7 @@ class CargaAlumnoController extends Controller
            ->apellidos($apellido)
            ->dnis($dni)
            ->paginate(5);
-        return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos')); 
+        return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos','colegio')); 
                     }
     }
 

@@ -1,19 +1,12 @@
+@extends('layouts.main', ['activePage' => 'dashboardfamilia', 'titlePage' => __('Dashboard Docente')])
+
 @section('content')
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-md-8">
-<div class="card">
-<div class="card-header">Dashboard</div>
-<div class="card-body">
-@if (session('status'))
-<div class="alert alert-success" role="alert">
-{{ session('status') }}
-</div>
-@endif
-Sos familia!
-</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="content">
+    <div class="container-fluid">
+         
+         <h4>HOLA USUARIO FAMILIA</h4>
+      
+  </div>
+  </div>
 @endsection
+
