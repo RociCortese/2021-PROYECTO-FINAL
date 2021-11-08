@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\User;
+use App\Models\Chat;
 
 class DirectivoController extends Controller
 {
-        /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+      public function index()
     {
         return view('directivo');
     }
-
 }

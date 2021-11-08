@@ -163,7 +163,7 @@
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                          <p class="text-center">¿Está seguro que desea eliminar el docente {{$doc->nombre}}  {{$doc->apellido}}?</p>
+                          <p class="text-center">¿Está seguro que desea eliminar el docente {{$doc->nombredocente}}  {{$doc->apellidodocente}}?</p>
                           </div>
                           <div class="modal-footer justify-content-center">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

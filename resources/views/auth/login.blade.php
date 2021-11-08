@@ -1,6 +1,5 @@
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __()]) 
 
-
 @section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">

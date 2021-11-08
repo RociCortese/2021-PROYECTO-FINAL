@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cdfde2fe6733669ffd621b416128587f6e32f31b',
+        'reference' => 'c87730d4c061de04e7f8dcab9c14b3925e8e0ffb',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
+        'apility/laravel-fcm' => array(
+            'pretty_version' => 'v1.4.4',
+            'version' => '1.4.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../apility/laravel-fcm',
+            'aliases' => array(),
+            'reference' => 'e1484d3831f346d5dc03d64c742e53b6f500f33c',
+            'dev_requirement' => false,
+        ),
         'asm89/stack-cors' => array(
             'pretty_version' => 'v2.0.3',
             'version' => '2.0.3.0',
@@ -27,6 +36,12 @@
             'aliases' => array(),
             'reference' => 'dff976c2f3487d42c1db75a3b180e2b9f0e72ce0',
             'dev_requirement' => false,
+        ),
+        'brozot/laravel-fcm' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
         ),
         'cordoval/hamcrest-php' => array(
             'dev_requirement' => true,
@@ -395,13 +410,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cdfde2fe6733669ffd621b416128587f6e32f31b',
+            'reference' => 'c87730d4c061de04e7f8dcab9c14b3925e8e0ffb',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -458,6 +472,15 @@
             'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
             'dev_requirement' => false,
         ),
+        'livewire/livewire' => array(
+            'pretty_version' => 'v2.7.2',
+            'version' => '2.7.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../livewire/livewire',
+            'aliases' => array(),
+            'reference' => '991e5bd8a48e450d23cd55336964f916e92a6464',
+            'dev_requirement' => false,
+        ),
         'mockery/mockery' => array(
             'pretty_version' => '1.4.3',
             'version' => '1.4.3.0',
@@ -481,6 +504,15 @@
             'replaced' => array(
                 0 => '^1.0',
             ),
+        ),
+        'munafio/chatify' => array(
+            'pretty_version' => 'v1.2.5',
+            'version' => '1.2.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../munafio/chatify',
+            'aliases' => array(),
+            'reference' => '476d846267be9a1743482548833a92c1f75fe2a1',
+            'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.10.2',
@@ -528,6 +560,24 @@
             'install_path' => __DIR__ . '/../opis/closure',
             'aliases' => array(),
             'reference' => '06e2ebd25f2869e54a306dda991f7db58066f7f6',
+            'dev_requirement' => false,
+        ),
+        'paragonie/random_compat' => array(
+            'pretty_version' => 'v9.99.100',
+            'version' => '9.99.100.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../paragonie/random_compat',
+            'aliases' => array(),
+            'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+            'dev_requirement' => false,
+        ),
+        'paragonie/sodium_compat' => array(
+            'pretty_version' => 'v1.17.0',
+            'version' => '1.17.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../paragonie/sodium_compat',
+            'aliases' => array(),
+            'reference' => 'c59cac21abbcc0df06a3dd18076450ea4797b321',
             'dev_requirement' => false,
         ),
         'phar-io/manifest' => array(
@@ -754,6 +804,15 @@
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
             'reference' => 'e4573f47750dd6c92dca5aee543fa77513cbd8d3',
+            'dev_requirement' => false,
+        ),
+        'pusher/pusher-php-server' => array(
+            'pretty_version' => '7.0.1',
+            'version' => '7.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pusher/pusher-php-server',
+            'aliases' => array(),
+            'reference' => '7757a09209d20ff95b077ae48dc25f49a6ad94a2',
             'dev_requirement' => false,
         ),
         'ralouphie/getallheaders' => array(
@@ -1213,6 +1272,15 @@
             'install_path' => __DIR__ . '/../tijsverkoyen/css-to-inline-styles',
             'aliases' => array(),
             'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
+            'dev_requirement' => false,
+        ),
+        'twilio/sdk' => array(
+            'pretty_version' => '6.30.0',
+            'version' => '6.30.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../twilio/sdk',
+            'aliases' => array(),
+            'reference' => 'd60bc2faf10656c100ddfa55d06c33bd8b782957',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
