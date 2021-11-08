@@ -12,20 +12,7 @@ function mostrar() {
         x.style.display = 'none';
     }
 }
-$('#check').on('change', function() {
-        $( ".check" ).prop( "disabled", $(this).is(':checked'))
-});
 </script>
-<script>
-function deshabilitar(valor){
-var elemento = document.getElementById('check');
-var hipervinculo = document.getElementById('link');
-if(elemento.checked){
-hipervinculo.href = valor;
-}else{
-hipervinculo.href = '';
-}
-}
 </script>
 <div class="content">
   <div class="container-fluid">
@@ -225,6 +212,9 @@ hipervinculo.href = '';
                   <div class="card-footer mr-auto">
                 {{$familias->links() }}
               </div>
+            </tr>
+          </tbody>
+        </table>
               <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center">
           <a href="#" class="btn btn-sm btn-facebook" name="botonalumnos" onclick="mostrar()" id="link" style="color: white;">Crear nuevo familiar</a>

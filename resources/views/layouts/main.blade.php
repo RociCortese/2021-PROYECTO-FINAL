@@ -16,6 +16,19 @@
     <link href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('demo/demo.css')}}" rel="stylesheet" />
+
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDdldSMDmYufKOsNUX9zZQED1PVpR84kw8",
+    authDomain: "snotra-6c452.firebaseapp.com",
+    projectId: "snotra-6c452",
+    storageBucket: "snotra-6c452.appspot.com",
+    messagingSenderId: "581742987840",
+    appId: "1:581742987840:web:99a01d410ce9270d18ada5"
+  };
+  const app = initializeApp(firebaseConfig);
+</script>
     </head>
 
     <body class="{{ $class ?? '' }}">
@@ -39,10 +52,6 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<script>
-$(function () {
-$("#datepicker").datepicker();
-});
-</script>
+
     </body>
 </html>

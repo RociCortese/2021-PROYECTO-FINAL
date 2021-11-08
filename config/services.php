@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'twilio' => [
+   'TWILIO_SID' => env('TWILIO_SID'),
+   'TWILIO_AUTH_TOKEN' => env('TWILIO_AUTH_TOKEN'),
+   'TWILIO_WHATSAPP_FROM' => env('TWILIO_WHATSAPP_FROM'),
+],
+
 ];

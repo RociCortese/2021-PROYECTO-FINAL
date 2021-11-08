@@ -64,6 +64,18 @@
            <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
         </a>
       </li>
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <i class="material-icons">chat</i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
   </div>
 
 <?php
@@ -78,6 +90,18 @@
           <i class="material-icons">dashboard</i>
            <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 
         </a>
+      </li>
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <i class="material-icons">chat</i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
   </div>
 

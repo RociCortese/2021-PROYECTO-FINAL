@@ -81,7 +81,7 @@ class CargaDocenteController extends Controller
         $user->idpersona=$docentes->id;
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
-        $user->notify(new notifcreacion($request->email,$password));
+        $user->notify(new notifcreacion($request->emaildocente,$password));
         return redirect()->route('docentes.index')->with('success', 'El docente se cargó correctamente.');
     } 
 

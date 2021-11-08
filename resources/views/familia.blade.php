@@ -4,8 +4,6 @@
   <div class="content">
     <div class="container-fluid">
          
-         <h4>HOLA USUARIO FAMILIA</h4>
-      
   </div>
   </div>
 @endsection

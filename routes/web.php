@@ -10,6 +10,29 @@ Route::get('home', function () {
     //
 })->name('home');
 
+/*Chat*/
+
+//Route::get('/', 'App\Http\Controllers\Vendor\Chatify\MessagesController@index')->name(config('chatify.routes.prefix'));
+Route::post('/idInfo', 'App\Http\Controllers\Vendor\Chatify\MessagesController@idFetchData');
+Route::post('/sendMessage', 'App\Http\Controllers\Vendor\Chatify\MessagesController@send')->name('send.message');
+Route::post('/fetchMessages', 'App\Http\Controllers\Vendor\Chatify\MessagesController@fetch')->name('fetch.messages');
+Route::get('/download/{fileName}', 'App\Http\Controllers\Vendor\Chatify\MessagesController@download')->name(config('chatify.attachments.download_route_name'));
+Route::post('/chat/auth', 'App\Http\Controllers\Vendor\Chatify\MessagesController@pusherAuth')->name('pusher.auth');
+Route::post('/makeSeen', 'App\Http\Controllers\Vendor\Chatify\MessagesController@seen')->name('messages.seen');
+Route::post('/getContacts', 'App\Http\Controllers\Vendor\Chatify\MessagesController@getContacts')->name('contacts.get');
+Route::post('/updateContacts', 'App\Http\Controllers\Vendor\Chatify\MessagesController@updateContactItem')->name('contacts.update');
+Route::post('/star', 'App\Http\Controllers\Vendor\Chatify\MessagesController@favorite')->name('star');
+Route::post('/favorites', 'App\Http\Controllers\Vendor\Chatify\MessagesController@getFavorites')->name('favorites');
+Route::post('/search', 'App\Http\Controllers\vendor\Chatify\MessagesController@search')->name('search');
+Route::post('/shared', 'App\Http\Controllers\Vendor\Chatify\MessagesController@sharedPhotos')->name('shared');
+Route::post('/deleteConversation', 'App\Http\Controllers\Vendor\Chatify\MessagesController@deleteConversation')->name('conversation.delete');
+Route::post('/updateSettings', 'App\Http\Controllers\Vendor\Chatify\MessagesController@updateSettings')->name('avatar.update');
+
+Route::post('/setActiveStatus', 'App\Http\Controllers\Vendor\Chatify\MessagesController@setActiveStatus')->name('activeStatus.set');
+
+
+
+
 /*Perfil de usuario*/
 
 Route::get('profile/edit', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.edit');

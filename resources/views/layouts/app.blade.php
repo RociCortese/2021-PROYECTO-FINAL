@@ -16,7 +16,21 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDdldSMDmYufKOsNUX9zZQED1PVpR84kw8",
+    authDomain: "snotra-6c452.firebaseapp.com",
+    projectId: "snotra-6c452",
+    storageBucket: "snotra-6c452.appspot.com",
+    messagingSenderId: "581742987840",
+    appId: "1:581742987840:web:99a01d410ce9270d18ada5"
+  };
+  const app = initializeApp(firebaseConfig);
+</script>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
