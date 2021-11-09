@@ -13,18 +13,12 @@
                 </nav>
             </nav>
 
-            {{-- Search input --}}
-            <form action="{{route('search')}}" method="POST">
-            <input  type="text" class="messenger-search" placeholder="Buscar"/>
-            <button type="submit">Buscar</button>
-        </form>
+            <input type="text" class="messenger-search" placeholder="Buscar persona"/>
             {{-- Tabs --}}
 
             <div class="messenger-listView-tabs">
                 <a href="#" @if($route == 'user') class="active-tab" @endif data-view="users">
                     <span class="far fa-user"></span> Personas</a>
-                <a href="#" @if($route == 'group') class="active-tab" @endif data-view="groups">
-                    <span class="fas fa-users"></span> Grupos</a>
             </div>
         </div>
         {{-- tabs and lists --}}
@@ -46,12 +40,6 @@
                <div class="listOfContacts" style="width: 100%;height: calc(100% - 200px);position: relative;"></div>
 
            </div>
-
-           {{-- ---------------- [ Group Tab ] ---------------- --}}
-           <div class="@if($route == 'group') show @endif messenger-tab app-scroll" data-view="groups">
-                {{-- items --}}
-             </div>
-
              {{-- ---------------- [ Search Tab ] ---------------- --}}
            <div class="messenger-tab app-scroll" data-view="search">
                 {{-- items --}}
@@ -73,7 +61,7 @@
                     <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
                     <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
                     </div>
-                    <a href="#" class="user-email">{{ Auth::user()->email}}</a>
+                    <a href="#" class="user-name"></a>
                 </div>
                 {{-- header buttons --}}
                 <nav class="m-header-right">

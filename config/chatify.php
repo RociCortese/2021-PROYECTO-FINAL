@@ -41,7 +41,7 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => 'users-avatar',
+        'folder' => 'user-avatar',
         'default' => 'avatar.png',
     ],
 
