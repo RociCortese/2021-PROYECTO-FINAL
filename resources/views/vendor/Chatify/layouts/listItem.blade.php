@@ -8,6 +8,11 @@
                 <span class="far fa-bookmark" style="font-size: 22px; color: #68a5ff; margin-top: calc(50% - 10px);"></span>
             </div>
             </td>
+            {{-- center side --}}
+            <td>
+                <p data-id="{{ 'user_'.Auth::user()->id }}">Saved Messages <span>You</span></p>
+                <span>Save messages secretly</span>
+            </td>
         </tr>
     </table>
 @endif
@@ -69,7 +74,7 @@
         {{-- center side --}}
         <td>
         <p data-id="{{ $type.'_'.$user->id }}">
-            {{ strlen($user->email) > 12 ? trim(substr($user->email,0,12)).'..' : $user->email }} 
+            {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }} 
         </td>
         
     </tr>
@@ -80,5 +85,3 @@
 @if($get == 'sharedPhoto')
 <div class="shared-photo chat-image" style="background-image: url('{{ $image }}')"></div>
 @endif
-
-
