@@ -10,8 +10,7 @@
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{ 'user_'.Auth::user()->id }}">Saved Messages <span>You</span></p>
-                <span>Save messages secretly</span>
+                <p data-id="{{ 'user_'.Auth::user()->id }}">Mis notas</p>
             </td>
         </tr>
     </table>
@@ -27,7 +26,7 @@
                 <span class="activeStatus"></span>
             @endif
         <div class="avatar av-m" 
-        style="background-image: url('{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}');">
+        style="background-image: url('{{ asset('/storage/public/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}');">
         </div>
         </td>
         {{-- center side --}}
@@ -36,12 +35,6 @@
             {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }} 
             <span>{{ $lastMessage->created_at->diffForHumans() }}</span></p>
         <span>
-            {{-- Last Message user indicator --}}
-            {!!
-                $lastMessage->from_id == Auth::user()->id 
-                ? '<span class="lastMessageIndicator">You :</span>'
-                : ''
-            !!}
             {{-- Last message body --}}
             @if($lastMessage->attachment == null)
             {{
@@ -68,13 +61,13 @@
         {{-- Avatar side --}}
         <td>
         <div class="avatar av-m"
-        style="background-image: url('{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}');">
+        style="background-image: url('{{ asset('/storage/public/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}');">
         </div>
         </td>
         {{-- center side --}}
         <td>
         <p data-id="{{ $type.'_'.$user->id }}">
-            {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }} 
+            {{ strlen($user->name) > 25 ? trim(substr($user->name,0,25)).'..' : $user->name }} 
         </td>
         
     </tr>
@@ -85,3 +78,5 @@
 @if($get == 'sharedPhoto')
 <div class="shared-photo chat-image" style="background-image: url('{{ $image }}')"></div>
 @endif
+
+

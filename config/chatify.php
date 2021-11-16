@@ -7,7 +7,7 @@ return [
     | Messenger display name
     |-------------------------------------
     */
-    'namespace' => env('CHATIFY_ROUTES_NAMESPACE', 'App\Http\Controllers\vendor\Chatify'),
+    'name' => env('CHATIFY_NAME', 'Central de mensajes'),
 
     /*
     |-------------------------------------
@@ -41,7 +41,7 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => 'user-avatar',
+        'folder' => 'users-avatar',
         'default' => 'avatar.png',
     ],
 
@@ -54,6 +54,6 @@ return [
         'folder' => 'attachments',
         'download_route_name' => 'attachments.download',
         'allowed_images' => (array) ['png','jpg','jpeg','gif'],
-        'allowed_files' => (array) ['zip','rar','txt'],
+        'allowed_files' => (array) ['zip','rar','txt','pdf'],
     ],
 ];

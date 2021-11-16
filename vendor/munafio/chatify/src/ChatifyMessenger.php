@@ -217,7 +217,10 @@ class ChatifyMessenger
         return view('Chatify::layouts.listItem', [
             'get' => 'users',
             'user' => $user,
-
+            'lastMessage' => $lastMessage,
+            'unseenCounter' => $unseenCounter,
+            'type'=>'user',
+            'id' => $messenger_id,
         ])->render();
     }
 
