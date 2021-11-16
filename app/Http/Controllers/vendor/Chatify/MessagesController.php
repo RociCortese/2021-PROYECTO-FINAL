@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\vendor\Chatify;
+namespace App\Http\Controllers\Vendor\Chatify;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,14 +16,22 @@ use Illuminate\Support\Str;
 
 class MessagesController extends Controller
 {
+    /**
+     * Authinticate the connection for pusher
+     *
+     * @param Request $request
+     * @return void
+     */
     public function pusherAuth(Request $request)
     {
+        // Auth data
         $authData = json_encode([
             'user_id' => Auth::user()->id,
             'user_info' => [
-                'email' => Auth::user()->email
+                'name' => Auth::user()->name
             ]
         ]);
+        // check if user authorized
         if (Auth::check()) {
             return Chatify::pusherAuth(
                 $request['channel_name'],
@@ -31,8 +39,16 @@ class MessagesController extends Controller
                 $authData
             );
         }
+        // if not authorized
         return new Response('Unauthorized', 401);
     }
+
+    /**
+     * Returning the view of the app with the required data.
+     *
+     * @param int $id
+     * @return void
+     */
     public function index( $id = null)
     {
         $routeName= FacadesRequest::route()->getName();
@@ -40,6 +56,7 @@ class MessagesController extends Controller
             ? 'user'
             : $routeName;
 
+        // prepare id
         return view('Chatify::pages.app', [
             'id' => ($id == null) ? 0 : $route . '_' . $id,
             'route' => $route,
@@ -48,10 +65,19 @@ class MessagesController extends Controller
         ]);
     }
 
+
+    /**
+     * Fetch data by id for (user/group)
+     *
+     * @param Request $request
+     * @return collection
+     */
     public function idFetchData(Request $request)
     {
+        // Favorite
         $favorite = Chatify::inFavorite($request['id']);
 
+        // User data
         if ($request['type'] == 'user') {
             $fetch = User::where('id', $request['id'])->first();
         }
@@ -60,7 +86,7 @@ class MessagesController extends Controller
         return Response::json([
             'favorite' => $favorite,
             'fetch' => $fetch,
-            'user_avatar' => asset('/storage/' . config('chatify.user_avatar.folder') . '/' . $fetch->avatar),
+            'user_avatar' => asset('/storage/public/' . config('chatify.user_avatar.folder') . '/' . $fetch->avatar),
         ]);
     }
 
@@ -73,11 +99,11 @@ class MessagesController extends Controller
      */
     public function download($fileName)
     {
-        $path = storage_path() . '/app/public/' . config('chatify.attachments.folder') . '/' . $fileName;
+        $path = storage_path() . '/storage/public/' . config('chatify.attachments.folder') . '/' . $fileName;
         if (file_exists($path)) {
             return Response::download($path, $fileName);
         } else {
-            return abort(404, "Sorry, File does not exist in our server or may have been deleted!");
+            return abort(404, "Lo sentimos, el archivo no existe en nuestro servidor o puede haber sido eliminado.");
         }
     }
 
@@ -115,11 +141,11 @@ class MessagesController extends Controller
                     $file->storeAs("public/" . config('chatify.attachments.folder'), $attachment);
                 } else {
                     $error->status = 1;
-                    $error->message = "File extension not allowed!";
+                    $error->message = "¡Extensión de archivo no permitida!";
                 }
             } else {
                 $error->status = 1;
-                $error->message = "File extension not allowed!";
+                $error->message = "¡Extensión de archivo no permitida!";
             }
         }
 
@@ -189,7 +215,7 @@ class MessagesController extends Controller
         // send the response
         return Response::json([
             'count' => $query->count(),
-            'messages' => '<p class="message-hint center-el"><span>Say \'hi\' and start messaging</span></p>',
+            'messages' => '<p class="message-hint center-el"><span>Di hola y comienza a enviar mensajes</span></p>',
         ]);
     }
 
@@ -217,9 +243,20 @@ class MessagesController extends Controller
      */
     public function getContacts(Request $request)
     {
-        $users = User()->email;
+        // get all users that received/sent message from/to [Auth user]
+        $users = Message::join('users',  function ($join) {
+            $join->on('ch_messages.from_id', '=', 'users.id')
+                ->orOn('ch_messages.to_id', '=', 'users.id');
+        })
+        ->where(function ($q) {
+            $q->where('ch_messages.from_id', Auth::user()->id)
+              ->orWhere('ch_messages.to_id', Auth::user()->id);
+        })
+        ->orderBy('ch_messages.created_at', 'desc')
+        ->get()
+        ->unique('id');
 
-        $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
+        $contacts = '<p class="message-hint center-el"><span>La lista de mensajes está vacía.</span></p>';
         $users = $users->where('id','!=',Auth::user()->id);
         if ($users->count() > 0) {
             // fetch contacts
@@ -318,7 +355,7 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input'], FILTER_SANITIZE_STRING));
-        $records = User::where('email', 'LIKE', "%{$input}%");
+        $records = User::where('name', 'LIKE', "%{$input}%" and 'role', 'LIKE', "%{docente}%");
         foreach ($records->get() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',
@@ -326,13 +363,21 @@ class MessagesController extends Controller
                 'user' => $record,
             ])->render();
         }
+        // send the response
         return Response::json([
             'records' => $records->count() > 0
                 ? $getRecords
-                : '<p class="message-hint center-el"><span>Nothing to show.</span></p>',
+                : '<p class="message-hint center-el"><span>No hay nada para mostrar.</span></p>',
             'addData' => 'html'
         ], 200);
     }
+
+    /**
+     * Get shared photos
+     *
+     * @param Request $request
+     * @return void
+     */
     public function sharedPhotos(Request $request)
     {
         $shared = Chatify::getSharedPhotos($request['user_id']);
@@ -347,7 +392,9 @@ class MessagesController extends Controller
         }
         // send the response
         return Response::json([
-            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Nothing shared yet</span></p>',
+            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>
+Aún no se ha compartido nada.</span></p>',
+
         ], 200);
     }
 
@@ -410,11 +457,11 @@ class MessagesController extends Controller
                     $file->storeAs("public/" . config('chatify.user_avatar.folder'), $avatar);
                     $success = $update ? 1 : 0;
                 } else {
-                    $msg = "File extension not allowed!";
+                    $msg = "¡Extensión de archivo no permitida!";
                     $error = 1;
                 }
             } else {
-                $msg = "File extension not allowed!";
+                $msg = "¡Extensión de archivo no permitida!";
                 $error = 1;
             }
         }

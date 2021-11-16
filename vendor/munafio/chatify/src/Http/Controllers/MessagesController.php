@@ -215,7 +215,7 @@ class MessagesController extends Controller
         // send the response
         return Response::json([
             'count' => $query->count(),
-            'messages' => '<p class="message-hint center-el"><span>Say \'hi\' and start messaging</span></p>',
+            'messages' => '<p class="message-hint center-el"><span>Di hola y comienza a enviar mensajes</span></p>',
         ]);
     }
 
@@ -256,7 +256,7 @@ class MessagesController extends Controller
         ->get()
         ->unique('id');
 
-        $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
+        $contacts = '<p class="message-hint center-el"><span>La lista de mensajes está vacía.</span></p>';
         $users = $users->where('id','!=',Auth::user()->id);
         if ($users->count() > 0) {
             // fetch contacts
@@ -392,7 +392,8 @@ class MessagesController extends Controller
         }
         // send the response
         return Response::json([
-            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Nothing shared yet</span></p>',
+            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>
+Aún no se ha compartido nada</span></p>',
         ], 200);
     }
 
