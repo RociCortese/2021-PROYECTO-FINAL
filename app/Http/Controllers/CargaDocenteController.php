@@ -30,6 +30,16 @@ class CargaDocenteController extends Controller
         if($request){
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);
+        if($colegio->isEmpty())
+        {
+            return view('admin.docentes.index',compact('colegio'));
+
+        }
+        else{
+        foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
         $apellido = trim($request->get('buscarapellido'));
         $nombre = trim($request->get('buscarnombre'));
         $dni = trim($request->get('buscardni'));
@@ -37,9 +47,11 @@ class CargaDocenteController extends Controller
            ->nombres($nombre)
            ->apellidos($apellido)
            ->dnis($dni)
+           ->where('colegio_id',$idcolegio)
            ->paginate(5);
         return view('admin.docentes.index', compact('apellido','nombre','dni','docentes','colegio')); 
                     }
+                }
 
     }
     
@@ -67,7 +79,28 @@ class CargaDocenteController extends Controller
             'legajo' => ['required','int'],
             'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
-        $docentes= Docente::create($request->all());
+        $docente=new Docente();
+        $docente->nombredocente=$request->nombredocente;
+        $docente->apellidodocente=$request->apellidodocente;
+        $docente->dnidocente=$request->dnidocente;
+        $docente->generodocente=$request->generodocente;
+        $docente->fechanacimientodoc=$request->fechanacimientodoc;
+        $docente->domiciliodocente=$request->domiciliodocente;
+        $docente->localidaddocente=$request->localidaddocente;
+        $docente->provinciadocente=$request->provinciadocente;
+        $docente->estadocivildoc=$request->estadocivildoc;
+        $docente->telefonodocente=$request->telefonodocente;
+        $docente->emaildocente=$request->emaildocente;
+        $docente->legajo=$request->legajo;
+        $docente->especialidad=$request->especialidad;
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
+        $docente->colegio_id=$idcolegio;
+        $docente->save();        
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $password = "";
         for($i=0;$i<8;$i++) {
@@ -78,7 +111,7 @@ class CargaDocenteController extends Controller
         $user->passwordenc=Crypt::encrypt($password);
         $user->password=Hash::make($password);
         $user->role='docente';
-        $user->idpersona=$docentes->id;
+        $user->idpersona=$docente->id;
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
         $user->notify(new notifcreacion($request->emaildocente,$password));

@@ -14,6 +14,7 @@ class CreateDocentesTable extends Migration
     public function up()
     {
         Schema::create('docentes', function (Blueprint $table) {
+            $table->engine='InnoDB';
             $table->increments('id');
             $table->integer('dni');
             $table->string('nombre');
@@ -29,6 +30,8 @@ class CreateDocentesTable extends Migration
             $table->integer('legajo');
             $table->string('especialidad');
             $table->timestamps();
+            $table->bigInteger('colegio_id')->unsigned();
+            $table->foreign('colegio_id')->references('id')->on('colegio');
         });
     }
 

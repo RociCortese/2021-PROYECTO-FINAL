@@ -105,10 +105,11 @@ body {
 .messenger-search[type="text"] {
   margin: 0px 10px;
   width: calc(100% - 20px);
-  border: none;
   padding: 8px ​10px;
   border-radius: 6px;
   outline: none;
+  height: 28px;
+  font-size: 15px;
 }
 .messenger-listView-tabs {
   display: inline-flex;

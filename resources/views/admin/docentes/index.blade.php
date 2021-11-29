@@ -98,7 +98,7 @@
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header" style="background-color: lightblue;">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detalla del Docente</strong></h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del Docente</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body ">

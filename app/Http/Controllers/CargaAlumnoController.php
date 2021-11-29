@@ -30,6 +30,15 @@ class CargaAlumnoController extends Controller
         if($request){
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);
+        if($colegio->isEmpty())
+        {
+            return view('admin.alumnos.index',compact('colegio'));
+        }
+        else{
+            foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
         $apellido = trim($request->get('buscarapellido'));
         $nombre = trim($request->get('buscarnombre'));
         $dni = trim($request->get('buscardni'));
@@ -37,9 +46,11 @@ class CargaAlumnoController extends Controller
            ->nombres($nombre)
            ->apellidos($apellido)
            ->dnis($dni)
+           ->where('colegio_id',$idcolegio)
            ->paginate(5);
         return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos','colegio')); 
                     }
+                }
     }
 
     public function create(Request $request)
@@ -115,10 +126,14 @@ class CargaAlumnoController extends Controller
         $alumno->localidad=$request->localidad;
         $alumno->provincia=$request->provincia;
         $alumno->familias_id=$idfamilia;
-        $alumno->save();
-        
-        
-        
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
+        $alumno->colegio_id=$idcolegio;
+        $alumno->save();        
         return redirect()->route('alumnos.index')
                         ->with('success', 'El alumno se cargó correctamente.');
     } 

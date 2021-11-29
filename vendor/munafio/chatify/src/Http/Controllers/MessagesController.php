@@ -355,7 +355,10 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input'], FILTER_SANITIZE_STRING));
-        $records = User::where('name', 'LIKE', "%{$input}%");
+        $rolautenticado= Auth::user()->role;
+        $records = User::where('name', 'LIKE', "%{$input}%")
+                   ->where('role', 'NOT LIKE', $rolautenticado);
+
         foreach ($records->get() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',
@@ -367,7 +370,7 @@ class MessagesController extends Controller
         return Response::json([
             'records' => $records->count() > 0
                 ? $getRecords
-                : '<p class="message-hint center-el"><span>Nothing to show.</span></p>',
+                : '<p class="message-hint center-el"><span>No hay nada para mostrar.</span></p>',
             'addData' => 'html'
         ], 200);
     }
