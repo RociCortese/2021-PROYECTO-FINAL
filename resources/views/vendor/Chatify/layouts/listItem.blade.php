@@ -43,7 +43,7 @@
                 : $lastMessage->body
             }}
             @else
-            <span class="fas fa-file"></span> Attachment
+            <span class="fas fa-file"></span> Archivo adjunto. 
             @endif
         </span>
         {{-- New messages counter --}}

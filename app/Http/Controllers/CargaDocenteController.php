@@ -107,6 +107,7 @@ class CargaDocenteController extends Controller
         $password .= substr($str,rand(0,62),1);
         }
         $user=new User();
+        $user->name =$request->nombredocente . ' ' . $request->apellidodocente;
         $user->email=$request->emaildocente;
         $user->passwordenc=Crypt::encrypt($password);
         $user->password=Hash::make($password);
