@@ -65,16 +65,12 @@ public function store(Request $request)
   $colegio->files_id=$files->id;
   $colegio->save();
 
-  $colegio->sendPhoneVerificationNotification();
+  
 
   return redirect()->route('formulario')->with('success', 'El colegio se cargó correctamente');
 
 }
-public function sendPhoneVerificationNotification()
-    {
-        $verification_code = rand(100000,999999);
-        Twilio::sendMessage($verification_code, $this->telefono);
-    }
+
 
 public function edit(Colegio $id)
     {
