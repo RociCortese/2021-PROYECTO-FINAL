@@ -65,12 +65,9 @@ public function store(Request $request)
   $colegio->files_id=$files->id;
   $colegio->save();
 
-  
-
   return redirect()->route('formulario')->with('success', 'El colegio se cargó correctamente');
 
 }
-
 
 public function edit(Colegio $id)
     {

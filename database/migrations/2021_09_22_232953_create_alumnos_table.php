@@ -27,6 +27,9 @@ class CreateAlumnosTable extends Migration
             $table->timestamps();
             $table->bigInteger('familias_id')->unsigned();
             $table->foreign('familias_id')->references('id')->on('familias');
+            $table->bigInteger('colegio_id')->unsigned();
+            $table->foreign('colegio_id')->references('id')->on('colegio');
+
         });
     }
 

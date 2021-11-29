@@ -339,7 +339,8 @@ function IDinfo(id, type) {
         $(".messenger-infoView")
           .find(".avatar")
           .css("background-image", 'url("' + data.user_avatar + '")');
-        $(".header-avatar").css(
+       
+       $(".header-avatar").css(
           "background-image",
           'url("' + data.user_avatar + '")'
         );

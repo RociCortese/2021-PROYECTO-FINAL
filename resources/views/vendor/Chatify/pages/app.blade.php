@@ -8,7 +8,7 @@
                 <a><i class="fas fa-inbox"></i> <span class="messenger-headTitle">Mis mensajes</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
-                    <a href="#"><i class="fas fa-cog settings-btn"></i></a>
+                    <a href="#" title="Mi configuración"><i class="fas fa-cog settings-btn"></i></a>
                     <a href="javascript:history.back(-1);"><i class="fas fa-home" title="Volver a la plataforma"></i></a>
                     <a href="#" class="listView-x"><i class="fas fa-times"></i></a>
                 </nav>
@@ -66,8 +66,8 @@
                 </div>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
-                    <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
+                    <a href="#" class="add-to-favorite" title="Marcar favorito"><i class="fas fa-star"></i></a>
+                    <a href="#" class="show-infoSide" title="Ver más información"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
         </div>
