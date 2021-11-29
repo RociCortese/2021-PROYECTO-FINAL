@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -79,6 +78,7 @@ class RegisterController extends Controller
             'telefono' => $data['telefono'], 
         ]); 
         $usuario=User::create([
+            'name' => $data['nombre'] . ' ' . $data['apellido'],
             'role' =>'directivo',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

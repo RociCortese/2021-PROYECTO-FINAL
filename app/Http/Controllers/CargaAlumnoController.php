@@ -93,6 +93,7 @@ class CargaAlumnoController extends Controller
         $password .= substr($str,rand(0,62),1);
         }
         $user=new User();
+        $user->name =$request->nombrefamilia . ' ' . $request->apellidofamilia;
         $user->email=$emfam;
         $user->passwordenc=Crypt::encrypt($password);
         $user->password=Hash::make($password);

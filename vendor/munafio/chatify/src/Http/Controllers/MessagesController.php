@@ -387,7 +387,7 @@ class MessagesController extends Controller
         for ($i = 0; $i < count($shared); $i++) {
             $sharedPhotos .= view('Chatify::layouts.listItem', [
                 'get' => 'sharedPhoto',
-                'image' => asset('storage/attachments/' . $shared[$i]),
+                'image' => asset('storage/public/attachments/' . $shared[$i]),
             ])->render();
         }
         // send the response
