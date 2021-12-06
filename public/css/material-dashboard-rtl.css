@@ -6,6 +6,7 @@ html[dir="rtl"] {
 
 html[dir="rtl"] .nav {
   padding-right: 0;
+  position: relative;
 }
 
 html[dir="rtl"] th {

@@ -395,6 +395,7 @@ template {
   }
   .badge {
     border: 1px solid #000;
+    position: absolute;
   }
   .table {
     border-collapse: collapse !important;
@@ -4066,6 +4067,7 @@ tbody.collapse.show {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  position: relative;
 }
 
 .nav-link:hover,
@@ -5367,6 +5369,7 @@ button.close {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
+  position: absolute;
 }
 
 .badge:empty {
