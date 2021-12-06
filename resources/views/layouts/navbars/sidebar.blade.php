@@ -49,6 +49,18 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdirectivo' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <i class="material-icons">email</i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </div>
   <?php 
@@ -69,7 +81,7 @@
           <ul class="nav">
           <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
-                <i class="material-icons">chat</i>
+                <i class="material-icons">email</i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
               </a>
             </li>
@@ -96,7 +108,7 @@
           <ul class="nav">
           <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
-                <i class="material-icons">chat</i>
+                <i class="material-icons">email</i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
               </a>
             </li>

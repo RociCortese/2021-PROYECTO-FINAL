@@ -29,7 +29,7 @@ class LoginController extends Controller
      */
     protected $redirectTo;
     public function redirectTo()
-        {
+        {        
         switch (Auth::user()->role) {
         case 'directivo':
         $this->redirectTo = '/directivo';
