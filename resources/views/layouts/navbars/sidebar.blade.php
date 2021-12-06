@@ -49,6 +49,7 @@
           </ul>
         </div>
       </li>
+
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
@@ -106,7 +107,7 @@
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
-          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+          <li class="nav-item{{ $activePage == 'chatfamilia' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
                 <i class="material-icons">email</i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
