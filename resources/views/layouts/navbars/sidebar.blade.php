@@ -49,7 +49,8 @@
           </ul>
         </div>
       </li>
-       <li class="nav-item">
+
+      <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
           <li class="nav-item{{ $activePage == 'chatdirectivo' ? ' active' : '' }}">

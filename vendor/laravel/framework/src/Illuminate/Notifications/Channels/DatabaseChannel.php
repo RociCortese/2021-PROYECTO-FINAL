@@ -54,10 +54,10 @@ class DatabaseChannel
     protected function buildPayload($notifiable, Notification $notification)
     {
         return [
-            'id' => $notification->id,
-            'type' => get_class($notification),
-            'data' => $this->getData($notifiable, $notification),
-            'read_at' => null,
+            'id' => $ch_messages->id,
+            'type' => get_class($ch_messages),
+            'data' => $this->getData($notifiable, $ch_messages),
+            'seen' => null,
         ];
     }
 }
