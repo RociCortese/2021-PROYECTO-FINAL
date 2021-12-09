@@ -9,7 +9,7 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" title="Mi configuración"><i class="fas fa-cog settings-btn"></i></a>
-                    <a href="javascript:history.back(-1);"><i class="fas fa-home" title="Volver a la plataforma"></i></a>
+                    <a href="javascript:history.back();"><i class="fas fa-home" title="Volver a la plataforma"></i></a>
                     <a href="#" class="listView-x"><i class="fas fa-times"></i></a>
                 </nav>
             </nav>

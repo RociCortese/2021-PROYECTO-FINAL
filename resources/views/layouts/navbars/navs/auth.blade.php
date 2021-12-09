@@ -15,7 +15,10 @@
       <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link posicion" data-toggle="dropdown" href="#">
+
+
                   <i class="material-icons" title="Mensajes">email</i>
+
                   <?php
                   use App\Models\ChMessage as Message;
                   use App\Models\User;
@@ -36,10 +39,13 @@
                 }
                 else{
                     ?>
+                <span class="dropdown-header text-danger"><strong>MENSAJES NO LEIDOS</strong></span>
                 <span class="dropdown-header" >Tienes {{$cantidad}} mensajes para leer.</span>
                 <?php
+
                   $usuario=Message::all()->where('to_id',Auth::user()->id)->where('seen',0)->sortByDesc('created_at')->unique('from_id');
                   $count = 0;
+
                   foreach($usuario as $usu)
                     { 
                       if($count == 5){
@@ -66,7 +72,9 @@
                   <a href="{{ route('chatify') }}"><span class="dropdown-header text-right">Ver todos los mensajes</span></a>
                   <?php
                     };
+
                   ?>
+
 
                 </div>
               </li>
