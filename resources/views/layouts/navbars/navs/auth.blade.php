@@ -12,14 +12,15 @@
     <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end">
-    
       <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link posicion" data-toggle="dropdown" href="#">
-                  <i class="material-icons small" title="Mensajes">email</i>
+                  <i class="material-icons" title="Mensajes">email</i>
                   <?php
                   use App\Models\ChMessage as Message;
                   use App\Models\User;
+                  use Carbon\Carbon;
+                  
                   $cantidad=Message::where('to_id',Auth::user()->id)->where('seen',0)->count();
                   ?>
                     <span class="badge badge-danger">{{$cantidad}}</span>
@@ -37,29 +38,36 @@
                     ?>
                 <span class="dropdown-header" >Tienes {{$cantidad}} mensajes para leer.</span>
                 <?php
-                  $usuario=Message::all()->where('to_id',Auth::user()->id)->where('seen',0);
+                  $usuario=Message::all()->where('to_id',Auth::user()->id)->where('seen',0)->sortByDesc('created_at')->unique('from_id');
+                  $count = 0;
                   foreach($usuario as $usu)
-                    {   
+                    { 
+                      if($count == 5){
+                        break;
+                      }
+
                       $fromcolegio= "$usu->from_id";
                       $nombreusuario=User::all()->where('id',$fromcolegio);
                       foreach($nombreusuario as $nom)
                           {
                            $nombre= "$nom->name";
-                           $tiempo=$nom->created_at->diffForHumans();
                          }
+                         $tiempo=$usu->created_at->diffForHumans();
                       ?>
-                      <a href="#" class="dropdown-item">
+                      <a href="{{url('chatify',$usu->from_id)}}" class="dropdown-item">
                     <i class="material-icons mr-2">email</i> {{$nombre }}
                       <span class="ml-3 pull-right text-muted text-sm">{{$tiempo}}</span>
+                      <?php
+                      $count++;
+                    }
+                  ?>
                   </a>
+                  
+                  <a href="{{ route('chatify') }}"><span class="dropdown-header text-right">Ver todos los mensajes</span></a>
                   <?php
                     };
-                  }
                   ?>
-                  
-              
-        
-               
+
                 </div>
               </li>
       </ul>
