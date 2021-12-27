@@ -28,11 +28,11 @@
                 <div class="col-sm-2">
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada" >Privada.
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada.
                     <span class="circle">
                     <span class="check"></span>
                     </span>
-                    </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>Privada
+                    </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>
                     </div>
                      </div>
                      <div class="col-sm-2">
@@ -98,8 +98,6 @@
             <div class="row">
                 <label class="col-sm-2 col-form-label">Logo institucional</label>
                 <div class="col-sm-7">
-
-
         
                   <?php
                   $Host ="localhost";

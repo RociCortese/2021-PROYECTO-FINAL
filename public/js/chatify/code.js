@@ -342,8 +342,7 @@ function IDinfo(id, type) {
        
        $(".header-avatar").css(
           "background-image",
-          'url("' + data.user_avatar + '")'
-        );
+          'url("/storage/public/")',        );
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();
         $(".messenger-infoView-shared").show();
@@ -1158,18 +1157,28 @@ $(document).ready(function() {
         "zip",
         "rar",
         "txt",
+        "pdf",
+        "doc",
+        "docx",
+        "bmp",
+        "avi",
+        "mp4",
+        "mp3",
+        "mpeg",
+        "mwv",
+        "xlsx",
       ],
-      sizeLimit = 5000000; // 5 megabyte
+      sizeLimit = 5000000000; // 5 megabyte
     const { name: fileName, size: fileSize } = file;
     const fileExtension = fileName.split(".").pop();
     if (!allowedExtensions.includes(fileExtension)) {
-      alert("file type not allowed");
+      alert("Tipo de archivo no permitido.");
       fileElement.val("");
       return false;
     }
     // Validate file size.
     if (fileSize > sizeLimit) {
-      alert("Please select file size less than 5 MiB");
+      alert("Seleccione un tamaño de archivo inferior a 5 MB");
       return false;
     }
     return true;
