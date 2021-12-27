@@ -53,7 +53,7 @@ return [
     'attachments' => [
         'folder' => 'attachments',
         'download_route_name' => 'attachments.download',
-        'allowed_images' => (array) ['png','jpg','jpeg','gif'],
-        'allowed_files' => (array) ['zip','rar','txt','pdf'],
+        'allowed_images' => (array) ['png','jpg','jpeg','gif','bmp'],
+        'allowed_files' => (array) ['zip','rar','txt','pdf', 'doc', 'docx','mp3','avi', 'mp4' ,'mpeg','mwv','xlsx'],
     ],
 ];

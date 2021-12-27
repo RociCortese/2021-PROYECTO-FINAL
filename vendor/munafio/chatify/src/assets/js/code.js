@@ -1157,6 +1157,16 @@ $(document).ready(function() {
         "zip",
         "rar",
         "txt",
+        "pdf",
+        "doc",
+        "docx",
+        "bmp",
+        "avi",
+        "mp4",
+        "mp3",
+        "mpeg",
+        "mwv",
+        "xlsx",
       ],
       sizeLimit = 5000000; // 5 megabyte
     const { name: fileName, size: fileSize } = file;

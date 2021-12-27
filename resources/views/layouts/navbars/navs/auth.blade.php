@@ -26,7 +26,7 @@
                   
                   $cantidad=Message::where('to_id',Auth::user()->id)->where('seen',0)->count();
                   ?>
-                    <span class="badge badge-danger">{{$cantidad}}</span>
+                    <span class="num">{{$cantidad}}</span>
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
