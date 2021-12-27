@@ -1,0 +1,148 @@
+@extends('layouts.main', ['activePage' => 'añoescolar', 'titlePage' => __('Año escolar')])
+
+@section('content')
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+        	<div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-info">
+                <h4 class="card-title ">Años escolares</h4>
+                <p class="card-category">Historial de años escolares</p>
+              </div> 
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear</a>
+                  </div>
+                  <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>Descripción</th>
+                      <th>Fecha inicio</th>
+                      <th>Fecha fin</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </thead>
+                    @foreach($años as $año)
+                    <tr>
+                      <td class="v-align-middle">{{$año->descripcion}}</td>
+                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}</td>
+                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}</td>
+                      <td class="td-actions v-align-middle">
+                        <?php 
+                        if($año->estado=='inactivo')
+                        {
+                          ?>
+                          <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-danger">
+                          <i class="material-icons">do_not_disturb_on</i>
+                          </a>
+                        
+                          <?php
+                        }
+                        
+                        elseif($año->estado=='activo')
+                        {
+                          ?>
+                          <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-success">
+                          <i class="material-icons">check_circle</i>
+                          </a>
+                          <?php
+                        }
+                        elseif($año->estado=='cerrado')
+                        {
+                          ?>
+                          <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-info">
+                          <i class="material-icons">lock</i>
+                          </a>
+                          <?php
+                        }
+                        ?>
+                      </td>
+                      <td class="td-actions v-align-middle">
+                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$año->id}}" title="Ver Información de año escolar">
+                          <i class="material-icons">info</i>
+                          </button>
+                          <div class="modal fade bd-example-modal-lg" id="myModal{{$año->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                          <div class="modal-header" style="background-color: lightblue;">
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Información de año escolar</strong></h5>
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body ">
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Año:</strong></label>  {{$año->descripcion}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Fecha de inicio:</strong></label>  {{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Fecha de finalización:</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
+                                </td>
+                              </tr>
+                           </table>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                        <a href="{{ route('editaraño',$año->id) }}" class="btn btn-warning" title="Modificar año escolar">
+                        <i class="material-icons">edit</i></a>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$año->id}}" title="Eliminar docente">
+                        <i class="material-icons">delete_outline</i>
+                        </button>
+                          <div class="modal fade" id="myModal2{{$año->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea eliminar el año escolar {{$año->descripcion}}?</p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('eliminaraño',$año->id)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('DELETE')
+                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+                    </tr>                                          
+                    @endforeach
+
+                    </table>
+                    <div style="text-align: center;">
+                  <button class="btn btn-danger btn-xs custom" >
+                  <i class="material-icons">do_not_disturb_on</i></button> Inactivo
+                  <button class="btn btn-success btn-xs custom">
+                  <i class="material-icons">check_circle</i></button> Activo
+                  <button class="btn btn-info btn-xs custom">
+                  <i class="material-icons">lock</i></button> Cerrado
+                   </div>
+                   </div>
+                    
+                   <div class="card-footer mr-auto" style="text-align: center;">
+                    {{ $años->links() }}
+                  </div>
+            
+                
+                </div> 
+          </div>
+              
+              </div>
+
+                </div> 
+                </div> 
+              </div>
+        </div>
+    </div>
+</div>
+@endsection

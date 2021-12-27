@@ -132,7 +132,7 @@ class MessagesController extends Controller
 
             $file = $request->file('file');
             // if size less than 150MB
-            if ($file->getSize() < 150000000) {
+            if ($file->getSize() < 1500000000) {
                 if (in_array($file->getClientOriginalExtension(), $allowed)) {
                     // get attachment name
                     $attachment_title = $file->getClientOriginalName();

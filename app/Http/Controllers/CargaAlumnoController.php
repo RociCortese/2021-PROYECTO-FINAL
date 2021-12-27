@@ -38,7 +38,7 @@ class CargaAlumnoController extends Controller
             foreach($colegio as $col)
             {   
                 $idcolegio= "$col->id";
-            };
+            }
         $apellido = trim($request->get('buscarapellido'));
         $nombre = trim($request->get('buscarnombre'));
         $dni = trim($request->get('buscardni'));

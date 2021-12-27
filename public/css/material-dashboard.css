@@ -2862,7 +2862,6 @@ fieldset:disabled a.btn {
   border-color: #f44336;
   box-shadow: none;
 }
-
 .btn-danger:hover {
   color: #ffffff;
   background-color: #f22112;
@@ -3316,6 +3315,10 @@ fieldset:disabled a.btn {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem;
+}
+.btn-group-xs>.btn.custom, .btn-xs.custom {
+font-size: 15px;
+padding: 1px 7px;
 }
 
 .btn-block {
@@ -5364,6 +5367,23 @@ button.close {
     align-items: center;
 }
 
+.num {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  color: #cc084b;
+  background-color: #f8b3ca;
+  border-radius: 0.5rem;
+  font-size: 100%;
+  line-height: 1;
+  padding: 0.1em 0.2em;
+
+}
+.items-dashboard{
+    display: flex;
+    align-items: center;
+}
+
 .badge {
   display: inline-block;
   padding: 0.25em 0.4em;
@@ -5374,7 +5394,7 @@ button.close {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-  position: absolute;
+  position: relative;
 }
 
 .badge:empty {

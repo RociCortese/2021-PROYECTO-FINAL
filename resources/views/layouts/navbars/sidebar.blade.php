@@ -25,7 +25,9 @@
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
+                <div class="items-dashboard">
                 <i class="material-icons">info</i>
+
                 <span class="sidebar-normal">{{ __('Informacion de Colegio') }}</span>
               </a>
             </li>
@@ -61,6 +63,29 @@
                 <i class="material-icons">how_to_reg</i>
                 <span class="sidebar-normal">{{ __('Registro de alumnos') }} </span>
                 </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false">
+          <i class="material-icons">today</i>
+          <span class="sidebar-normal">Año escolar</span>
+            <b class="caret"></b>
+        </a>
+        <div class="collapse navbar-collapse" id="añoescolar">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'añoescolar' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('añoescolar')}}">
+                <i class="material-icons">today</i>
+                <span class="sidebar-normal">{{ __('Creación de año escolar') }}</span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'armadogrado' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('armadogrado')}}">
+               <i class="material-icons">settings</i>
+                <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
               </a>
             </li>
           </ul>

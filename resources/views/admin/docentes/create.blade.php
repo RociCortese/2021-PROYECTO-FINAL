@@ -192,7 +192,7 @@
            
           <div class="row">
               <div class="col">
-            <label class="text-light">Legajo</label>
+            <label>Legajo</label>
             <input type="text" name="legajo" class="form-control" value="{{ old('legajo') }}">
             @if ($errors->has('legajo'))
                 <div id="legajo-error" class="error text-danger pl-3" for="legajo" style="display: block;">
@@ -202,7 +202,7 @@
               </div>
 
           <div class="col">
-            <label class="text-light">Especialidad</label>
+            <label>Especialidad</label>
             <input type="text" name="especialidad" class="form-control" value="{{ old('especialidad') }}">
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">

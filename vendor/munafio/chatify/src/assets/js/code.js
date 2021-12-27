@@ -1160,8 +1160,13 @@ $(document).ready(function() {
         "pdf",
         "doc",
         "docx",
-        "mp3",
+        "bmp",
         "avi",
+        "mp4",
+        "mp3",
+        "mpeg",
+        "mwv",
+        "xlsx",
       ],
       sizeLimit = 5000000; // 5 megabyte
     const { name: fileName, size: fileSize } = file;

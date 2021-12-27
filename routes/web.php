@@ -83,3 +83,15 @@ Route::get('admin/{id}/editaralu', 'App\Http\Controllers\CargaAlumnoController@e
 Route::put('admin/{id}', 'App\Http\Controllers\CargaAlumnoController@updatealu')->name('updatealu');
 Route::get('admin/{id}/editarfam', 'App\Http\Controllers\CargaFamiliaController@editarfamilia')->name('editarfam');
 Route::put('admin/{id}', 'App\Http\Controllers\CargaFamiliaController@updatefamilia')->name('actualizarfam');
+
+/*Creación de año escolar*/
+Route::get('añoescolar', 'App\Http\Controllers\AñoController@index')->name('añoescolar');
+Route::get('añoescolar/create', 'App\Http\Controllers\AñoController@create')->name('añocreate');
+Route::post('añoescolar/store', 'App\Http\Controllers\AñoController@store')->name('añoescolar.store');
+Route::get('armadogrado', 'App\Http\Controllers\AñoController@listadogrado')->name('armadogrado');
+Route::get('armadogrado/create', 'App\Http\Controllers\AñoController@creategrado')->name('armadogrado.create');
+Route::post('armadogrado/store', 'App\Http\Controllers\AñoController@armadogrado')->name('armadogrado.store');
+Route::delete('añoescolar/{id}', 'App\Http\Controllers\AñoController@destroy')->name('eliminaraño');
+Route::get('añoescolar/{id}/editaraño', 'App\Http\Controllers\AñoController@editaraño')->name('editaraño');
+Route::put('añoescolar/{id}', 'App\Http\Controllers\AñoController@actualizaraño')->name('actualizaraño');
+Route::get('añoescolar/{id}/estado', 'App\Http\Controllers\AñoController@actualizarestado')->name('actualizarestado');
