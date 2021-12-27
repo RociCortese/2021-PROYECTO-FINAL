@@ -1167,6 +1167,7 @@ $(document).ready(function() {
         "mpeg",
         "mwv",
         "xlsx",
+
       ],
       sizeLimit = 5000000000; // 5 megabyte
     const { name: fileName, size: fileSize } = file;

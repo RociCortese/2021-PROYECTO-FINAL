@@ -14,19 +14,32 @@
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
       </li>
-      <li class="nav-item">
-        <div class="collapse show">
+    
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#micolegio" aria-expanded="false">
+          <i class="material-icons">school</i>
+          <span class="sidebar-normal">Mi Colegio</span>
+            <b class="caret"></b>
+        </a>
+        <div class="collapse navbar-collapse" id="micolegio">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
                 <div class="items-dashboard">
                 <i class="material-icons">info</i>
-                <span class="sidebar-normal" >{{ __('Información de colegio') }} </span>
-                </div>
+
+                <span class="sidebar-normal">{{ __('Informacion de Colegio') }}</span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'configuraciones' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('configuraciones')}}">
+               <i class="material-icons">settings</i>
+                <span class="sidebar-normal"> {{ __('Configuraciones Básicas') }} </span>
               </a>
             </li>
           </ul>
         </div>
+      </li>
         <li class="nav-item">
         <div class="collapse show">
           <ul class="nav">

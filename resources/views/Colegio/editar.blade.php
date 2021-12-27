@@ -42,7 +42,7 @@
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
-                        </label>
+                        </label<?php if($id->gestion=='Publica') echo 'selected="selected" ';?>>
                     </div>
                     </div>
                 @error('gestion')
