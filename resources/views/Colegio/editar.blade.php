@@ -32,7 +32,7 @@
                     <span class="circle">
                     <span class="check"></span>
                     </span>
-                    </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>Privada
+                    </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>
                     </div>
                      </div>
                      <div class="col-sm-2">
@@ -42,7 +42,7 @@
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
-                        </label>
+                        </label<?php if($id->gestion=='Publica') echo 'selected="selected" ';?>>
                     </div>
                     </div>
                 @error('gestion')

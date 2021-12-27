@@ -60,6 +60,8 @@ Route::get('formulario', 'App\Http\Controllers\ColegioController@index')->name('
 Route::post('storage/create', 'App\Http\Controllers\ColegioController@store');
 Route::get('storage/{id}/editar', 'App\Http\Controllers\ColegioController@edit')->name('edit');
 Route::put('storage/{id}', 'App\Http\Controllers\ColegioController@update')->name('update');
+Route::get('configuraciones', 'App\Http\Controllers\ConfiguracionesController@index')->name('configuraciones');
+Route::post('configuraciones/create', 'App\Http\Controllers\ConfiguracionesController@store')->name('confi');
 
 
 /*Carga de docentes*/

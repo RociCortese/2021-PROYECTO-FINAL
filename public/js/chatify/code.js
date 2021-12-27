@@ -1158,6 +1158,12 @@ $(document).ready(function() {
         "zip",
         "rar",
         "txt",
+        "pdf",
+        "doc",
+        "docx",
+        "mp3",
+        "mp4",
+        "avi",
       ],
       sizeLimit = 5000000; // 5 megabyte
     const { name: fileName, size: fileSize } = file;

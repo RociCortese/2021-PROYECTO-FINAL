@@ -5358,6 +5358,11 @@ button.close {
   border: 0;
   -webkit-appearance: none;
 }
+.items-dashboard{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
 
 .badge {
   display: inline-block;
@@ -16142,6 +16147,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .table .radio .icons,
 .table .checkbox .icons {
   position: relative;
+
 }
 
 .table .flag img {
