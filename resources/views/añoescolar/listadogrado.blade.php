@@ -44,10 +44,35 @@
                       <td class="v-align-middle">{{$grados->descripcion}}</td>
                       <td class="v-align-middle">{{$grados->id_docentes}}</td>
                       <td class="td-actions v-align-middle">
-                        <button class="btn btn-info" data-toggle="modal" title="Ver alumnos">
+                        <button class="btn btn-info" data-toggle="modal" title="Ver alumnos" data-target="#ModalAlumnos">
                         <i class="material-icons">person</i>
                         </button>
+                             <div class="modal fade bd-example-modal-lg" id="ModalAlumnos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                          <div class="modal-header" style="background-color: lightblue;">
+                          <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Alumnos de </h5>
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <label><strong>Listado de Alumnos:</strong></label> 
+                            
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle">
+                                
+                                
+                                </td>
+                              </tr>
+                           </table>
+                  
+                          </div>
+                       </div>
+                     </div>
+                   </div>
+                           
                       </td>
+
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-warning" data-toggle="modal" data-target="#myModal" title="Docentes especiales">
                         <i class="material-icons">add_circle_outline</i>
