@@ -58,9 +58,25 @@ class CargaAlumnoController extends Controller
         if($request){
         $apellidofam = trim($request->get('buscarapellidofamilia'));
         $familias= Familia::where('apellidofamilia','LIKE','%'.$apellidofam.'%')->paginate(5);
-        return view('admin.alumnos.create', compact('apellidofam','familias'))->with('success', 'El alumno se cargó correctamente.');
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        if($colegio->isEmpty())
+        {
+            return view('admin.alumnos.index',compact('colegio'));
+        }
+        else{
+            foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            }
+        $maxgrado=Colegio::where('id',$idcolegio)->get();
+        foreach ($maxgrado as $max) {
+            $maximogrado="$max->grados";
+        }
+        return view('admin.alumnos.create', compact('apellidofam','familias','maximogrado'))->with('success', 'El alumno se cargó correctamente.');
                     }
     }
+}
 
     public function store(Request $request)
     {
@@ -74,6 +90,7 @@ class CargaAlumnoController extends Controller
             'domicilio' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+            'grado' => 'required',
             ]);
             if(empty($check)){
         $request->validate([
@@ -126,6 +143,7 @@ class CargaAlumnoController extends Controller
         $alumno->domicilio=$request->domicilio;
         $alumno->localidad=$request->localidad;
         $alumno->provincia=$request->provincia;
+        $alumno->grado=$request->grado;
         $alumno->familias_id=$idfamilia;
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);

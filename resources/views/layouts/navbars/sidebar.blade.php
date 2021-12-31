@@ -26,7 +26,6 @@
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
                 <i class="material-icons">info</i>
-
                 <span class="sidebar-normal">{{ __('Informacion de Colegio') }}</span>
               </a>
             </li>

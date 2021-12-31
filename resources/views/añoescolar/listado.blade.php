@@ -89,6 +89,54 @@
                                 <label><strong>Fecha de finalización:</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
                                 </td>
                               </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label><strong>Fechas {{$periodocolegio}}</strong></label
+                                  >
+                                <br>
+                                @if($periodocolegio=='Bimestre')
+                                &nbsp &nbsp</t><label>Primer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo1)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo1)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Segundo período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo2)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo2)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Tercer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo3)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo3)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Cuarto período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo4)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo4)->format('d/m/Y')}}
+                                  <br>
+                                @endif
+                                @if($periodocolegio=='Trimestre')
+                                &nbsp &nbsp<label>Primer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo1)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo1)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Segundo período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo2)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo2)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Tercer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo3)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo3)->format('d/m/Y')}}
+                                  <br>
+                                @endif
+                                @if($periodocolegio=='Cuatrimestre')
+                                &nbsp &nbsp<label>Primer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo1)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo1)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Segundo período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo2)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo2)->format('d/m/Y')}}
+                                  <br>
+                                @endif
+                                @if($periodocolegio=='Semestre')
+                                &nbsp &nbsp<label>Primer período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo1)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo1)->format('d/m/Y')}}
+                                  <br>
+                                &nbsp &nbsp<label>Segundo período</label>
+                                  {{\Carbon\Carbon::parse($año->inicioperiodo2)->format('d/m/Y')}} - {{\Carbon\Carbon::parse($año->finperiodo2)->format('d/m/Y')}}
+                                  <br>
+                                @endif
+                                </td>
+                              </tr>
                            </table>
                          </div>
                        </div>
@@ -117,7 +165,6 @@
                           </form>
                     </tr>                                          
                     @endforeach
-
                     </table>
                     <div style="text-align: center;">
                   <button class="btn btn-danger btn-xs custom" >

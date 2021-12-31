@@ -11,8 +11,6 @@ Route::get('home', function () {
 })->name('home');
 
 /*Chat*/
-
-//Route::get('/', 'App\Http\Controllers\Vendor\Chatify\MessagesController@index')->name(config('chatify.routes.prefix'));
 Route::post('/idInfo', 'App\Http\Controllers\Vendor\Chatify\MessagesController@idFetchData');
 Route::post('sendMessage', 'App\Http\Controllers\Vendor\Chatify\MessagesController@send')->name('send.message');
 Route::post('fetchMessages', 'App\Http\Controllers\Vendor\Chatify\MessagesController@fetch')->name('fetch.messages');
@@ -36,7 +34,6 @@ Route::put('profile/actualizar', 'App\Http\Controllers\Auth\ProfileController@up
 Route::put('profile/editar', 'App\Http\Controllers\Auth\ProfileController@updatecontra')->name('profile.updatecontra');
 
 /*Página principal*/
-
 Auth::routes();
 Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
 Route::get('/docente', 'App\Http\Controllers\DocenteController@index')->name('docente')->middleware('docente');
@@ -72,7 +69,6 @@ Route::get('admin/{id}/editardoc', 'App\Http\Controllers\CargaDocenteController@
 Route::put('admin/{id}', 'App\Http\Controllers\CargaDocenteController@update')->name('docentes.update');
 
 
-
 /*Carga de alumnos*/
 Route::resource('admin/alumnos','App\Http\Controllers\CargaAlumnoController');
 Route::get('admin/{id}/show', 'App\Http\Controllers\CargaAlumnoController@showalumnos')->name('show');
@@ -95,3 +91,4 @@ Route::delete('añoescolar/{id}', 'App\Http\Controllers\AñoController@destroy')
 Route::get('añoescolar/{id}/editaraño', 'App\Http\Controllers\AñoController@editaraño')->name('editaraño');
 Route::put('añoescolar/{id}', 'App\Http\Controllers\AñoController@actualizaraño')->name('actualizaraño');
 Route::get('añoescolar/{id}/estado', 'App\Http\Controllers\AñoController@actualizarestado')->name('actualizarestado');
+Route::post('añoescolar/especiales/{id}', 'App\Http\Controllers\AñoController@armadoespeciales')->name('armado.especiales');

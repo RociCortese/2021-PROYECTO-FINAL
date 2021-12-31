@@ -27,23 +27,45 @@
                 </div>
               @endif
           </div>
-          <div class="col form-group">
+          @if($maximogrado=='Seis')
+            <div class="col">
             <label>Seleccionar grado</label>
-              <select name="grado" class="form-control" value="{{ old('grado') }}">
-                <option value="0"></option>
-                <option value="Primer grado">Primer grado</option>
-                <option value="Segundo grado">Segundo grado</option>
-                <option value="Tercer grado">Tercer grado</option>
-                <option value="Cuarto grado">Cuarto grado</option>
-                <option value="Quinto grado">Quinto grado</option>
-                <option value="Sexto grado">Sexto grado</option>
+            <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
+                    <option value=""></option>
+                    <option value="Primer grado">Primer grado</option>
+                    <option value="Segundo grado">Segundo grado</option>
+                    <option value="Tercer grado">Tercer grado</option>
+                    <option value="Cuarto grado">Cuarto grado</option>
+                    <option value="Quinto grado">Quinto grado</option>
+                    <option value="Sexto grado">Sexto grado</option>
                 </select>
             @if ($errors->has('grado'))
                 <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
                   <strong>{{ $errors->first('grado') }}</strong>
                 </div>
               @endif
-          </div>
+            </div>
+            @endif
+            @if($maximogrado=='Siete')
+            <div class="col">
+            <label>Seleccionar grado</label>
+            <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
+                    <option value=""></option>
+                    <option value="Primer grado">Primer grado</option>
+                    <option value="Segundo grado">Segundo grado</option>
+                    <option value="Tercer grado">Tercer grado</option>
+                    <option value="Cuarto grado">Cuarto grado</option>
+                    <option value="Quinto grado">Quinto grado</option>
+                    <option value="Sexto grado">Sexto grado</option>
+                    <option value="Séptimo grado">Séptimo grado</option>
+                </select>
+            @if ($errors->has('grado'))
+                <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
+                  <strong>{{ $errors->first('grado') }}</strong>
+                </div>
+              @endif
+            </div>
+            @endif
           <div class="col form-group">
             <label>Seleccionar docente de grado</label>
               <select name="docente" class="form-control" value="{{ old('docente') }}">

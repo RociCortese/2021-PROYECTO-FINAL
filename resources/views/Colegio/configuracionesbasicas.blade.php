@@ -15,14 +15,12 @@
             <div class="card-body">
                   <div class="row">
           <div class="col">
-            <label>PERÍODO:</label>
-            
+            <label>Período</label>
             <br>
-
             @foreach($colegio as $colegios)
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="periodo" value="Bimestre" <?php echo ($colegios->periodo=='Bimestre')?> checked>Bimestre
+                  <input class="form-check-input" type="radio" name="periodo" value="Bimestre" <?php if($colegios->periodo=='Bimestre') echo 'checked ';?>>Bimestre
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -31,7 +29,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="periodo" value="Trimestre"<?php echo ($colegios->periodo=='Trimestre')?> checked>Trimestre
+                  <input class="form-check-input" type="radio" name="periodo" value="Trimestre"<?php if($colegios->periodo=='Trimestre') echo 'checked ';?>>Trimestre
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -39,7 +37,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="periodo" value="Semestre"<?php echo ($colegios->periodo=='Semestre')?> checked>Semestre
+                  <input class="form-check-input" type="radio" name="periodo" value="Cuatrimestre"<?php if($colegios->periodo=='Cuatrimestre') echo 'checked ';?>>Cuatrimestre
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -47,7 +45,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="periodo"  value="Cuatrimestre" <?php echo ($colegios->periodo=='Cuatrimestre')?> checked>Cutrimestre
+                  <input class="form-check-input" type="radio" name="periodo"  value="Semestre" <?php if($colegios->periodo=='Semestre') echo 'checked ';?>>Semestre
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -61,11 +59,11 @@
               @endif
          <br>
          <br>
-            <label>TURNO:</label>
+            <label>Turno</label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="turno"  value="Mañana"<?php echo ($colegios->turno=='Mañana')?> checked>Mañana
+                  <input class="form-check-input" type="radio" name="turno"  value="Mañana"<?php if($colegios->turno=='Mañana') echo 'checked ';?>>Mañana
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -73,7 +71,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="turno" value="Tarde"<?php echo ($colegios->turno=='Tarde')?> checked>Tarde
+                  <input class="form-check-input" type="radio" name="turno" value="Tarde"<?php if($colegios->turno=='Tarde') echo 'checked ';?>>Tarde
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -81,7 +79,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="turno" value="Ambos"<?php echo ($colegios->turno=='Ambos')?> checked>Ambos
+                  <input class="form-check-input" type="radio" name="turno" value="Ambos"<?php if($colegios->turno=='Ambos') echo 'checked ';?>>Ambos
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -96,11 +94,11 @@
               @endif
           <br>
           <br>
-          <label>Seleccine la cantidad de grados con la que cuenta el colegio:</label>
+          <label>Cantidad de grados</label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="grados"  value="Seis">Seis Grados
+                  <input class="form-check-input" type="radio" name="grados"  value="Seis"<?php if($colegios->grados=='Seis') echo 'checked ';?>>Seis Grados
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -108,7 +106,7 @@
               </div>
               <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="grados"  value="Siete">Siete Grados
+                  <input class="form-check-input" type="radio" name="grados"  value="Siete"<?php if($colegios->grados=='Siete') echo 'checked ';?>>Siete Grados
                   <span class="circle">
                       <span class="check"></span>
                   </span>
@@ -119,16 +117,19 @@
                   <strong>{{ $errors->first('grados') }}</strong>
                 </div>
               @endif
+            </div>
+              
+              @endforeach
           </div>
-
-      </div>
-      @endforeach
-      </div>
-      <div class="card-footer">
+<div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
           </div>
         </div>
+      </div>
+      
+      </div>
+      
       </div>
       
       </form>

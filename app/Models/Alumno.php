@@ -9,7 +9,7 @@ class Alumno extends Model
 {
     use HasFactory;
     protected $table = 'alumnos';
-    protected $fillable = ['dnialumno','nombrealumno', 'apellidoalumno','fechanacimiento','generoalumno','domicilio','localidad','provincia'];
+    protected $fillable = ['dnialumno','nombrealumno', 'apellidoalumno','fechanacimiento','generoalumno','domicilio','localidad','provincia','grado'];
 
     public function scopeApellidos($query, $apellidos) {
 
