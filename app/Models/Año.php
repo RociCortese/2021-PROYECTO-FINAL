@@ -9,5 +9,5 @@ class Año extends Model
 {
     use HasFactory;
     protected $table = 'año';
-    protected $fillable = ['descripcion','fechainicio', 'fechafin'];
+    protected $fillable = ['descripcion','fechainicio', 'fechafin','inicioperiodo1','finperiodo1','inicioperiodo2','finperiodo2','inicioperiodo3','finperiodo3','inicioperiodo4','finperiodo4','inicioperiodo5','finperiodo5','inicioperiodo6','finperiodo6'];
 }
