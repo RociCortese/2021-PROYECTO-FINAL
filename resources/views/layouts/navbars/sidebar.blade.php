@@ -82,7 +82,7 @@
             </li>
             <li class="nav-item{{ $activePage == 'armadogrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('armadogrado')}}">
-               <i class="material-icons">settings</i>
+               <i class="material-icons">groups</i>
                 <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
               </a>
             </li>

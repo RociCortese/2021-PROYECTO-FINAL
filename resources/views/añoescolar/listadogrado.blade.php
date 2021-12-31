@@ -56,6 +56,7 @@
                           <div class="modal-content">
                           <div class="modal-header" style="background-color: lightblue;">
                           <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Alumnos de {{$grados->descripcion}}</h5>
+
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
@@ -71,6 +72,7 @@
                                   {{$pru->nombrealumno}}  {{$pru->apellidoalumno}}
                                   <br>
                                   @endforeach
+
                                 </td>
                               </tr>
                            </table>
@@ -80,7 +82,6 @@
                      </div>
                    </div>
                  </td>
-                        
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-warning" data-toggle="modal" data-target="#myModal{{$grados->id}}" title="Docentes especiales">
                         <i class="material-icons">add_circle_outline</i>
