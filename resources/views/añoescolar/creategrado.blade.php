@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'añoescolar', 'titlePage' => __('')])
+@extends('layouts.main', ['activePage' => 'armadogrado', 'titlePage' => __('Armado de Grados')])
   
 @section('content')
 <div class="content">

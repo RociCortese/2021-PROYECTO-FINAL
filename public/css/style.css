@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans');
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
 *{
 	margin: 0;padding: 0;
 }
 html, body{
 	height: 100%;
 	overflow: hidden;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Nunito', sans-serif;
 	font-size: 13px;
 	color: #666;
 }

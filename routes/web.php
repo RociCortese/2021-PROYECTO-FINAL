@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*Login*/
 Route::get('/', function () {
+
     return view('auth/login');
 });
 Route::get('home', function () {
@@ -94,3 +95,17 @@ Route::get('añoescolar/{id}/estado', 'App\Http\Controllers\AñoController@actua
 Route::post('añoescolar/especiales/{id}', 'App\Http\Controllers\AñoController@armadoespeciales')->name('armado.especiales');
 Route::get('armadogrado/{id}/editargrado', 'App\Http\Controllers\AñoController@editargrado')->name('editargrado');
 Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargrado')->name('actualizargrado');
+/*Calendario de eventos.*/
+
+// formulario
+Route::get('evento/form','App\Http\Controllers\ControllerEvent@form');
+Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+// Detalles de evento
+Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
+// Calendario
+Route::get('Evento/index','App\Http\Controllers\ControllerEvent@index')->name('calendario');
+Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_month');
+Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
+
+
+

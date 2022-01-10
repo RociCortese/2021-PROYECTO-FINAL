@@ -17,22 +17,28 @@
     
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#micolegio" aria-expanded="false">
+          <div class="items-dashboard">
           <i class="material-icons">school</i>
           <span class="sidebar-normal">Mi Colegio</span>
             <b class="caret"></b>
+            </div>
         </a>
         <div class="collapse navbar-collapse" id="micolegio">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
+                <div class="items-dashboard" >
                 <i class="material-icons">info</i>
                 <span class="sidebar-normal">{{ __('Informacion de Colegio') }}</span>
+                </div>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'configuraciones' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('configuraciones')}}">
+                <div class="items-dashboard">
                <i class="material-icons">settings</i>
                 <span class="sidebar-normal"> {{ __('Configuraciones Básicas') }} </span>
+                </div>
               </a>
             </li>
           </ul>
@@ -68,27 +74,41 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false">
+          <div class="items-dashboard">
           <i class="material-icons">today</i>
           <span class="sidebar-normal">Año escolar</span>
             <b class="caret"></b>
+            </div>
         </a>
         <div class="collapse navbar-collapse" id="añoescolar">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'añoescolar' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('añoescolar')}}">
+               <div class="items-dashboard"> 
                 <i class="material-icons">today</i>
                 <span class="sidebar-normal">{{ __('Creación de año escolar') }}</span>
+                </div>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'armadogrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('armadogrado')}}">
-               <i class="material-icons">groups</i>
+                <div class="items-dashboard">
+               <i class="material-icons text-secundary">groups</i>
                 <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
+                </div>
               </a>
             </li>
           </ul>
         </div>
       </li>
+          <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="material-icons">event</i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
 
       <li class="nav-item">
         <div class="collapse show" >
@@ -119,6 +139,14 @@
            <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="material-icons">event</i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
