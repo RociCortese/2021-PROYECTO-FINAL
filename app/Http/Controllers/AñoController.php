@@ -21,13 +21,23 @@ class AñoController extends Controller
     public function index()
    {
     $idpersona=Auth::user()->id;
-      $colegio= Colegio::all()->where('users_id',$idpersona);
-        foreach ($colegio as $idcol) {
-          $idcolegio="$idcol->id";
-          $periodocolegio="$idcol->periodo";
+    $colegio= Colegio::all()->where('users_id',$idpersona);
+    foreach ($colegio as $idcol) {
+    $idcolegio="$idcol->id";
+    $periodocolegio="$idcol->periodo";
+    }
+    if($colegio->isEmpty())
+        {
+            return view('añoescolar.listado',compact('colegio'));
         }
+    elseif(empty($periodocolegio))
+        {
+            return view('añoescolar.listado',compact('periodocolegio','colegio'));
+        }
+    else{
     $años = Año::orderBy('estado','ASC')->where('id_colegio',$idcolegio)->paginate(5);
-    return view('añoescolar.listado',compact('años','periodocolegio'));
+    return view('añoescolar.listado',compact('años','periodocolegio','colegio'));
+    }
    }
     public function create(Request $request)
     {
@@ -50,48 +60,48 @@ class AñoController extends Controller
         if($periodocolegio=='Bimestre'){
          $request->validate([
             'descripcion' => ['required', 'int','unique:año'],
-            'fechainicio' => 'required',
-            'fechafin' => 'required',
-            'inicioperiodo1' =>'required',
+            'fechainicio' => ['required','date("Y",fechainicio):descripcion'],
+            'fechafin' => ['required','after_or_equal:fechainicio'],
+            'inicioperiodo1' =>['required','date_equals:fechainicio'],
             'finperiodo1' =>'required',
-            'inicioperiodo2' =>'required',
+            'inicioperiodo2' =>['required','after_or_equal:finperiodo1'],
             'finperiodo2' =>'required',
-            'inicioperiodo3' =>'required',
+            'inicioperiodo3' =>['required','after_or_equal:finperiodo2'],
             'finperiodo3' =>'required',
-            'inicioperiodo4' =>'required',
-            'finperiodo4' =>'required',
+            'inicioperiodo4' =>['required','after_or_equal:finperiodo3'],
+            'finperiodo4' =>['required','date_equals:fechafin'],
         ]);}
          if($periodocolegio=='Trimestre'){
          $request->validate([
             'descripcion' => ['required', 'int','unique:año'],
             'fechainicio' => 'required',
-            'fechafin' => 'required',
-            'inicioperiodo1' =>'required',
+            'fechafin' => ['required','after_or_equal:fechainicio'],
+            'inicioperiodo1' =>['required','date_equals:fechainicio'],
             'finperiodo1' =>'required',
-            'inicioperiodo2' =>'required',
+            'inicioperiodo2' =>['required','after_or_equal:finperiodo1'],
             'finperiodo2' =>'required',
-            'inicioperiodo3' =>'required',
-            'finperiodo3' =>'required',
+            'inicioperiodo3' =>['required','after_or_equal:finperiodo2'],
+            'finperiodo3' =>['required','date_equals:fechafin'],
         ]);}
          if($periodocolegio=='Cuatrimestre'){
          $request->validate([
             'descripcion' => ['required', 'int','unique:año'],
             'fechainicio' => 'required',
-            'fechafin' => 'required',
-            'inicioperiodo1' =>'required',
+            'fechafin' => ['required','after_or_equal:fechainicio'],
+            'inicioperiodo1' =>['required','date_equals:fechainicio'],
             'finperiodo1' =>'required',
-            'inicioperiodo2' =>'required',
-            'finperiodo2' =>'required',
+            'inicioperiodo2' =>['required','after_or_equal:finperiodo1'],
+            'finperiodo2' =>['required','date_equals:fechafin'],
         ]);}
          if($periodocolegio=='Semestre'){
          $request->validate([
             'descripcion' => ['required', 'int','unique:año'],
-            'fechainicio' => 'required',
-            'fechafin' => 'required',
-            'inicioperiodo1' =>'required',
+            'fechainicio' => ['required'],
+            'fechafin' => ['required','after_or_equal:fechainicio'],
+            'inicioperiodo1' =>['required','date_equals:fechainicio'],
             'finperiodo1' =>'required',
-            'inicioperiodo2' =>'required',
-            'finperiodo2' =>'required',
+            'inicioperiodo2' =>['required','after_or_equal:finperiodo1'],
+            'finperiodo2' =>['required','date_equals:fechafin'],
         ]);}
 
         $año=new Año();
@@ -108,39 +118,45 @@ class AñoController extends Controller
         $año->finperiodo3=$request->finperiodo3;
         $año->inicioperiodo4=$request->inicioperiodo4;
         $año->finperiodo4=$request->finperiodo4;
-        $año->inicioperiodo5=$request->inicioperiodo5;
-        $año->finperiodo5=$request->finperiodo5;
-        $año->inicioperiodo6=$request->inicioperiodo6;
-        $año->finperiodo6=$request->finperiodo6;
         $año->id_colegio=$idcolegio;
         $año->save();   
          $años = Año::orderBy('estado','ASC')->where('id_colegio',$idcolegio)->paginate(5);
-        return view('añoescolar.listado', compact('descri','periodocolegio','años'));
+        return view('añoescolar.listado', compact('descri','periodocolegio','años','colegio'));
     } 
 
     public function listadogrado(Request $request)
     {
-      /*Busca el id del colegio que se encuentra logueado (según el directivo)*/
       $idpersona=Auth::user()->id;
       $colegio= Colegio::all()->where('users_id',$idpersona);
       foreach ($colegio as $idcol) {
         $idcolegio="$idcol->id";
       }
-
+      if($colegio->isEmpty())
+        {
+            return view('añoescolar.listadogrado',compact('colegio'));
+        }
+      else{
       /*Busca el id de los años que están activos y pertenecen al colegio que se encuentra logueado*/
       $estado= Año::where('estado','activo')->where('id_colegio',$idcolegio)->get();
+      /*Busca todos los años que pertenecen al colegio que se encuentra logueado*/
+      $todoestado= Año::where('id_colegio',$idcolegio)->orderBy('descripcion','ASC')->get();
+      if($todoestado->isEmpty())
+        {
+            return view('añoescolar.listadogrado',compact('todoestado','colegio'));
+        }
+      else{
       foreach ($estado as $idaño) {
         $idest="$idaño->id";
+        $descripcionaño="$idaño->descripcion";
       }
-
-      /*Busca todos los años que pertenecen al colegio que se encuentra logueado*/
-      $todoestado= Año::where('id_colegio',$idcolegio)->get();
 
       /*Busca todos los grados que están relacionados con el año activo y los ordena*/
       $grado = Grado::where('id_año',$idest)->orderBy('num_grado','ASC')->get();
 
       $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
-      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe'));
+      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionaño','colegio'));
+          }
+        }
     }
 
     public function creategrado(Request $request)
@@ -177,7 +193,15 @@ class AñoController extends Controller
           $idaño="$todoest->id";
         }
       $grado=Grado::where('id_año',$idaño)->get();
-      foreach ($grado as $descri) {
+      if($grado->isEmpty()){
+      $request->validate([
+            'grado' => 'required',
+            'docente' => 'required',
+            'año' => 'required',
+        ]);
+    }
+      else{
+        foreach ($grado as $descri) {
           $descripciongrado="$descri->descripcion";
           $idaños="$descri->id_año";
         }
@@ -190,6 +214,7 @@ class AñoController extends Controller
             'docente' => 'required',
             'año' => 'required|unique:grado,id_año,'.$añoid,
         ]);
+    }
 
       /*Busca el id del docente que fue seleccionado al momento de la creación*/
       $iddocente=Docente::all()->where('nombredocente',$request->docente);
@@ -232,16 +257,10 @@ class AñoController extends Controller
       $grado->id_año=$añoid;
       $grado->save();
 
-      /*Busca el id del colegio que se encuentra logueado*/
-      $idpersona=Auth::user()->id;
-      $colegio= Colegio::all()->where('users_id',$idpersona);
-      foreach ($colegio as $idcol) {
-        $idcolegio="$idcol->id";
-      }
-
     $estado= Año::where('estado','activo')->where('id_colegio',$idcolegio)->get();
     foreach ($estado as $idaño) {
       $idest="$idaño->id";
+      $descripcionaño="$idaño->descripcion";
     }
     $idpersona=Auth::user()->id;
       $colegio= Colegio::all()->where('users_id',$idpersona);
@@ -251,7 +270,7 @@ class AñoController extends Controller
     $todoestado= Año::where('id_colegio',$idcolegio)->get();
     $grado = Grado::where('id_año',$idest)->orderBy('descripcion','ASC')->get();
     $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
-    return view('añoescolar.listadogrado',compact('grado','todoestado','alumnos','docentesespe','todosalumnos'));
+    return view('añoescolar.listadogrado',compact('grado','todoestado','alumnos','docentesespe','todosalumnos','colegio','descripcionaño'));
 
     }
     public function destroy(Año $id)
@@ -271,13 +290,59 @@ class AñoController extends Controller
     public function actualizaraño(Request $request,$id)
     {
         $año = Año::findOrFail($id);
+        $idpersona=Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idpersona);
+        foreach ($colegio as $idcol) {
+          $idcolegio="$idcol->id";
+          $periodocolegio="$idcol->periodo";
+        }
+         if($periodocolegio=='Bimestre'){
          $request->validate([
-            'descripcion' => ['required', 'int'],
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
             'fechainicio' => 'required',
             'fechafin' => 'required',
-        ]);
-
-        $data= $request->only('descripcion','fechainicio','fechafin');
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+            'inicioperiodo3' =>'required',
+            'finperiodo3' =>'required',
+            'inicioperiodo4' =>'required',
+            'finperiodo4' =>'required',
+        ]);}
+         if($periodocolegio=='Trimestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+            'inicioperiodo3' =>'required',
+            'finperiodo3' =>'required',
+        ]);}
+         if($periodocolegio=='Cuatrimestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+        ]);}
+         if($periodocolegio=='Semestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+        ]);}
+        $data= $request->only('descripcion','fechainicio','fechafin','inicioperiodo1','finperiodo1','inicioperiodo2','finperiodo2','inicioperiodo3','finperiodo3','inicioperiodo4','finperiodo4');
         $año->update($data);
         return redirect()->route('añoescolar')->with('success','El año escolar se modificó correctamente.');
     }
@@ -296,13 +361,23 @@ class AñoController extends Controller
     public function actualizarestado(Request $request,$id)
     {
         $infoaño=Año::findOrFail($id);
+        $idpersona=Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idpersona);
+        foreach ($colegio as $idcol) {
+          $idcolegio="$idcol->id";
+        }        
         if($infoaño->estado=='inactivo'){
+          if (Año::where('id_colegio',$idcolegio)->where('estado', '=', 'activo')->exists()){
+          return redirect()->route('añoescolar')->with('danger','Ya existe un año escolar activo.');;
+        }
+        else{
         $esta = Año::findOrFail($id);
         $esta->estado= 'activo';
         $data= $request->only('esta');
         $esta->update($data);
         return redirect()->route('añoescolar')->with('success','El año escolar se modificó correctamente.');
         }
+      }
         if($infoaño->estado=='activo'){
         $esta = Año::findOrFail($id);
         $esta->estado= 'cerrado';
@@ -317,8 +392,81 @@ class AñoController extends Controller
         $esta->update($data);
         return redirect()->route('añoescolar')->with('success','El año escolar se modificó correctamente.');
         }
-    
  }
+ public function editargrado(Grado $id)
+    {
+      $idpersona=Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idpersona);
+        foreach ($colegio as $idcol) {
+          $idcolegio="$idcol->id";
+        }
+        $maxgrado=Colegio::where('id',$idcolegio)->get();
+        foreach ($maxgrado as $max) {
+            $maximogrado="$max->grados";
+        }
+        $docentes= Docente::all()->sortBy('nombredocente')->where('especialidad','Grado');
+      $año=Año::all()->where('id_colegio',$idcolegio);
+      return view('añoescolar.editargrado', compact('id','maximogrado','año','docentes'));
+    }
+  /*public function actualizargrado(Request $request,$id)
+    {
+        $año = Año::findOrFail($id);
+        $idpersona=Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idpersona);
+        foreach ($colegio as $idcol) {
+          $idcolegio="$idcol->id";
+          $periodocolegio="$idcol->periodo";
+        }
+         if($periodocolegio=='Bimestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+            'inicioperiodo3' =>'required',
+            'finperiodo3' =>'required',
+            'inicioperiodo4' =>'required',
+            'finperiodo4' =>'required',
+        ]);}
+         if($periodocolegio=='Trimestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+            'inicioperiodo3' =>'required',
+            'finperiodo3' =>'required',
+        ]);}
+         if($periodocolegio=='Cuatrimestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+        ]);}
+         if($periodocolegio=='Semestre'){
+         $request->validate([
+            'descripcion' => ['required', 'int','unique:año,descripcion,'.$id],
+            'fechainicio' => 'required',
+            'fechafin' => 'required',
+            'inicioperiodo1' =>'required',
+            'finperiodo1' =>'required',
+            'inicioperiodo2' =>'required',
+            'finperiodo2' =>'required',
+        ]);}
+        $data= $request->only('descripcion','fechainicio','fechafin','inicioperiodo1','finperiodo1','inicioperiodo2','finperiodo2','inicioperiodo3','finperiodo3','inicioperiodo4','finperiodo4');
+        $año->update($data);
+        return redirect()->route('añoescolar')->with('success','El año escolar se modificó correctamente.');
+    }*/
     public function armadoespeciales(Request $request, $id)
     {
       $request->validate([
@@ -335,7 +483,7 @@ class AñoController extends Controller
         foreach ($estado as $idaño) {
           $idest="$idaño->id";
         }
-        $grado = Grado::where('id_año',$idest)->orderBy('descripcion','ASC')->get();
+        $grado = Grado::where('id_año',$idest)->orderBy('num_grado','ASC')->get();
         $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
         $checkBoxs = $request->id_docentesespe;
         foreach ($checkBoxs as $check) {
@@ -343,7 +491,6 @@ class AñoController extends Controller
         $data= $request->only('id_docentesespe');
         $modificar->update($data);
         }
-
-        return view('añoescolar.listadogrado',compact('todoestado','grado','docentesespe'));
+        return redirect()->route('armadogrado',compact('todoestado','grado','docentesespe'));
     }
 }

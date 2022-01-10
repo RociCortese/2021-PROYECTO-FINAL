@@ -12,12 +12,36 @@
                 <h4 class="card-title ">Años escolares</h4>
                 <p class="card-category">Historial de años escolares</p>
               </div> 
-              
+
+              @if($colegio->isEmpty())
+                <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar la información del colegio.</span></h4>
+              </div>
+              @else
+              @if(empty($periodocolegio))
+                <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá realizar las configuraciones básicas.</span></h4>
+              </div>
+              @else
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear</a>
                   </div>
+                  @if(session('danger'))
+                    <div class="alert alert-danger" role="danger">
+                    {{session('danger')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-danger").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                                  @endif
                   <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -196,6 +220,8 @@
                 
                 </div> 
           </div>
+          @endif
+          @endif
               
               </div>
 

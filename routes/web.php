@@ -93,7 +93,8 @@ Route::get('añoescolar/{id}/editaraño', 'App\Http\Controllers\AñoController@e
 Route::put('añoescolar/{id}', 'App\Http\Controllers\AñoController@actualizaraño')->name('actualizaraño');
 Route::get('añoescolar/{id}/estado', 'App\Http\Controllers\AñoController@actualizarestado')->name('actualizarestado');
 Route::post('añoescolar/especiales/{id}', 'App\Http\Controllers\AñoController@armadoespeciales')->name('armado.especiales');
-
+Route::get('armadogrado/{id}/editargrado', 'App\Http\Controllers\AñoController@editargrado')->name('editargrado');
+Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargrado')->name('actualizargrado');
 /*Calendario de eventos.*/
 
 // formulario
@@ -105,3 +106,6 @@ Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details')
 Route::get('Evento/index','App\Http\Controllers\ControllerEvent@index')->name('calendario');
 Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_month');
 Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
+
+
+

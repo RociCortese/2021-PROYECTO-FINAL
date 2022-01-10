@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('actualizaraño',$id->id) }}" method="POST" class="form-horizontal">
+        <form action="{{route('actualizaraño',$id->id)}}" method="POST" class="form-horizontal">
         @csrf
         @METHOD('PUT')
         <div class="card">
@@ -16,8 +16,12 @@
           <div class="col form-group">
             <label>Año escolar</label>
               <select name="descripcion" class="form-control" value="{{$id->descripcion}}">
-                <option value="0" <?php echo 'selected="selected" ';?>>{{$id->descripcion}}</option>
-                      <?php  for($i=2021;$i<=2032;$i++) { echo "<option value='".$i."'>".$i."</option>"; } ?>
+                <option value="{{$id->descripcion}}" <?php echo 'selected="selected" ';?>>{{$id->descripcion}}</option>
+                      <?php 
+                      use Carbon\Carbon;
+                      $añoactual=date("Y");
+                      $hasta=$añoactual+2;
+                      for($i=$añoactual;$i<=$hasta;$i++) { echo "<option value='".$i."'>".$i."</option>"; } ?>
                 </select>
             @if ($errors->has('descripcion'))
                 <div id="descripcion-error" class="error text-danger pl-3" for="descripcion" style="display: block;">
