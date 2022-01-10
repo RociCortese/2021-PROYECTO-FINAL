@@ -12,6 +12,7 @@
                 <h4 class="card-title ">Años escolares</h4>
                 <p class="card-category">Historial de años escolares</p>
               </div> 
+              
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
@@ -26,6 +27,18 @@
                       <th>Estado</th>
                       <th>Acciones</th>
                     </thead>
+                          @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif
                     @foreach($años as $año)
                     <tr>
                       <td class="v-align-middle">{{$año->descripcion}}</td>
@@ -144,7 +157,7 @@
                    </div>
                         <a href="{{ route('editaraño',$año->id) }}" class="btn btn-warning" title="Modificar año escolar">
                         <i class="material-icons">edit</i></a>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$año->id}}" title="Eliminar docente">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$año->id}}" title="Eliminar año escolar">
                         <i class="material-icons">delete_outline</i>
                         </button>
                           <div class="modal fade" id="myModal2{{$año->id}}" role="dialog">

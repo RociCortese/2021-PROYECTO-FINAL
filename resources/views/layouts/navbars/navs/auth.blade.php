@@ -90,9 +90,9 @@
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Mis datos') }}</a>
+            <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="material-icons">person</i>{{ __('Mis datos') }}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Cerrar sesión') }}</a>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">logout</i>{{ __('Cerrar sesión') }}</a>
           </div>
         </li>
       </ul>

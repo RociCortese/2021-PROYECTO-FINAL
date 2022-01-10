@@ -9,26 +9,27 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset ('img/log.png')}}">
     <link rel="icon" type="image/png" href="{{ asset ('img/log.png')}}">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
     <!-- CSS Files -->
     <link href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{ asset('demo/demo.css')}}" rel="stylesheet" />
 
+    
     <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-  const firebaseConfig = {
-    apiKey: "AIzaSyDdldSMDmYufKOsNUX9zZQED1PVpR84kw8",
-    authDomain: "snotra-6c452.firebaseapp.com",
-    projectId: "snotra-6c452",
-    storageBucket: "snotra-6c452.appspot.com",
-    messagingSenderId: "581742987840",
-    appId: "1:581742987840:web:99a01d410ce9270d18ada5"
-  };
-  const app = initializeApp(firebaseConfig);
-</script>
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyDdldSMDmYufKOsNUX9zZQED1PVpR84kw8",
+        authDomain: "snotra-6c452.firebaseapp.com",
+        projectId: "snotra-6c452",
+        storageBucket: "snotra-6c452.appspot.com",
+        messagingSenderId: "581742987840",
+        appId: "1:581742987840:web:99a01d410ce9270d18ada5"
+      };
+      const app = initializeApp(firebaseConfig);
+    </script>
     </head>
 
     <body class="{{ $class ?? '' }}">
