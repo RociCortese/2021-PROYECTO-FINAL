@@ -13,13 +13,11 @@
                 <h4 class="card-title"> Alumnos</h4>
                 <p class="card-category">Alumnos Registrados</p>    
               </div>
-
               @if($colegio->isEmpty())
                 <br>
                <div class="col-md-12">
               <h4><span class="badge badge-warning">Para poder cargar los alumnos, antes deberá cargar la información del colegio.</span></h4>
               </div>
-
               @else
               <div class="card-body">
                 <div class="row">

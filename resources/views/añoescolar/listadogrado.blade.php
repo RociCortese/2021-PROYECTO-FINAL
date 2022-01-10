@@ -10,16 +10,29 @@
             <div class="card">
               <div class="card-header card-header-info">
                 <h4 class="card-title ">Armado de grados</h4>
-              </div> 
+              </div>
+              @if($colegio->isEmpty())
+                <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá cargar la información del colegio.</span></h4>
+              </div>
+              @else
+              @if($todoestado->isEmpty())
+              <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá crear el año escolar.</span></h4>
+              </div>
+              @else
               <div class="card-body">
+                <label class="col-sm-12"><strong>El año escolar que se encuentra activo es el {{$descripcionaño}}.</strong></label>
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{route('armadogrado.create') }}" class="btn btn-sm btn-facebook">Crear grado</a>
                   </div>
                   <div class="col form-group">
-            <label>Seleccionar año escolar</label>
+            <label>Seleccionar otro año escolar</label>
               <select name="buscaraño" class="form-control" value="{{ old('año') }}">
-                <option value="0"></option>
+                <option></option>
                 @foreach($todoestado as $todoest)
                 <option value="{{$todoest->descripcion}}">{{$todoest->descripcion}}</option>
                 @endforeach
@@ -37,6 +50,7 @@
                       <th>Docente</th>
                       <th>Alumnos</th>
                       <th>Docentes especiales</th>
+                      <th>Acciones</th>
                     </thead>
                     @foreach($grado as $grados)
                     <tr>
@@ -101,7 +115,13 @@
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle">
-                                  <input type="checkbox" id="check" name="id_docentesespe[]" value="{{$espe->id}}" <?php if($espe->id==$grados->id_docentesespe) echo 'checked="" ';?>>
+                                  <input type="checkbox" id="check" name="id_docentesespe[]" value="{{$espe->id}}" <?php 
+                                  $longitud= strlen($grados->id_docentesespe); 
+                                  for($i=2;$i<=$longitud;$i=$i+4){
+                                    $doce=$grados->id_docentesespe[$i];
+                                    if($espe->id==$doce) echo 'checked="" ';
+                                  }
+                                  ?>>
                                  {{$espe->nombredocente}} {{$espe->apellidodocente}}
                                  {{$espe->especialidad}}
                                  
@@ -121,6 +141,10 @@
                    </div>
                   
                     </td>
+                    <td class="td-actions v-align-middle">
+                    <a href="{{ route('editargrado',$grados->id) }}" class="btn btn-warning" title="Modificar grado">
+                    <i class="material-icons">edit</i></a>
+                    </td>
                     </tr>
                     
                     @endforeach
@@ -128,6 +152,8 @@
                 </div>
                 </div> 
           </div>
+          @endif
+          @endif
               
               </div>
 
