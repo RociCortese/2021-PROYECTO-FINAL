@@ -1,6 +1,10 @@
 @extends('layouts.main', ['activePage' => 'configuraciones', 'titlePage' => __('')])
 
 @section('content')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -85,8 +89,6 @@
                   </span>
                 </label>
               </div>
-              
-
             @if ($errors->has('turno'))
                 <div id="turno-error" class="error text-danger pl-3" for="turno" style="display: block;">
                   <strong>{{ $errors->first('turno') }}</strong>
@@ -117,6 +119,46 @@
                   <strong>{{ $errors->first('grados') }}</strong>
                 </div>
               @endif
+              <br>
+              <br>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
+              <div class="form-group">
+    <label>Divisiones</label>
+    <br>
+    <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es">
+    </select>
+    <script type="text/javascript">
+    $('.divisiones').select2({
+    placeholder: 'Ingrese las divisiones que desea agregar',
+    ajax: {
+    url: '/autocomplete/divisiones/',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.letras,
+                  id: item.id
+              }
+          })
+      };
+    },
+
+    cache: true
+    }
+});
+    
+</script>
+<small id="eventoHelp" class="form-text text-muted">Por ejemplo: A.</small>
+
+
+    @if ($errors->has('divisiones'))
+                <div id="divisiones-error" class="error text-danger pl-3" for="divisiones" style="display: block;">
+                  <strong>{{ $errors->first('divisiones') }}</strong>
+                </div>
+              @endif
+    </div>
             </div>
               
               @endforeach

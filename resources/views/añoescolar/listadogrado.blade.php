@@ -24,32 +24,46 @@
               </div>
               @else
               <div class="card-body">
-                <label class="col-sm-12"><strong>El año escolar que se encuentra activo es el {{$descripcionaño}}.</strong></label>
+                @if($estado->isEmpty())
+                <div class="col">
+                <h4> <span class="badge badge-info">No hay ningún año escolar activo.</span></h4>
+                </div>
+                @else
+                <div class="col">
+                <h4> <span class="badge badge-info">El año escolar que se encuentra activo es el {{$descripcionaño}}.</span></h4>
+                </div>
+                @endif
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{route('armadogrado.create') }}" class="btn btn-sm btn-facebook">Crear grado</a>
                   </div>
                   <div class="col form-group">
-            <label>Seleccionar otro año escolar</label>
-              <select name="buscaraño" class="form-control" value="{{ old('año') }}">
-                <option></option>
+              <form id="form1" action="{{route('buscar')}}" method="post">
+                @csrf
+              <select name="buscaraño" id="buscaraño" class="form-control">
+                <option>{{$descripcionselect}}</option>
                 @foreach($todoestado as $todoest)
                 <option value="{{$todoest->descripcion}}">{{$todoest->descripcion}}</option>
                 @endforeach
               </select>
-            @if ($errors->has('año'))
+              @if ($errors->has('año'))
                 <div id="año-error" class="error text-danger pl-3" for="año" style="display: block;">
                   <strong>{{ $errors->first('año') }}</strong>
                 </div>
               @endif
-          </div>
+              <input type="submit" class="btn btn-sm btn-facebook" value="Buscar">
+            </form>
+            <br>
+          @if($grado->isEmpty())
+          <div class="text-center"> No hay grados asociados a ese año escolar.</div>
+          @else
                   <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
                       <th>Grado</th>
                       <th>Docente</th>
                       <th>Alumnos</th>
-                      <th>Docentes especiales</th>
+                      <th>Docentes <br> especiales</th>
                       <th>Acciones</th>
                     </thead>
                     @foreach($grado as $grados)
@@ -59,7 +73,7 @@
                       ?>
                       <td class="v-align-middle">{{$grados->descripcion}}</td>
                       @foreach($nombredoc as $nombres)
-                      <td class="v-align-middle">{{$nombres->nombredocente}}</td>
+                      <td class="v-align-middle">{{$nombres->nombredocente}} {{$nombres->apellidodocente}}</td>
                       @endforeach
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-target="#ModalAlumnos{{$grados->id}}"data-toggle="modal" title="Ver alumnos">
@@ -69,7 +83,7 @@
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header" style="background-color: lightblue;">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Alumnos de {{$grados->descripcion}}</h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Alumnos de {{$grados->descripcion}}</strong></h5>
 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
@@ -79,14 +93,14 @@
                               <tr>
                                 <td class="v-align-middle">
                                 <?php
-                                $prueba=$grados->descripcion;
-                                $otraprueba=App\Models\Alumno::where('grado',$prueba)->get();
+                                $prueba=$grados->id_alumnos;
+                                $pruebaarray=explode(" ", $prueba);
+                                $otraprueba=App\Models\Alumno::where('id',$pruebaarray)->get();
                                 ?>
                                   @foreach($otraprueba as $pru)
                                   {{$pru->nombrealumno}}  {{$pru->apellidoalumno}}
                                   <br>
                                   @endforeach
-
                                 </td>
                               </tr>
                            </table>
@@ -104,7 +118,7 @@
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header" style="background-color: lightblue;">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Docentes especiales</h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Docentes especiales de {{$grados->descripcion}}</h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
@@ -142,7 +156,7 @@
                   
                     </td>
                     <td class="td-actions v-align-middle">
-                    <a href="{{ route('editargrado',$grados->id) }}" class="btn btn-warning" title="Modificar grado">
+                    <a href="{{route('editargrado',$grados->id) }}" class="btn btn-warning" title="Modificar grado">
                     <i class="material-icons">edit</i></a>
                     </td>
                     </tr>
@@ -150,6 +164,7 @@
                     @endforeach
                   </table>
                 </div>
+                @endif
                 </div> 
           </div>
           @endif

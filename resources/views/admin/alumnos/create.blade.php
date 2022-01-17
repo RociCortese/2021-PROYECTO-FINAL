@@ -105,11 +105,7 @@ function mostrar() {
                 </div>
               @endif
           </div>
-
-  
         </div>
-
-
 <br>
       <div class="row">
 
@@ -122,8 +118,6 @@ function mostrar() {
                 </div>
               @endif
             </div>
-          
-
         <div class="col">
             <label>Localidad</label>
             <input type="text" name="localidad" class="form-control" value="{{ old('localidad') }}">
@@ -146,15 +140,52 @@ function mostrar() {
             @if($maximogrado=='Seis')
             <div class="col">
             <label>Grado</label>
+            <?php
+            ?>
             <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
-                    <option value=""></option>
-                    <option value="Primer grado">Primer grado</option>
-                    <option value="Segundo grado">Segundo grado</option>
-                    <option value="Tercer grado">Tercer grado</option>
-                    <option value="Cuarto grado">Cuarto grado</option>
-                    <option value="Quinto grado">Quinto grado</option>
-                    <option value="Sexto grado">Sexto grado</option>
-                </select>
+              <?php
+            $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
+            $contador=count($nombredivision)-1;
+            ?>
+            <option value=""></option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Primer grado">Primer grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Segundo grado">Segundo grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Tercer grado">Tercer grado {{$nombredivision[$i]}}</option>
+            <?php
+              }  
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Cuarto grado">Cuarto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Sexto grado">Sexto grado {{$nombredivision[$i]}}</option>
+              <?php
+              }     
+              ?>         
+          </select>
             @if ($errors->has('grado'))
                 <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
                   <strong>{{ $errors->first('grado') }}</strong>
@@ -162,19 +193,61 @@ function mostrar() {
               @endif
             </div>
             @endif
+
             @if($maximogrado=='Siete')
             <div class="col">
             <label>Grado</label>
+            <?php
+            ?>
             <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
-                    <option value=""></option>
-                    <option value="Primer grado">Primer grado</option>
-                    <option value="Segundo grado">Segundo grado</option>
-                    <option value="Tercer grado">Tercer grado</option>
-                    <option value="Cuarto grado">Cuarto grado</option>
-                    <option value="Quinto grado">Quinto grado</option>
-                    <option value="Sexto grado">Sexto grado</option>
-                    <option value="Séptimo grado">Séptimo grado</option>
-                </select>
+              <?php
+            $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
+            $contador=count($nombredivision)-1;
+            ?>
+            <option value=""></option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Primer grado">Primer grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Segundo grado">Segundo grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Tercer grado">Tercer grado {{$nombredivision[$i]}}</option>
+            <?php
+              }  
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Cuarto grado">Cuarto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Sexto grado">Sexto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }   
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Séptimo grado">Séptimo grado {{$nombredivision[$i]}}</option>
+            <?php
+              }     
+              ?>         
+          </select>
             @if ($errors->has('grado'))
                 <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
                   <strong>{{ $errors->first('grado') }}</strong>
@@ -182,17 +255,10 @@ function mostrar() {
               @endif
             </div>
             @endif
-
-
-  
       </div>
-
       <br>
       <br>
-       
-        
         </div>
-
           <div class="card" style="border: thin solid lightgrey;">
             <br>
           <h4 class="card-tittle text-center"><strong>DATOS DE LA FAMILIA</strong></h4>
