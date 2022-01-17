@@ -45,6 +45,12 @@ class ControllerEvent extends Controller
       ]);
 
     }
+    
+    public function destroy(Event $id)
+    {
+        $id->delete();
+        return back()->with('success','El evento se eliminó correctamente.');
+    }
 
 
     // =================== CALENDARIO =====================

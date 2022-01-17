@@ -121,7 +121,7 @@ class AñoController extends Controller
         $año->id_colegio=$idcolegio;
         $año->save();   
          $años = Año::orderBy('estado','ASC')->where('id_colegio',$idcolegio)->paginate(5);
-        return view('añoescolar.listado', compact('descri','periodocolegio','años','colegio'));
+        return view('añoescolar.listado', compact('descri','periodocolegio','años','colegio'))->with('success','El año escolar se creo correctamente.');
     } 
 
     public function listadogrado(Request $request)

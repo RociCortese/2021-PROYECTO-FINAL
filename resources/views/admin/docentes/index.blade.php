@@ -101,7 +101,7 @@
                           <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del Docente</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
-                          <div class="modal-body ">
+                          <div class="modal-body">
                             <div class="author">
                             <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombredocente}} {{$doc->apellidodocente}} </strong></h5>
                           </div>

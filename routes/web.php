@@ -100,6 +100,8 @@ Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargr
 // formulario
 Route::get('evento/form','App\Http\Controllers\ControllerEvent@form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
+Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');
 // Detalles de evento
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
 // Calendario

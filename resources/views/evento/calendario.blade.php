@@ -15,7 +15,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                  <a class="btn btn-sm btn-facebook text-right"  href="{{ url('/evento/form') }}">Crear Evento </a>
+                  <a class="btn btn-sm btn-facebook text-right"  href="{{ url('/evento/form') }}"style="margin:10px;">Crear Evento </a>
 
 
                     @if(session('success'))
@@ -30,12 +30,14 @@
                     }, 1000);
                     </script>
                     @endif
+      <br>
+      <br>
       <div class="row header-calendar" style="margin-right:10px;">
        <div class="col" style="display: flex; justify-content: space-between; padding: 10px;">
           <a  href="{{ asset('/Evento/index/') }}/<?= $data['last']; ?>" style="margin:10px;">
             <i class="material-icons" style="font-size:50px;color:white;">chevron_left</i>
           </a>
-          <h2 style="font-weight:bold;margin:10px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
+          <h2 style="font-weight:bold;margin:10px;font-size:30px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
           <a  href="{{ asset('/Evento/index/') }}/<?= $data['next']; ?>" style="margin:10px;">
             <i class="material-icons" style="font-size:50px;color:white;">navigate_next</i>
           </a>
@@ -63,9 +65,88 @@
               {{ $dayweek['dia']  }}
               <!-- evento -->
               @foreach  ($dayweek['evento'] as $event) 
-                  <a class="badge badge-primary" href="{{ asset('/Evento/details/') }}/{{ $event->id }}">
-                    {{ $event->titulo }}
-                  </a>
+                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ asset('/Evento/details/') }}/{{ $event->id }}">{{ $event->titulo}}</a>
+                    <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                          <div class="modal-header" style="background-color: lightblue;">
+                          <i class="material-icons">event</i><h5 class="modal-title" id="exampleModalLabel"><strong> Vista detallada del Evento</strong></h5> 
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body text-left">
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Tipo de Evento:</strong></label>  {{$event->tipo}}
+                                </td>
+                            </tr>
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Título:</strong></label>  {{$event->titulo}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Comentario sobre el evento:</strong></label>  {{$event->descripcion}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Lugar:</strong></label>  {{$event->lugar}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Fecha y Hora:</strong></label>  {{$event->fecha}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Participantes:</strong></label>  {{$event->participantes}}
+                                </td>
+                              </tr>
+                           </table>
+
+                         <div class="modal-footer justify-content-center">
+
+                          <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal2{{$event->id}}" title="Eliminar evento">
+                            <i class="material-icons">delete_outline</i>
+                          </button>
+                          <div class="modal fade" id="myModal2{{$event->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea eliminar el evento <strong>{{$event->titulo}}?</strong></p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('deletevento',$event->id)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('DELETE')
+                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+          
+                           </div>
+                           </div>
+                          </div>
+                          </div> 
+                         
+                          <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal" title="Editar el evento"><i class="material-icons">edit</i></button> 
+                         </div>
+
+                               
+                          
+                         </div>
+                         </div>
+                         </div>
+                       </div>
+                      
+                       
+
+                       
               @endforeach
             </div>
           @else
