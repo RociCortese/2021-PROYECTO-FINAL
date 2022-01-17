@@ -29,36 +29,115 @@
           </div>
           @if($maximogrado=='Seis')
             <div class="col">
-            <label>Seleccionar grado</label>
+            <label>Grado</label>
+            <?php
+            ?>
             <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
-                    <option value=""></option>
-                    <option value="Primer grado">Primer grado</option>
-                    <option value="Segundo grado">Segundo grado</option>
-                    <option value="Tercer grado">Tercer grado</option>
-                    <option value="Cuarto grado">Cuarto grado</option>
-                    <option value="Quinto grado">Quinto grado</option>
-                    <option value="Sexto grado">Sexto grado</option>
-                </select>
+              <?php
+            $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
+            $contador=count($nombredivision)-1;
+            ?>
+            <option value=""></option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Primer grado {{$nombredivision[$i]}}">Primer grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Segundo grado {{$nombredivision[$i]}}">Segundo grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Tercer grado {{$nombredivision[$i]}}">Tercer grado {{$nombredivision[$i]}}</option>
+            <?php
+              }  
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Cuarto grado {{$nombredivision[$i]}}">Cuarto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Sexto grado {{$nombredivision[$i]}}">Sexto grado {{$nombredivision[$i]}}</option>
+              <?php
+              }     
+              ?>         
+          </select>
             @if ($errors->has('grado'))
                 <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
                   <strong>{{ $errors->first('grado') }}</strong>
                 </div>
-              @endif
+            @endif
             </div>
             @endif
+
             @if($maximogrado=='Siete')
             <div class="col">
-            <label>Seleccionar grado</label>
+            <label>Grado</label>
+            <?php
+            ?>
             <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
-                    <option value=""></option>
-                    <option value="Primer grado">Primer grado</option>
-                    <option value="Segundo grado">Segundo grado</option>
-                    <option value="Tercer grado">Tercer grado</option>
-                    <option value="Cuarto grado">Cuarto grado</option>
-                    <option value="Quinto grado">Quinto grado</option>
-                    <option value="Sexto grado">Sexto grado</option>
-                    <option value="Séptimo grado">Séptimo grado</option>
-                </select>
+              <?php
+            $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
+            $contador=count($nombredivision)-1;
+            ?>
+            <option value=""></option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Primer grado {{$nombredivision[$i]}}">Primer grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Segundo grado {{$nombredivision[$i]}}">Segundo grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Tercer grado {{$nombredivision[$i]}}">Tercer grado {{$nombredivision[$i]}}</option>
+            <?php
+              }  
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Cuarto grado {{$nombredivision[$i]}}">Cuarto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Sexto grado {{$nombredivision[$i]}}">Sexto grado {{$nombredivision[$i]}}</option>
+            <?php
+              }   
+              for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Séptimo grado {{$nombredivision[$i]}}">Séptimo grado {{$nombredivision[$i]}}</option>
+            <?php
+              }     
+              ?>         
+          </select>
             @if ($errors->has('grado'))
                 <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
                   <strong>{{ $errors->first('grado') }}</strong>
@@ -66,6 +145,7 @@
               @endif
             </div>
             @endif
+
           <div class="col form-group">
             <label>Seleccionar docente de grado</label>
               <select name="docente" class="form-control" value="{{ old('docente') }}">

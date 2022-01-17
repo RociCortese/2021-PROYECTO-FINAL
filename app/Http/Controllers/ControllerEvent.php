@@ -4,38 +4,65 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
+use App\Models\Docente;
+use App\Notifications\notifevento;
+use App\Notifications\InvoicePaid;
+
 
 class ControllerEvent extends Controller
 {
     //
-    public function form(){
+    public function form(Request $request){
       return view("evento/form");
     }
-
+   /**
+    * Show the application dataAjax.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function getAutocomplete(Request $request){
+    $data = [];
+    if($request->has('q')){
+    $search = $request->q;
+    $data =User::select("id","name")
+          ->where('name','LIKE',"%$search%")
+          ->get();
+        }
+    return response()->json($data);
+   }
+   
     public function create(Request $request){
-
+      $parti=$request->input("participantes");
+      $parti=implode(' ',$parti);
       $this->validate($request, [
-      'titulo'     =>  'required',
+      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:20'],
       'tipo'     =>  'required',
-      'descripcion',
-      'lugar'  =>  'required',
+      'descripcion' =>['max:150'],
+      'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:20'],
       'fecha' =>  'required',
       'participantes' =>  'required'
      ]);
 
-      Event::insert([
-        'titulo'       => $request->input("titulo"),
-        'tipo'     =>  $request->input("tipo"),
-        'descripcion'  => $request->input("descripcion"),
-        'lugar'        =>$request->input("lugar"),
-        'fecha'        => $request->input("fecha"),
-        'participantes'        => $request->input("participantes")
-      ]);
-
+      $evento=new Event();
+      $evento->titulo=$request->input("titulo");
+      $evento->tipo=$request->input("tipo");
+      $evento->descripcion=$request->input("descripcion");
+      $evento->lugar=$request->input("lugar");
+      $evento->fecha=$request->input("fecha");
+      $evento->participantes=$parti;
+      $emailusuario=User::where('id',$parti)->pluck("email");
+       $titulo= $request->input("titulo");
+        $tipo= $request->input("tipo");
+        $descripcion= $request->input("descripcion");
+        $lugar= $request->input("lugar");
+        $fecha= $request->input("fecha");
+        $partipan=$parti;
+      $evento->save();
+      //$evento->notify(new notifevento($emailusuario,$titulo,$tipo,$descripcion,$lugar,$fecha));
+      
       return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
-
     }
-
     public function details($id){
 
       $event = Event::find($id);
