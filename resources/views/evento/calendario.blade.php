@@ -33,23 +33,21 @@
       <div class="row header-calendar" style="margin-right:10px;">
        <div class="col" style="display: flex; justify-content: space-between; padding: 10px;">
           <a  href="{{ asset('/Evento/index/') }}/<?= $data['last']; ?>" style="margin:10px;">
-            <i class="material-icons" style="font-size:50px;color:white;">chevron_left</i>
+            <i class="material-icons" style="font-size:45px;color:white;">chevron_left</i>
           </a>
-          <h2 style="font-weight:bold;margin:10px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
+          <h2 style="font-weight:bold;font-size:30px;margin:10px;"><?= $mespanish; ?> <small style="font-weight:bold;font-size:30px"><?= $data['year']; ?></small></h2>
           <a  href="{{ asset('/Evento/index/') }}/<?= $data['next']; ?>" style="margin:10px;">
-            <i class="material-icons" style="font-size:50px;color:white;">navigate_next</i>
+            <i class="material-icons" style="font-size:45px;color:white;">navigate_next</i>
           </a>
         </div>
       </div>
-
-
         <div class="row" style="margin-right:10px;">
         <div class="col header-col">Lunes</div>
         <div class="col header-col">Martes</div>
-        <div class="col header-col">Miercoles</div>
+        <div class="col header-col">Miércoles</div>
         <div class="col header-col">Jueves</div>
         <div class="col header-col">Viernes</div>
-        <div class="col header-col">Sabado</div>
+        <div class="col header-col">Sábado</div>
         <div class="col header-col">Domingo</div>
         </div>
       <!-- inicio de semana -->

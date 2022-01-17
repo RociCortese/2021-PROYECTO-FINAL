@@ -43,7 +43,7 @@
           </div>
           <div class="col form-group">
           <label>Fecha inicio</label>
-            <input type="date" name="fechainicio" id="autocompletar" onchange='funcionfechainicio();' class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('fechainicio') }}">
+            <input type="date" name="fechainicio" id="autocompletar" onchange='funcionfechainicio();' class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('fechainicio') }}">
             @if ($errors->has('fechainicio'))
                 <div id="fechainicio-error" class="error text-danger pl-3" for="fechainicio" style="display: block;">
                   <strong>{{ $errors->first('fechainicio') }}</strong>
@@ -52,7 +52,7 @@
           </div>
           <div class="col form-group">
           <label>Fecha fin</label>
-            <input type="date" name="fechafin" class="form-control" id="autocompletar2" onchange='funcionfechafin();' min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 1 month"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('fechafin') }}">
+            <input type="date" name="fechafin" class="form-control" id="autocompletar2" onchange='funcionfechafin();' min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 1 month"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('fechafin') }}">
             @if ($errors->has('fechafin'))
                 <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
                   <strong>{{ $errors->first('fechafin') }}</strong>
@@ -64,7 +64,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo1') }}">
+            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo1') }}">
             @if ($errors->has('inicioperiodo1'))
                 <div id="inicioperiodo1-error" class="error text-danger pl-3" for="inicioperiodo1" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo1') }}</strong>
@@ -74,7 +74,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo1') }}">
+            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo1') }}">
             @if ($errors->has('finperiodo'))
                 <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
                   <strong>{{ $errors->first('fechafin') }}</strong>
@@ -85,7 +85,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo2') }}">
+            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo2') }}">
             @if ($errors->has('inicioperiodo2'))
                 <div id="inicioperiodo2-error" class="error text-danger pl-3" for="inicioperiodo2" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo2') }}</strong>
@@ -94,7 +94,7 @@
             </div>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo2') }}">
+            <input type="date" name="finperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo2') }}">
             @if ($errors->has('finperiodo2'))
                 <div id="finperiodo2-error" class="error text-danger pl-3" for="finperiodo2" style="display: block;">
                   <strong>{{ $errors->first('finperiodo2') }}</strong>
@@ -105,7 +105,7 @@
         <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo3') }}">
+            <input type="date" name="inicioperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo3') }}">
             @if ($errors->has('inicioperiodo3'))
                 <div id="inicioperiodo3-error" class="error text-danger pl-3" for="inicioperiodo3" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo3') }}</strong>
@@ -115,7 +115,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo3') }}">
+            <input type="date" name="finperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo3') }}">
             @if ($errors->has('finperiodo3'))
                 <div id="finperiodo3-error" class="error text-danger pl-3" for="finperiodo3" style="display: block;">
                   <strong>{{ $errors->first('finperiodo3') }}</strong>
@@ -126,7 +126,7 @@
         <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo4" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo1') }}">
+            <input type="date" name="inicioperiodo4" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo1') }}">
             @if ($errors->has('inicioperiodo4'))
                 <div id="inicioperiodo4-error" class="error text-danger pl-3" for="inicioperiodo4" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo4') }}</strong>
@@ -136,7 +136,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo4" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo4') }}">
+            <input type="date" name="finperiodo4" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo4') }}">
             @if ($errors->has('finperiodo4'))
                 <div id="finperiodo4-error" class="error text-danger pl-3" for="finperiodo4" style="display: block;">
                   <strong>{{ $errors->first('finperiodo4') }}</strong>
@@ -150,7 +150,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo1') }}">
+            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo1') }}">
             @if ($errors->has('inicioperiodo1'))
                 <div id="inicioperiodo1-error" class="error text-danger pl-3" for="inicioperiodo1" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo1') }}</strong>
@@ -160,7 +160,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo') }}">
+            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo') }}">
             @if ($errors->has('finperiodo'))
                 <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
                   <strong>{{ $errors->first('fechafin') }}</strong>
@@ -171,7 +171,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo2') }}">
+            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo2') }}">
             @if ($errors->has('inicioperiodo2'))
                 <div id="inicioperiodo2-error" class="error text-danger pl-3" for="inicioperiodo2" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo2') }}</strong>
@@ -180,7 +180,7 @@
             </div>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo2') }}">
+            <input type="date" name="finperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo2') }}">
             @if ($errors->has('finperiodo2'))
                 <div id="finperiodo2-error" class="error text-danger pl-3" for="finperiodo2" style="display: block;">
                   <strong>{{ $errors->first('finperiodo2') }}</strong>
@@ -191,7 +191,7 @@
         <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo3') }}">
+            <input type="date" name="inicioperiodo3" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo3') }}">
             @if ($errors->has('inicioperiodo3'))
                 <div id="inicioperiodo3-error" class="error text-danger pl-3" for="inicioperiodo3" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo3') }}</strong>
@@ -201,7 +201,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo3" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo3') }}">
+            <input type="date" name="finperiodo3" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo3') }}">
             @if ($errors->has('finperiodo3'))
                 <div id="finperiodo3-error" class="error text-danger pl-3" for="finperiodo3" style="display: block;">
                   <strong>{{ $errors->first('finperiodo3') }}</strong>
@@ -215,7 +215,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo1') }}">
+            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo1') }}">
             @if ($errors->has('inicioperiodo1'))
                 <div id="inicioperiodo1-error" class="error text-danger pl-3" for="inicioperiodo1" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo1') }}</strong>
@@ -225,7 +225,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo1') }}">
+            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo1') }}">
             @if ($errors->has('finperiodo'))
                 <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
                   <strong>{{ $errors->first('fechafin') }}</strong>
@@ -236,7 +236,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo2') }}">
+            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo2') }}">
             @if ($errors->has('inicioperiodo2'))
                 <div id="inicioperiodo2-error" class="error text-danger pl-3" for="inicioperiodo2" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo2') }}</strong>
@@ -245,7 +245,7 @@
             </div>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo2" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo2') }}">
+            <input type="date" name="finperiodo2" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo2') }}">
             @if ($errors->has('finperiodo2'))
                 <div id="finperiodo2-error" class="error text-danger pl-3" for="finperiodo2" style="display: block;">
                   <strong>{{ $errors->first('finperiodo2') }}</strong>
@@ -259,7 +259,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo1') }}">
+            <input type="date" name="inicioperiodo1" id="completarconfechainicio" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo1') }}">
             @if ($errors->has('inicioperiodo1'))
                 <div id="inicioperiodo1-error" class="error text-danger pl-3" for="inicioperiodo1" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo1') }}</strong>
@@ -269,7 +269,7 @@
             <br>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo1') }}">
+            <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo1') }}">
             @if ($errors->has('finperiodo1'))
                 <div id="finperiodo1-error" class="error text-danger pl-3" for="finperiodo1" style="display: block;">
                   <strong>{{ $errors->first('finperiodo1') }}</strong>
@@ -280,7 +280,7 @@
           <div class="row form-group">
             &nbsp &nbsp <div class="col">
             <label>Fecha inicio</label>
-            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('inicioperiodo2') }}">
+            <input type="date" name="inicioperiodo2" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('inicioperiodo2') }}">
             @if ($errors->has('inicioperiodo2'))
                 <div id="inicioperiodo2-error" class="error text-danger pl-3" for="inicioperiodo2" style="display: block;">
                   <strong>{{ $errors->first('inicioperiodo2') }}</strong>
@@ -289,7 +289,7 @@
             </div>
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
-            <input type="date" name="finperiodo2" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 2 years"));?>" value="{{ old('finperiodo2') }}">
+            <input type="date" name="finperiodo2" id="completarconfechafin" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo2') }}">
             @if ($errors->has('finperiodo2'))
                 <div id="finperiodo2-error" class="error text-danger pl-3" for="finperiodo2" style="display: block;">
                   <strong>{{ $errors->first('finperiodo2') }}</strong>

@@ -11,7 +11,7 @@ class Colegio extends Model
 {
     use HasFactory;
     protected $table = 'colegio';
-    protected $fillable = ['id','nombre','direccion', 'telefono','localidad','provincia','email','users_id','gestion','periodo','turno','grados'];
+    protected $fillable = ['id','nombre','direccion', 'telefono','localidad','provincia','email','users_id','gestion','periodo','turno','grados','divisiones'];
 
 public function scopeUsuario($query, $usuario) {
     	if ($usuario) {

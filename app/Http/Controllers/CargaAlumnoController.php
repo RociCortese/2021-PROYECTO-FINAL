@@ -7,6 +7,7 @@ use App\Models\Alumno;
 use App\Models\Familia;
 use App\Models\User;
 use App\Models\Colegio;
+use App\Models\Abecedario;
 use Auth;
 use Session;
 use Redirect;
@@ -73,7 +74,17 @@ class CargaAlumnoController extends Controller
         foreach ($maxgrado as $max) {
             $maximogrado="$max->grados";
         }
-        return view('admin.alumnos.create', compact('apellidofam','familias','maximogrado'))->with('success', 'El alumno se cargó correctamente.');
+        $division=Colegio::where('id',$idcolegio)->get();
+        foreach ($division as $div) {
+            $divcol="$div->divisiones";
+        }
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $divcol);
+        $divcol=explode(',', $res);
+        $contador=count($divcol)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombredivision[]=Abecedario::where('id',$divcol[$i])->pluck("letras");
+        }
+        return view('admin.alumnos.create', compact('apellidofam','familias','maximogrado','nombredivision'))->with('success', 'El alumno se cargó correctamente.');
                     }
     }
 }

@@ -86,6 +86,7 @@ Route::get('añoescolar', 'App\Http\Controllers\AñoController@index')->name('a�
 Route::get('añoescolar/create', 'App\Http\Controllers\AñoController@create')->name('añocreate');
 Route::post('añoescolar/store', 'App\Http\Controllers\AñoController@store')->name('añoescolar.store');
 Route::get('armadogrado', 'App\Http\Controllers\AñoController@listadogrado')->name('armadogrado');
+Route::post('armadogrado/buscar', 'App\Http\Controllers\AñoController@buscar')->name('buscar');
 Route::get('armadogrado/create', 'App\Http\Controllers\AñoController@creategrado')->name('armadogrado.create');
 Route::post('armadogrado/store', 'App\Http\Controllers\AñoController@armadogrado')->name('armadogrado.store');
 Route::delete('añoescolar/{id}', 'App\Http\Controllers\AñoController@destroy')->name('eliminaraño');
@@ -95,11 +96,13 @@ Route::get('añoescolar/{id}/estado', 'App\Http\Controllers\AñoController@actua
 Route::post('añoescolar/especiales/{id}', 'App\Http\Controllers\AñoController@armadoespeciales')->name('armado.especiales');
 Route::get('armadogrado/{id}/editargrado', 'App\Http\Controllers\AñoController@editargrado')->name('editargrado');
 Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargrado')->name('actualizargrado');
-/*Calendario de eventos.*/
 
+/*Calendario de eventos.*/
 // formulario
-Route::get('evento/form','App\Http\Controllers\ControllerEvent@form');
+Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+Route::get('/autocomplete/getAutocomplete/','App\Http\Controllers\ControllerEvent@getAutocomplete')->name('Autocomplte.getAutocomplte');
+Route::get('/autocomplete/divisiones/','App\Http\Controllers\ConfiguracionesController@getAutocompletedivisiones')->name('Autocomplte.divisiones');
 // Detalles de evento
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
 // Calendario

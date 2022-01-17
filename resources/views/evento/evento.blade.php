@@ -41,9 +41,6 @@
       <p>Detalles de evento</p>
       <a class="btn btn-default"  href="{{ asset('/Evento/index') }}">Atras</a>
       <hr>
-
-
-
       <div class="col-md-6">
         <form action="{{ asset('/Evento/create/') }}" method="post">
           <div class="fomr-group">

@@ -293,7 +293,6 @@
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
-                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>
       </div>
