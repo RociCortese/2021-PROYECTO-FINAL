@@ -101,8 +101,13 @@ Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargr
 // formulario
 Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
+
+Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');
+
 Route::get('/autocomplete/getAutocomplete/','App\Http\Controllers\ControllerEvent@getAutocomplete')->name('Autocomplte.getAutocomplte');
 Route::get('/autocomplete/divisiones/','App\Http\Controllers\ConfiguracionesController@getAutocompletedivisiones')->name('Autocomplte.divisiones');
+
 // Detalles de evento
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
 // Calendario
