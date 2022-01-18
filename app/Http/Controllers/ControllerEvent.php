@@ -67,7 +67,7 @@ class ControllerEvent extends Controller
 
       $event = Event::find($id);
 
-      return view("evento/evento",[
+      return view("evento/calendario",[
         "event" => $event
       ]);
 
@@ -162,6 +162,7 @@ class ControllerEvent extends Controller
             $datanew['mes'] = date("M", strtotime($datafecha));
             $datanew['dia'] = date("d", strtotime($datafecha));
             $datanew['fecha'] = $datafecha;
+
             //AGREGAR CONSULTAS EVENTO
             $datanew['evento'] = Event::where("fecha",$datafecha)->get();
 
