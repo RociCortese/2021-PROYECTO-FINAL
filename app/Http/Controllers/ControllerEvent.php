@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 
 class ControllerEvent extends Controller
 {
@@ -12,28 +13,47 @@ class ControllerEvent extends Controller
       return view("evento/form");
     }
 
+    public function getAutocomplete(Request $request){
+    $data = [];
+    if($request->has('q')){
+    $search = $request->q;
+    $data =User::select("id","name")
+          ->where('name','LIKE',"%$search%")
+          ->get();
+        }
+    return response()->json($data);
+   }
+   
     public function create(Request $request){
-
+      $parti=$request->input("participantes");
+      $parti=implode(' ',$parti);
       $this->validate($request, [
-      'titulo'     =>  'required',
+      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'tipo'     =>  'required',
-      'descripcion',
-      'lugar'  =>  'required',
+      'descripcion' =>['max:150'],
+      'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'fecha' =>  'required',
       'participantes' =>  'required'
      ]);
 
-      Event::insert([
-        'titulo'       => $request->input("titulo"),
-        'tipo'     =>  $request->input("tipo"),
-        'descripcion'  => $request->input("descripcion"),
-        'lugar'        =>$request->input("lugar"),
-        'fecha'        => $request->input("fecha"),
-        'participantes'        => $request->input("participantes")
-      ]);
-
+      $evento=new Event();
+      $evento->titulo=$request->input("titulo");
+      $evento->tipo=$request->input("tipo");
+      $evento->descripcion=$request->input("descripcion");
+      $evento->lugar=$request->input("lugar");
+      $evento->fecha=$request->input("fecha");
+      $evento->participantes=$parti;
+      $emailusuario=User::where('id',$parti)->pluck("email");
+       $titulo= $request->input("titulo");
+        $tipo= $request->input("tipo");
+        $descripcion= $request->input("descripcion");
+        $lugar= $request->input("lugar");
+        $fecha= $request->input("fecha");
+        $partipan=$parti;
+      $evento->save();
+      //$evento->notify(new notifevento($emailusuario,$titulo,$tipo,$descripcion,$lugar,$fecha));
+      
       return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
-
     }
 
     public function details($id){
@@ -80,7 +100,11 @@ class ControllerEvent extends Controller
         'mes' => $mes,
         'mespanish' => $mespanish
       ]);
-
+    }
+    public function destroy(Event $id)
+    {
+        $id->delete();
+        return back()->with('success','El evento se eliminó correctamente.');
     }
 
     public static function calendar_month($month){
@@ -109,7 +133,7 @@ class ControllerEvent extends Controller
           $semana = 5;
       }
       else if (date("m", strtotime($mes))==1) {
-        $semana = 6;
+          $semana = 6;
       }
       else {
         $semana = ($semana2-$semana1)+1;

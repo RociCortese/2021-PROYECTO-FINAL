@@ -12,7 +12,6 @@
                 <h4 class="card-title ">Años escolares</h4>
                 <p class="card-category">Historial de años escolares</p>
               </div> 
-
               @if($colegio->isEmpty())
                 <br>
                <div class="col-md-12">
@@ -41,17 +40,8 @@
                     });
                     }, 1000);
                     </script>
-                                  @endif
-                  <div class="table-responsive">
-                  <table class="table">
-                    <thead class="text-primary">
-                      <th>Descripción</th>
-                      <th>Fecha inicio</th>
-                      <th>Fecha fin</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </thead>
-                          @if(session('success'))
+                  @endif
+                  @if(session('success'))
                     <div class="alert alert-success" role="success">
                     {{session('success')}}
                     </div>
@@ -63,6 +53,18 @@
                     }, 1000);
                     </script>
                     @endif
+                  @if($años->isEmpty())
+                  <div class="text-center"> No hay ningún año escolar asociado a este colegio.</div>
+                  @else
+                  <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>Descripción</th>
+                      <th>Fecha inicio</th>
+                      <th>Fecha fin</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </thead>
                     @foreach($años as $año)
                     <tr>
                       <td class="v-align-middle">{{$año->descripcion}}</td>
@@ -211,20 +213,16 @@
                   <button class="btn btn-info btn-xs custom">
                   <i class="material-icons">lock</i></button> Cerrado
                    </div>
-                   </div>
-                    
                    <div class="card-footer mr-auto" style="text-align: center;">
                     {{ $años->links() }}
                   </div>
-            
-                
+                   </div>
+                   @endif
                 </div> 
           </div>
           @endif
           @endif
-              
               </div>
-
                 </div> 
                 </div> 
               </div>
