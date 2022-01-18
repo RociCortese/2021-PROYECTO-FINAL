@@ -1,3 +1,4 @@
+
 @extends('layouts.main' , ['activePage' => 'eventos', 'titlePage => Calendario de Eventos'])
 
 @section ('content')
@@ -15,9 +16,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                  <a class="btn btn-sm btn-facebook text-right"  href="{{ url('/evento/form') }}"style="margin:10px;">Crear Evento </a>
-
-
+                  <a class="btn btn-sm btn-facebook text-right"  href="{{ url('/Evento/form') }}"style="margin:10px;">Crear Evento </a>
                     @if(session('success'))
                     <div class="alert alert-success text-left" role="success">
                     {{session('success')}}
@@ -64,7 +63,8 @@
               {{ $dayweek['dia']  }}
               <!-- evento -->
               @foreach  ($dayweek['evento'] as $event) 
-                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ asset('/Evento/details/') }}/{{ $event->id }}">{{ $event->titulo}}</a>
+                <br>
+                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{ $event->titulo}}</a>
                     <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">

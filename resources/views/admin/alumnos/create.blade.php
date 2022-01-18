@@ -147,41 +147,41 @@ function mostrar() {
             $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
             $contador=count($nombredivision)-1;
             ?>
-            <option value=""></option>
+            <option></option>
             <?php
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Primer grado">Primer grado {{$nombredivision[$i]}} </option>
-            <?php
-              }
-            for ($i=0; $i <=$contador ; $i++) { 
-              ?>
-                    <option value="Segundo grado">Segundo grado {{$nombredivision[$i]}} </option>
+                    <option value="Primer grado {{$nombredivision[$i]}}">Primer grado {{$nombredivision[$i]}} </option>
             <?php
               }
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Tercer grado">Tercer grado {{$nombredivision[$i]}}</option>
+                    <option value="Segundo grado {{$nombredivision[$i]}}">Segundo grado {{$nombredivision[$i]}} </option>
+            <?php
+              }
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="Tercer grado {{$nombredivision[$i]}}">Tercer grado {{$nombredivision[$i]}}</option>
             <?php
               }  
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Cuarto grado">Cuarto grado {{$nombredivision[$i]}}</option>
+                    <option value="Cuarto grado {{$nombredivision[$i]}}">Cuarto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Sexto grado">Sexto grado {{$nombredivision[$i]}}</option>
+                    <option value="Sexto grado {{$nombredivision[$i]}}">Sexto grado {{$nombredivision[$i]}}</option>
               <?php
               }     
               ?>         
@@ -208,42 +208,42 @@ function mostrar() {
             <?php
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Primer grado">Primer grado {{$nombredivision[$i]}} </option>
+                    <option value="Primer grado {{$nombredivision[$i]}}">Primer grado {{$nombredivision[$i]}} </option>
             <?php
               }
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Segundo grado">Segundo grado {{$nombredivision[$i]}} </option>
+                    <option value="Segundo grado {{$nombredivision[$i]}}">Segundo grado {{$nombredivision[$i]}} </option>
             <?php
               }
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Tercer grado">Tercer grado {{$nombredivision[$i]}}</option>
+                    <option value="Tercer grado {{$nombredivision[$i]}}">Tercer grado {{$nombredivision[$i]}}</option>
             <?php
               }  
             for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Cuarto grado">Cuarto grado {{$nombredivision[$i]}}</option>
+                    <option value="Cuarto grado {{$nombredivision[$i]}}">Cuarto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Quinto grado">Quinto grado {{$nombredivision[$i]}}</option>
+                    <option value="Quinto grado {{$nombredivision[$i]}}">Quinto grado {{$nombredivision[$i]}}</option>
             <?php
               }
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Sexto grado">Sexto grado {{$nombredivision[$i]}}</option>
+                    <option value="Sexto grado {{$nombredivision[$i]}}">Sexto grado {{$nombredivision[$i]}}</option>
             <?php
               }   
               for ($i=0; $i <=$contador ; $i++) { 
               ?>
-                    <option value="Séptimo grado">Séptimo grado {{$nombredivision[$i]}}</option>
+                    <option value="Séptimo grado {{$nombredivision[$i]}}">Séptimo grado {{$nombredivision[$i]}}</option>
             <?php
               }     
               ?>         
