@@ -5,22 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
-use App\Models\Docente;
-use App\Notifications\notifevento;
-use App\Notifications\InvoicePaid;
-
 
 class ControllerEvent extends Controller
 {
     //
-    public function form(Request $request){
+    public function form(){
       return view("evento/form");
     }
-   /**
-    * Show the application dataAjax.
-    *
-    * @return \Illuminate\Http\Response
-    */
+
     public function getAutocomplete(Request $request){
     $data = [];
     if($request->has('q')){
@@ -36,10 +28,10 @@ class ControllerEvent extends Controller
       $parti=$request->input("participantes");
       $parti=implode(' ',$parti);
       $this->validate($request, [
-      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:20'],
+      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'tipo'     =>  'required',
       'descripcion' =>['max:150'],
-      'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:20'],
+      'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'fecha' =>  'required',
       'participantes' =>  'required'
      ]);
@@ -63,6 +55,7 @@ class ControllerEvent extends Controller
       
       return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
     }
+
     public function details($id){
 
       $event = Event::find($id);
@@ -71,12 +64,6 @@ class ControllerEvent extends Controller
         "event" => $event
       ]);
 
-    }
-    
-    public function destroy(Event $id)
-    {
-        $id->delete();
-        return back()->with('success','El evento se eliminó correctamente.');
     }
 
 
@@ -113,7 +100,11 @@ class ControllerEvent extends Controller
         'mes' => $mes,
         'mespanish' => $mespanish
       ]);
-
+    }
+    public function destroy(Event $id)
+    {
+        $id->delete();
+        return back()->with('success','El evento se eliminó correctamente.');
     }
 
     public static function calendar_month($month){
@@ -142,7 +133,7 @@ class ControllerEvent extends Controller
           $semana = 5;
       }
       else if (date("m", strtotime($mes))==1) {
-        $semana = 6;
+          $semana = 6;
       }
       else {
         $semana = ($semana2-$semana1)+1;

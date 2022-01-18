@@ -147,7 +147,7 @@ function mostrar() {
             $nombredivision = preg_replace('/[\[\]\.\;\" "]+/', '', $nombredivision);
             $contador=count($nombredivision)-1;
             ?>
-            <option value=""></option>
+            <option></option>
             <?php
             for ($i=0; $i <=$contador ; $i++) { 
               ?>

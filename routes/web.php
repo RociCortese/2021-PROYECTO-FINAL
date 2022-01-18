@@ -111,11 +111,18 @@ Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
 Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');
 
 // Detalles de evento
+
+Route::get('Evento/form','App\Http\Controllers\ControllerEvent@form');
+Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
-// Calendario
 Route::get('Evento/index','App\Http\Controllers\ControllerEvent@index')->name('calendario');
 Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_month');
 
 
 
+
+
+
+Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
 

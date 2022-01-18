@@ -138,7 +138,6 @@
                                   ?>>
                                  {{$espe->nombredocente}} {{$espe->apellidodocente}}
                                  {{$espe->especialidad}}
-                                 
                                 </td>
                               </tr>
                            </table>
