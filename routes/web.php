@@ -119,11 +119,6 @@ Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
 Route::get('Evento/index','App\Http\Controllers\ControllerEvent@index')->name('calendario');
 Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_month');
-
-
-
-
-
-
 Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
-
+Route::get('Evento/{id}/editarevento', 'App\Http\Controllers\ControllerEvent@editarevento')->name('editarevento');
+Route::put('Evento/{id}', 'App\Http\Controllers\ControllerEvent@actualizarevento')->name('actualizarevento');

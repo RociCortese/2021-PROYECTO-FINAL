@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\notifevento;
+use App\Notifications\notifactualizarevento;
+use App\Notifications\notifcancelevent;
+use App\Notifications\InvoicePaid;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
 
 class ControllerEvent extends Controller
 {
-    //
     public function form(){
       return view("evento/form");
     }
-
     public function getAutocomplete(Request $request){
     $data = [];
     if($request->has('q')){
@@ -23,35 +28,46 @@ class ControllerEvent extends Controller
         }
     return response()->json($data);
    }
-   
     public function create(Request $request){
+      if($request->has('participantes')){
       $parti=$request->input("participantes");
       $parti=implode(' ',$parti);
+    }
       $this->validate($request, [
       'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'tipo'     =>  'required',
       'descripcion' =>['max:150'],
       'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
       'fecha' =>  'required',
+      'hora' => 'required',
       'participantes' =>  'required'
      ]);
-
       $evento=new Event();
       $evento->titulo=$request->input("titulo");
       $evento->tipo=$request->input("tipo");
       $evento->descripcion=$request->input("descripcion");
       $evento->lugar=$request->input("lugar");
       $evento->fecha=$request->input("fecha");
+      $evento->hora=$request->input("hora");
       $evento->participantes=$parti;
-      $emailusuario=User::where('id',$parti)->pluck("email");
+      $evento->creador= Auth::user()->name;
        $titulo= $request->input("titulo");
         $tipo= $request->input("tipo");
         $descripcion= $request->input("descripcion");
         $lugar= $request->input("lugar");
         $fecha= $request->input("fecha");
+        $hora= $request->input("hora");
+        $creador= Auth::user()->name;
         $partipan=$parti;
       $evento->save();
-      //$evento->notify(new notifevento($emailusuario,$titulo,$tipo,$descripcion,$lugar,$fecha));
+      $array=explode(' ', $parti);
+      $contador=count($array)-1;
+      for ($i=0; $i <=$contador ; $i++) { 
+        $emailusuario=User::where('id',$array[$i])->get();
+      foreach ($emailusuario as $emailuser) {
+        $emailuser->notify(new notifevento($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora));
+}
+      }
       
       return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
     }
@@ -103,8 +119,54 @@ class ControllerEvent extends Controller
     }
     public function destroy(Event $id)
     {
-        $id->delete();
-        return back()->with('success','El evento se eliminó correctamente.');
+       $id->delete();      
+       return back()->with('success','El evento se eliminó correctamente.');
+    }
+    public function editarevento(Event $id)
+    {
+      return view('evento.editar', compact('id'));
+    }
+    public function actualizarevento(Request $request,$id)
+    {
+      if($request->has('participantes')){
+      $parti=$request->input("participantes");
+      $parti=implode(' ',$parti);
+    }
+        $evento = Event::findOrFail($id);
+        $this->validate($request, [
+      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
+      'tipo'     =>  'required',
+      'descripcion' =>['max:150'],
+      'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
+      'fecha' =>  'required',
+      'hora' => 'required',
+      'participantes' =>  'required'
+     ]);
+      $evento->titulo = $request->titulo;
+      $evento->tipo = $request->tipo;
+      $evento->descripcion = $request->descripcion;
+      $evento->lugar = $request->lugar;
+      $evento->fecha = $request->fecha;
+      $evento->hora = $request->hora;
+      $evento->participantes = $parti;
+      $evento->creador= Auth::user()->name;
+      $evento->save();
+      $titulo= $request->input("titulo");
+        $tipo= $request->input("tipo");
+        $descripcion= $request->input("descripcion");
+        $lugar= $request->input("lugar");
+        $fecha= $request->input("fecha");
+        $hora= $request->input("hora");
+        $creador= Auth::user()->name;
+      $array=explode(' ', $parti);
+      $contador=count($array)-1;
+      for ($i=0; $i <=$contador ; $i++) { 
+        $emailusuario=User::where('id',$array[$i])->get();
+      foreach ($emailusuario as $emailuser) {
+        $emailuser->notify(new notifactualizarevento($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora));
+}
+      }
+        return redirect()->route('calendario')->with('success','El evento se modificó correctamente.');
     }
 
     public static function calendar_month($month){
@@ -156,12 +218,10 @@ class ControllerEvent extends Controller
 
             //AGREGAR CONSULTAS EVENTO
             $datanew['evento'] = Event::where("fecha",$datafecha)->get();
-
             array_push($weekdata,$datanew);
           }
           $dataweek['semana'] = $iweek;
           $dataweek['datos'] = $weekdata;
-          //$datafecha['horario'] = $datahorario;
           array_push($calendario,$dataweek);
       endwhile;
       $nextmonth = date("Y-M",strtotime($mes."+ 1 month"));

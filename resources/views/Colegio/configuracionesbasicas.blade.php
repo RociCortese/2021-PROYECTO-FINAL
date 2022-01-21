@@ -17,6 +17,18 @@
             <p class="card-category">Configuraciones básicas</p>
             </div>
             <div class="card-body">
+              @if(session('success'))
+                    <div class="alert alert-success text-left" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif
                   <div class="row">
           <div class="col">
             <label><strong>PERÍODO</strong></label>
@@ -62,8 +74,10 @@
                 </div>
               @endif
          <br>
+
          <br>
             <label><strong>TURNO</strong></label>
+
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -95,8 +109,10 @@
                 </div>
               @endif
           <br>
+
           <br>
           <label><strong>CANTIDAD DE GRADOS</strong></label>
+
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -120,12 +136,30 @@
                 </div>
               @endif
               <br>
-              <br>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
               <div class="form-group">
     <label><strong>DIVISIONES</strong></label>
     <br>
     <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
+
+      <?php
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->divisiones);
+        $array=explode(',', $res);
+    for ($i=0;$i<=count($array)-1;$i++)    
+      {     
+       $division=App\Models\Abecedario::where('id',$array[$i])->get();
+        foreach ($division as $div) {
+          $letradiv="$div->letras";
+          $iddiv="$div->id";
+        }
+      ?>
+        <option value="{{$iddiv}}"<?php echo 'selected="selected" ';?>>
+       {{$letradiv}}
+       </option>
+       <?php
+      }
+      ?>
+
     </select>
     <script type="text/javascript">
 
