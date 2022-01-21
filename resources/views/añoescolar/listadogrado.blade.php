@@ -93,17 +93,27 @@
                               <tr>
                                 <td class="v-align-middle">
                                 <?php
-                                $prueba=$grados->id_alumnos;
-                                $pruebaarray=explode(" ", $prueba);
-                                $otraprueba=App\Models\Alumno::where('id',$pruebaarray)->get();
+                                $res = preg_replace('/[\[\]\.\;\" "]+/', '', $grados->id_alumnos);
+                                $listadoalumnos=explode(',', $res);
+                                $cantidad=count($listadoalumnos)-1;
+                                for($i=0; $i<=$cantidad; $i++){
+                                  $alumno=App\Models\Alumno::where('id',$listadoalumnos[$i])->get();
+                                  foreach ($alumno as $nomalu) {
+                                    $nombrealu="$nomalu->nombrealumno";
+                                    $apellidoalu="$nomalu->apellidoalumno";
+                                }
+                                echo $nombrealu .'&nbsp'. $apellidoalu.'<br>';
+                              }
+                              
+                            
                                 ?>
-                                  @foreach($otraprueba as $pru)
-                                  {{$pru->nombrealumno}}  {{$pru->apellidoalumno}}
-                                  <br>
-                                  @endforeach
+                                 
                                 </td>
                               </tr>
                            </table>
+                          
+                                
+                                
                   
                           </div>
                        </div>

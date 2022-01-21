@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\User;
 
-class notifevento extends Notification
+class notifactualizarevento extends Notification
 {
     use Queueable;
 
@@ -57,8 +57,8 @@ class notifevento extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Nuevo evento')
-                    ->line('Te han invitado a un evento:')
+                    ->subject('Evento modificado')
+                    ->line('Se ha modificado el evento:')
                     ->line('Creador del evento: '. $this -> creador)
                     ->line('Tipo de evento: ' . $this -> tipo)
                     ->line('Nombre del evento: ' . $this -> titulo)
