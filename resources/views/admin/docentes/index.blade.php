@@ -24,7 +24,7 @@
                 <div class="row">
                   <div class="col-12 text-right">
 
-                    <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Agregar Docente</a>
+                    <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Registrar Docente</a>
                   </div>
                 </div>
                

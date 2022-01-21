@@ -22,7 +22,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Agregar Alumno</a>
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Registrar Alumno</a>
                   </div>
                 </div>
                 @if ($alumnos->isEmpty())
