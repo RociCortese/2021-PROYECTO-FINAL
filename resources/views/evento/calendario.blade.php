@@ -61,10 +61,13 @@
           @if  ($dayweek['mes']==$mes)
             <div class="col box-day">
               {{ $dayweek['dia']  }}
-              <!-- evento -->
+              <!-- evento --> 
               @foreach  ($dayweek['evento'] as $event) 
+                <?php
+                if($event->creador==Auth::user()->name){
+                  ?>
                 <br>
-                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{ $event->titulo}}</a>
+                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
                     <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -72,8 +75,14 @@
                           <i class="material-icons">event</i><h5 class="modal-title" id="exampleModalLabel"><strong> Vista detallada del Evento</strong></h5> 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
+
                           <div class="modal-body text-left">
                             <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Creador del Evento:</strong></label>  {{$event->creador}}
+                                </td>
+                            </tr>
                               <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Tipo de Evento:</strong></label>  {{$event->tipo}}
@@ -96,18 +105,41 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Fecha y Hora:</strong></label>  {{$event->fecha}}
+                                <label><strong>Fecha:</strong></label>  {{$event->fecha}}
+                                <label><strong>Hora:</strong></label>   {{$event->hora}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Participantes:</strong></label>  {{$event->participantes}}
+                                <label><strong>Participantes:</strong></label>  
+                                <?php
+                                $participantesevent=explode(' ', $event->participantes);
+                                $cantidad=count($participantesevent)-1;
+                                for($i=0; $i<=$cantidad; $i++){
+                                  $nombreparticipante=App\Models\User::where('id',$participantesevent[$i])->get();
+                                  foreach ($nombreparticipante as $nom) {
+                                    $nomparti="$nom->name";
+                                }
+                                  echo "<br>".$nomparti; 
+                                }
+                                ?>
                                 </td>
                               </tr>
                            </table>
-
+                           <?php
+                           $participantesevent=explode(' ', $event->participantes);
+                                $cantidad=count($participantesevent)-1;
+                                for($i=0; $i<=$cantidad; $i++){
+                                  $nombreparticipante=App\Models\User::where('id',$participantesevent[$i])->get();
+                                  foreach ($nombreparticipante as $nom) {
+                                    $nomparti="$nom->name";
+                                }
+                        
+                                }
+                           $usuarioauten=Auth::user()->name;
+                           if($usuarioauten ==$event->creador or $usuarioauten==$nomparti)
+                           {?>
                          <div class="modal-footer justify-content-center">
-
                           <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal2{{$event->id}}" title="Eliminar evento">
                             <i class="material-icons">delete_outline</i>
                           </button>
@@ -132,20 +164,19 @@
                            </div>
                           </div>
                           </div> 
-                         
-                          <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal" title="Editar el evento"><i class="material-icons">edit</i></button> 
+                           <a href="{{route('editarevento',['id' =>$event->id])}}" class="btn btn-sm btn-warning" title="Editar evento"><i class="material-icons">edit</i></a>
                          </div>
+                         <?php
+                       }
+                       ?>
 
-                               
-                          
                          </div>
                          </div>
                          </div>
                        </div>
-                      
-                       
-
-                       
+                       <?php
+                     }
+                     ?>
               @endforeach
             </div>
           @else

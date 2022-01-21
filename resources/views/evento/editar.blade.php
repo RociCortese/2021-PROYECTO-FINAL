@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activePage' => 'eventos', 'titlePage => Formulario Evento'])
+@extends('layouts.main' , ['activePage' => 'eventos', 'titlePage => Editar Evento'])
 
 @section ('content')
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -9,21 +9,19 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form form action="{{ asset('/Evento/create/') }}" method="POST" class="form-horizontal">
+        <form action="{{route('actualizarevento',$id->id)}}" method="POST" class="form-horizontal">
         @csrf
+        @METHOD('PUT')
         <div class="card">
           <div class= "card-header card-header-info">
-          <h4 class="card-title">Crear nuevo Evento</h4>
+          <h4 class="card-title">Editar evento</h4>
           </div>
         <div class="card-body">
-      <a class="btn btn-sm btn-default"  href="{{ asset('/Evento/index') }}"><i class="material-icons">arrow_back</i></a>
-
        <div class="form-group">
                 <label>Tipo de Evento</label>
-                <select name="tipo" id="tipoevento" class="form-control" >
-                    <option value="">Seleccione una opción</option>
-                    <option value="Acto Escolar">Acto Escolar</option>
-                    <option value="Reunión">Reunión</option>
+                <select name="tipo" id="tipoevento" class="form-control" value="{{$id->tipo}}">
+                    <option value="Acto Escolar" <?php if($id->tipo=='Acto escolar') echo 'selected="selected" ';?>>Acto Escolar</option>
+                    <option value="Reunión" <?php if($id->tipo=='Reunión') echo 'selected="selected" ';?>>Reunión</option>
                 </select>
                 <script>
                 $(function(){
@@ -36,11 +34,11 @@
                 </div>
               @endif
               
-            </div>
+          </div>
     
     <div class="form-group">
     <label >Título del Evento</label>
-    <input type="text" class="form-control" name="titulo" aria-describedby="eventoHelp" value="{{ old('titulo') }}">
+    <input type="text" class="form-control" name="titulo" aria-describedby="eventoHelp" value="{{$id->titulo}}">
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Acto fin de año.</small>
     @if ($errors->has('titulo'))
                 <div id="titulo-error" class="error text-danger pl-3" for="titulo" style="display: block;">
@@ -61,7 +59,7 @@ $(function() {
 </script>
      <div class="form-group">
     <label>Comentario sobre el evento.<small class="form-text text-muted contador" id="contador">150 caracteres restantes.</small></label>
-    <textarea class="form-control" rows="3" name="descripcion" id="descripcion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{ old('descripcion') }}" maxlength="150"></textarea>
+    <textarea class="form-control" rows="3" name="descripcion" id="descripcion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{$id->descripcion}}" maxlength="150">{{ old('descripcion', $id->descripcion) }}</textarea>
     <small id="comentHelp" class="form-text text-muted">Este campo es opcional. </small>
     @if ($errors->has('descripcion'))
                 <div id="descripcion-error" class="error text-danger pl-3" for="descripcion" style="display: block;">
@@ -72,7 +70,7 @@ $(function() {
 
   <div class="form-group">
     <label >Lugar del Evento</label>
-    <input type="text" class="form-control" name="lugar" value="{{ old('lugar') }}">
+    <input type="text" class="form-control" name="lugar" value="{{$id->lugar}}">
     @if ($errors->has('lugar'))
                 <div id="lugar-error" class="error text-danger pl-3" for="lugar" style="display: block;">
                   <strong>{{ $errors->first('lugar') }}</strong>
@@ -83,7 +81,7 @@ $(function() {
     <div class="row">
     <div class="form-group col" style="margin-left:-15px; ">
           <label>Fecha del Evento</label>
-            <input type="date" name="fecha" class="form-control"  value="{{ old('fecha') }}" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>">
+            <input type="date" name="fecha" class="form-control"  value="{{$id->fecha}}" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>">
             @if ($errors->has('fecha'))
                 <div id="fecha-error" class="error text-danger pl-3" for="fecha" style="display: block;">
                   <strong>{{ $errors->first('fecha') }}</strong>
@@ -92,7 +90,7 @@ $(function() {
     </div>
     <div class="form-group col">
           <label>Hora del Evento</label>
-            <input type="time" name="hora" class="form-control"  value="{{ old('fecha') }}">
+            <input type="time" name="hora" class="form-control"  value="{{$id->hora}}">
             @if ($errors->has('hora'))
                 <div id="hora-error" class="error text-danger pl-3" for="hora" style="display: block;">
                   <strong>{{ $errors->first('hora') }}</strong>
@@ -103,7 +101,23 @@ $(function() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
   <div class="form-group">
     <label>Participantes</label><br>
-    <select class="form-control participantes" name="participantes[]" id='participantes' multiple="multiple" lang="es">
+    <select class="form-control participantes" name="participantes[]" id='participantes' multiple="multiple" lang="es" value="{{$id->participantes}}">
+    <?php
+    $array=explode(' ', $id->participantes);
+    for ($i=0;$i<count($array);$i++)    
+      {     
+       $nombreparticipante=App\Models\User::where('id',$array[$i])->get();
+        foreach ($nombreparticipante as $nom) {
+          $nomparti="$nom->name";
+          $idparti="$nom->id";
+        }
+      ?>
+        <option value="{{$idparti}}"<?php echo 'selected="selected" ';?>>
+       {{$nomparti}}
+       </option>
+       <?php
+      }
+      ?>
     </select>
     <script type="text/javascript">
     $('.participantes').select2({
@@ -141,7 +155,7 @@ $(function() {
 </div>
   <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
       </form>
