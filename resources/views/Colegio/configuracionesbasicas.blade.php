@@ -19,7 +19,7 @@
             <div class="card-body">
                   <div class="row">
           <div class="col">
-            <label>Período</label>
+            <label><strong>PERÍODO</strong></label>
             <br>
             @foreach($colegio as $colegios)
             <div class="form-check form-check-radio form-check-inline">
@@ -63,7 +63,7 @@
               @endif
          <br>
          <br>
-            <label>Turno</label>
+            <label><strong>TURNO</strong></label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -96,7 +96,7 @@
               @endif
           <br>
           <br>
-          <label>Cantidad de grados</label>
+          <label><strong>CANTIDAD DE GRADOS</strong></label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -123,11 +123,12 @@
               <br>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
               <div class="form-group">
-    <label>Divisiones</label>
+    <label><strong>DIVISIONES</strong></label>
     <br>
-    <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es">
+    <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
     </select>
     <script type="text/javascript">
+
     $('.divisiones').select2({
     placeholder: 'Ingrese las divisiones que desea agregar',
     ajax: {
@@ -139,16 +140,21 @@
         results:  $.map(data, function (item) {
               return {
                   text: item.letras,
-                  id: item.id
+                  id: item.id,
               }
+
           })
+
       };
+
     },
+    
 
     cache: true
     }
+
 });
-    
+   $('#divisiones').select2('data');
 </script>
 <small id="eventoHelp" class="form-text text-muted">Por ejemplo: A.</small>
 
@@ -159,10 +165,55 @@
                 </div>
               @endif
     </div>
+
+            <div class="form-group">
+    <label><strong>ESPACIOS CURRICULARES</strong></label>
+    <br>
+    <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
+    </select>
+    <script type="text/javascript">
+    $('.espacioscurriculares').select2({
+    placeholder: 'Ingrese los Espacios Curriculares que desea agregar',
+    ajax: {
+    url: '/autocomplete/espacioscurriculares/',
+    tags: true,
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.nombre,
+                  id: item.id
+              }
+          })
+      };
+
+    },
+
+    cache: true
+    }
+
+});
+
+   
+</script>
+
+<small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
+
+
+    @if ($errors->has('espacioscurriculares'))
+                <div id="espacioscurriculares-error" class="error text-danger pl-3" for="espacioscurriculares" style="display: block;">
+                  <strong>{{ $errors->first('espacioscurriculares') }}</strong>
+                </div>
+              @endif
+    </div>
             </div>
               
               @endforeach
           </div>
+
+
 <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
@@ -180,3 +231,6 @@
    </div>
    </div>
 @endsection
+
+
+
