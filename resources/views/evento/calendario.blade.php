@@ -64,10 +64,21 @@
               <!-- evento --> 
               @foreach  ($dayweek['evento'] as $event) 
                 <?php
-                if($event->creador==Auth::user()->name){
+                $participantesevent=explode(' ', $event->participantes);
+                                $cantidad=count($participantesevent)-1;
+                                for($i=0; $i<=$cantidad; $i++){
+                                  $nombreparticipante=App\Models\User::where('id',$participantesevent[$i])->get();
+                                  foreach ($nombreparticipante as $nom) {
+                                    $nomparti="$nom->name";
+                                }
+                                }                                
+                if(($event->creador==Auth::user()->name) || ($nomparti==Auth::user()->name)){
                   ?>
                 <br>
                 <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
+                <?php
+                }
+                ?>
                     <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -127,17 +138,9 @@
                               </tr>
                            </table>
                            <?php
-                           $participantesevent=explode(' ', $event->participantes);
-                                $cantidad=count($participantesevent)-1;
-                                for($i=0; $i<=$cantidad; $i++){
-                                  $nombreparticipante=App\Models\User::where('id',$participantesevent[$i])->get();
-                                  foreach ($nombreparticipante as $nom) {
-                                    $nomparti="$nom->name";
-                                }
-                        
-                                }
+
                            $usuarioauten=Auth::user()->name;
-                           if($usuarioauten ==$event->creador or $usuarioauten==$nomparti)
+                           if($usuarioauten ==$event->creador)
                            {?>
                          <div class="modal-footer justify-content-center">
                           <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal2{{$event->id}}" title="Eliminar evento">
@@ -174,9 +177,7 @@
                          </div>
                          </div>
                        </div>
-                       <?php
-                     }
-                     ?>
+                       
               @endforeach
             </div>
           @else

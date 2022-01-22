@@ -48,7 +48,7 @@ class notifcancelevent extends Notification
     {
         return (new MailMessage)
                     ->subject('Evento cancelado')
-                    ->line('El evento '. $this -> titulo. 'programado para el día' .$this -> fecha. 'ha sido cancelado')
+                    ->line('El evento '. $this -> titulo. ' programado para el día ' .$this -> fecha. ' ha sido cancelado.');
     }
 
     /**
