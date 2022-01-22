@@ -10,7 +10,7 @@
         @METHOD('PUT')
         <div class="card" >
           <div class= "card-header card-header-info">
-          <h4 class="card-title">Editar alumno</h4>
+          <h4 class="card-title">Editar Alumno</h4>
           </div>
         <div class="card-body" >
           <div class="card" style="border: 3px solid grey">

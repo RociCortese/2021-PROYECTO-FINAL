@@ -8,32 +8,22 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\User;
 
-class notifevento extends Notification
+class notifcancelevent extends Notification
 {
     use Queueable;
 
-    protected $creador;
     protected $titulo;
-    protected $tipo;
-    protected $descripcion;
-    protected $lugar;
     protected $fecha;
-    protected $hora;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora)
+    public function __construct($titulo,$fecha)
     {
-        $this -> creador = $creador;
-        $this -> tipo = $tipo;
         $this -> titulo = $titulo;
-        $this -> descripcion = $descripcion;
-        $this -> lugar = $lugar;
         $this -> fecha = $fecha;
-        $this -> hora = $hora;
 
     }
 
@@ -57,15 +47,8 @@ class notifevento extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Nuevo evento')
-                    ->line('Te han invitado a un evento:')
-                    ->line('Creador del evento: '. $this -> creador)
-                    ->line('Tipo de evento: ' . $this -> tipo)
-                    ->line('Nombre del evento: ' . $this -> titulo)
-                    ->line('Descripcion: ' . $this -> descripcion)
-                    ->line('Lugar: ' . $this -> lugar)
-                    ->line('Fecha: ' . $this -> fecha)
-                    ->line('Hora: ' . $this -> hora);  
+                    ->subject('Evento cancelado')
+                    ->line('El evento '. $this -> titulo. ' programado para el día ' .$this -> fecha. ' ha sido cancelado.');
     }
 
     /**

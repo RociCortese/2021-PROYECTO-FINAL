@@ -98,11 +98,27 @@ Route::get('armadogrado/{id}/editargrado', 'App\Http\Controllers\AñoController@
 Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargrado')->name('actualizargrado');
 
 
+Route::get('/autocomplete/getAutocomplete/','App\Http\Controllers\ControllerEvent@getAutocomplete')->name('Autocomplte.getAutocomplte');
+Route::get('/autocomplete/divisiones/','App\Http\Controllers\ConfiguracionesController@getAutocompletedivisiones')->name('Autocomplte.divisiones');
+Route::get('/autocomplete/espacioscurriculares/','App\Http\Controllers\ConfiguracionesController@getAutocompleteespacios')->name('Autocomplte.espacios');
+
+
+/*Calendario de eventos.*/
+// formulario
+Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
+Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
+
+Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');
+
+// Detalles de evento
+
 Route::get('Evento/form','App\Http\Controllers\ControllerEvent@form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
 Route::get('Evento/details/{id}','App\Http\Controllers\ControllerEvent@details');
 Route::get('Evento/index','App\Http\Controllers\ControllerEvent@index')->name('calendario');
 Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_month');
 Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
-Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');
-Route::get('/autocomplete/getAutocomplete/','App\Http\Controllers\ControllerEvent@getAutocomplete')->name('Autocomplte.getAutocomplte');
+Route::get('Evento/{id}/editarevento', 'App\Http\Controllers\ControllerEvent@editarevento')->name('editarevento');
+Route::put('Evento/{id}', 'App\Http\Controllers\ControllerEvent@actualizarevento')->name('actualizarevento');

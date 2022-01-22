@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Http\Requests;
 use App\Http\Requests\ItemCreateRequest;
 use App\Models\Abecedario;
+use App\Models\espacioscurriculares;
 
 class ConfiguracionesController extends Controller
 {
@@ -28,11 +29,15 @@ class ConfiguracionesController extends Controller
     {
         $divi=$request->input("divisiones");
         $divi=implode(' ',$divi);
+        $espa=$request->input("espacioscurriculares");
+        $espa=implode(' ',$espa);
+       
         $request->validate([
             'periodo' => ['required'],
             'turno' => ['required'],
             'grados'=> ['required'],
             'divisiones' => ['required'],
+            'espacioscurriculares'=> ['required'],
             ]);
         $idpersona= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idpersona);
@@ -41,7 +46,7 @@ class ConfiguracionesController extends Controller
                 $idcolegio= "$col->id";
             };
         $modificar = Colegio::findOrFail($idcolegio);
-        $data= $request->only('periodo','turno','grados','divisiones');
+        $data= $request->only('periodo','turno','grados','divisiones','espacioscurriculares');
         $modificar->update($data);
         return redirect()->route('configuraciones')
                         ->with('success', 'Las configuraciones se guardaron correctamente.'); 
@@ -57,6 +62,17 @@ class ConfiguracionesController extends Controller
     $search = $request->q;
     $data =Abecedario::select("id","letras")
           ->where('letras','LIKE',"%$search%")
+          ->get();
+        }
+    return response()->json($data);
+   }
+
+    public function getAutocompleteespacios(Request $request){
+     $data = [];
+    if($request->has('q')){
+    $search = $request->q;
+    $data =espacioscurriculares::select("id","nombre")
+          ->where('nombre','LIKE',"%$search%")
           ->get();
         }
     return response()->json($data);
