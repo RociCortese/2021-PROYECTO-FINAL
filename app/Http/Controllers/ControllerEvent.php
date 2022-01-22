@@ -119,7 +119,22 @@ class ControllerEvent extends Controller
     }
     public function destroy(Event $id)
     {
-       $id->delete();      
+       $eliminarevento = Event::find($id)->pluck("participantes");
+       $fecha = Event::find($id)->pluck("fecha");
+       $fecha= preg_replace('/[\[\]\.\;\""]+/', '', $fecha);
+       $titulo = Event::find($id)->pluck("titulo");
+       $titulo= preg_replace('/[\[\]\.\;\""]+/', '', $titulo);
+       $res = preg_replace('/[\[\]\.\;\""]+/', '', $eliminarevento);
+       $array=explode(' ', $res);
+       $contador=count($array)-1;
+       $id->delete();
+       for ($i=0; $i <=$contador; $i++) { 
+        $emailusuario=User::where('id',$array[$i])->get();
+      foreach ($emailusuario as $emailuser) {
+        $emailuser->notify(new notifcancelevent($titulo,$fecha));
+}
+      }      
+       
        return back()->with('success','El evento se eliminó correctamente.');
     }
     public function editarevento(Event $id)
