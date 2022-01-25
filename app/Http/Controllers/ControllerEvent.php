@@ -12,6 +12,7 @@ use App\Notifications\notifcancelevent;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class ControllerEvent extends Controller
 {
@@ -24,6 +25,7 @@ class ControllerEvent extends Controller
     $search = $request->q;
     $data =User::select("id","name")
           ->where('name','LIKE',"%$search%")
+          ->where('name','!=',Auth::user()->name)
           ->get();
         }
     return response()->json($data);
@@ -298,6 +300,13 @@ class ControllerEvent extends Controller
           $mes = $month;
         }
         return $mes;
+    }
+
+    public function listadofamilias(){
+    $idautenticado=Auth::user()->id;
+    $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
+    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+    return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
     }
 
 }

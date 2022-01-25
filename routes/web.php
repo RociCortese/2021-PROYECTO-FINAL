@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*Login*/
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () {
 
     return view('auth/login');
@@ -61,7 +62,6 @@ Route::put('storage/{id}', 'App\Http\Controllers\ColegioController@update')->nam
 Route::get('configuraciones', 'App\Http\Controllers\ConfiguracionesController@index')->name('configuraciones');
 Route::post('configuraciones/create', 'App\Http\Controllers\ConfiguracionesController@store')->name('confi');
 
-
 /*Carga de docentes*/
 Route::resource('admin/docentes','App\Http\Controllers\CargaDocenteController');
 Route::get('admin/{id}/ver', 'App\Http\Controllers\CargaDocenteController@show')->name('ver');
@@ -107,6 +107,7 @@ Route::get('/autocomplete/espacioscurriculares/','App\Http\Controllers\Configura
 // formulario
 Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+Route::get('Eventos/listado','App\Http\Controllers\ControllerEvent@listadofamilias')->name('eventosfamilia');
 
 
 Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');

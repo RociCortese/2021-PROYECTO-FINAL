@@ -1,7 +1,7 @@
 
 @extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
-  
 @section('content')
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -13,22 +13,17 @@
           <h4 class="card-title">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
-
            <br>
-
         <div class="row">
           <div class="col">
             <label>DNI</label>
               <input type="text" name="dnidocente" class="form-control" value="{{ old('dnidocente') }}">
-
             @if ($errors->has('dnidocente'))
                 <div id="dnidocente-error" class="error text-danger pl-3" for="dnidocente" style="display: block;">
                   <strong>{{ $errors->first('dnidocente') }}</strong>
                 </div>
               @endif
-          
           </div>
-
         <div class="col">
             <label>Nombre</label>
             <input type="text" name="nombredocente" class="form-control" value="{{ old('nombredocente') }}">
@@ -38,8 +33,6 @@
                 </div>
               @endif
         </div>
-
-
         <div class="col">
           <label>Apellido</label>
             <input class="form-control" name="apellidodocente" value="{{ old('apellidodocente') }}"></input>
@@ -50,10 +43,7 @@
               @endif
             </div>
         </div>
-
         <br>
-        
-
         <div class="row">
           <div class="col form-group">
           <label>Fecha de nacimiento</label>
@@ -64,7 +54,6 @@
                 </div>
               @endif
           </div>
-
             <div class="col">
                 <label>Género</label>
                 <select name="generodocente" id="opciongenero" class="form-control" value="{{ old('generodocente') }}">
@@ -180,16 +169,10 @@
                   <strong>{{ $errors->first('emaildocente') }}</strong>
                 </div>
               @endif
-            
           </div>
-          
         </div>
-    
-
     <br>
     <br>
-
-           
           <div class="row">
               <div class="col">
             <label>Legajo</label>
@@ -203,7 +186,18 @@
 
           <div class="col">
             <label>Especialidad</label>
-            <input type="text" name="especialidad" class="form-control" value="{{ old('especialidad') }}">
+           <select name="especialidad" id="especialidad" class="form-control" value="{{ old('especialidad') }}">
+              <?php
+            $espacioscurriculares = preg_replace('/[\[\]\.\;\" "]+/', '', $nombreespa);
+            $contador=count($espacioscurriculares)-1;
+            ?>
+            <option></option>
+            <option value="Grado">Grado</option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="{{$espacioscurriculares[$i]}}"><?php echo utf8_decode($espacioscurriculares[$i]);?> </option>
+                  <?php } ?>
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">
                   <strong>{{ $errors->first('especialidad') }}</strong>

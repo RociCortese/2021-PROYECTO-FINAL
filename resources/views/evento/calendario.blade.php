@@ -75,7 +75,7 @@
                 if(($event->creador==Auth::user()->name) || ($nomparti==Auth::user()->name)){
                   ?>
                 <br>
-                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
+                <a class="badge badge-secondary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
                 <?php
                 }
                 ?>
@@ -116,7 +116,7 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Fecha:</strong></label>  {{$event->fecha}}
+                                <label><strong>Fecha:</strong></label>  {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y')}}
                                 <label><strong>Hora:</strong></label>   {{$event->hora}}
                                 </td>
                               </tr>
@@ -162,7 +162,6 @@
                           @METHOD('DELETE')
                           <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
                           </form>
-          
                            </div>
                            </div>
                           </div>
