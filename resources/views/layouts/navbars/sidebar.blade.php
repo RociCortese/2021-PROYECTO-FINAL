@@ -176,6 +176,14 @@
            <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('eventosfamilia')}}">
+                <div class="items-dashboard">
+               <i class="material-icons">event</i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">

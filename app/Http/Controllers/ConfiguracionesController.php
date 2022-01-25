@@ -29,9 +29,20 @@ class ConfiguracionesController extends Controller
     {
         $divi=$request->input("divisiones");
         $divi=implode(' ',$divi);
-        $espa=$request->input("espacioscurriculares");
-        $espa=implode(' ',$espa);
-       
+        $espacio=$request->input("espacioscurriculares");
+        $espa=implode(' ',$espacio);
+        $cantidad=count($espacio)-1;
+        for ($i=0; $i<=$cantidad;$i++) { 
+            if(is_numeric($espacio[$i])){
+            }
+            else
+            {
+                $esp= new espacioscurriculares();
+                $esp->nombre=$espacio[$i];
+                $nuevosespacios[]=$espacio[$i];
+                $esp->save();
+            }
+        }
         $request->validate([
             'periodo' => ['required'],
             'turno' => ['required'],
@@ -48,9 +59,9 @@ class ConfiguracionesController extends Controller
         $modificar = Colegio::findOrFail($idcolegio);
         $data= $request->only('periodo','turno','grados','divisiones','espacioscurriculares');
         $modificar->update($data);
-        return redirect()->route('configuraciones')
-                        ->with('success', 'Las configuraciones se guardaron correctamente.'); 
-    }
+        return view('Colegio.configuracionesbasicas', compact('colegio','nuevosespacios'));
+        }
+    
     /**
     * Show the application dataAjax.
     *

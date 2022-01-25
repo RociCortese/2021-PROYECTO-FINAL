@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\InvoicePaid;
+use App\Notifications\emailverify;
 
 
 class RegisterController extends Controller
@@ -85,5 +87,6 @@ class RegisterController extends Controller
             'passwordenc' => Crypt::encrypt($data['password']),
             'idpersona' =>$directivo->id,
         ]);
+        $usuario->notify(new emailverify($directivo->email));
     }
 }

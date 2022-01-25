@@ -77,20 +77,14 @@
                     <i class="material-icons">phone</i>
                   </span>
                 </div>
-
-
-
             <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}" autocomplete="off">
-            
-
+           <small id="eventoHelp" class="form-text text-muted" style="margin-left: 20px;">Debe ingresar su número de teléfono sin el 0 y sin el 15.</small>
               </div>
               @if ($errors->has('telefono'))
                 <div id="apellido-error" class="error text-danger pl-3" for="telefono" style="display: block;">
                   <strong>{{ $errors->first('telefono') }}</strong>
                 </div>
               @endif
-             
-
             </div>
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
@@ -118,7 +112,7 @@
                 </div>
 
                 <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña (*)') }}"autocomplete="off" >
-
+                <small id="eventoHelp" class="form-text text-muted" style="margin-left: 20px;">La contraseña debe contener al menos 8 caracteres, incluyendo una minúscula y una mayúscula.</small>
               </div>
 
               @if ($errors->has('password'))

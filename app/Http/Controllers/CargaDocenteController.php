@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Docente;
 use App\Models\User;
 use App\Models\Colegio;
+use App\Models\espacioscurriculares;
 use Auth;
 use Session;
 use Redirect;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Notifications\InvoicePaid;
 use App\Notifications\notifcreacion;
 
+header("Content-Type: text/html;charset=utf-8");
 
 class CargaDocenteController extends Controller
 {
@@ -54,12 +56,26 @@ class CargaDocenteController extends Controller
                 }
 
     }
-    
-
     public function create()
     {
         $docentes = Docente::all();
-        return view('admin.docentes.create', compact('docentes'));
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+        {   
+            $idcolegio= "$col->id";
+        }
+        $espacios=Colegio::where('id',$idcolegio)->get();
+        foreach ($espacios as $esp) {
+            $espacurri="$esp->espacioscurriculares";
+        }
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $espacurri);
+        $espacurri=explode(',', $res);
+        $contador=count($espacurri)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombreespa[]=espacioscurriculares::where('id',$espacurri[$i])->where('tipo', 'Especial')->pluck("nombre");
+        }
+        return view('admin.docentes.create', compact('docentes','nombreespa'));
     }
 
     public function store(Request $request)

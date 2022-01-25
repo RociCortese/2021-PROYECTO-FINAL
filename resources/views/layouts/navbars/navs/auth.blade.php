@@ -51,7 +51,6 @@
                       if($count == 5){
                         break;
                       }
-
                       $fromcolegio= "$usu->from_id";
                       $nombreusuario=User::all()->where('id',$fromcolegio);
                       foreach($nombreusuario as $nom)
@@ -61,7 +60,7 @@
                          $tiempo=$usu->created_at->diffForHumans();
                       ?>
                       <a href="{{url('chatify',$usu->from_id)}}" class="dropdown-item">
-                    <i class="material-icons mr-2">email</i> {{$nombre }}
+                    <i class="material-icons mr-2">email</i> {{$nombre}}
                       <span class="ml-3 pull-right text-muted text-sm">{{$tiempo}}</span>
                       <?php
                       $count++;

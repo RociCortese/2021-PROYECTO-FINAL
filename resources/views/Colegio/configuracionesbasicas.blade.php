@@ -205,12 +205,40 @@
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
     </select>
+    <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
+    <!--@if(empty($nuevosespacios))
+    @else
+    <form action="{{ url('configuraciones/create') }}" method="POST" class="form-horizontal">
+   @csrf
+    <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>Espacio curricular</th>
+                      <th>Grado</th>
+                      <th>Especial</th>
+                    </thead>
+                    <?php
+                    $cantidad=count($nuevosespacios)-1;
+                    for ($i=0; $i <=$cantidad ; $i++) { 
+                    ?>
+                    <tr>
+                      <td class="v-align-middle">{{$nuevosespacios[$i]}}</td>
+                      <td><input type="checkbox" name="cbox2" id="cbox2" value="Grado"></td>
+                      <td><input type="checkbox" name="cbox2" id="cbox2" value="Especial"></td>
+                    </tr>
+                  </table>
+                      <?php
+                    }
+                    ?>
+      </div>
+      @endif-->
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
+    tags: true,
+    tokenSeparators: [','],
     placeholder: 'Ingrese los Espacios Curriculares que desea agregar',
     ajax: {
     url: '/autocomplete/espacioscurriculares/',
-    tags: true,
     dataType: 'json',
     delay: 250,
     processResults: function (data) {
@@ -219,6 +247,7 @@
               return {
                   text: item.nombre,
                   id: item.id
+
               }
           })
       };
@@ -229,13 +258,8 @@
     }
 
 });
-
    
 </script>
-
-<small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
-
-
     @if ($errors->has('espacioscurriculares'))
                 <div id="espacioscurriculares-error" class="error text-danger pl-3" for="espacioscurriculares" style="display: block;">
                   <strong>{{ $errors->first('espacioscurriculares') }}</strong>
