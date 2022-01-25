@@ -161,6 +161,7 @@
       ?>
 
     </select>
+
     <script type="text/javascript">
 
     $('.divisiones').select2({
@@ -201,16 +202,36 @@
     </div>
 
             <div class="form-group">
-    <label><strong>ESPACIOS CURRICULARES</strong></label>
+    <label for="espacioscurriculares"><strong>ESPACIOS CURRICULARES</strong></label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
+
+      <?php
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->espacioscurriculares);
+        $array=explode(',', $res);
+    for ($i=0;$i<=count($array)-1;$i++)    
+      {     
+       $espacio=App\Models\espacioscurriculares::where('id',$array[$i])->get();
+        foreach ($espacio as $es) {
+          $espa="$es->nombre";
+          $idespa="$es->id";
+        }
+      ?>
+        <option value="{{$idespa}}"<?php echo 'selected="selected" ';?>>
+       {{$espa}}
+       </option>
+       <?php
+      }
+      ?>
     </select>
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
     placeholder: 'Ingrese los Espacios Curriculares que desea agregar',
+    minimumInputLength: 3,
+    tags: true,
+    tokenSeparatrs : [ ',' , ' ' ],
     ajax: {
     url: '/autocomplete/espacioscurriculares/',
-    tags: true,
     dataType: 'json',
     delay: 250,
     processResults: function (data) {
@@ -223,15 +244,18 @@
           })
       };
 
+
     },
 
     cache: true
+
+
     }
 
 });
-
-   
 </script>
+
+
 
 <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
 
