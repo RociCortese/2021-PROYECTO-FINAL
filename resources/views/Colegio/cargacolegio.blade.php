@@ -148,14 +148,14 @@ if($colegio->isEmpty()){?>
       <?php 
     }
     else {?>
-<div class="card">
+<div class="card" >
     <div class= "card-header card-header-info">
     <h4 class="card-title">Información de colegio</h4>
     </div>
  <div class="card-body row justify-content-center">
   <div class="row">
     <div class="col-md-12">
-      <div class="card card-user" style="border: 5px solid grey">
+      <div class="card card-user" style="border: thin solid lightgrey;">
          <div class="card-body ">
            <p class="card-text">
            <div class="author">
@@ -182,11 +182,8 @@ if($colegio->isEmpty()){?>
                                 <td>
                                   <label>Dirección</label>&nbsp;&nbsp;{{$col->direccion}}
                                 </td>
-                                <td>
-                                  <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
-                                </td>
-                              </tr>
-                              <tr>
+                                </tr>
+                                <tr>
                                 <td>
                                   <label>Localidad</label>&nbsp;&nbsp;{{$col->localidad}}
                                 </td>
@@ -194,10 +191,15 @@ if($colegio->isEmpty()){?>
                                   <label>Provincia</label>&nbsp;&nbsp;{{$col->provincia}}
                                 </td>
                               </tr>
-                              <tr>
+                                <tr>
+                                  <td>
+                                  <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
+                                </td>
                                 <td>
                                   <label>Email</label>&nbsp;&nbsp;{{$col->email}}
                                 </td>
+                              </tr>
+                              <tr>
                                 <td>
                             <label>Logo institucional</label>&nbsp;&nbsp;
                         <?php

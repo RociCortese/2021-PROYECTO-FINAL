@@ -1,7 +1,6 @@
 @extends('layouts.main' , ['activePage' => 'docente', 'titlePage => Docentes'])
 
 @section ('content')
- 
  <div class="content">
    <div class="container-fluid">
      <div class="row">
@@ -46,7 +45,7 @@
           
                 <div class="table-responsive">
                   <table class="table">
-                    <thead class="text-primary">
+                    <thead class="text-primary ">
                       <th>ID</th>
                       <th>DNI</th>
                       <th>Nombre</th>
@@ -68,6 +67,8 @@
                     
 
                        <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
+
+                       <br>
 
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
@@ -92,7 +93,7 @@
                       <td class="v-align-middle">{{$doc->apellidodocente}}</td>
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Ver Información Docente">
-                            <i class="material-icons">person</i>
+                            <i class="bi bi-person"></i>
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$doc->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
@@ -151,10 +152,10 @@
                      </div>
                    </div>
                         <a href="{{ route('editardocente',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
-                        <i class="material-icons">edit</i></a>
+                        <i class="bi bi-pencil"></i>
                         </a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$doc->id}}" title="Eliminar docente">
-                            <i class="material-icons">delete_outline</i>
+                            <i class="bi bi-trash"></i>
                           </button>
                           <div class="modal fade" id="myModal2{{$doc->id}}" role="dialog">
                           <div class="modal-dialog">
