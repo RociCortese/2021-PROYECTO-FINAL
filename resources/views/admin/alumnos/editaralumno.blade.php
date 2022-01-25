@@ -13,11 +13,18 @@
           <h4 class="card-title">Editar Alumno</h4>
           </div>
         <div class="card-body" >
-          <div class="card" style="border: 3px solid grey">
-         <h4 class="card-tittle text-center"><strong>Datos del Alumno</strong></h4>
+
+          <div class="card" style="border: thin solid lightgrey;">
+
+         <br>
+         <h4 class="card-tittle text-center"><strong>DATOS DEL ALUMNO</strong></h4>
+
+          <br>
+
+
           <div class="row">
-            <label class="col-sm-2 col-form-label">DNI</label>
-            <div class="col-sm-7">
+            <div class="col">
+            <label>DNI</label>
             <input type="text" name="dnialumno" class="form-control" value="{{$alu->dnialumno}}">
             @if ($errors->has('dnialumno'))
                 <div id="dnialumno-error" class="error text-danger pl-3" for="dnialumno" style="display: block;">
@@ -25,10 +32,9 @@
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Nombre</label>
-            <div class="col-sm-7">
+         
+            <div class="col">
+            <label>Nombre</label>
             <input type="text" name="nombrealumno" class="form-control" value="{{$alu->nombrealumno}}">
             @if ($errors->has('nombrealumno'))
                 <div id="nombrealumno-error" class="error text-danger pl-3" for="nombrealumno" style="display: block;">
@@ -36,10 +42,9 @@
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Apellido</label>
-            <div class="col-sm-7">
+          
+          <div class="col">
+            <label>Apellido</label>
             <input class="form-control" name="apellidoalumno" value="{{$alu->apellidoalumno}}">
             @if ($errors->has('apellidoalumno'))
                 <div id="apellidoalumno-error" class="error text-danger pl-3" for="apellidoalumno" style="display: block;">
@@ -47,10 +52,17 @@
                 </div>
               @endif
             </div>
+
+
           </div>
+
+          <br>
+       
+          
           <div class="row">
-            <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Fecha de nacimiento</label>
             <input type="date" name="fechanacimiento" class="form-control" min="2006-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 5 years"));?>" value="{{$alu->fechanacimiento}}">
             @if ($errors->has('fechanacimiento'))
                 <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
@@ -58,10 +70,9 @@
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Género</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Género</label>
             <select name="generoalumno" id="opciongenero" class="form-control" value="{{$alu->generoalumno}}" >
                     <option></option>
                     <option value="Femenino" <?php if($alu->generoalumno=='Femenino') echo 'selected="selected" ';?>>Femenino
@@ -73,11 +84,17 @@
                 </div>
               @endif
             </div>
+         
+
           </div>
+
+          <br>
+         
         
           <div class="row">
-            <label class="col-sm-2 col-form-label">Domicilio</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Domicilio</label>
             <input type="text" name="domicilio" class="form-control" value="{{$alu->domicilio}}">
             @if ($errors->has('domicilio'))
                 <div id="grado-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
@@ -85,11 +102,10 @@
                 </div>
               @endif
             </div>
-          </div>
 
-           <div class="row">
-            <label class="col-sm-2 col-form-label">Localidad</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Localidad</label>
             <input type="text" name="localidad" class="form-control" value="{{$alu->localidad}}">
             @if ($errors->has('localidad'))
                 <div id="grado-error" class="error text-danger pl-3" for="localidad" style="display: block;">
@@ -97,11 +113,9 @@
                 </div>
               @endif
             </div>
-          </div>
-
-           <div class="row">
-            <label class="col-sm-2 col-form-label">Provincia</label>
-            <div class="col-sm-7">
+          
+            <div class="col">
+            <label>Provincia</label>
             <input type="text" name="provincia" class="form-control" value="{{$alu->provincia}}" >
             @if ($errors->has('provincia'))
                 <div id="grado-error" class="error text-danger pl-3" for="provincia" style="display: block;">
@@ -109,14 +123,26 @@
                 </div>
               @endif
             </div>
+        
+
+
           </div>
-          </div>
-          <div class="card" style="border: 3px solid grey">
-          <h4 class="card-tittle text-center"><strong>Datos de la Familia</strong></h4>
+
+          <br>
+           </div>
+
+           
+          <div class="card" style="border: thin solid lightgrey;">
+       <br>
+          <h4 class="card-tittle text-center"><strong>DATOS DE LA FAMILIA</strong></h4>
+          
           <div id="familiar">
+
+
           <div class="row">
-            <label class="col-sm-2 col-form-label">DNI</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>DNI</label>
             <input type="text" name="dnifamilia" class="form-control" value="{{$fam->dnifamilia}}">
             @if ($errors->has('dnifamilia'))
                 <div id="dnifamilia-error" class="error text-danger pl-3" for="dnifamilia" style="display: block;">
@@ -124,10 +150,9 @@
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Nombre</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Nombre</label>
             <input type="text" name="nombrefamilia" class="form-control" value="{{$fam->nombrefamilia}}" >
             @if ($errors->has('nombrefamilia'))
                 <div id="nombrefamilia-error" class="error text-danger pl-3" for="nombrefamilia" style="display: block;">
@@ -135,10 +160,9 @@
                 </div>
               @endif
             </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Apellido</label>
-            <div class="col-sm-7">
+          
+            <div class="col">
+            <label>Apellido</label>
             <input class="form-control" name="apellidofamilia" value="{{$fam->apellidofamilia}}" >
             @if ($errors->has('apellidofamilia'))
                 <div id="apellidofamilia-error" class="error text-danger pl-3" for="apellidofamilia" style="display: block;">
@@ -146,10 +170,17 @@
                 </div>
               @endif
             </div>
+
+
           </div>
+
+          <br>
+          
+         
           <div class="row">
-            <label class="col-sm-2 col-form-label">Género</label>
-            <div class="col-sm-7">
+
+            <div class="col">
+            <label>Género</label>
             <select name="generofamilia" id="opciongenerofamilia" class="form-control" value="{{$fam->generofamilia}}">
                     <option></option>
                     <option value="Femenino" <?php if($fam->generofamilia=='Femenino') echo 'selected="selected" ';?>>Femenino
@@ -161,34 +192,10 @@
                 </div>
               @endif
             </div>
-          </div>
-              <div class="row">
-            <label class="col-sm-2 col-form-label">Teléfono</label>
-            <div class="col-sm-7">
-            <input type="text" name="telefono" class="form-control" value="{{$fam->telefono}}" >
-            @if ($errors->has('telefono'))
-                <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
-                  <strong>{{ $errors->first('telefono') }}</strong>
-                </div>
-              @endif
-            </div>
-          </div>
 
-           <div class="row">
-            <label class="col-sm-2 col-form-label">Correo electrónico</label>
-            <div class="col-sm-7">
-            <input type="text" name="email" class="form-control" value="{{$fam->email}}" >
-            @if ($errors->has('email'))
-                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
-                </div>
-              @endif
-            </div>
-          </div>
 
-          <div class="row">
-            <label class="col-sm-2 col-form-label">Vínculo Familiar</label>
-            <div class="col-sm-7">
+            <div class="col">
+            <label>Vínculo Familiar</label>
               <select name="vinculofamiliar" id="opcionvinculo" class="form-control" value="{{$fam->vinculofamiliar}}">
                     <option></option>
                     <option value="Madre" <?php if($fam->vinculofamiliar=='Madre') echo 'selected="selected" ';?>>Madre
@@ -202,23 +209,56 @@
                 </div>
               @endif
             </div>
-          </div>
-            
-            <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
+        
+       </div>
+
+       <br>
+
+       <div class="row">
+
+            <div class="col">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" class="form-control" value="{{$fam->telefono}}" >
+            @if ($errors->has('telefono'))
+                <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
+                  <strong>{{ $errors->first('telefono') }}</strong>
+                </div>
+              @endif
             </div>
+         
+
+           <div class="col">
+            <label>Correo electrónico</label>
+            <input type="text" name="email" class="form-control" value="{{$fam->email}}" >
+            @if ($errors->has('email'))
+                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                  <strong>{{ $errors->first('email') }}</strong>
+                </div>
+              @endif
           </div>
-  
-  </div>
-          <div class="card-footer">
+
+</div>
+<br>
+          
+      </div>
+            </div>        
+        
+     <div class="text-right">
+            <h4><span class="badge badge-danger">*Recuerde que todos los campos son obligatorios.</span></h4>
+          </div>
+     
+<div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
-      </div>
-        </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
+        </div>
+        </div>
+        </div>
+        </div>
+   
+        
+
+          
 @endsection

@@ -10,7 +10,7 @@
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('directivo')}}">
-          <i class="material-icons" >dashboard</i>
+          <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
       </li>
@@ -18,7 +18,7 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#micolegio" aria-expanded="false">
           <div class="items-dashboard">
-          <i class="material-icons">school</i>
+          <i class="bi bi-mortarboard"></i>
           <span class="sidebar-normal">Mi Colegio</span>
             <b class="caret"></b>
             </div>
@@ -28,7 +28,7 @@
             <li class="nav-item{{ $activePage == 'formulario' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('formulario')}}">
                 <div class="items-dashboard" >
-                <i class="material-icons">info</i>
+                <i class="bi bi-info-circle"></i>
                 <span class="sidebar-normal">{{ __('Informacion de Colegio') }}</span>
                 </div>
               </a>
@@ -36,7 +36,7 @@
             <li class="nav-item{{ $activePage == 'configuraciones' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('configuraciones')}}">
                 <div class="items-dashboard">
-               <i class="material-icons">settings</i>
+               <i class="bi bi-gear"></i>
                 <span class="sidebar-normal"> {{ __('Configuraciones Básicas') }} </span>
                 </div>
               </a>
@@ -50,7 +50,7 @@
             <li class="nav-item{{ $activePage == 'docente' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('admin/docentes')}}">
                 <div class="items-dashboard">
-                <i class="material-icons">how_to_reg</i>
+                <i class="bi bi-person-plus"></i>
                 <span class="sidebar-normal">{{ __('Registro de docentes') }} </span>
                 </div>
               </a>
@@ -64,7 +64,7 @@
           <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('admin/alumnos')}}">
                 <div class="items-dashboard">
-                <i class="material-icons">how_to_reg</i>
+                <i class="bi bi-person-plus"></i>
                 <span class="sidebar-normal">{{ __('Registro de alumnos') }} </span>
                 </div>
               </a>
@@ -75,7 +75,7 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false">
           <div class="items-dashboard">
-          <i class="material-icons">today</i>
+          <i class="bi bi-calendar4-event"></i>
           <span class="sidebar-normal">Año escolar</span>
             <b class="caret"></b>
             </div>
@@ -85,7 +85,7 @@
             <li class="nav-item{{ $activePage == 'añoescolar' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('añoescolar')}}">
                <div class="items-dashboard"> 
-                <i class="material-icons">today</i>
+                <i class="bi bi-calendar4-event"></i>
                 <span class="sidebar-normal">{{ __('Creación de año escolar') }}</span>
                 </div>
               </a>
@@ -93,7 +93,7 @@
             <li class="nav-item{{ $activePage == 'armadogrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('armadogrado')}}">
                 <div class="items-dashboard">
-               <i class="material-icons text-secundary">groups</i>
+               <i class="material-icons">groups</i>
                 <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
                 </div>
               </a>
@@ -104,7 +104,7 @@
           <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('calendario')}}">
                 <div class="items-dashboard">
-               <i class="material-icons">event</i>
+               <i class="bi bi-calendar4-event"></i>
                 <span class="sidebar-normal"> {{ __('Eventos') }} </span>
                 </div>
               </a>
@@ -116,7 +116,7 @@
           <li class="nav-item{{ $activePage == 'chatdirectivo' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
                 <div class="items-dashboard">
-                <i class="material-icons">email</i>
+                <i class="bi bi-chat-dots"></i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
                 </div>
               </a>
@@ -135,14 +135,14 @@
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboarddocente' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('docente')}}">
-          <i class="material-icons">dashboard</i>
+          <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('calendario')}}">
                 <div class="items-dashboard">
-               <i class="material-icons">event</i>
+               <i class="bi bi-calendar4-event"></i>
                 <span class="sidebar-normal"> {{ __('Eventos') }} </span>
                 </div>
               </a>
@@ -153,7 +153,7 @@
           <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
                 <div class="items-dashboard">
-                <i class="material-icons">email</i>
+                <i class="bi bi-chat-dots"></i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
                 </div>
               </a>
@@ -172,7 +172,7 @@
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboardfamilia' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('familia')}}">
-          <i class="material-icons">dashboard</i>
+          <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 
         </a>
       </li>
@@ -190,7 +190,7 @@
           <li class="nav-item{{ $activePage == 'chatfamilia' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
                 <div class="items-dashboard">
-                <i class="material-icons">email</i>
+                <i class="bi bi-chat-dots"></i>
                 <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
                 </div>
               </a>
