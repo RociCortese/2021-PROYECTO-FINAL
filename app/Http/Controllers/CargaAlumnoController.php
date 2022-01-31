@@ -56,9 +56,14 @@ class CargaAlumnoController extends Controller
 
     public function create(Request $request)
     {
+        $idpersona=Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idpersona);
+        foreach ($colegio as $idcol) {
+        $idcolegio="$idcol->id";
+        }
         if($request){
         $apellidofam = trim($request->get('buscarapellidofamilia'));
-        $familias= Familia::where('apellidofamilia','LIKE','%'.$apellidofam.'%')->paginate(5);
+        $familias= Familia::where('apellidofamilia','LIKE','%'.$apellidofam.'%')->where('colegio_id', $idcolegio)->paginate(5);
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);
         if($colegio->isEmpty())
@@ -88,10 +93,8 @@ class CargaAlumnoController extends Controller
                     }
     }
 }
-
     public function store(Request $request)
     {
-        $check=$request->check;
          $request->validate([
             'dnialumno' => ['required', 'int','digits_between:7,8','unique:alumnos'],
             'nombrealumno' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
@@ -103,7 +106,52 @@ class CargaAlumnoController extends Controller
             'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'grado' => 'required',
             ]);
-            if(empty($check)){
+        $checkselect=$request->check;
+        $alumno=new Alumno();
+        $alumno->nombrealumno=$request->nombrealumno;
+        $alumno->apellidoalumno=$request->apellidoalumno;
+        $alumno->dnialumno=$request->dnialumno;
+        $alumno->generoalumno=$request->generoalumno;
+        $alumno->fechanacimiento=$request->fechanacimiento;
+        $alumno->domicilio=$request->domicilio;
+        $alumno->localidad=$request->localidad;
+        $alumno->provincia=$request->provincia;
+        $alumno->grado=$request->grado;
+        $alumno->familias_id=$checkselect;
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
+        $alumno->colegio_id=$idcolegio;
+        $alumno->save();        
+         return redirect()->route('alumnos.index')
+                        ->with('success', 'El alumno se cargó correctamente.');
+    }
+    public function crearfamilia(Request $request){
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+            {   
+                $idcolegio= "$col->id";
+            };
+        $maxgrado=Colegio::where('id',$idcolegio)->get();
+        foreach ($maxgrado as $max) {
+            $maximogrado="$max->grados";
+        }
+        $division=Colegio::where('id',$idcolegio)->get();
+        foreach ($division as $div) {
+            $divcol="$div->divisiones";
+        }
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $divcol);
+        $divcol=explode(',', $res);
+        $contador=count($divcol)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombredivision[]=Abecedario::where('id',$divcol[$i])->pluck("letras");
+        }
+        $apellidofam = trim($request->get('buscarapellidofamilia'));
+        $familias= Familia::where('apellidofamilia','LIKE','%'.$apellidofam.'%')->where('colegio_id', $idcolegio)->paginate(5);
         $request->validate([
             'dnifamilia' => ['required', 'int','digits_between:7,8','unique:familias'],
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
@@ -113,8 +161,6 @@ class CargaAlumnoController extends Controller
             'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
             ]);
-            } 
-        if(empty($check)){
         $familia=new Familia();
         $familia->nombrefamilia=$request->nombrefamilia;
         $familia->apellidofamilia=$request->apellidofamilia;
@@ -123,6 +169,7 @@ class CargaAlumnoController extends Controller
         $familia->telefono=$request->telefono;
         $familia->email=$request->email;
         $familia->vinculofamiliar=$request->vinculofamiliar;
+        $familia->colegio_id=$idcolegio;
         $familia->save();
         $idfamilia=$familia->id;
         $emfam=$familia->email;
@@ -141,33 +188,9 @@ class CargaAlumnoController extends Controller
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
         $user->notify(new notifcreacion($user->email,$password));
-        }
-        else{
-            $idfamilia=$check;
-        }
-        $alumno=new Alumno();
-        $alumno->nombrealumno=$request->nombrealumno;
-        $alumno->apellidoalumno=$request->apellidoalumno;
-        $alumno->dnialumno=$request->dnialumno;
-        $alumno->generoalumno=$request->generoalumno;
-        $alumno->fechanacimiento=$request->fechanacimiento;
-        $alumno->domicilio=$request->domicilio;
-        $alumno->localidad=$request->localidad;
-        $alumno->provincia=$request->provincia;
-        $alumno->grado=$request->grado;
-        $alumno->familias_id=$idfamilia;
-        $idusuario= Auth::user()->id;
-        $colegio= Colegio::all()->where('users_id',$idusuario);
-        foreach($colegio as $col)
-            {   
-                $idcolegio= "$col->id";
-            };
-        $alumno->colegio_id=$idcolegio;
-        $alumno->save();        
-        return redirect()->route('alumnos.index')
-                        ->with('success', 'El alumno se cargó correctamente.');
-    } 
-
+        return view('admin.alumnos.create',compact('nombredivision','maximogrado','apellidofam','familias')); 
+}
+    
     public function showalumnos($id)
     {
         $alu=Alumno::findOrFail($id);

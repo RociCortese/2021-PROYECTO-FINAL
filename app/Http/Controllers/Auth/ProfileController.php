@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Directivo;
 use App\Models\Docente;
 use App\Models\Familia;
+use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 
 class ProfileController extends Controller
@@ -49,6 +50,11 @@ class ProfileController extends Controller
         $persona->email=$emailmodificado;
         $data= $request->only('nombre','apellido','dni','telefono','email');
         $persona->update($data);
+        $usuario = User::findOrFail(Auth::user()->id);
+        $usuario->email=$emailmodificado;
+        $usuario->name=$request->nombre . ' ' . $request->apellido;
+        $data2= $request->only('name','email');
+        $usuario->update($data2);
         return back()->with('success', 'La información personal se ha actualizado correctamente.');
         }
         else if($user->role=='docente'){

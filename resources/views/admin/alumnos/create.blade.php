@@ -274,6 +274,9 @@ function mostrar() {
                     }, 1000);
                     </script>
                     @endif
+            @if ($familias->isEmpty())
+                  <div style="margin-left: 10px;"> Aún no hay familias creadas.</div>
+                  @else
             <input name="buscarapellidofamilia" class="form-control" type="search" placeholder="Buscar por apellido del familiar" value="{{$apellidofam}}">
             <div class="card-footer">
           <div>
@@ -297,7 +300,7 @@ function mostrar() {
                       @foreach($familias as $fam)
                         <tr>
                           <td class="v-align-middle">
-                          <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked" onclick="deshabilitar('');"></td>
+                          <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked"></td>
                           <td class="v-align-middle">{{$fam->id}}</td>
                           <td class="v-align-middle">{{$fam->dnifamilia}}</td>
                           <td class="v-align-middle">{{$fam->nombrefamilia}}</td>
@@ -319,13 +322,23 @@ function mostrar() {
             </tr>
           </tbody>
         </table>
+        @endif
               <div class="card-footer">
-          <div class=" col-xs-12 col-sm-12 col-md-12 text-center">
-          <a href="#" class="btn btn-sm btn-facebook" name="botonalumnos" onclick="mostrar()" id="link" style="color: white;">Crear nuevo familiar</a>
-        </div>
-      </div>
-          <div id="familiar" style="display: none;">
-          <div class="row">
+                <div class=" col-xs-12 col-sm-12 col-md-12 text-center">
+                <input type="button" class="btn btn-sm btn-facebook" id="botonalumnos" name="botonalumnos" data-toggle="modal" data-target="#myModal" value="Crear nuevo familiar"></input>
+              </div>
+              </div>
+            <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header" style="background-color: lightblue;">
+            <h5 class="modal-title" id="exampleModalLabel"><strong>Nueva Familia</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body ">
+            <form class="form-horizontal" action="{{route('crearfamilia')}}" name="formalumnos" method="POST">
+            @csrf
+            <div class="row">
             <label class="col-sm-2 col-form-label">DNI</label>
             <div class="col-sm-7">
             <input type="text" name="dnifamilia" class="form-control" value="{{ old('dnifamilia') }}">
@@ -435,12 +448,23 @@ function mostrar() {
               @endif
             </div>
           </div>
-            
-            <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
+          <div class="card-footer">
+          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+                <button type="submit" class="btn btn-sm btn-facebook" formaction="{{ route('crearfamilia') }}" formmethod="POST">Guardar</button>
+                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
+          </div>
+        </div>
+        </form>
+                            
+                         </div>
+                          </div>
+                          </div>
+                        </div>
+          
+          
             </div>
           </div>
-  
-  </div>
+
 
 
 

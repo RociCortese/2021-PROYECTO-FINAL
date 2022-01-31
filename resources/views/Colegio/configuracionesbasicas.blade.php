@@ -16,6 +16,12 @@
             <h4 class="card-title">Configuraciones</h4>
             <p class="card-category">Configuraciones básicas</p>
             </div>
+             @if($colegio->isEmpty())
+                <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para cargar las configuraciones básicas antes deberá cargar la información del colegio.</span></h4>
+              </div>
+              @else
             <div class="card-body">
               @if(session('success'))
                     <div class="alert alert-success text-left" role="success">
@@ -29,7 +35,8 @@
                     }, 1000);
                     </script>
                     @endif
-                  <div class="row">
+         
+          <div class="row">
           <div class="col">
             <label><strong>PERÍODO</strong></label>
             <br>
@@ -141,7 +148,8 @@
     <label><strong>DIVISIONES</strong></label>
     <br>
     <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
-
+      @if(empty($colegios->divisiones))
+      @else
       <?php
         $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->divisiones);
         $array=explode(',', $res);
@@ -159,6 +167,7 @@
        <?php
       }
       ?>
+      @endif
 
     </select>
 
@@ -205,11 +214,12 @@
     <label for="espacioscurriculares"><strong>ESPACIOS CURRICULARES</strong></label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
-
+      @if(empty($colegios->espacioscurriculares))
+      @else
       <?php
         $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->espacioscurriculares);
         $array=explode(',', $res);
-    for ($i=0;$i<=count($array)-1;$i++)    
+     for ($i=0;$i<=count($array)-1;$i++)    
       {     
        $espacio=App\Models\espacioscurriculares::where('id',$array[$i])->get();
         foreach ($espacio as $es) {
@@ -223,39 +233,14 @@
        <?php
       }
       ?>
+      @endif
     </select>
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
-    <!--@if(empty($nuevosespacios))
-    @else
-    <form action="{{ url('configuraciones/create') }}" method="POST" class="form-horizontal">
-   @csrf
-    <div class="table-responsive">
-                  <table class="table">
-                    <thead class="text-primary">
-                      <th>Espacio curricular</th>
-                      <th>Grado</th>
-                      <th>Especial</th>
-                    </thead>
-                    <?php
-                    $cantidad=count($nuevosespacios)-1;
-                    for ($i=0; $i <=$cantidad ; $i++) { 
-                    ?>
-                    <tr>
-                      <td class="v-align-middle">{{$nuevosespacios[$i]}}</td>
-                      <td><input type="checkbox" name="cbox2" id="cbox2" value="Grado"></td>
-                      <td><input type="checkbox" name="cbox2" id="cbox2" value="Especial"></td>
-                    </tr>
-                  </table>
-                      <?php
-                    }
-                    ?>
-      </div>
-      @endif-->
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
     tags: true,
     tokenSeparators: [','],
-    placeholder: 'Ingrese los Espacios Curriculares que desea agregar',
+    placeholder: 'Ingrese los espacios curriculares que desea agregar',
     minimumInputLength: 3,
     tags: true,
     tokenSeparatrs : [ ',' , ' ' ],
@@ -297,11 +282,13 @@
           </div>
 
 
+
 <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
           </div>
         </div>
+         @endif
       </div>
       
       </div>
