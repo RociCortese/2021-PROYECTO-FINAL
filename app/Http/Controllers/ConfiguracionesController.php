@@ -27,10 +27,15 @@ class ConfiguracionesController extends Controller
 
     public function store(Request $request)
     {
-        $divi=$request->input("divisiones");
-        $divi=implode(' ',$divi);
-        $espacio=$request->input("espacioscurriculares");
-        $espa=implode(' ',$espacio);
+        if($request->divisiones){
+            $divi=$request->input("divisiones");
+            $divi=implode(' ',$divi);
+        }
+        if($request->espacioscurriculares){
+            $espacio=$request->input("espacioscurriculares");
+            $espa=implode(' ',$espacio);
+        }
+        
         $cantidad=count($espacio)-1;
         for ($i=0; $i<=$cantidad;$i++) { 
             if(is_numeric($espacio[$i])){
@@ -41,6 +46,7 @@ class ConfiguracionesController extends Controller
                 $esp->nombre=$espacio[$i];
                 $nuevosespacios[]=$espacio[$i];
                 $esp->save();
+                $espacio[$i]=$esp->id;
             }
         }
         $request->validate([
@@ -57,9 +63,13 @@ class ConfiguracionesController extends Controller
                 $idcolegio= "$col->id";
             };
         $modificar = Colegio::findOrFail($idcolegio);
-        $data= $request->only('periodo','turno','grados','divisiones','espacioscurriculares');
-        $modificar->update($data);
-        return view('Colegio.configuracionesbasicas', compact('colegio','nuevosespacios'));
+        $modificar->periodo=$request->periodo;
+        $modificar->turno=$request->turno;
+        $modificar->grados=$request->grados;
+        $modificar->divisiones=$request->divisiones;
+        $modificar->espacioscurriculares=$espacio;
+        $modificar->save();
+        return redirect()->route('configuraciones',compact('colegio'))->with('success', 'Las configuraciones se modificaron correctamente.');
         }
     
     /**
