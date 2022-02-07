@@ -20,13 +20,13 @@
               </div>
               @else
               <div class="card-body">
-                <div class="row">
-                  <div class="col-12 text-right">
-                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Registrar Alumno</a>
-                  </div>
-                </div>
                 @if ($alumnos->isEmpty())
                @if(empty($apellido))
+               <div class="row">
+                  <div class="col-12 text-right">
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Registrar alumno</a>
+                  </div>
+                </div>
                   <div> Aún no hay alumnos creados.</div>
                   @else
                   <form>
@@ -34,7 +34,7 @@
                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
                       <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                      <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                      <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
                     </form> 
                   <div>No se encontraron resultados para el filtro aplicado.</div>
                   @endif
@@ -60,7 +60,8 @@
                     }, 1000);
                     </script>
                                   @endif
-                    <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar alumnos"><span class="material-icons">filter_list</span></button></div>
+                      <div class="text-right">
+                      <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar alumnos"><span class="material-icons">filter_list</span></button>
 
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
@@ -68,12 +69,16 @@
                         <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
                         <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
-                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                      </form>
-                      <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
+                        <div class="text-right">
+                          <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                          <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        </div>
+                    </form>
+                  </div>
                     </div>
-                    </div>
-                    <tbody>
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">
+                    <i class="material-icons">person_add_alt</i></a>
+                </div>
 
                       @foreach($alumnos as $alu)
                        
@@ -83,20 +88,17 @@
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
                           <td class="td-actions td-actions v-align-middle">
-                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver Información Docente">
+                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver información alumno">
                             <i class="material-icons">person</i>
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$alu->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header" style="background-color: lightblue;">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del alumno</strong></h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del alumno {{$alu->nombrealumno}} {{$alu->apellidoalumno}}</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body ">
-                            <div class="author">
-                            <h5 class="tittle mt-3"><strong>ALUMNO: {{$alu->nombrealumno}} {{$alu->apellidoalumno}}</strong></h5>
-                          </div>
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >
@@ -121,14 +123,42 @@
                                 </td>
                                 </tr>
                            </table>
-                            
+                           <?php
+                           $infofamilia=App\Models\Familia::where('id',$alu->familias_id)->get();
+                           ?>
+                           @foreach($infofamilia as $infofam)
+                            <div class="author">
+                            <h5 class="tittle mt-3"><strong>Familiar: {{$infofam->nombrefamilia}} {{$infofam->apellidofamilia}}</strong></h5>
+                          </div>
+                            <table class="table">
+                              <tr>
+                                <td class="v-align-middle" >
+                                <label>DNI:</label>  {{$infofam->dnifamilia}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Género:</label>  {{$infofam->generofamilia}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Teléfono:</label>  {{$infofam->telefono}}
+                                </td> 
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
+                                <label>Email:</label>  {{$infofam->email}}
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Vínculo familiar:</label>  {{$infofam->vinculofamiliar}}
+                                </td>
+                                </tr>
+                           </table>
+                           @endforeach
                          </div>
                           </div>
                           </div>
                         </div>
                           <a href="{{route('editaralumno',$alu->id)}}" class="btn btn-warning" title="Modificar alumno"><i class="material-icons">edit</i></a>
-                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alu->id}}">
-                            <i class="material-icons">delete_outline</i>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alu->id}}" title="Eliminar alumno">
+                          <i class="material-icons">delete_outline</i>
                           </button>
                           <div class="modal fade" id="myModal2{{$alu->id}}" role="dialog">
                           <div class="modal-dialog">

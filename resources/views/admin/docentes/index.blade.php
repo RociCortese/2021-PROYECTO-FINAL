@@ -20,15 +20,14 @@
 
               @else
               <div class="card-body">
-                <div class="row">
+                @if ($docentes->isEmpty())
+                  @if(empty($apellido))
+                  <div class="row">
                   <div class="col-12 text-right">
 
                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Registrar Docente</a>
                   </div>
                 </div>
-               
-                @if ($docentes->isEmpty())
-                  @if(empty($apellido))
                   <div> Aún no hay docentes creados.</div>
                   @else
                   <form>
@@ -64,12 +63,9 @@
                     }, 1000);
                     </script>
                     @endif
-                    
 
-                       <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
-
-                       <br>
-
+                    <div class="text-right">
+                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
@@ -77,10 +73,13 @@
                         <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
                         <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                      </form>
-                    <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        </div>
+                     </form>
                   </div>
                     </div>
+                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">
+                    <i class="material-icons">person_add_alt</i></a>
                     </div>
 
                                            

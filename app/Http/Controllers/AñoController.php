@@ -167,9 +167,7 @@ class AñoController extends Controller
         return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado'));
       }
       else{
-      $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
-      $grados = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->pluck("id_alumnos");                         
-                                
+      $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();                                           
       return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado'));
     }
           }
@@ -374,6 +372,7 @@ class AñoController extends Controller
         $colegio= Colegio::all()->where('users_id',$idpersona);
         foreach ($colegio as $idcol) {
           $periodocolegio="$idcol->periodo";
+          $idcolegio="$idcol->id";
         }
       $division=Colegio::where('id',$idcolegio)->get();
         foreach ($division as $div) {
