@@ -10,7 +10,7 @@
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf        
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('INICIAR SESIÓN') }}</strong></h4>
           </div>
           <div class="card-body">
@@ -19,7 +19,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">email</i>
+                    <i class="bi bi-envelope-fill"></i>
                   </span>
                 </div>
                 <input type="email" name="email" class="form-control" placeholder="{{ __('Correo electrónico') }}" autocomplete="off">
@@ -34,7 +34,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
+                    <i class="bi bi-bag-fill"></i>
                   </span>
                 </div>
                 <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Contraseña') }}">
@@ -45,17 +45,9 @@
                 </div>
               @endif
             </div>
-            <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Recordarme') }}
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-              </label>
-            </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('INGRESAR') }}</button>
+            <button type="submit" class="btn btn-facebook  btn-sm">{{ __('INGRESAR') }}</button>
           </div>
             <div class="row">
         <div class="col-md-9 ml-auto mr-auto mb-3 text-center">

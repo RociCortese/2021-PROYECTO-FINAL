@@ -8,7 +8,7 @@
         @csrf
 
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('REGISTRARME') }}</strong></h4>
           </div>
           <div class="card-body ">
@@ -141,7 +141,7 @@
             </div>
   
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Registrarme') }}</button>
+            <button type="submit" class="btn btn-facebook btn-sm">{{ __('Registrarme') }}</button>
           </div>
           <div align="center">
            <i></label> <small>Los campos con (*) son obligatorios.</small></i>

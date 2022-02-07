@@ -6,7 +6,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
 
-    return view('auth/login');
+    return view('home');
 });
 Route::get('home', function () {
     //

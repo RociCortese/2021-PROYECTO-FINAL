@@ -1,16 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.main', ['class' => 'off-canvas-sidebar','activePage' => 'title', 'titlePage' => __('Dashboard Docente')])
 
 @section('content')
-<link href="css/app.css" rel="stylesheet" />
-<div class="app-body">
-    <div class="sidebar">
-      <nav class="sidebar-nav">
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="formulario"><i class="icon-speedometer"></i> Carga de imagen <span class="badge badge-primary"></span></a>
-          </li>
-        </ul>
-      </nav>
+
+<div class="container" style="height: auto;">
+  <div class="row align-items-center">
+    <div class="col-md-9 ml-auto mr-auto mb-3 text-center">
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+         
+                    
+                        <p class="text-white">"Sistema Educativo para la Optimización en los procesos de comunicación, gestión académica del estudiante y sus actividades escolares, destinado a establecimientos educativos de nivel primario" </p>
+               
+
+        </div>
+    </div>
 </div>
+ 
 
 @endsection

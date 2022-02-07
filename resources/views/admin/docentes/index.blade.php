@@ -66,7 +66,7 @@
                     @endif
                     
 
-                       <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
+                       <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-funnel-fill"></i></button></div>
 
                        <br>
 
