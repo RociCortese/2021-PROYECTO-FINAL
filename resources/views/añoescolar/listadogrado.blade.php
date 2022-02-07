@@ -101,8 +101,9 @@
                                   foreach ($alumno as $nomalu) {
                                     $nombrealu="$nomalu->nombrealumno";
                                     $apellidoalu="$nomalu->apellidoalumno";
-                                }
+                                
                                 echo $nombrealu .'&nbsp'. $apellidoalu.'<br>';
+                              }
                               }
                               
                             

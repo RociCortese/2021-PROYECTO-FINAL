@@ -115,17 +115,17 @@
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Año:</strong></label>  {{$año->descripcion}}
+                                <label><strong>Año</strong></label>  {{$año->descripcion}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Fecha de inicio:</strong></label>  {{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}
+                                <label><strong>Fecha de inicio</strong></label>  {{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Fecha de finalización:</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
+                                <label><strong>Fecha de finalización</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
                                 </td>
                               </tr>
                               <tr>
