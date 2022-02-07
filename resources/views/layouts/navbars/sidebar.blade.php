@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="orange" data-background-color="white">
+<div class="sidebar" data-color="azure" data-background-color="white">
 
   <!--<div class="logo">
     <img style="width:200px" src="img/LogoSnotra.jpg"class="simple-text logo-normal">
@@ -64,7 +64,7 @@
           <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('admin/alumnos')}}">
                 <div class="items-dashboard">
-                <i class="bi bi-person-plus"></i>
+                 <i class="bi bi-person-plus"></i>
                 <span class="sidebar-normal">{{ __('Registro de alumnos') }} </span>
                 </div>
               </a>

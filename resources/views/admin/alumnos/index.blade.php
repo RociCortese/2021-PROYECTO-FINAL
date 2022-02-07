@@ -60,12 +60,15 @@
                     }, 1000);
                     </script>
                                   @endif
+
                       <div class="text-right">
                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar alumnos"><span class="material-icons">filter_list</span></button>
+
 
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
+                        
                         <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
                         <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
@@ -88,8 +91,10 @@
                           <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                           <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
                           <td class="td-actions td-actions v-align-middle">
-                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver información alumno">
-                            <i class="material-icons">person</i>
+
+                          <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver Información Alumno">
+                            <i class="bi bi-person"></i>
+
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$alu->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
@@ -156,9 +161,11 @@
                           </div>
                           </div>
                         </div>
-                          <a href="{{route('editaralumno',$alu->id)}}" class="btn btn-warning" title="Modificar alumno"><i class="material-icons">edit</i></a>
-                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alu->id}}" title="Eliminar alumno">
-                          <i class="material-icons">delete_outline</i>
+
+                          <a href="{{route('editaralumno',$alu->id)}}" class="btn btn-warning" title="Modificar alumno"><i class="bi bi-pencil"></i></a>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alu->id}}">
+                            <i class="bi bi-trash"></i>
+
                           </button>
                           <div class="modal fade" id="myModal2{{$alu->id}}" role="dialog">
                           <div class="modal-dialog">

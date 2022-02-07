@@ -75,7 +75,7 @@
                 if(($event->creador==Auth::user()->name) || ($nomparti==Auth::user()->name)){
                   ?>
                 <br>
-                <a class="badge badge-secondary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
+                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
                 <?php
                 }
                 ?>

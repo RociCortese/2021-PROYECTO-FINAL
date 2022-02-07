@@ -7,7 +7,8 @@
 
     }
     .header-calendar{
-      background: #F64B4B;color:white;
+      background: #DCE35B;
+      color:white;
       height:70px;
       display: table-cell;
       vertical-align: middle;
@@ -5459,6 +5460,18 @@ button.close {
   color: #ffffff;
   text-decoration: none;
   background-color: #545b62;
+}
+
+.badge-evento {
+  color: #ffffff;
+  background-color: #cbb4d4;
+}
+
+.badge-evento[href]:hover,
+.badge-evento[href]:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #B06AB3;
 }
 
 .badge-success {
@@ -14189,7 +14202,7 @@ h2.title {
 .dropdown-menu a:focus,
 .dropdown-menu a:active {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
-  background-color: #B9E382;
+  background-color: #36D1DC;
   color: #000000;
 }
 
@@ -16493,14 +16506,14 @@ label {
 
 .btn.btn-facebook {
   color: #ffffff;
-  background-color: #3b5998;
+  background-color: #5B86E5;
   border-color: #3b5998;
   box-shadow: 0 2px 2px 0 rgba(59, 89, 152, 0.14), 0 3px 1px -2px rgba(59, 89, 152, 0.2), 0 1px 5px 0 rgba(59, 89, 152, 0.12);
 }
 
 .btn.btn-facebook:hover {
   color: #ffffff;
-  background-color: #37538d;
+  background-color: #36D1DC;
   border-color: #2a3f6c;
 }
 
@@ -16508,7 +16521,7 @@ label {
 .btn.btn-facebook.focus,
 .btn.btn-facebook:hover {
   color: #ffffff;
-  background-color: #37538d;
+  background-color: #36D1DC;
   border-color: #2a3f6c;
 }
 
@@ -16517,9 +16530,9 @@ label {
 .open>.btn.btn-facebook.dropdown-toggle,
 .show>.btn.btn-facebook.dropdown-toggle {
   color: #ffffff;
-  background-color: #37538d;
+  background-color: #36D1DC;
   border-color: #2a3f6c;
-  box-shadow: 0 2px 2px 0 rgba(59, 89, 152, 0.14), 0 3px 1px -2px rgba(59, 89, 152, 0.2), 0 1px 5px 0 rgba(59, 89, 152, 0.12);
+  
 }
 
 .btn.btn-facebook:active:hover,
@@ -16535,7 +16548,7 @@ label {
 .show>.btn.btn-facebook.dropdown-toggle:focus,
 .show>.btn.btn-facebook.dropdown-toggle.focus {
   color: #ffffff;
-  background-color: #37538d;
+  background-color: #36D1DC;
   border-color: #17233c;
 }
 
@@ -16838,7 +16851,7 @@ label {
 .card.bg-info,
 .card.card-rotate.bg-info .front,
 .card.card-rotate.bg-info .back {
-  background: linear-gradient(to right, #00467f, #a5cc82);
+  background: linear-gradient(to left, #36d1dc, #5b86e5);
 }
 
 .card .card-header-success .card-icon,
