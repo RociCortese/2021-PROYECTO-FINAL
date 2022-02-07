@@ -25,26 +25,24 @@
             </div>
                 <div class="row">
                 <label class="col-sm-2 col-form-label">Gestión</label>
-                <div class="col-sm-2">
+                &nbsp &nbsp &nbsp
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada.
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada
                     <span class="circle">
                     <span class="check"></span>
                     </span>
                     </label <?php if($id->gestion=='Privada') echo 'selected="selected" ';?>>
-                    </div>
-                     </div>
-                     <div class="col-sm-2">
-                    <div class="form-check form-check-radio">
+                    &nbsp &nbsp
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública.
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
                         </label<?php if($id->gestion=='Publica') echo 'selected="selected" ';?>>
                     </div>
-                    </div>
+                  
+
                 @error('gestion')
                 <small class="text-danger">{{$message}}</small>
               @enderror 

@@ -47,10 +47,9 @@
                   <span class="circle">
                       <span class="check"></span>
                   </span>
-
                 </label>
               </div>
-              <div class="form-check form-check-radio form-check-inline">
+                  <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="periodo" value="Trimestre"<?php if($colegios->periodo=='Trimestre') echo 'checked ';?>>Trimestre
                   <span class="circle">

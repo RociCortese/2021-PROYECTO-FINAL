@@ -11074,7 +11074,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
   height: 15px;
   width: 15px;
   border-radius: 100%;
-  background-color: #9c27b0;
+  background-color: #36D1DC;
   -webkit-transform: scale3d(0, 0, 0);
   -moz-transform: scale3d(0, 0, 0);
   -o-transform: scale3d(0, 0, 0);
@@ -11099,7 +11099,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
 }
 
 .form-check .form-check-input:checked~.circle {
-  border-color: #9c27b0;
+  border-color: #007991;
 }
 
 .form-check .form-check-input:checked .check:before {
