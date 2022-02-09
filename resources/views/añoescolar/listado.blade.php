@@ -56,7 +56,9 @@
                   @if($años->isEmpty())
                   <div class="text-center"> No hay ningún año escolar asociado a este colegio.</div>
                   @else
+                  <br>
                   <div class="table-responsive">
+                    <br>
                   <table class="table">
                     <thead class="text-primary">
                       <th>Descripción</th>
@@ -76,7 +78,7 @@
                         {
                           ?>
                           <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-danger">
-                          <i class="material-icons">do_not_disturb_on</i>
+                          <i class="bi bi-dash-circle"></i>
                           </a>
                         
                           <?php
@@ -86,7 +88,7 @@
                         {
                           ?>
                           <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-success">
-                          <i class="material-icons">check_circle</i>
+                          <i class="bi bi-check-circle"></i>
                           </a>
                           <?php
                         }
@@ -94,7 +96,7 @@
                         {
                           ?>
                           <a href="{{route('actualizarestado',$año->id)}}"class="btn btn-info">
-                          <i class="material-icons">lock</i>
+                          <i class="bi bi-lock"></i>
                           </a>
                           <?php
                         }
@@ -102,12 +104,12 @@
                       </td>
                       <td class="td-actions v-align-middle">
                           <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$año->id}}" title="Ver Información de año escolar">
-                          <i class="material-icons">info</i>
+                          <i class="bi bi-info-circle"></i>
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$año->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
-                          <div class="modal-header" style="background-color: lightblue;">
+                          <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel"><strong>Información de año escolar</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
@@ -115,17 +117,17 @@
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Año:</strong></label>  {{$año->descripcion}}
+                                <label><strong>Año</strong></label>  {{$año->descripcion}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Fecha de inicio:</strong></label>  {{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}
+                                <label><strong>Fecha de inicio</strong></label>  {{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}
                                 </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Fecha de finalización:</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
+                                <label><strong>Fecha de finalización</strong></label>  {{\Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}
                                 </td>
                               </tr>
                               <tr>
@@ -182,9 +184,9 @@
                      </div>
                    </div>
                         <a href="{{ route('editaraño',$año->id) }}" class="btn btn-warning" title="Modificar año escolar">
-                        <i class="material-icons">edit</i></a>
+                        <i class="bi bi-pencil"></i></a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$año->id}}" title="Eliminar año escolar">
-                        <i class="material-icons">delete_outline</i>
+                        <i class="bi bi-archive"></i>
                         </button>
                           <div class="modal fade" id="myModal2{{$año->id}}" role="dialog">
                           <div class="modal-dialog">
@@ -207,11 +209,11 @@
                     </table>
                     <div style="text-align: center;">
                   <button class="btn btn-danger btn-xs custom" >
-                  <i class="material-icons">do_not_disturb_on</i></button> Inactivo
+                  <i class="bi bi-dash-circle"></i></button> Inactivo
                   <button class="btn btn-success btn-xs custom">
-                  <i class="material-icons">check_circle</i></button> Activo
+                  <i class="bi bi-check-circle"></i></button> Activo
                   <button class="btn btn-info btn-xs custom">
-                  <i class="material-icons">lock</i></button> Cerrado
+                  <i class="bi bi-lock"></i></button> Cerrado
                    </div>
                    <div class="card-footer mr-auto" style="text-align: center;">
                     {{ $años->links() }}

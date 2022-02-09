@@ -121,9 +121,7 @@ class AñoController extends Controller
         $año->id_colegio=$idcolegio;
         $año->save();   
          $años = Año::orderBy('estado','ASC')->where('id_colegio',$idcolegio)->paginate(5);
-
-        return view('añoescolar.listado', compact('descri','periodocolegio','años','colegio'))->with('success','El año escolar se creo correctamente.');
-
+         return redirect()->route('añoescolar',compact('descri','periodocolegio','años','colegio'))->with('success','El año escolar se creo correctamente.');
     } 
 
     public function listadogrado(Request $request)
@@ -159,7 +157,7 @@ class AñoController extends Controller
       foreach ($estado as $idaños) {
         $descripcionaño="$idaños->descripcion";
       }
-      $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
+      $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado')->where('colegio_id',$idcolegio);
       /*Busca todos los grados que están relacionados con el año activo y los ordena*/
       if(empty($idest)){
         $descripcionaño=" ";
@@ -169,9 +167,7 @@ class AñoController extends Controller
         return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado'));
       }
       else{
-      $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
-      $grados = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->pluck("id_alumnos");                         
-                                
+      $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();                                           
       return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado'));
     }
           }
@@ -208,7 +204,7 @@ class AñoController extends Controller
       $todoesta="$todoest->id";
     }
     }
-    $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
+    $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado')->where('colegio_id',$idcolegio);
     $grado = Grado::where('id_anio',$idselect)->orderBy('num_grado','ASC')->get();
     if(empty($idest)){
     $descripcionaño=" ";
@@ -219,15 +215,16 @@ class AñoController extends Controller
 
     public function creategrado(Request $request)
     {
-      /*Busca todos los docentes cuya especialidad es grado*/
-      $docentes= Docente::all()->sortBy('nombredocente')->where('especialidad','Grado');
-
       /*Busca el id del colegio que se encuentra logueado*/
       $idpersona=Auth::user()->id;
       $colegio= Colegio::all()->where('users_id',$idpersona);
         foreach ($colegio as $idcol) {
           $idcolegio="$idcol->id";
         }
+      /*Busca todos los docentes cuya especialidad es grado*/
+      $docentes= Docente::all()->sortBy('nombredocente')->where('especialidad','Grado')->where('colegio_id',$idcolegio);
+
+      
         $maxgrado=Colegio::where('id',$idcolegio)->get();
         foreach ($maxgrado as $max) {
             $maximogrado="$max->grados";
@@ -375,6 +372,7 @@ class AñoController extends Controller
         $colegio= Colegio::all()->where('users_id',$idpersona);
         foreach ($colegio as $idcol) {
           $periodocolegio="$idcol->periodo";
+          $idcolegio="$idcol->id";
         }
       $division=Colegio::where('id',$idcolegio)->get();
         foreach ($division as $div) {
@@ -494,7 +492,7 @@ class AñoController extends Controller
         foreach ($maxgrado as $max) {
             $maximogrado="$max->grados";
         }
-        $docentes= Docente::all()->sortBy('nombredocente')->where('especialidad','Grado');
+        $docentes= Docente::all()->sortBy('nombredocente')->where('especialidad','Grado')->where('colegio_id',$idcolegio);
       $año=Año::where('id_colegio',$idcolegio)->orderBy('descripcion','ASC')->get();
       $grados=Grado::findOrFail($id);
       return view('añoescolar.editargrado', compact('id','maximogrado','año','docentes','grados'));
@@ -508,7 +506,6 @@ class AñoController extends Controller
             'id_anio' => 'required',
         ]);
       $data= $request->only('id_anio','id_docentes');
-      return 
       $grados->update($data);
         return redirect()->route('armadogrado')->with('success','El grado escolar se modificó correctamente.');
     }

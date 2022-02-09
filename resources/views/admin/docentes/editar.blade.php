@@ -174,13 +174,6 @@
                 </div>
               @endif
             </div>
-          
-
-          </div>
-        
-          <br>
-        
-          <div class="row">
 
             <div class="col">
             <label >Legajo</label>
@@ -191,16 +184,43 @@
                 </div>
               @endif
             </div>
-          
-            <div class="col">
-            <label>Especialidad</label>
-            <input type="text" name="especialidad" class="form-control" value="{{$id->especialidad}}">
+          </div>
+          <br>
+    
+            <div class="row">
+          <div class="col">
+            <label>Docente de grado</label>
+                Si <input type="checkbox" id="grado" name="grado" value="Grado" onclick="especial.disabled =this.checked" <?php if($id->especialidad=='Grado') echo 'checked="checked" ';?>> 
+                No <input type="checkbox" id="especial" name="especial" value="Especial" onclick="activarCasilla(this),grado.disabled =this.checked"<?php if($id->especialidad!='Grado') echo 'checked="checked" ';?>>
+            <script type="text/javascript">
+                function activarCasilla(check){
+                  if(especial.checked==true){
+                  document.getElementById("especialidad").style.display = "block";
+                  }else{
+                  document.getElementById("especialidad").style.display = "none";
+                  }
+                  }
+            </script>
+
+           <select name="especialidad" id="especialidad" class="form-control" value="{{ old('especialidad') }}" style="display:none";>
+              <?php
+            $espacioscurriculares=explode(',', $nombreespa);
+            $contador=count($espacioscurriculares)-2;
+            ?>
+            <option>Seleccione la especialidad</option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="{{$espacioscurriculares[$i]}}"><?php echo $espacioscurriculares[$i];?> </option>
+                  <?php } ?>
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">
                   <strong>{{ $errors->first('especialidad') }}</strong>
                 </div>
               @endif
+            </select>
             </div>
+          </div>
         
 
 

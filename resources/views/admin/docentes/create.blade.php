@@ -1,6 +1,4 @@
-
 @extends('layouts.main', ['activePage' => 'docente', 'titlePage' => __('')])
-  
 @section('content')
 <div class="content">
   <div class="container-fluid">
@@ -13,22 +11,17 @@
           <h4 class="card-title">Agregar nuevo docente</h4>
           </div>
         <div class="card-body">
-
            <br>
-
         <div class="row">
           <div class="col">
             <label>DNI</label>
               <input type="text" name="dnidocente" class="form-control" value="{{ old('dnidocente') }}">
-
             @if ($errors->has('dnidocente'))
                 <div id="dnidocente-error" class="error text-danger pl-3" for="dnidocente" style="display: block;">
                   <strong>{{ $errors->first('dnidocente') }}</strong>
                 </div>
               @endif
-          
           </div>
-
         <div class="col">
             <label>Nombre</label>
             <input type="text" name="nombredocente" class="form-control" value="{{ old('nombredocente') }}">
@@ -38,8 +31,6 @@
                 </div>
               @endif
         </div>
-
-
         <div class="col">
           <label>Apellido</label>
             <input class="form-control" name="apellidodocente" value="{{ old('apellidodocente') }}"></input>
@@ -50,10 +41,7 @@
               @endif
             </div>
         </div>
-
         <br>
-        
-
         <div class="row">
           <div class="col form-group">
           <label>Fecha de nacimiento</label>
@@ -64,7 +52,6 @@
                 </div>
               @endif
           </div>
-
             <div class="col">
                 <label>Género</label>
                 <select name="generodocente" id="opciongenero" class="form-control" value="{{ old('generodocente') }}">
@@ -180,18 +167,8 @@
                   <strong>{{ $errors->first('emaildocente') }}</strong>
                 </div>
               @endif
-            
           </div>
-          
-        </div>
-    
-
-    <br>
-    <br>
-
-           
-          <div class="row">
-              <div class="col">
+          <div class="col">
             <label>Legajo</label>
             <input type="text" name="legajo" class="form-control" value="{{ old('legajo') }}">
             @if ($errors->has('legajo'))
@@ -200,17 +177,42 @@
                 </div>
               @endif
               </div>
-
+        </div>
+    <br>
+    <br>
+          <div class="row">
           <div class="col">
-            <label>Especialidad</label>
-            <input type="text" name="especialidad" class="form-control" value="{{ old('especialidad') }}">
+            <label>Docente de grado</label>
+                Si <input type="checkbox" id="grado" name="grado" value="Grado" onclick="especial.disabled =this.checked"> 
+                No <input type="checkbox" id="especial" name="especial" value="Especial" onclick="activarCasilla(this),grado.disabled =this.checked">
+            <script type="text/javascript">
+                function activarCasilla(check){
+                  if(especial.checked==true){
+                  document.getElementById("especialidad").style.display = "block";
+                  }else{
+                  document.getElementById("especialidad").style.display = "none";
+                  }
+                  }
+            </script>
+
+           <select name="especialidad" id="especialidad" class="form-control" value="{{ old('especialidad') }}" style="display:none";>
+              <?php
+            $espacioscurriculares=explode(',', $nombreespa);
+            $contador=count($espacioscurriculares)-2;
+            ?>
+            <option>Seleccione la especialidad</option>
+            <?php
+            for ($i=0; $i <=$contador ; $i++) { 
+              ?>
+                    <option value="{{$espacioscurriculares[$i]}}"><?php echo $espacioscurriculares[$i];?> </option>
+                  <?php } ?>
             @if ($errors->has('especialidad'))
                 <div id="especialidad-error" class="error text-danger pl-3" for="especialidad" style="display: block;">
                   <strong>{{ $errors->first('especialidad') }}</strong>
                 </div>
               @endif
+            </select>
             </div>
-
           </div>
           
           <br>

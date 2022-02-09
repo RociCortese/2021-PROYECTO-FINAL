@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+header('Content-type: text/html; charset=UTF-8');
 
 use Illuminate\Http\Request;
 use App\Models\Docente;
 use App\Models\User;
 use App\Models\Colegio;
+use App\Models\espacioscurriculares;
 use Auth;
 use Session;
 use Redirect;
@@ -54,16 +56,38 @@ class CargaDocenteController extends Controller
                 }
 
     }
-    
-
     public function create()
     {
         $docentes = Docente::all();
-        return view('admin.docentes.create', compact('docentes'));
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+        {   
+            $idcolegio= "$col->id";
+        }
+        $espacios=Colegio::where('id',$idcolegio)->get();
+        foreach ($espacios as $esp) {
+            $espacurri="$esp->espacioscurriculares";
+        }
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $espacurri);
+        $espacurri=explode(',', $res);
+        $contador=count($espacurri)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombreespa=espacioscurriculares::where('id',$espacurri[$i])->get();
+        foreach ($nombreespa as $nomes) {
+            $nombreespacio[]="$nomes->nombre";
+        }
+    }
+        $nombreespacio[]=sort($nombreespacio,3);
+        $espacurri=implode(',', $nombreespacio);
+        $res = iconv("ISO-8859-1//TRANSLIT","UTF-8", $espacurri);
+        $nombreespa=utf8_decode($res);
+        return view('admin.docentes.create', compact('docentes','nombreespa'));
     }
 
     public function store(Request $request)
     {
+        $check=$request->grado;
          $request->validate([
             'dnidocente' => ['required', 'int','digits_between:7,8','unique:docentes'],
             'nombredocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
@@ -77,7 +101,7 @@ class CargaDocenteController extends Controller
             'telefonodocente' => ['required','int'],
             'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
             'legajo' => ['required','int'],
-            'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
+            //'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
         $docente=new Docente();
         $docente->nombredocente=$request->nombredocente;
@@ -92,7 +116,12 @@ class CargaDocenteController extends Controller
         $docente->telefonodocente=$request->telefonodocente;
         $docente->emaildocente=$request->emaildocente;
         $docente->legajo=$request->legajo;
+        if(empty($check)){
         $docente->especialidad=$request->especialidad;
+        }
+        else{
+        $docente->especialidad='Grado';
+        }
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);
         foreach($colegio as $col)
@@ -127,7 +156,30 @@ class CargaDocenteController extends Controller
 
     public function editardoc(Docente $id)
     {
-      return view('admin.docentes.editar', compact('id'));
+        $idusuario= Auth::user()->id;
+        $colegio= Colegio::all()->where('users_id',$idusuario);
+        foreach($colegio as $col)
+        {   
+            $idcolegio= "$col->id";
+        }
+        $espacios=Colegio::where('id',$idcolegio)->get();
+        foreach ($espacios as $esp) {
+            $espacurri="$esp->espacioscurriculares";
+        }
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $espacurri);
+        $espacurri=explode(',', $res);
+        $contador=count($espacurri)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombreespa=espacioscurriculares::where('id',$espacurri[$i])->get();
+        foreach ($nombreespa as $nomes) {
+            $nombreespacio[]="$nomes->nombre";
+        }
+    }
+        $nombreespacio[]=sort($nombreespacio,3);
+        $espacurri=implode(',', $nombreespacio);
+        $res = iconv("ISO-8859-1//TRANSLIT","UTF-8", $espacurri);
+        $nombreespa=utf8_decode($res);
+      return view('admin.docentes.editar', compact('id','nombreespa'));
     }
 
     public function update(Request $request,$id)

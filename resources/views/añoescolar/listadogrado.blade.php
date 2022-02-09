@@ -77,12 +77,12 @@
                       @endforeach
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-target="#ModalAlumnos{{$grados->id}}"data-toggle="modal" title="Ver alumnos">
-                        <i class="material-icons">person</i>
+                        <i class="bi bi-person"></i>
                         </button>
                         <div class="modal fade bd-example-modal-lg" id="ModalAlumnos{{$grados->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
-                          <div class="modal-header" style="background-color: lightblue;">
+                          <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel"><strong>Alumnos de {{$grados->descripcion}}</strong></h5>
 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
@@ -101,8 +101,9 @@
                                   foreach ($alumno as $nomalu) {
                                     $nombrealu="$nomalu->nombrealumno";
                                     $apellidoalu="$nomalu->apellidoalumno";
-                                }
+                                
                                 echo $nombrealu .'&nbsp'. $apellidoalu.'<br>';
+                              }
                               }
                               
                             
@@ -122,7 +123,7 @@
                  </td>
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-warning" data-toggle="modal" data-target="#myModal{{$grados->id}}" title="Docentes especiales">
-                        <i class="material-icons">add_circle_outline</i>
+                        <i class="bi bi-plus-circle"></i>
                       </button>
                       <div class="modal fade bd-example-modal-lg" id="myModal{{$grados->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
@@ -146,8 +147,9 @@
                                     if($espe->id==$doce) echo 'checked="" ';
                                   }
                                   ?>>
-                                 {{$espe->nombredocente}} {{$espe->apellidodocente}}
-                                 {{$espe->especialidad}}
+                                  &nbsp
+                                 <strong>Docente de {{$espe->especialidad}}:</strong> &nbsp{{$espe->nombredocente}} {{$espe->apellidodocente}}. 
+                                 
                                 </td>
                               </tr>
                            </table>
@@ -166,7 +168,7 @@
                     </td>
                     <td class="td-actions v-align-middle">
                     <a href="{{route('editargrado',$grados->id) }}" class="btn btn-warning" title="Modificar grado">
-                    <i class="material-icons">edit</i></a>
+                    <i class="bi bi-pencil"></i>
                     </td>
                     </tr>
                     

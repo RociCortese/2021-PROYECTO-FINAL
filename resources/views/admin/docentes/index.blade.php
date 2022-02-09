@@ -1,7 +1,6 @@
 @extends('layouts.main' , ['activePage' => 'docente', 'titlePage => Docentes'])
 
 @section ('content')
- 
  <div class="content">
    <div class="container-fluid">
      <div class="row">
@@ -21,15 +20,14 @@
 
               @else
               <div class="card-body">
-                <div class="row">
+                @if ($docentes->isEmpty())
+                  @if(empty($apellido))
+                  <div class="row">
                   <div class="col-12 text-right">
 
                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Registrar Docente</a>
                   </div>
                 </div>
-               
-                @if ($docentes->isEmpty())
-                  @if(empty($apellido))
                   <div> Aún no hay docentes creados.</div>
                   @else
                   <form>
@@ -43,7 +41,6 @@
 
                   @endif
             @else
-          
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -65,10 +62,10 @@
                     }, 1000);
                     </script>
                     @endif
-                    
 
-                       <div class="text-right"><button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button></div>
 
+                    <div class="text-right">
+                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
@@ -76,10 +73,13 @@
                         <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
                         <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
                         <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                      </form>
-                    <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        </div>
+                     </form>
                   </div>
                     </div>
+                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">
+                    <i class="material-icons">person_add_alt</i></a>
                     </div>
 
                                            
@@ -92,19 +92,16 @@
                       <td class="v-align-middle">{{$doc->apellidodocente}}</td>
                       <td class="td-actions v-align-middle">
                         <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$doc->id}}" title="Ver Información Docente">
-                            <i class="material-icons">person</i>
+                            <i class="bi bi-person"></i>
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$doc->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
-                          <div class="modal-header" style="background-color: lightblue;">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del Docente</strong></h5>
+                          <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del docente {{$doc->nombredocente}} {{$doc->apellidodocente}}</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <div class="author">
-                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombredocente}} {{$doc->apellidodocente}} </strong></h5>
-                          </div>
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >
@@ -151,10 +148,10 @@
                      </div>
                    </div>
                         <a href="{{ route('editardocente',$doc->id) }}" class="btn btn-warning" title="Modificar docente">
-                        <i class="material-icons">edit</i></a>
+                        <i class="bi bi-pencil"></i>
                         </a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$doc->id}}" title="Eliminar docente">
-                            <i class="material-icons">delete_outline</i>
+                            <i class="bi bi-trash"></i>
                           </button>
                           <div class="modal fade" id="myModal2{{$doc->id}}" role="dialog">
                           <div class="modal-dialog">

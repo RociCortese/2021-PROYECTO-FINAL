@@ -16,6 +16,12 @@
             <h4 class="card-title">Configuraciones</h4>
             <p class="card-category">Configuraciones básicas</p>
             </div>
+             @if($colegio->isEmpty())
+                <br>
+               <div class="col-md-12">
+              <h4><span class="badge badge-warning">Para cargar las configuraciones básicas antes deberá cargar la información del colegio.</span></h4>
+              </div>
+              @else
             <div class="card-body">
               @if(session('success'))
                     <div class="alert alert-success text-left" role="success">
@@ -29,9 +35,10 @@
                     }, 1000);
                     </script>
                     @endif
-                  <div class="row">
+         
+          <div class="row">
           <div class="col">
-            <label><strong>PERÍODO</strong></label>
+            <label><strong>Período</strong></label>
             <br>
             @foreach($colegio as $colegios)
             <div class="form-check form-check-radio form-check-inline">
@@ -40,10 +47,9 @@
                   <span class="circle">
                       <span class="check"></span>
                   </span>
-
                 </label>
               </div>
-              <div class="form-check form-check-radio form-check-inline">
+                  <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="periodo" value="Trimestre"<?php if($colegios->periodo=='Trimestre') echo 'checked ';?>>Trimestre
                   <span class="circle">
@@ -76,7 +82,7 @@
          <br>
 
          <br>
-            <label><strong>TURNO</strong></label>
+            <label><strong>Turno</strong></label>
 
             <br>
             <div class="form-check form-check-radio form-check-inline">
@@ -111,7 +117,7 @@
           <br>
 
           <br>
-          <label><strong>CANTIDAD DE GRADOS</strong></label>
+          <label><strong>Cantidad de grados</strong></label>
 
             <br>
             <div class="form-check form-check-radio form-check-inline">
@@ -138,10 +144,11 @@
               <br>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
               <div class="form-group">
-    <label><strong>DIVISIONES</strong></label>
+    <label><strong>Divisiones</strong></label>
     <br>
     <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
-
+      @if(empty($colegios->divisiones))
+      @else
       <?php
         $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->divisiones);
         $array=explode(',', $res);
@@ -159,8 +166,10 @@
        <?php
       }
       ?>
+      @endif
 
     </select>
+
     <script type="text/javascript">
 
     $('.divisiones').select2({
@@ -201,16 +210,40 @@
     </div>
 
             <div class="form-group">
-    <label><strong>ESPACIOS CURRICULARES</strong></label>
+    <label for="espacioscurriculares"><strong>Espacios curriculares</strong></label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
+      @if(empty($colegios->espacioscurriculares))
+      @else
+      <?php
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->espacioscurriculares);
+        $array=explode(',', $res);
+     for ($i=0;$i<=count($array)-1;$i++)    
+      {     
+       $espacio=App\Models\espacioscurriculares::where('id',$array[$i])->get();
+        foreach ($espacio as $es) {
+          $espa="$es->nombre";
+          $idespa="$es->id";
+        }
+      ?>
+        <option value="{{$idespa}}"<?php echo 'selected="selected" ';?>>
+       {{$espa}}
+       </option>
+       <?php
+      }
+      ?>
+      @endif
     </select>
+    <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
-    placeholder: 'Ingrese los Espacios Curriculares que desea agregar',
+    tokenSeparators: [','],
+    placeholder: 'Ingrese los espacios curriculares que desea agregar',
+    minimumInputLength: 3,
+    tags: true,
+    tokenSeparatrs : [ ',' , ' ' ],
     ajax: {
     url: '/autocomplete/espacioscurriculares/',
-    tags: true,
     dataType: 'json',
     delay: 250,
     processResults: function (data) {
@@ -219,23 +252,22 @@
               return {
                   text: item.nombre,
                   id: item.id
+
               }
           })
       };
 
+
     },
 
     cache: true
+
+
     }
 
 });
-
    
 </script>
-
-<small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
-
-
     @if ($errors->has('espacioscurriculares'))
                 <div id="espacioscurriculares-error" class="error text-danger pl-3" for="espacioscurriculares" style="display: block;">
                   <strong>{{ $errors->first('espacioscurriculares') }}</strong>
@@ -248,11 +280,13 @@
           </div>
 
 
+
 <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
           </div>
         </div>
+         @endif
       </div>
       
       </div>

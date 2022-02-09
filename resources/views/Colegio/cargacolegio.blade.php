@@ -35,26 +35,24 @@ if($colegio->isEmpty()){?>
             </div>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Gestión</label>
-                <div class="col-sm-2">
+                &nbsp &nbsp &nbsp
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada" >Privada.
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada
                     <span class="circle">
                     <span class="check"></span>
                     </span>
                     </label>
-                    </div>
-                     </div>
-                     <div class="col-sm-2">
-                    <div class="form-check form-check-radio">
+                    &nbsp &nbsp
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública.
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
                         </label>
                     </div>
-                    </div>
+                  
+
                 @error('gestion')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
@@ -148,14 +146,14 @@ if($colegio->isEmpty()){?>
       <?php 
     }
     else {?>
-<div class="card">
+<div class="card" >
     <div class= "card-header card-header-info">
     <h4 class="card-title">Información de colegio</h4>
     </div>
  <div class="card-body row justify-content-center">
   <div class="row">
     <div class="col-md-12">
-      <div class="card card-user" style="border: 5px solid grey">
+      <div class="card card-user" style="border: thin solid lightgrey;">
          <div class="card-body ">
            <p class="card-text">
            <div class="author">
@@ -172,7 +170,7 @@ if($colegio->isEmpty()){?>
                     </script>
   @endif
       @foreach($colegio as $col)
-          <h3 class="tittle mt-3 text-center">Establecimiento "{{$col->nombre}}"</h3>
+          <h3 class="tittle mt-3 text-center"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
                           <p class="description">
                             <table class="table">
                               <tr>
@@ -182,11 +180,8 @@ if($colegio->isEmpty()){?>
                                 <td>
                                   <label>Dirección</label>&nbsp;&nbsp;{{$col->direccion}}
                                 </td>
-                                <td>
-                                  <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
-                                </td>
-                              </tr>
-                              <tr>
+                                </tr>
+                                <tr>
                                 <td>
                                   <label>Localidad</label>&nbsp;&nbsp;{{$col->localidad}}
                                 </td>
@@ -194,12 +189,17 @@ if($colegio->isEmpty()){?>
                                   <label>Provincia</label>&nbsp;&nbsp;{{$col->provincia}}
                                 </td>
                               </tr>
-                              <tr>
+                                <tr>
+                                  <td>
+                                  <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
+                                </td>
                                 <td>
                                   <label>Email</label>&nbsp;&nbsp;{{$col->email}}
                                 </td>
-                                <td>
-                            <label>Logo institucional</label>&nbsp;&nbsp;
+                              </tr>
+                              <tr>
+                                <td >
+                            <label >Logo institucional</label>&nbsp;&nbsp;
                         <?php
         $Host ="localhost";
         $uname = "root";

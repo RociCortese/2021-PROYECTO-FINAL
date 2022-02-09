@@ -75,14 +75,14 @@
                 if(($event->creador==Auth::user()->name) || ($nomparti==Auth::user()->name)){
                   ?>
                 <br>
-                <a class="badge badge-primary" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
+                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
                 <?php
                 }
                 ?>
                     <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
-                          <div class="modal-header" style="background-color: lightblue;">
+                          <div class="modal-header">
                           <i class="material-icons">event</i><h5 class="modal-title" id="exampleModalLabel"><strong> Vista detallada del Evento</strong></h5> 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
@@ -116,7 +116,7 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Fecha:</strong></label>  {{$event->fecha}}
+                                <label><strong>Fecha:</strong></label>  {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y')}}
                                 <label><strong>Hora:</strong></label>   {{$event->hora}}
                                 </td>
                               </tr>
@@ -162,7 +162,6 @@
                           @METHOD('DELETE')
                           <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
                           </form>
-          
                            </div>
                            </div>
                           </div>

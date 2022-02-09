@@ -9,7 +9,7 @@
 
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('RESTABLECER CONTRASEÑA') }}</strong></h4>
           </div>
           <div class="card-body ">
@@ -17,7 +17,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">email</i>
+                    <i class="bi bi-envelope-fill"></i>
                   </span>
                 </div>
                 <input type="email" name="email" class="form-control" placeholder="{{ __('Correo Electrónico') }}" value="{{ old('email') }}" required>
@@ -32,7 +32,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
+                    <i class="bi bi-bag-fill"></i>
                   </span>
                 </div>
                 <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Nueva Contraseña') }}" required>
@@ -47,7 +47,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
+                    <i class="bi bi-bag-fill"></i>
                   </span>
                 </div>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirmar contaseña') }}" required>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('RESTABLECER CONTRASEÑA') }}</button>
+            <button type="submit" class="btn btn-facebook btn-sm">{{ __('RESTABLECER CONTRASEÑA') }}</button>
           </div>
         </div>
       </form>
