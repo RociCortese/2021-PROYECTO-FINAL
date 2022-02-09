@@ -8742,7 +8742,7 @@ button.bg-dark:focus {
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #0c7cd5 !important;
+  color: #5B86E5 !important;
 }
 
 .text-secondary {
@@ -8796,7 +8796,7 @@ a.text-danger:focus {
 
 a.text-light:hover,
 a.text-light:focus {
-  color: #FE7109 !important;
+  color: #007991 !important;
   text-decoration: underline;
 }
 

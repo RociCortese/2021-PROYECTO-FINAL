@@ -41,10 +41,9 @@
 
                   @endif
             @else
-          
                 <div class="table-responsive">
                   <table class="table">
-                    <thead class="text-primary ">
+                    <thead class="text-primary">
                       <th>ID</th>
                       <th>DNI</th>
                       <th>Nombre</th>
@@ -99,13 +98,10 @@
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del Docente</strong></h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del docente {{$doc->nombredocente}} {{$doc->apellidodocente}}</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <div class="author">
-                            <h5 class="tittle mt-3"><strong>DOCENTE: {{$doc->nombredocente}} {{$doc->apellidodocente}} </strong></h5>
-                          </div>
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle" >

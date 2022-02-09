@@ -38,7 +38,7 @@
          
           <div class="row">
           <div class="col">
-            <label><strong>PERÍODO</strong></label>
+            <label><strong>Período</strong></label>
             <br>
             @foreach($colegio as $colegios)
             <div class="form-check form-check-radio form-check-inline">
@@ -82,7 +82,7 @@
          <br>
 
          <br>
-            <label><strong>TURNO</strong></label>
+            <label><strong>Turno</strong></label>
 
             <br>
             <div class="form-check form-check-radio form-check-inline">
@@ -117,7 +117,7 @@
           <br>
 
           <br>
-          <label><strong>CANTIDAD DE GRADOS</strong></label>
+          <label><strong>Cantidad de grados</strong></label>
 
             <br>
             <div class="form-check form-check-radio form-check-inline">
@@ -144,7 +144,7 @@
               <br>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
               <div class="form-group">
-    <label><strong>DIVISIONES</strong></label>
+    <label><strong>Divisiones</strong></label>
     <br>
     <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
       @if(empty($colegios->divisiones))
@@ -210,7 +210,7 @@
     </div>
 
             <div class="form-group">
-    <label for="espacioscurriculares"><strong>ESPACIOS CURRICULARES</strong></label>
+    <label for="espacioscurriculares"><strong>Espacios curriculares</strong></label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
       @if(empty($colegios->espacioscurriculares))
@@ -237,7 +237,6 @@
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
-    tags: true,
     tokenSeparators: [','],
     placeholder: 'Ingrese los espacios curriculares que desea agregar',
     minimumInputLength: 3,

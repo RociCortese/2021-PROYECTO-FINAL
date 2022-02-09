@@ -9,20 +9,15 @@
       <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link posicion" data-toggle="dropdown" href="#">
-
-
                   <i class="bi bi-chat-dots" style="font-size: 1.5rem; "></i>
-
                   <?php
                   use App\Models\ChMessage as Message;
                   use App\Models\User;
                   use Carbon\Carbon;
-                  
                   $cantidad=Message::where('to_id',Auth::user()->id)->where('seen',0)->count();
                   ?>
                     <span class="num">{{$cantidad}}</span>
                 </a>
-                
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                   <?php
                 if($cantidad==0)
@@ -33,7 +28,7 @@
                 }
                 else{
                     ?>
-                <span class="dropdown-header text-danger"><strong>MENSAJES NO LEIDOS</strong></span>
+                <span class="dropdown-header" style="color: #007991;"><strong>MENSAJES NO LEÍDOS</strong></span>
                 <span class="dropdown-header" >Tienes {{$cantidad}} mensajes para leer.</span>
                 <?php
 
@@ -54,7 +49,7 @@
                          $tiempo=$usu->created_at->diffForHumans();
                       ?>
                       <a href="{{url('chatify',$usu->from_id)}}" class="dropdown-item">
-                    <i class="material-icons mr-2">email</i> {{$nombre}}
+                    <i class="bi bi-envelope-fill" style="font-size: 1rem;">&nbsp</i> {{$nombre}}
                       <span class="ml-3 pull-right text-muted text-sm">{{$tiempo}}</span>
                       <?php
                       $count++;
@@ -78,7 +73,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="bi bi-person-circle" style="font-size: 1.5rem; "></i>
-            <p class="d-lg-none d-md-block" >
+            <p class="d-lg-none d-md-block">
+
               {{ __('Account') }}
             </p>
           </a>
