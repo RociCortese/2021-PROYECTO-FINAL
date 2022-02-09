@@ -198,8 +198,8 @@ if($colegio->isEmpty()){?>
                                 </td>
                               </tr>
                               <tr>
-                                <td>
-                            <label>Logo institucional</label>&nbsp;&nbsp;
+                                <td >
+                            <label >Logo institucional</label>&nbsp;&nbsp;
                         <?php
         $Host ="localhost";
         $uname = "root";

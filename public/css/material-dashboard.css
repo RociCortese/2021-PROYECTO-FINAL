@@ -23,6 +23,22 @@
       background-color: #ccd1ce;
     }
 
+.flexbox-container {
+        display: -ms-flex;
+        display: -webkit-flex;
+        display: flex;
+}
+
+.flexbox-container > div {
+        width: 100%;
+        padding: 80px;
+}
+
+.flexbox-container > div:first-child {
+        margin-right: 50px;
+        margin-top: 50px;
+}
+
 
 .card {
   font-size: .875rem;
@@ -5629,6 +5645,7 @@ button.close {
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  background-color: #36D1DC;
 }
 
 .modal-header .close {
