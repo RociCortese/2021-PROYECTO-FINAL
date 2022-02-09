@@ -4,19 +4,14 @@
     <div class="navbar-wrapper">
       <a class="navbar-brand" href="#"></a>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="sr-only">Toggle navigation</span>
-    <span class="navbar-toggler-icon icon-bar"></span>
-    <span class="navbar-toggler-icon icon-bar"></span>
-    <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
+   
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link posicion" data-toggle="dropdown" href="#">
 
 
-                  <i class="material-icons" title="Mensajes">email</i>
+                  <i class="bi bi-chat-dots" style="font-size: 1.5rem; "></i>
 
                   <?php
                   use App\Models\ChMessage as Message;
@@ -82,15 +77,15 @@
        <li class="nav-item dropdown">
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons">person</i>
-            <p class="d-lg-none d-md-block">
+            <i class="bi bi-person-circle" style="font-size: 1.5rem; "></i>
+            <p class="d-lg-none d-md-block" >
               {{ __('Account') }}
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-            <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="material-icons">person</i>{{ __('Mis datos') }}</a>
+            <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>&nbsp &nbsp{{ __('Mis datos') }}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">logout</i>{{ __('Cerrar sesión') }}</a>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i>&nbsp &nbsp {{ __('Cerrar sesión') }}</a>
           </div>
         </li>
       </ul>

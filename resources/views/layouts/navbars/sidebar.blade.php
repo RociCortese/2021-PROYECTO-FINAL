@@ -1,8 +1,8 @@
 <div class="sidebar" data-color="azure" data-background-color="white">
 
   <!--<div class="logo">
-    <img style="width:200px" src="img/LogoSnotra.jpg"class="simple-text logo-normal">
-  </div>-->
+    <img style="width:150px" src="img/logo.png"class="simple-text logo-normal">
+  </div>!-->
   <?php
   if (Auth::user()->role =='directivo') { ?>
                 
@@ -93,7 +93,7 @@
             <li class="nav-item{{ $activePage == 'armadogrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('armadogrado')}}">
                 <div class="items-dashboard">
-               <i class="material-icons">groups</i>
+               <i class="bi bi-people"></i>
                 <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
                 </div>
               </a>
