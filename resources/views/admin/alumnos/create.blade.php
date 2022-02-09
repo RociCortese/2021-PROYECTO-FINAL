@@ -319,7 +319,7 @@ function mostrar() {
                           <td class="v-align-middle">{{$fam->apellidofamilia}}</td>
                           <td class="td-actions td-actions v-align-middle">
                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal{{$fam->id}}" title="Ver información de familia">
-                            <i class="material-icons">person</i>
+                            <i class="bi bi-person"></i>
                           </button>
                           <div class="modal fade bd-example-modal-lg" id="myModal{{$fam->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
@@ -362,7 +362,7 @@ function mostrar() {
                           </div>
                         </div>
                           <a href="{{ route('editarfam',$fam->id) }}" class="btn btn-warning" title="Modificar familia">
-                        <i class="material-icons">edit</i></a>
+                        <i class="bi bi-pencil"></i>
                         
                           </td>                                      
                       @endforeach

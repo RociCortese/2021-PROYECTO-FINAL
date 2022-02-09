@@ -8720,12 +8720,12 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #2196f3 !important;
+  color: #5B86E5 !important;
 }
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #0c7cd5 !important;
+  color: #5B86E5 !important;
 }
 
 .text-secondary {
@@ -8779,7 +8779,7 @@ a.text-danger:focus {
 
 a.text-light:hover,
 a.text-light:focus {
-  color: #FE7109 !important;
+  color: #007991 !important;
   text-decoration: underline;
 }
 
@@ -13820,7 +13820,7 @@ h2.title {
 }
 
 .text-primary {
-  color: #9c27b0 !important;
+  color: #5B86E5 !important;
 }
 
 .text-danger {

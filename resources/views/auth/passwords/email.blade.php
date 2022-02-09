@@ -8,9 +8,22 @@
         @csrf
 
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('RESTABLECER CONTRASEÑA') }}</strong></h4>
           </div>
+          @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif
+
           <div class="card-body">
             @if (session('status'))
               <div class="row">
@@ -28,7 +41,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">email</i>
+                    <i class="bi bi-envelope-fill"></i>
                   </span>
                 </div>
                 <input type="email" name="email" class="form-control" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required>
@@ -44,7 +57,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Restablecer Contraseña') }}</button>
+            <button type="submit" class="btn btn-facebook  btn-sm">{{ __('Restablecer Contraseña') }}</button>
           </div>
         </div>
       </form>

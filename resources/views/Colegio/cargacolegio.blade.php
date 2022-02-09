@@ -170,7 +170,7 @@ if($colegio->isEmpty()){?>
                     </script>
   @endif
       @foreach($colegio as $col)
-          <h3 class="tittle mt-3 text-center">Establecimiento "{{$col->nombre}}"</h3>
+          <h3 class="tittle mt-3 text-center"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
                           <p class="description">
                             <table class="table">
                               <tr>
