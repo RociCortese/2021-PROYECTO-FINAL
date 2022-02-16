@@ -161,7 +161,7 @@
 
           <div class="col">
             <label>Correo electrónico</label>
-            <input type="text" name="emaildocente" class="form-control" value="{{ old('emaildocente') }}" placeholder="Ingese su correo electrónico">
+            <input type="text" name="emaildocente" class="form-control" value="{{ old('emaildocente') }}">
             @if ($errors->has('emaildocente'))
                 <div id="emaildocente-error" class="error text-danger pl-3" for="emaildocente" style="display: block;">
                   <strong>{{ $errors->first('emaildocente') }}</strong>

@@ -20,23 +20,24 @@
 
               @else
               <div class="card-body">
-                @if ($docentes->isEmpty())
-                  @if(empty($apellido))
+                @if($docentes->isEmpty())
+                  @if(empty($nombre) && empty($apellido) && empty($dni))
                   <div class="row">
                   <div class="col-12 text-right">
-
                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Registrar Docente</a>
                   </div>
                 </div>
                   <div> Aún no hay docentes creados.</div>
                   @else
+                  <div class="card card-body" style="border: thin solid lightgrey;">
                   <form>
                       <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" value="{{$apellido}}">
-                      <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
-                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
-                      <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                      <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                      <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search" value="{{$nombre}}">
+                      <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search" value="{{$dni}}">
+                      <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                      <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
                     </form> 
+                  </div>
                   <div>No se encontraron resultados para el filtro aplicado.</div>
 
                   @endif
@@ -62,16 +63,14 @@
                     }, 1000);
                     </script>
                     @endif
-
-
                     <div class="text-right">
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
-                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
-                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
-                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
+                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search" value="{{$apellido}}">
+                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search" value="{{$nombre}}">
+                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search" value="{{$dni}}">
                         <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                         <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
                         </div>

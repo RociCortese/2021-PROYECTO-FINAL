@@ -75,9 +75,9 @@
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
             <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo1') }}">
-            @if ($errors->has('finperiodo'))
-                <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
-                  <strong>{{ $errors->first('fechafin') }}</strong>
+            @if ($errors->has('finperiodo1'))
+                <div id="finperiodo1-error" class="error text-danger pl-3" for="finperiodo1" style="display: block;">
+                  <strong>{{ $errors->first('finperiodo1') }}</strong>
                 </div>
               @endif
           </div>
@@ -161,9 +161,9 @@
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
             <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo') }}">
-            @if ($errors->has('finperiodo'))
-                <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
-                  <strong>{{ $errors->first('fechafin') }}</strong>
+            @if ($errors->has('finperiodo1'))
+                <div id="finperiodo1-error" class="error text-danger pl-3" for="finperiodo1" style="display: block;">
+                  <strong>{{ $errors->first('finperiodo1') }}</strong>
                 </div>
               @endif
           </div>
@@ -226,9 +226,9 @@
             &nbsp &nbsp <div class="col">
             <label>Fecha finalización</label>
             <input type="date" name="finperiodo1" class="form-control" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 3 years"));?>" value="{{ old('finperiodo1') }}">
-            @if ($errors->has('finperiodo'))
-                <div id="fechafin-error" class="error text-danger pl-3" for="fechafin" style="display: block;">
-                  <strong>{{ $errors->first('fechafin') }}</strong>
+            @if ($errors->has('finperiodo1'))
+                <div id="finperiodo1-error" class="error text-danger pl-3" for="finperiodo1" style="display: block;">
+                  <strong>{{ $errors->first('finperiodo1') }}</strong>
                 </div>
               @endif
           </div>

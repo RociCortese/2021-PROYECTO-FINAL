@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Colegio;
+use App\Models\estadoevento;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\notifevento;
 use App\Notifications\notifactualizarevento;
@@ -16,16 +18,28 @@ use Carbon\Carbon;
 
 class ControllerEvent extends Controller
 {
+  public function __construct()
+   {
+    $this->middleware('auth');
+   }
+
     public function form(){
       return view("evento/form");
     }
     public function getAutocomplete(Request $request){
     $data = [];
+    $idusuario= Auth::user()->id;
+    $colegio= Colegio::all()->where('users_id',$idusuario);
+    foreach($colegio as $col)
+        {   
+          $idcolegio= "$col->id";
+        }
     if($request->has('q')){
     $search = $request->q;
     $data =User::select("id","name")
           ->where('name','LIKE',"%$search%")
           ->where('name','!=',Auth::user()->name)
+          ->where('colegio_id',$idcolegio)
           ->get();
         }
     return response()->json($data);
@@ -67,9 +81,19 @@ class ControllerEvent extends Controller
       for ($i=0; $i <=$contador ; $i++) { 
         $emailusuario=User::where('id',$array[$i])->get();
       foreach ($emailusuario as $emailuser) {
-        $emailuser->notify(new notifevento($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora));
+        $role="$emailuser->role";
+        $emailuser->notify(new notifevento($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora,$role));
 }
       }
+      $array=explode(' ', $parti);
+      $contador=count($array)-1;
+      for ($i=0; $i <=$contador ; $i++) { 
+      $estadoevento=new estadoevento();
+      $estadoevento->id_evento=$evento->id;
+      $estadoevento->id_participante=$array[$i]; 
+      $estadoevento->estado='Pendiente';
+      $estadoevento->save();
+    }
       
       return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
     }
@@ -307,6 +331,10 @@ class ControllerEvent extends Controller
     $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
     $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
     return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
+    }
+
+    public function actualizarestadoevento(){
+      return 'hola';
     }
 
 }

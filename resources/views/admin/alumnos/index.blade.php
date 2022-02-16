@@ -21,7 +21,7 @@
               @else
               <div class="card-body">
                 @if ($alumnos->isEmpty())
-               @if(empty($apellido))
+               @if(empty($nombre) && empty($apellido) && empty($dni))
                <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Registrar alumno</a>
@@ -29,13 +29,17 @@
                 </div>
                   <div> Aún no hay alumnos creados.</div>
                   @else
+                  <div class="card card-body" style="border: thin solid lightgrey;">
                   <form>
                       <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" value="{{$apellido}}">
-                       <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
-                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
+                       <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search" value="{{$nombre}}">
+                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search" value="{{$dni}}">
+                      <div class="text-right">
                       <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                       <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                    </div>
                     </form> 
+                  </div>
                   <div>No se encontraron resultados para el filtro aplicado.</div>
                   @endif
             @else
@@ -69,9 +73,9 @@
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
                         
-                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search">
-                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search">
-                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search">
+                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search" value="{{$apellido}}">
+                        <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por nombre" aria-label="Search" value="{{$nombre}}">
+                        <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search" value="{{$dni}}">
                         <div class="text-right">
                           <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                           <a href="{{url ('admin/alumnos') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
