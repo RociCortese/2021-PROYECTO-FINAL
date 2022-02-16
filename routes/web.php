@@ -108,6 +108,7 @@ Route::get('/autocomplete/espacioscurriculares/','App\Http\Controllers\Configura
 Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
 Route::get('Eventos/listado','App\Http\Controllers\ControllerEvent@listadofamilias')->name('eventosfamilia');
+Route::get('Eventos/estado', 'App\Http\Controllers\ControllerEvent@actualizarestadoevento')->name('actualizarestadoevento');
 
 
 Route::delete('evento/{id}/deletevento', 'App\Http\Controllers\ControllerEvent@destroy')->name('deletevento');

@@ -20,6 +20,31 @@
                   ?>
                 <div class="card" style="border: solid lightgrey;width: 300px">
                   <div class="card-body">
+                  <?php 
+                  $participantesevent=explode(' ', $event->participantes);
+                  $cantidad=count($participantesevent)-1;
+                  for($i=0; $i<=$cantidad; $i++){   
+                  $estadoevento= App\Models\estadoevento::where('id_participante',$participantesevent[$i])->get();
+                  foreach ($estadoevento as $estevent) {
+                    $estadoevent="$estevent->estado";
+                    if($estadoevent=='Pendiente'){?>
+                      <div class="text-right">
+                      <i title="Pendiente" class="bi bi-clock  text-center" style="color: #36D1DC;font-size: 2em;"></i>
+                      </div>
+                    <?php }
+                    if($estadoevent=='Aceptado'){?>
+                      <div class="text-right">
+                      <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 2em;"></i>
+                      </div>
+                    <?php }
+                    if($estadoevent=='Rechazado'){?>
+                      <div class="text-right">
+                      <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 2em;"></i>
+                      </div>
+                    <?php }
+                }
+              }
+              ?>
                   <table class="table">
                     <tr>
                       <td>
@@ -43,7 +68,7 @@
                   <div class="modal fade bd-example-modal-lg text-left" id="myModal{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                   <div class="modal-content">
-                  <div class="modal-header" style="background-color: lightblue;">
+                  <div class="modal-header">
                   <i class="material-icons">event</i><h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del evento {{$event->titulo}}</strong></h5>
                   <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                   </div>
@@ -80,6 +105,41 @@
                   </td>
                   </tr>
                   </table>
+                  <?php if($event->tipo=='Reunión'){?>
+                  <form method="POST" action="{{route('actualizarestadoevento')}}">
+                    @csrf
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                  <input type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" value="Rechazar"></input>
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+      <div class="modal-header" style="background-color: #F9EAE7;">
+        <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Rechazo</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group text-left">
+            <label for="message-text" class="col-form-label">Motivo de rechazo</label>
+            <br>
+            <textarea id="message-text" style="width: 100%;"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button href="{{route('actualizarestadoevento')}}" type="button" class="btn btn-sm btn-facebook">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+                  <a href="{{route('actualizarestadoevento')}}"type="submit" class="btn btn-sm btn-success">Aceptar</a>
+                  </div>
+                  <?php 
+                }
+                ?>
                             
                          </div>
                           </div>
@@ -100,7 +160,7 @@
               <div class= "card-header card-header-info">
               <h4 class="card-title">Eventos anteriores</h4>
               </div>
-              
+              <div class="card-body">
               <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -168,13 +228,17 @@
                   </td>
                   </tr>
                   </table>
+                </div>
+              </div>
                             
                          </div>
                           </div>
                           </div>
                         </div>
                   </div>
-                    </tr>
+                  </td>
+                </tr>
+              </table>
                     <?php
             }?>
                   </table>

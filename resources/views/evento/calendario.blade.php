@@ -129,9 +129,25 @@
                                 for($i=0; $i<=$cantidad; $i++){
                                   $nombreparticipante=App\Models\User::where('id',$participantesevent[$i])->get();
                                   foreach ($nombreparticipante as $nom) {
-                                    $nomparti="$nom->name";
+                                    $nomparti="$nom->name"; 
                                 }
                                   echo "<br>".$nomparti; 
+                                  $estadoevento= App\Models\estadoevento::where('id_participante',$participantesevent[$i])->get();
+                                  foreach ($estadoevento as $estevent) {
+                                     $estadoevent="$estevent->estado";
+                                     if($estadoevent=='Pendiente'){?>
+                                      &nbsp <i title="Pendiente" class="bi bi-clock  text-center" style="color: #36D1DC;"></i>
+                                      <?php
+                                     }
+                                     if($estadoevent=='Aceptado'){?>
+                                      <i title="Aceptado" class="bi bi-check-circle text-center" style="color: #3DC515;"></i>
+                                      <?php
+                                     }
+                                     if($estadoevent=='Rechazado'){?>
+                                      <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417;"></i>
+                                      <?php
+                                     }
+                                   } 
                                 }
                                 ?>
                                 </td>

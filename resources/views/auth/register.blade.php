@@ -130,7 +130,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirmar contraseña *') }}" autocomplete="off">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirmar contraseña (*)') }}" autocomplete="off">
               </div>
               @if ($errors->has('password_confirmation'))
                 <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">

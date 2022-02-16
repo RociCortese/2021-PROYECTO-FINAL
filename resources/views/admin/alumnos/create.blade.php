@@ -275,18 +275,31 @@ function mostrar() {
                     </script>
                     @endif
             @if ($familias->isEmpty())
+            @if(empty($apellidofam))
              <div class=" col-xs-12 col-sm-12 col-md-12 text-right">
                 <input type="button" class="btn btn-sm btn-facebook" id="botonalumnos" name="botonalumnos" data-toggle="modal" data-target="#myModal" value="Crear nuevo familiar"></input>
               </div>
                   <div style="margin-left: 10px;"> Aún no hay familias creadas.</div>
                   <br>
+                  @else 
+                  <div class="card card-body" style="border: thin solid lightgrey;margin-left:2%;width: 96%;">
+                  <form>
+                      <input name="buscarapellidofamilia" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" value="{{$apellidofam}}">
+                      <div class="text-right">
+                      <button class="btn btn-sm btn-facebook" type="submit" formaction="{{route('alumnos.create')}}">Buscar</button>
+                      <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                    </div>
+                    </form> 
+                  </div>
+                  <div> &nbsp &nbsp &nbsp No se encontraron resultados para el filtro aplicado.</div>
+                  @endif
                   @else
-              <div class="text-right" style="margin-right:10px;">
+              <div class="text-right" style="margin-right:2%;">
                 <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar familia"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
-                    <div class="card card-body" style="border: thin solid lightgrey;">
+                    <div class="card card-body" style="border: thin solid lightgrey;margin-left:2%;width: 98%;">
                       <form>
-                        <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search">
+                        <input name="buscarapellidofamilia" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search" value="{{$apellidofam}}">
                         <div class="text-right"><button class="btn btn-sm btn-facebook"formaction="{{route('alumnos.create')}}" type="submit">Buscar</button>
                       <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
                     </div>

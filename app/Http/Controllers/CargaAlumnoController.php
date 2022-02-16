@@ -185,6 +185,7 @@ class CargaAlumnoController extends Controller
         $user->password=Hash::make($password);
         $user->role='familia';
         $user->idpersona=$idfamilia;
+        $user->colegio_id=$idcolegio;
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
         $user->notify(new notifcreacion($user->email,$password));

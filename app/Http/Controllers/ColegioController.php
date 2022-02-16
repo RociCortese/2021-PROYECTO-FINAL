@@ -65,6 +65,10 @@ public function store(Request $request)
   $colegio->files_id=$files->id;
   $colegio->save();
 
+  $usuariologueado=Auth::user();
+  $usuariologueado->colegio_id=$colegio->id;
+  $usuariologueado->save();
+
   return redirect()->route('formulario')->with('success', 'El colegio se cargó correctamente');
 
 }

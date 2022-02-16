@@ -142,6 +142,7 @@ class CargaDocenteController extends Controller
         $user->password=Hash::make($password);
         $user->role='docente';
         $user->idpersona=$docente->id;
+        $user->colegio_id=$idcolegio;
         $user->save();
         $password=Crypt::decrypt($user->passwordenc);
         $user->notify(new notifcreacion($request->emaildocente,$password));
