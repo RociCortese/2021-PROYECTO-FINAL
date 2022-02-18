@@ -10,5 +10,5 @@ class estadoevento extends Model
 	use HasFactory;
     protected $table= 'estadoevento';
 
-    protected $fillable = ['id','id_evento','id_participante','estado'];
+    protected $fillable = ['id','id_evento','id_participante','estado','motivorechazo','recordatorio'];
 }

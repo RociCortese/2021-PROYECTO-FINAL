@@ -105,41 +105,191 @@
                   </td>
                   </tr>
                   </table>
-                  <?php if($event->tipo=='Reunión'){?>
-                  <form method="POST" action="{{route('actualizarestadoevento')}}">
-                    @csrf
-                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                  <input type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" value="Rechazar"></input>
+                  <?php if($event->tipo=='Reunión'){
+                    foreach($eventosproximos as $eventprox)
+                    {
+                      $idevento="$eventprox->id";
+                      $estevento=App\Models\estadoevento::where('id_evento',$idevento)->where('id_participante',Auth::user()->id)->pluck('estado');
+                      $estevent = preg_replace('/[\[\]\.\;\" "]+/', '', $estevento);
+                      if($estevent=='Rechazado'){
+                        ?>
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <input type="submit" class="btn btn-sm btn-success" data-toggle="modal" data-target="#AceptarEvento" value="Aceptar"></input>
 
+                  <div class="modal fade" id="AceptarEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+
+                  <div class="modal-content">
+
+                  <div class="modal-header" style="background-color: #DAF7A6;">
+                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del Evento</strong></h5>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  </div>
+
+                  <form method="POST" action="{{route('aceptarevento',$event->id)}}">
+                  @csrf
+                  @METHOD('PUT')
+                  <div class="modal-body">
+                  <div class="form-group text-center">
+                  <label for="message-text" class="col-form-label"><strong>¿Desea recibir un recordatorio del evento?</strong></label>
+                  <br>
+                  <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="recordatorio" value="Si">Si
+                  <span class="circle">
+                      <span class="check"></span>
+                  </span>
+                 </label>
+                 </div>
+                   <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="recordatorio" value="No">No
+                  <span class="circle">
+                      <span class="check"></span>
+                  </span>
+                 </label>
+                 </div>
+                 </div>
+                 <h4><span class="badge badge-info">El recordatorio será enviado un día antes del evento.</span></h4>
+                 </div>
+                
+                  <div class="modal-footer text-center">
+                  <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                  </div>
+                  </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                      <?php
+                    }
+                      elseif($estevent=='Aceptado'){
+                    ?>
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                  <input type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" value="Rechazar">
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                   <div class="modal-content">
-      <div class="modal-header" style="background-color: #F9EAE7;">
-        <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Rechazo</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group text-left">
-            <label for="message-text" class="col-form-label">Motivo de rechazo</label>
-            <br>
-            <textarea id="message-text" style="width: 100%;"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button href="{{route('actualizarestadoevento')}}" type="button" class="btn btn-sm btn-facebook">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-                  <a href="{{route('actualizarestadoevento')}}"type="submit" class="btn btn-sm btn-success">Aceptar</a>
+                  <div class="modal-header" style="background-color: #F9EAE7;">
+                  <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Rechazo</strong></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
                   </div>
+                  <form method="POST" action="{{route('rechazarevento',$event->id)}}">
+                  @csrf
+                  @METHOD('PUT')
+                  <div class="modal-body">
+                  <div class="form-group text-left">
+                  <label for="message-text" name="motivorechazo" class="col-form-label">Motivo de rechazo</label>
+                  <br>
+                  <textarea id="message-text" name="motivorechazo" style="width: 100%;"></textarea>
+                  @if ($errors->has('motivorechazo'))
+                  <div id="motivorechazo-error" class="error text-danger pl-3" for="motivorechazo" style="display: block;">
+                  <strong>{{ $errors->first('motivorechazo') }}</strong>
+                  </div>
+                  @endif
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                </div>
                   <?php 
                 }
+                elseif($estevent=='Pendiente'){?>
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <input type="submit" class="btn btn-sm btn-success" data-toggle="modal" data-target="#AceptarEvento" value="Aceptar"></input>
+                  <div class="modal fade" id="AceptarEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header" style="background-color: #DAF7A6;">
+                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del Evento</strong></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <form method="POST" action="{{route('aceptarevento',$event->id)}}">
+                  @csrf
+                  @METHOD('PUT')
+                  <div class="modal-body">
+                  <div class="form-group text-center">
+                  <label for="message-text" class="col-form-label"><strong>¿Desea recibir un recordatorio del evento?</strong></label>
+                  <br>
+                  <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="recordatorio" value="Si">Si
+                  <span class="circle">
+                      <span class="check"></span>
+                  </span>
+                 </label>
+                 </div>
+                   <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="recordatorio" value="No">No
+                  <span class="circle">
+                      <span class="check"></span>
+                  </span>
+                 </label>
+                 </div>
+                 </div>
+                 <h4><span class="badge badge-info">El recordatorio será enviado un día antes del evento.</span></h4>
+                 </div>
+                
+                  <div class="modal-footer text-center">
+                  <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                  </div>
+                  </form>
+                
+                    </div>
+                  </div>
+                </div>
+              
+                  <input type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" value="Rechazar">
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header" style="background-color: #F9EAE7;">
+                  <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Rechazo</strong></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <form method="POST" action="{{route('rechazarevento',$event->id)}}">
+                  @csrf
+                  @METHOD('PUT')
+                  <div class="modal-body">
+                  <div class="form-group text-left">
+                  <label for="message-text" name="motivorechazo" class="col-form-label">Motivo de rechazo</label>
+                  <br>
+                  <textarea id="message-text" name="motivorechazo" style="width: 100%;"></textarea>
+                  @if ($errors->has('motivorechazo'))
+                  <div id="motivorechazo-error" class="error text-danger pl-3" for="motivorechazo" style="display: block;">
+                  <strong>{{ $errors->first('motivorechazo') }}</strong>
+                  </div>
+                  @endif
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                <?php
+                }
+                }
+                    }
                 ?>
+                  </div>
+                  
                             
                          </div>
                           </div>
@@ -148,7 +298,7 @@
                   </div>
                   </div>
                            
-                  </div>
+                  
                    
                 <?php
             }?>
