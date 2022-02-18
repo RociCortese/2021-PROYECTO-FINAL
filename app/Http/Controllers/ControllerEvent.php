@@ -333,8 +333,37 @@ class ControllerEvent extends Controller
     return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
     }
 
-    public function actualizarestadoevento(){
-      return 'hola';
+    public function eventorechazado(Request $request,$id){
+      $request->validate([
+            'motivorechazo' => ['required'],
+            ]);
+      $estadoevento=estadoevento::where('id_evento',$id)->where('id_participante',Auth::user()->id)->first();
+      $estadoevento->estado= 'Rechazado';
+      $estadoevento->motivorechazo= $request->motivorechazo;
+      $estadoevento->save();
+      $idautenticado=Auth::user()->id;
+      $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
+    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+      return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
+    }
+
+     public function eventoaceptado(Request $request,$id){
+      $request->validate([
+            'recordatorio' => ['required'],
+            ]);
+      $estadoevento=estadoevento::where('id_evento',$id)->where('id_participante',Auth::user()->id)->first();
+      $estadoevento->estado= 'Aceptado';
+      if($request->recordatorio=='No'){
+      $estadoevento->recordatorio=0; 
+      }
+      elseif($request->recordatorio=='Si'){
+      $estadoevento->recordatorio=1; 
+      }
+      $estadoevento->save();
+      $idautenticado=Auth::user()->id;
+      $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
+    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+      return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
     }
 
 }
