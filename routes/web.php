@@ -130,3 +130,6 @@ Route::get('Evento/index/{month}','App\Http\Controllers\ControllerEvent@index_mo
 Route::post('Evento/calendario','App\Http\Controllers\ControllerEvent@calendario');
 Route::get('Evento/{id}/editarevento', 'App\Http\Controllers\ControllerEvent@editarevento')->name('editarevento');
 Route::put('Evento/{id}', 'App\Http\Controllers\ControllerEvent@actualizarevento')->name('actualizarevento');
+
+/*Carga de criterios de evaluación*/
+Route::get('criteriosevaluacion', 'App\Http\Controllers\CriteriosevaluacionController@index')->name('criteriosevaluacion');

@@ -161,6 +161,35 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#registronotas" aria-expanded="false">
+          <div class="items-dashboard">
+          <i class="bi bi-award"></i>
+          <span class="sidebar-normal">Registro de notas</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="collapse navbar-collapse" id="registronotas">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'criteriosevaluacion' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('criteriosevaluacion')}}">
+               <div class="items-dashboard"> 
+                <i class="bi bi-list-check"></i>
+                <span class="sidebar-normal">{{ __('Criterios de evaluación') }}</span>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'carganotas' ? ' active' : '' }}">
+              <a class="nav-link" href="#">
+                <div class="items-dashboard">
+               <i class="bi bi-pencil-square"></i>
+                <span class="sidebar-normal"> {{ __('Carga de notas') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
   </div>
 
 <?php
