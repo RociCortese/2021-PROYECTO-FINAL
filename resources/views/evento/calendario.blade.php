@@ -132,11 +132,11 @@
                                     $nomparti="$nom->name"; 
                                 }
                                   echo "<br>".$nomparti; 
-                                  $estadoevento= App\Models\estadoevento::where('id_participante',$participantesevent[$i])->get();
+                                  $estadoevento= App\Models\estadoevento::where('id_participante',$participantesevent[$i])->where('id_evento', $event->id)->get();
                                   foreach ($estadoevento as $estevent) {
                                      $estadoevent="$estevent->estado";
                                      if($estadoevent=='Pendiente'){?>
-                                      &nbsp <i title="Pendiente" class="bi bi-clock  text-center" style="color: #36D1DC;"></i>
+                                      <i title="Pendiente" class="bi bi-clock  text-center" style="color: #36D1DC;"></i>
                                       <?php
                                      }
                                      if($estadoevent=='Aceptado'){?>

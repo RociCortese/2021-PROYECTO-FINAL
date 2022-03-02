@@ -1,3 +1,4 @@
+@media only screen and (min-width : 1224px) {
 .header-col{
       background: #E3E9E5;
       color:#536170;
@@ -19060,4 +19061,22 @@ Copyright (c) 2015 Daniel Eden
 .progressbar__option.active:before, .progressbar__option.active:after {
     background-color: var(--color-header-step);
 }
+}
 
+/* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
+@media only screen and (max-width : 1024px) {
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  width: 100%;
+  font-size: 50%;
+  font-weight: 200;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  position: relative;
+}
+}

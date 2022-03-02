@@ -69,7 +69,7 @@ class notifevento extends Notification
                     ->line('Lugar: ' . $this -> lugar)
                     ->line('Fecha: ' . $this -> fecha)
                     ->line('Hora: ' . $this -> hora)
-                    ->line('Para aceptar o rechazar la reunión debe ingresar al siguiente link')
+                    ->line('Para aceptar o rechazar la reunión debe ingresar al siguiente link:')
                     ->action('Ir a eventos', url('Eventos/listado'));
     }
     else

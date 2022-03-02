@@ -67,7 +67,91 @@
                 </div>
               </li>
       </ul>
+      <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <?php
+                  use App\Models\Event;
+                  use App\Models\estadoevento;
+                  $eventosparticipantes=estadoevento::where('id_participante',Auth::user()->id)->get();
+                  $count=0;
+                  foreach($eventosparticipantes as $eventpart)
+                  {
+                  $evento=Event::where('id',$eventpart->id_evento)->get();
+                  foreach($evento as $event){
+                  $fechaevento="$event->fecha";
+                  if($fechaevento>=date("Y-m-d")){
+                  $count++;
+                  }
+                }
+                }
+                  ?>
+                <a class="nav-link posicion" data-toggle="dropdown" href="#">
+                  <i class="bi bi-bell" style="font-size: 1.5rem; "></i>
+                    <span class="num">{{$count}}</span>
+                </a>
 
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="width:500%;">
+                <?php
+                if($count==0)
+                {
+                  ?>
+                  <span class="dropdown-header" >No tiene próximos eventos.</span>
+                  <?php
+                }
+                else{
+                    ?>
+                <span class="dropdown-header" style="color: #007991; margin-left:-4%;"><strong>PRÓXIMOS EVENTOS</strong></span>
+                <?php
+                  $count = 0;
+                  $nuevoseventos=estadoevento::where('id_participante',Auth::user()->id)->get();
+                  $rolparticipante=User::where('id',Auth::user()->id)->pluck("role");
+                    $rolparticipante = preg_replace('/[\[\]\.\;\" "]+/', '', $rolparticipante);
+                  foreach($nuevoseventos as $nueveventos){
+                    if($count == 3){
+                        break;
+                      }
+                  $idevento="$nueveventos->id_evento";
+                  $infoevento=Event::where('id',$idevento)->get();
+                  foreach($infoevento as $nuevo)
+                    { 
+                      $month= "$nuevo->fecha";
+                      $titulo="$nuevo->titulo";
+                    if($rolparticipante=='familia'){
+                    if($month>=date("Y-m-d")){ 
+                    ?>
+                    <a href="{{route('eventosfamilianotif',$nuevo->id)}}" class="dropdown-item">
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}</span>
+                    <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
+                    </a>
+                    <?php }
+                  }
+                    if($rolparticipante=='docente'){
+                    if($month>=date("Y-m-d")){ 
+                    ?>
+                    <a href="{{route('calendariodocente',$month)}}" class="dropdown-item">
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
+                    <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
+                    </a>
+                    <?php }
+                  }
+                    if($rolparticipante=='directivo'){
+                    if($month>=date("Y-m-d")){ 
+                    ?>
+                    <a href="{{route('calendariodirectivo',$month)}}" class="dropdown-item">
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
+                    <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
+                    </a>
+                    <?php } }
+                    }
+                    }?>
+                    <span class="dropdown-header text-center" >Solo se muestran los próximos tres eventos.</span>
+                    <?php $count++;
+                  }
+                
+                  ?>
+                </div>
+              </li>
+      </ul>
       <ul class="navbar-nav">
        <li class="nav-item dropdown">
         <li class="nav-item dropdown">
