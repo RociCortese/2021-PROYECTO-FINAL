@@ -10,6 +10,8 @@ use App\Models\estadoevento;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\notifevento;
 use App\Notifications\notifactualizarevento;
+use App\Notifications\notifrechazo;
+use App\Notifications\notifaceptacion;
 use App\Notifications\notifcancelevent;
 use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\Notification;
@@ -50,7 +52,7 @@ class ControllerEvent extends Controller
       $parti=implode(' ',$parti);
     }
       $this->validate($request, [
-      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
+      'titulo'     =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:30'],
       'tipo'     =>  'required',
       'descripcion' =>['max:150'],
       'lugar'  =>  ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ-]))+$/','max:20'],
@@ -115,6 +117,20 @@ class ControllerEvent extends Controller
 
        $month = date("Y-m");
        //
+       $data = $this->calendar_month($month);
+       $mes = $data['month'];
+       // obtener mes en espanol
+       $mespanish = $this->spanish_month($mes);
+       $mes = $data['month'];
+
+       return view("evento/calendario",[
+         'data' => $data,
+         'mes' => $mes,
+         'mespanish' => $mespanish
+       ]);
+
+   }
+   public function indexmes($month){
        $data = $this->calendar_month($month);
        $mes = $data['month'];
        // obtener mes en espanol
@@ -207,6 +223,15 @@ class ControllerEvent extends Controller
         $emailuser->notify(new notifactualizarevento($creador,$tipo,$titulo,$descripcion,$lugar,$fecha,$hora));
 }
       }
+      $array=explode(' ', $parti);
+      $contador=count($array)-1;
+      for ($i=0; $i <=$contador ; $i++) { 
+      $estadoevento=new estadoevento();
+      $estadoevento->id_evento=$evento->id;
+      $estadoevento->id_participante=$array[$i]; 
+      $estadoevento->estado='Pendiente';
+      $estadoevento->save();
+    }
         return redirect()->route('calendario')->with('success','El evento se modificó correctamente.');
     }
 
@@ -340,10 +365,21 @@ class ControllerEvent extends Controller
       $estadoevento=estadoevento::where('id_evento',$id)->where('id_participante',Auth::user()->id)->first();
       $estadoevento->estado= 'Rechazado';
       $estadoevento->motivorechazo= $request->motivorechazo;
+      $motivorechazo=$request->motivorechazo;
       $estadoevento->save();
       $idautenticado=Auth::user()->id;
       $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
     $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+    $creador=Event::where('id',$id)->get();
+    foreach($creador as $datosevento){
+      $nombreevento="$datosevento->titulo";
+      $fechaevento="$datosevento->fecha";
+      $creador="$datosevento->creador";
+    }
+    $nombreautenticado=Auth::user()->name;
+    $emailcreador=User::where('name',$creador)->first();
+    $emailcreador->notify(new notifrechazo($motivorechazo,$nombreevento,$fechaevento,$nombreautenticado));
+  
       return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
     }
 
@@ -363,6 +399,16 @@ class ControllerEvent extends Controller
       $idautenticado=Auth::user()->id;
       $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
     $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+    $creador=Event::where('id',$id)->get();
+    foreach($creador as $datosevento){
+      $nombreevento="$datosevento->titulo";
+      $fechaevento="$datosevento->fecha";
+      $creador="$datosevento->creador";
+    }
+    $nombreautenticado=Auth::user()->name;
+    $emailcreador=User::where('name',$creador)->first();
+    $emailcreador->notify(new notifaceptacion($nombreevento,$fechaevento,$nombreautenticado));
+
       return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
     }
 

@@ -9,11 +9,11 @@
         @csrf
         @METHOD('PUT')
         <div class="card" >
-          <div class= "card-header card-header-primary" style="background-color: grey;" >
+          <div class= "card-header card-header-info" >
           <h4 class="card-title">Editar familia</h4>
           </div>
         <div class="card-body" >
-          <div class="card" style="border: 3px solid grey">
+          <div class="card" style="border: thin solid lightgrey;">
           <h4 class="card-tittle text-center"><strong>Datos de la Familia</strong></h4>
           <div id="familiar">
           <div class="row">
@@ -106,11 +106,15 @@
             </div>
           </div>
             
-            <i><div class="text-danger">*Recuerde que todos los campos son obligatorios.</div></i>
+            
             </div>
+
           </div>
   
   </div>
+  <div class="text-right">
+            <h4><span class="badge badge-danger">*Recuerde que todos los campos son obligatorios.</span></h4>
+          </div>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>

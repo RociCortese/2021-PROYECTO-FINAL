@@ -56,7 +56,7 @@ return [
     'a_microsecond' => 'un microsegundo|:count microsegundos',
     'µs' => ':countµs',
     'ago' => 'hace :time',
-    'from_now' => 'en :time',
+    'from_now' => 'dentro de :time',
     'after' => ':time después',
     'before' => ':time antes',
     'diff_now' => 'ahora mismo',

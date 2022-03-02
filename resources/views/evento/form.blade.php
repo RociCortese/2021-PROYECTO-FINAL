@@ -103,7 +103,7 @@ $(function() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
   <div class="form-group">
     <label>Participantes</label><br>
-    <select class="form-control participantes" name="participantes[]" id='participantes' multiple="multiple" lang="es">
+    <select class="form-control participantes" name="participantes[]" id='participantes' multiple="multiple" lang="es" style="width:100%;">
     </select>
     <script type="text/javascript">
     $('.participantes').select2({
@@ -126,18 +126,13 @@ $(function() {
     cache: true
     }
 });
-    
 </script>
-
     @if ($errors->has('participantes'))
                 <div id="participantes-error" class="error text-danger pl-3" for="participantes" style="display: block;">
                   <strong>{{ $errors->first('participantes') }}</strong>
                 </div>
               @endif
     </div>
-
-      
-
 </div>
   <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">

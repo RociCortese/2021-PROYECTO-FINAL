@@ -107,7 +107,13 @@ Route::get('/autocomplete/espacioscurriculares/','App\Http\Controllers\Configura
 // formulario
 Route::get('evento/form','App\Http\Controllers\ControllerEvent@form')->name('form');
 Route::post('Evento/create','App\Http\Controllers\ControllerEvent@create');
+
 Route::get('Eventos/listado','App\Http\Controllers\ControllerEvent@listadofamilias')->name('eventosfamilia');
+
+Route::get('Eventos/listado/{id}','App\Http\Controllers\ControllerEvent@listadofamilias')->name('eventosfamilianotif');
+Route::get('Evento/calendariodocente/{month}','App\Http\Controllers\ControllerEvent@indexmes')->name('calendariodocente');
+Route::get('Evento/calendariodirectivo/{month}','App\Http\Controllers\ControllerEvent@indexmes')->name('calendariodirectivo');
+
 Route::put('Eventos/{id}/estadorechazado', 'App\Http\Controllers\ControllerEvent@eventorechazado')->name('rechazarevento');
 Route::put('Eventos/{id}/estadoaceptado', 'App\Http\Controllers\ControllerEvent@eventoaceptado')->name('aceptarevento');
 

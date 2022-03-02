@@ -15,16 +15,13 @@
                   @if($eventosproximos->isEmpty())
               <div> No tienes próximos eventos.</div>
               @else
-                <?php
-                foreach ($eventosproximos as $event) {
-                  ?>
+              <?php 
+              foreach($eventosproximos as $event){?>
                 <div class="card" style="border: solid lightgrey;width: 300px">
                   <div class="card-body">
-                  <?php 
-                  $participantesevent=explode(' ', $event->participantes);
-                  $cantidad=count($participantesevent)-1;
-                  for($i=0; $i<=$cantidad; $i++){   
-                  $estadoevento= App\Models\estadoevento::where('id_participante',$participantesevent[$i])->get();
+                  <?php
+                    $idevento="$event->id";
+                  $estadoevento= App\Models\estadoevento::where('id_evento',$idevento)->get();
                   foreach ($estadoevento as $estevent) {
                     $estadoevent="$estevent->estado";
                     if($estadoevent=='Pendiente'){?>
@@ -42,8 +39,7 @@
                       <i title="Rechazado" class="bi bi-x-circle text-center" style="color: #FC0417; font-size: 2em;"></i>
                       </div>
                     <?php }
-                }
-              }
+                } 
               ?>
                   <table class="table">
                     <tr>
@@ -106,9 +102,7 @@
                   </tr>
                   </table>
                   <?php if($event->tipo=='Reunión'){
-                    foreach($eventosproximos as $eventprox)
-                    {
-                      $idevento="$eventprox->id";
+                      $idevento="$event->id";
                       $estevento=App\Models\estadoevento::where('id_evento',$idevento)->where('id_participante',Auth::user()->id)->pluck('estado');
                       $estevent = preg_replace('/[\[\]\.\;\" "]+/', '', $estevento);
                       if($estevent=='Rechazado'){
@@ -122,7 +116,7 @@
                   <div class="modal-content">
 
                   <div class="modal-header" style="background-color: #DAF7A6;">
-                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del Evento</strong></h5>
+                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del evento</strong></h5>
 
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
@@ -133,7 +127,7 @@
                   @METHOD('PUT')
                   <div class="modal-body">
                   <div class="form-group text-center">
-                  <label for="message-text" class="col-form-label"><strong>¿Desea recibir un recordatorio del evento?</strong></label>
+                  <label for="message-text" class="col-form-label">¿Desea recibir un recordatorio del evento?</label>
                   <br>
                   <div class="form-check form-check-radio form-check-inline">
                   <label class="form-check-label">
@@ -210,7 +204,7 @@
                   <div class="modal-dialog" role="document">
                   <div class="modal-content">
                   <div class="modal-header" style="background-color: #DAF7A6;">
-                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del Evento</strong></h5>
+                  <i title="Aceptado" class="bi bi-check-circle" style="color: #3DC515; font-size: 1.5em;"></i> &nbsp<h5 class="modal-title" id="exampleModalLabel"><strong>Aceptación del evento</strong></h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   </div>
@@ -219,7 +213,7 @@
                   @METHOD('PUT')
                   <div class="modal-body">
                   <div class="form-group text-center">
-                  <label for="message-text" class="col-form-label"><strong>¿Desea recibir un recordatorio del evento?</strong></label>
+                  <label for="message-text" class="col-form-label">¿Desea recibir un recordatorio del evento?</label>
                   <br>
                   <div class="form-check form-check-radio form-check-inline">
                   <label class="form-check-label">
@@ -286,7 +280,7 @@
                 <?php
                 }
                 }
-                    }
+                    
                 ?>
                   </div>
                   
