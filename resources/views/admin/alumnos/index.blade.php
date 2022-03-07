@@ -40,7 +40,7 @@
                     </div>
                     </form> 
                   </div>
-                  <div>No se encontraron resultados para el filtro aplicado.</div>
+                  <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
                   @endif
             @else
                 <div class="table-responsive">

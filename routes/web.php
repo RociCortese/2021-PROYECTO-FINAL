@@ -135,3 +135,6 @@ Route::put('Evento/{id}', 'App\Http\Controllers\ControllerEvent@actualizarevento
 Route::get('criteriosevaluacion', 'App\Http\Controllers\CriteriosevaluacionController@index')->name('criteriosevaluacion');
 Route::get('criterios/create', 'App\Http\Controllers\CriteriosevaluacionController@create')->name('criteriocreate');
 Route::post('criterios/store', 'App\Http\Controllers\CriteriosevaluacionController@store')->name('criterios.store');
+Route::delete('admin/{id}/destroycriterio', 'App\Http\Controllers\CriteriosevaluacionController@destroy')->name('destroycriterio');
+
+
