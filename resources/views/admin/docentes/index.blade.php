@@ -12,6 +12,8 @@
                 <h4 class="card-title "> Docentes</h4>
                 <p class="card-category">Docentes Registrados</p>    
               </div>
+
+
               @if($colegio->isEmpty())
                 <br>
                <div class="col-md-12">
@@ -24,7 +26,7 @@
                   @if(empty($nombre) && empty($apellido) && empty($dni))
                   <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook">Registrar Docente</a>
+                    <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook"><i class="material-icons">person_add_alt</i></a></a>
                   </div>
                 </div>
                   <div> Aún no hay docentes creados.</div>
@@ -38,7 +40,7 @@
                       <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
                     </form> 
                   </div>
-                  <div>No se encontraron resultados para el filtro aplicado.</div>
+                  <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
 
                   @endif
             @else

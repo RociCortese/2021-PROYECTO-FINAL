@@ -5517,14 +5517,14 @@ button.close {
 
 .badge-warning {
   color: #212529;
-  background-color: #ffeb3b;
+  background-color: #fff6a3;
 }
 
 .badge-warning[href]:hover,
 .badge-warning[href]:focus {
   color: #212529;
   text-decoration: none;
-  background-color: #ffe608;
+  background-color: #fff6a3;
 }
 
 .badge-danger {
