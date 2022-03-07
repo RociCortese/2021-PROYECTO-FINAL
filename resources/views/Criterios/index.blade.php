@@ -14,7 +14,7 @@
               <div class="card-body">
                   <div class="row">
                   <div class="col-12 text-right">
-                    <a href="#" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                    <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                   </div>
                   </div>
                 @if($tipodoc=='Grado')
@@ -43,18 +43,16 @@
                     @foreach($datoscriterio as $criterio)
                     <tr>
                       <?php
-                      $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
+                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
                       foreach($nombreespacio as $nom){
                         $nombresp="$nom->nombre";
-                      ?>
+                      }?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
-                      <td class="v-align-middle">{{$nombresp}}</td>
+                      <td class="v-align-middle">{{$criterio->id_espacio}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>      
                     </tr>  
-                    <?php
-                    }
-                    ?>                                        
+                                                           
                     @endforeach
                     </tbody>
                   </table>
@@ -85,24 +83,26 @@
                     @foreach($datoscriterio as $criterio)
                     <tr>
                       <?php
-                      $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
-                      foreach($nombreespacio as $nom){
-                        $nombresp="$nom->nombre";
+                      $nombregrado=App\Models\Grado::where('id',$criterio->id_grado)->get();
+                      foreach($nombregrado as $nom){
+                        $nomgrado="$nom->descripcion";
+                      }
                       ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
-                      <td class="v-align-middle">{{$criterio->id_grado}}</td>
+                      <td class="v-align-middle">{{$nomgrado}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>      
                     </tr>  
-                    <?php
-                    }
-                    ?>                                        
+                                                          
                     @endforeach
                     </tbody>
                   </table>
                 </div>
                 @endif
             </div>
+            <div class="card-footer mr-auto">
+                    {{ $datoscriterio->links() }}
+                  </div>
           </div>
         </div>
       </div>
