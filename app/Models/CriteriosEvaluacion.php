@@ -9,9 +9,9 @@ class CriteriosEvaluacion extends Model
 {
     use HasFactory;
     protected $table = 'criteriosevaluacion';
-    protected $fillable = ['criterio', 'descripcion','id_espacio','id_año','id_grado'];
 
-
+    protected $fillable = ['criterio','id_espacio','id_año','id_grado','id_usuario','ponderacion','descripcion'];
+}
     public function scopeespecialidad($query, $especialidad) {
 
         if ($especialidad) {

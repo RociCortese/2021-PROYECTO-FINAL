@@ -12,7 +12,6 @@
                 <h4 class="card-title "> Criterios de evaluación</h4>  
               </div>
               <div class="card-body">
-                  
                 @if($tipodoc=='Grado')
                     
                      <div class="text-right">
@@ -57,7 +56,7 @@
                     @foreach($datoscriterio as $criterio)
                     <tr>
                       <?php
-                      $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
+                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
                       foreach($nombreespacio as $nom){
                         $nombresp="$nom->nombre";
                         }
@@ -176,11 +175,13 @@
                     @foreach($datoscriterio as $criterio)
                     <tr>
                       <?php
+                      $nombregrado=App\Models\Grado::where('id',$criterio->id_grado)->get();
+                      foreach($nombregrado as $nom){
+                        $nomgrado="$nom->descripcion";
+                      }
                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
                       foreach($nombreespacio as $nom){
                         $nombresp="$nom->nombre";
-
-
                       ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
@@ -255,15 +256,16 @@
                           </div>
                           </div>     
                     </tr>  
-                    <?php
-                    }
-                    ?>                                        
+                                                          
                     @endforeach
                     </tbody>
                   </table>
                 </div>
                 @endif
             </div>
+            <div class="card-footer mr-auto">
+                    {{ $datoscriterio->links() }}
+                  </div>
           </div>
         </div>
       </div>
