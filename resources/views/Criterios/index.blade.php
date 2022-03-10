@@ -13,21 +13,20 @@
               </div>
               <div class="card-body">
                 @if($tipodoc=='Grado')
-                    
                      <div class="text-right">
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body" style="border: thin solid lightgrey;">
                       <form>
-                        <input name="buscarespecialidad" class="form-control mr-sm-2" type="search" placeholder="Buscar por espacio curricular" aria-label="Search" value="">
-                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="">
+                        <input name="buscarespecialidad" class="form-control mr-sm-2" type="Search" placeholder="Buscar por espacio curricular" aria-label="Search" value="{{$especialidad}}">
+                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
                         <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                        <a href="#" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        <a href="{{url('criteriosevaluacion')}}" class="btn btn-sm btn-facebook"> Limpiar </a>
                         </div>
                      </form>
                   </div>
                     </div>
-                    <a href="#" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                    <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                     </div>
 
                 <!-- TABLA DOCENTE DE GRADO -->
@@ -55,19 +54,9 @@
                     <tbody>
                     @foreach($datoscriterio as $criterio)
                     <tr>
-                      <?php
-                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
-                      foreach($nombreespacio as $nom){
-                        $nombresp="$nom->nombre";
-                        }
-                      $años=App\Models\Año::where('id',$criterio->id_año)->get();
-                      foreach($años as $añoescolar){
-                        $años="$añoescolar->descripcion";
-                        }
-                      ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
-                      <td class="v-align-middle">{{$años}}</td>
-                      <td class="v-align-middle">{{$nombresp}}</td>
+                      <td class="v-align-middle">{{$criterio->id_año}}</td>
+                      <td class="v-align-middle">{{$criterio->id_espacio}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>
                       <td class="td-actions v-align-middle">
                       <button class="btn btn-info" data-toggle="modal" data-target="#ModalCriterioEvaluacion{{$criterio->id}}"  title="Ver Información Criterio de Evaluación"><i class="bi bi-info-circle"></i></button> 
@@ -83,17 +72,12 @@
                             <table class="table">
                                <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Año Escolar:</strong></label>  {{$años}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="v-align-middle" >
-                                <label><strong>Grado:</strong></label>  {{$criterio->grado}}
+                                <label><strong>Año Escolar:</strong></label>  {{$criterio->id_año}}
                                 </td>
                               </tr>
                                <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Espacio Curricular:</strong></label>  {{$nombresp}}
+                                <label><strong>Espacio Curricular:</strong></label>  {{$criterio->id_espacio}}
                                 </td>
                               </tr>
                               <tr>
@@ -137,12 +121,9 @@
                           </div>
                           </div>
                           </div>
-                          </div>
-                    <?php
-                   
-                    ?>                                        
-                    @endforeach
+                          </div>                                       
                     </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -182,6 +163,7 @@
                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
                       foreach($nombreespacio as $nom){
                         $nombresp="$nom->nombre";
+                      }
                       ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
@@ -255,8 +237,7 @@
                           </div>
                           </div>
                           </div>     
-                    </tr>  
-                                                          
+                    </tr>                              
                     @endforeach
                     </tbody>
                   </table>
