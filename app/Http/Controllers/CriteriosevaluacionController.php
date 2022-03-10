@@ -25,19 +25,19 @@ class CriteriosevaluacionController extends Controller
     $idusuario= Auth::user()->id;
     $especialidad = trim($request->get('buscarespecialidad'));
     $añoescolar = trim($request->get('buscarañoescolar'));
-
-
+    $grado = trim($request->get('buscargrado'));
+   
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
         $tipodoc="$tipo->especialidad";
     }
     if($tipodoc=='Grado'){
-    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->orderby('id_espacio','ASC')->paginate(5);
+    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->orderby('id','ASC')->paginate(5);
     }
     if($tipodoc!='Grado'){
-    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->orderby('id','ASC')->paginate(5);
+    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->grado($grado)->orderby('id','ASC')->paginate(5);
     }
-    return view('Criterios/index',compact('datoscriterio','tipodoc'));
+    return view('Criterios/index',compact('datoscriterio','tipodoc','especialidad','añoescolar','grado'));
    }
     
     public function create()
@@ -53,12 +53,16 @@ class CriteriosevaluacionController extends Controller
         foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
         }
+        if($tipodoc=='Grado'){
         $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
         $infocol=explode(',', $infocol);
         $contador=count($infocol)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
+        return view('Criterios.create',compact('tipodoc','infoaño','nombreespacios'));
+        }
+        if($tipodoc!='Grado'){
         $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
         foreach($infogrado as $informaciongrado){
         $docentesespeciales="$informaciongrado->id_docentesespe";
@@ -73,6 +77,7 @@ class CriteriosevaluacionController extends Controller
         }
         }
         return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado','idgrado'));
+        }
     }
 
     public function store(Request $request)
@@ -88,15 +93,19 @@ class CriteriosevaluacionController extends Controller
             'criterio' => ['required','max:50'],
             'ponderacion' => ['required','int'],
             'descripcion' => ['max:150'],
-            'añoescolar' => ['required'],
+            'añoescolar' ,
             'espaciocurricular' => ['required'],
         ]);
+        $idcolegio=Auth::user()->colegio_id;
+        $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
         $nuevocriterio=new CriteriosEvaluacion();
         $nuevocriterio->criterio=$request->criterio;
         $nuevocriterio->ponderacion=$request->ponderacion;
         $nuevocriterio->descripcion=$request->descripcion;
         $nuevocriterio->id_usuario=Auth::user()->id;
-        $nuevocriterio->id_año=$request->añoescolar;
+        foreach($infoaño as $info){
+        $nuevocriterio->id_año="$info->descripcion";
+        }
         $nuevocriterio->id_espacio=$request->espaciocurricular;
         $nuevocriterio->save();        
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
@@ -106,15 +115,19 @@ class CriteriosevaluacionController extends Controller
             'criterio' => ['required','max:50'],
             'ponderacion' => ['required','int'],
             'descripcion' => ['max:150'],
-            'añoescolar' => ['required'],
+            'añoescolar' ,
             'grado' => ['required'],
         ]);
+        $idcolegio=Auth::user()->colegio_id;
+        $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
         $nuevocriterio=new CriteriosEvaluacion();
         $nuevocriterio->criterio=$request->criterio;
         $nuevocriterio->ponderacion=$request->ponderacion;
         $nuevocriterio->descripcion=$request->descripcion;
         $nuevocriterio->id_usuario=Auth::user()->id;
-        $nuevocriterio->id_año=$request->añoescolar;
+        foreach($infoaño as $info){
+        $nuevocriterio->id_año="$info->descripcion";
+        }
         $nuevocriterio->id_grado=$request->grado;
         $nuevocriterio->save();        
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
@@ -122,9 +135,9 @@ class CriteriosevaluacionController extends Controller
 
 
     }
-    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->get();
-    return view('Criterios/index',compact('datoscriterio','tipodoc'));
-   }
+    
+
+   
 
 
      public function destroy(CriteriosEvaluacion $id)

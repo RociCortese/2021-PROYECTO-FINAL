@@ -11,7 +11,7 @@ class CriteriosEvaluacion extends Model
     protected $table = 'criteriosevaluacion';
 
     protected $fillable = ['criterio','id_espacio','id_año','id_grado','id_usuario','ponderacion','descripcion'];
-}
+
     public function scopeespecialidad($query, $especialidad) {
 
         if ($especialidad) {
@@ -22,6 +22,13 @@ class CriteriosEvaluacion extends Model
 
         if ($añoescolar) {
             return $query->where('id_año','like',"%$añoescolar%");
+        }
+    }
+
+    public function scopegrado($query, $grado) {
+
+        if ($grado) {
+            return $query->where('id_grado','like',"%$grado%");
         }
     }
 }

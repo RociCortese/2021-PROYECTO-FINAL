@@ -13,23 +13,30 @@
               </div>
               <div class="card-body">
                 @if($tipodoc=='Grado')
-                    
-                     <div class="text-right">
-                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card card-body" style="border: thin solid lightgrey;">
-                      <form>
-                        <input name="buscarespecialidad" class="form-control mr-sm-2" type="search" placeholder="Buscar por espacio curricular" aria-label="Search" value="">
-                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="">
-                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
-                        <a href="#" class="btn btn-sm btn-facebook"> Limpiar </a>
-                        </div>
-                     </form>
-                  </div>
-                    </div>
-                    <a href="#" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
-                    </div>
+               
 
+                @if($datoscriterio->isEmpty())
+
+                  @if(empty($especialidad) && empty($añoescolar))
+                  <div class="row">
+                  <div class="col-12 text-right">
+                   <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                  </div>
+                </div>
+                <div class="text-center"><h4><span class="badge badge-warning"> Aún no hay Criterios de Evaluación creados.</span></h4></div>
+                @else
+                <div class="card card-body" style="border: thin solid lightgrey;">
+                  <form>
+                      <input name="buscarespecialidad" class="form-control mr-sm-2" type="search" placeholder="Buscar por espacio curricular" aria-label="Search" value="{{$especialidad}}">
+                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
+                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                        <a href="{{url ('criteriosevaluacion') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
+                    </form> 
+                  </div>
+                  <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
+
+                  @endif
+            @else
                 <!-- TABLA DOCENTE DE GRADO -->
                 <div class="table-responsive">
                   <table class="table">
@@ -51,23 +58,28 @@
                     });
                     }, 1000);
                     </script>
-                    @endif                    
+                    @endif 
+                     <div class="text-right">
+                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
+                    <div class="collapse" id="collapseExample">
+                    <div class="card card-body" style="border: thin solid lightgrey;">
+                      <form>
+                       <input name="buscarespecialidad" class="form-control mr-sm-2" type="search" placeholder="Buscar por espacio curricular" aria-label="Search" value="{{$especialidad}}">
+                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
+                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                        <a href="{{url ('criteriosevaluacion') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        </div>
+                     </form>
+                  </div>
+                    </div>
+                     <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                    </div>                   
                     <tbody>
                     @foreach($datoscriterio as $criterio)
                     <tr>
-                      <?php
-                       $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
-                      foreach($nombreespacio as $nom){
-                        $nombresp="$nom->nombre";
-                        }
-                      $años=App\Models\Año::where('id',$criterio->id_año)->get();
-                      foreach($años as $añoescolar){
-                        $años="$añoescolar->descripcion";
-                        }
-                      ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
-                      <td class="v-align-middle">{{$años}}</td>
-                      <td class="v-align-middle">{{$nombresp}}</td>
+                      <td class="v-align-middle">{{$criterio->id_año}}</td>
+                      <td class="v-align-middle">{{$criterio->id_espacio}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>
                       <td class="td-actions v-align-middle">
                       <button class="btn btn-info" data-toggle="modal" data-target="#ModalCriterioEvaluacion{{$criterio->id}}"  title="Ver Información Criterio de Evaluación"><i class="bi bi-info-circle"></i></button> 
@@ -83,17 +95,12 @@
                             <table class="table">
                                <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Año Escolar:</strong></label>  {{$años}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="v-align-middle" >
-                                <label><strong>Grado:</strong></label>  {{$criterio->grado}}
+                                <label><strong>Año Escolar:</strong></label>  {{$criterio->id_año}}
                                 </td>
                               </tr>
                                <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Espacio Curricular:</strong></label>  {{$nombresp}}
+                                <label><strong>Espacio Curricular:</strong></label>  {{$criterio->id_espacio}}
                                 </td>
                               </tr>
                               <tr>
@@ -137,18 +144,55 @@
                           </div>
                           </div>
                           </div>
-                          </div>
-                    <?php
-                   
-                    ?>                                        
-                    @endforeach
+                          </div>                                       
                     </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
+                @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 @else
+                @if($datoscriterio->isEmpty())
+
+                  @if(empty($especialidad) && empty($añoescolar))
+                  <div class="row">
+                  <div class="col-12 text-right">
+                   <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                  </div>
+                </div>
+                <div class="text-center"><h4><span class="badge badge-warning"> Aún no hay Criterios de Evaluación creados.</span></h4></div>
+                @else
+                <div class="card card-body" style="border: thin solid lightgrey;">
+                  <form>
+                      <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
+                      <input name="buscargrado" class="form-control mr-sm-2" type="search" placeholder="Buscar por grado" aria-label="Search" value="{{$grado}}">
+                      <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                      <a href="{{url ('criteriosevaluacion') }}" class="btn btn-sm btn-facebook"> Limpiar </a></div>
+                    </form> 
+                  </div>
+                  <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
+
+                  @endif
+            @else
+               
+
                 <!-- TABLA DOCENTE ESPECIAL -->
                 <div class="table-responsive">
                   <table class="table">
@@ -170,19 +214,26 @@
                     });
                     }, 1000);
                     </script>
-                    @endif                    
+                    @endif  
+                    <div class="text-right">
+                       <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
+                    <div class="collapse" id="collapseExample">
+                    <div class="card card-body" style="border: thin solid lightgrey;">
+                      <form>
+                       <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
+                        <input name="buscargrado" class="form-control mr-sm-2" type="search" placeholder="Buscar por grado" aria-label="Search" value="{{$grado}}">
+                        <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                        <a href="{{url ('criteriosevaluacion') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+                        </div>
+                     </form>
+                  </div>
+                    </div>
+                     <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
+                    </div> 
+
                     <tbody>
                     @foreach($datoscriterio as $criterio)
                     <tr>
-                      <?php
-                      $nombregrado=App\Models\Grado::where('id',$criterio->id_grado)->get();
-                      foreach($nombregrado as $nom){
-                        $nomgrado="$nom->descripcion";
-                      }
-                      $nombreespacio=App\Models\espacioscurriculares::where('id',$criterio->id_espacio)->get();
-                      foreach($nombreespacio as $nom){
-                        $nombresp="$nom->nombre";
-                      ?>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
                       <td class="v-align-middle">{{$criterio->id_grado}}</td>
@@ -205,14 +256,10 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
-                                <label><strong>Grado:</strong></label>  {{$criterio->grado}}
+                                <label><strong>Grado:</strong></label>  {{$criterio->id_grado}}
                                 </td>
                               </tr>
                                <tr>
-                                <td class="v-align-middle" >
-                                <label><strong>Espacio Curricular:</strong></label>  {{$criterio->nombresp}}
-                                </td>
-                              </tr>
                               <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Criterio de Evaluación:</strong></label>  {{$criterio->criterio}}
@@ -255,12 +302,13 @@
                           </div>
                           </div>
                           </div>     
-                    </tr>  
-                                                          
+                    </tr>                              
                     @endforeach
                     </tbody>
                   </table>
+
                 </div>
+                   @endif
                 @endif
             </div>
             <div class="card-footer mr-auto">

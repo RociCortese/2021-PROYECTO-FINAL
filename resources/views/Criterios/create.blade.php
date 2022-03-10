@@ -41,7 +41,13 @@
                 </div>
               @endif
           </div>
+          <div class="col">
+              <br>
+              <input type="checkbox" name="aplicagrados" id="aplicagrados" value="{{ old('aplicagrados') }}">&nbsp<label>Aplica a todos los espacios curriculares</label>
+            </div>
+        </div>
           @else
+          <div class="row">
           <div class="col">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{ old('grado') }}">
@@ -49,7 +55,7 @@
                     <?php
                     $cont=count($nombresgrado)-1;
                     for($i=0;$i<=$cont;$i++){?>
-                    <option value="{{$idgrado[$i]}}">{{$nombresgrado[$i]}}</option>
+                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
                     <?php
                     }
                     ?>
