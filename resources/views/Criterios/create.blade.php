@@ -48,6 +48,7 @@
         </div>
         <div class="row">
           @else
+          <div class="row">
           <div class="col">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{old('grado') }}">
@@ -55,7 +56,7 @@
                     <?php
                     $cont=count($nombresgrado)-1;
                     for($i=0;$i<=$cont;$i++){?>
-                    <option value="{{$idgrado[$i]}}">{{$nombresgrado[$i]}}</option>
+                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
                     <?php
                     }
                     ?>
