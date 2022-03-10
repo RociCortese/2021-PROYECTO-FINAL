@@ -13,8 +13,6 @@
               </div>
               <div class="card-body">
                 @if($tipodoc=='Grado')
-               
-
                 @if($datoscriterio->isEmpty())
 
                   @if(empty($especialidad) && empty($añoescolar))
@@ -151,23 +149,6 @@
                   </table>
                 </div>
                 @endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 @else
                 @if($datoscriterio->isEmpty())
 
@@ -191,8 +172,7 @@
 
                   @endif
             @else
-               
-
+              
                 <!-- TABLA DOCENTE ESPECIAL -->
                 <div class="table-responsive">
                   <table class="table">
