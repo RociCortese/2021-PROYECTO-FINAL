@@ -88,14 +88,50 @@
           </div>
         <div class="col">
             <label>Ponderación</label>
-            <select name="ponderacion" id="ponderacion" class="form-control" value="{{ old('ponderacion') }}">
-            <option value=""></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>   
-            </select>
+            <br>
+            <small class="form-text" id="etiqueta"></small>
+            <input id="input" name="ponderacion" type="range" min="1" max="5" step="1" list="opciones" value="0">
+            <datalist id="opciones">
+            <option value="1" label="1">
+            <option value="2" label="2">
+            <option value="3" label="3">
+            <option value="4" label="4">
+            <option value="5" label="5">
+            </datalist>
+            <script type="text/javascript">
+            var elInput = document.querySelector('#input');
+            if (elInput) {
+            var etiqueta = document.querySelector('#etiqueta');
+            if (etiqueta) {
+            if(elInput.value=='1'){
+            etiqueta.innerHTML = "Ponderación muy baja";
+            document.getElementById('etiqueta').style.color = '#008000';
+            }
+            elInput.addEventListener('input', function() {
+            if(elInput.value=='1'){
+            etiqueta.innerHTML = "Ponderación muy baja";
+            document.getElementById('etiqueta').style.color = '#008000';
+            }
+            if(elInput.value=='2'){
+            etiqueta.innerHTML = "Ponderación baja";
+            document.getElementById('etiqueta').style.color = '#57a639';
+            }
+            if(elInput.value=='3'){
+            etiqueta.innerHTML = "Ponderación media";
+            document.getElementById('etiqueta').style.color = '#cccc00';
+            }
+            if(elInput.value=='4'){
+            etiqueta.innerHTML = "Ponderación alta";
+            document.getElementById('etiqueta').style.color = '#FF8000';
+            }
+            if(elInput.value=='5'){
+            etiqueta.innerHTML = "Ponderación muy alta";
+            document.getElementById('etiqueta').style.color = '#FF0000';
+            }
+            }, false);
+            }
+            }
+            </script>
             <small class="form-text text-muted">Permite darle un peso al criterio de evaluación para luego obtener una nota final.</small>   
             @if ($errors->has('ponderacion'))
                 <div id="ponderacion-error" class="error text-danger pl-3" for="ponderacion" style="display: block;">
