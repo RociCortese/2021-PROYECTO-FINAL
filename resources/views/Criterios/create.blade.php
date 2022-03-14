@@ -96,6 +96,7 @@
           @else
           @if($valor=='0')
           <div class="row">
+
           <div class="col">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{old('grado') }}">
