@@ -117,7 +117,7 @@
                      </div>
                    </div>      
                     
-                    <button class="btn btn-warning"  title="Editar Criterio de Evaluación"><i class="bi bi-pencil"></i></button>  
+                    <a href="{{ route('editarcriterio',$criterio->id) }}"class="btn btn-warning"  title="Editar Criterio de Evaluación"><i class="bi bi-pencil"></i></a>  
 
                     <button class="btn btn-danger" data-toggle="modal" data-target="#EliminarCriterioEvaluación{{$criterio->id}}" title="Eliminar Criterio de Evaluación">
                             <i class="bi bi-trash"></i>
@@ -126,7 +126,7 @@
                           <div class="modal-dialog">
                           <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="EliminarCriterioEvaluación"><strong><i class="bi bi-trash"></i>  Eliminar - Criterio de Evaluación</strong></h5> 
+                            <h5 class="modal-title" id="EliminarCriterioEvaluación"><strong><i class="bi bi-exclamation-circle" style="color: red;"></i>  Criterio de Evaluación</strong></h5> 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
@@ -217,7 +217,8 @@
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
                       <td class="v-align-middle">{{$criterio->id_grado}}</td>
-                      <td class="v-align-middle">{{$criterio->criterio}}</td> <td class="td-actions v-align-middle">
+                      <td class="v-align-middle">{{$criterio->criterio}}</td> 
+                      <td class="td-actions v-align-middle">
                       <button class="btn btn-info" data-toggle="modal" data-target="#ModalCriterioEvaluacion{{$criterio->id}}"  title="Ver Información Criterio de Evaluación"><i class="bi bi-info-circle"></i></button> 
 
                          <div class="modal fade bd-example-modal-lg" id="ModalCriterioEvaluacion{{$criterio->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -256,7 +257,7 @@
                      </div>
                    </div>      
                     
-                    <button class="btn btn-warning"  title="Editar Criterio de Evaluación"><i class="bi bi-pencil"></i></button>  
+                    <a href="{{ route('editarcriterio',$criterio->id) }}" class="btn btn-warning"  title="Editar Criterio de Evaluación"><i class="bi bi-pencil"></i></a>  
 
                     <button class="btn btn-danger" data-toggle="modal" data-target="#EliminarCriterioEvaluación{{$criterio->id}}" title="Eliminar Criterio de Evaluación">
                             <i class="bi bi-trash"></i>
@@ -265,7 +266,7 @@
                           <div class="modal-dialog">
                           <div class="modal-content">
                           <div class="modal-header">
-                          <h5 class="modal-title" id="EliminarCriterioEvaluación"><strong><i class="bi bi-list-check"></i> Eliminar el Criterio de Evaluación</strong></h5> 
+                          <h5 class="modal-title" id="EliminarCriterioEvaluación"><strong><i class="bi bi-exclamation-circle" style="color: red;"></i>  Criterio de Evaluación</strong></h5> 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">

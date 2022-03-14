@@ -5,11 +5,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('criterios.store') }}" method="POST" class="form-horizontal">
+        <form action="{{ route('criterios.update',$id->id) }}" method="POST" class="form-horizontal">
         @csrf
         <div class="card">
           <div class= "card-header card-header-info">
-          <h4 class="card-title">Agregar criterio de evaluación</h4>
+          <h4 class="card-title">Editar Criterio de Evaluación</h4>
           </div>
         <div class="card-body">
         @foreach($infoaño as $año)
@@ -21,7 +21,7 @@
           @if($tipodoc=='Grado')
           <div class="col">
             <label>Espacio curricular</label>
-              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ old('espaciocurricular') }}">
+              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->espaciocurricular }}">
                 <?php
                 $nomespacio = preg_replace('/[\[\]\.\;\" "]+/', '', $nombreespacios);
                 $contador=count($nomespacio)-1;
@@ -30,7 +30,7 @@
                 <?php
                 for ($i=0; $i <=$contador ; $i++) {
                 ?>
-                <option value="{{$nomespacio[$i]}}">{{$nomespacio[$i]}}</option>
+                <option value="{{$nomespacio[$i]}}"<?php echo 'selected="selected" ';?>>{{$id->espaciocurricular}}{{$nomespacio[$i]}}</option>
             <?php
               }
             ?>
@@ -41,22 +41,19 @@
                 </div>
               @endif
           </div>
-          <div class="col">
-              <br>
-              <input type="checkbox" name="aplicaespacios" id="aplicaespacios" value="aplicaespacios" >&nbsp<label>Aplica a todos los espacios curriculares</label>
-            </div>
         </div>
+        
         <div class="row">
+         
           @else
-          
           <div class="col">
             <label>Grado</label>
-              <select name="grado" id="grado" class="form-control" value="{{old('grado') }}">
+              <select name="grado" id="grado" class="form-control" value="{{$id->id_grado }}">
                     <option value=""></option>
                     <?php
                     $cont=count($nombresgrado)-1;
                     for($i=0;$i<=$cont;$i++){?>
-                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
+                    <option value="{{$nombresgrado[$i]}}"<?php echo 'selected="selected" ';?>>{{$id->id_grado}}{{$nombresgrado[$i]}}</option>
                     <?php
                     }
                     ?>
@@ -67,11 +64,6 @@
                 </div>
               @endif
           </div>
-            <div class="col">
-              <br>
-              <input type="checkbox" name="aplicagrados" id="aplicagrados" value="aplicagrados">&nbsp<label>Aplica a todos los grados</label>
-              <br><input type="checkbox" name="aplicadivisiones" id="aplicadivisiones" value="aplicadivisiones">&nbsp<label>Aplica a todas las divisiones</label>
-            </div>
             @endif
         </div>
           
@@ -79,23 +71,79 @@
         <div class="row">
           <div class="col">
             <label>Criterio de evaluación</label>
-              <input type="text" name="criterio" class="form-control" value="{{ old('criterio') }}">
+              <input type="text" name="criterio" class="form-control" value="{{$id->criterio}}">
             @if ($errors->has('criterio'))
                 <div id="criterio-error" class="error text-danger pl-3" for="criterio" style="display: block;">
                   <strong>{{ $errors->first('criterio') }}</strong>
                 </div>
               @endif
           </div>
-        <div class="col">
+  <div class="col">
             <label>Ponderación</label>
-            <select name="ponderacion" id="ponderacion" class="form-control" value="{{ old('ponderacion') }}">
-            <option value=""></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>   
-            </select>
+            <br>
+            <small class="form-text" id="etiqueta"></small>
+            <input id="input" name="ponderacion" type="range" min="1" max="5" step="1" list="opciones" value="{{$id->ponderacion}}" >
+            <datalist id="opciones">
+            <option value="1" label="1">
+            <option value="2" label="2">
+            <option value="3" label="3">
+            <option value="4" label="4">
+            <option value="5" label="5">
+            </datalist>
+            <script type="text/javascript">
+            var elInput = document.querySelector('#input');
+            if (elInput) {
+            var etiqueta = document.querySelector('#etiqueta');
+            if (etiqueta) {
+            if(elInput.value=={{$id->ponderacion}}){
+            etiqueta.innerHTML = "Ponderación muy baja";
+            document.getElementById('etiqueta').style.color = '#008000';
+                  if(elInput.value=='1'){
+            etiqueta.innerHTML = "Ponderación muy baja";
+            document.getElementById('etiqueta').style.color = '#008000';
+            }
+            if(elInput.value=='2'){
+            etiqueta.innerHTML = "Ponderación baja";
+            document.getElementById('etiqueta').style.color = '#57a639';
+            }
+            if(elInput.value=='3'){
+            etiqueta.innerHTML = "Ponderación media";
+            document.getElementById('etiqueta').style.color = '#cccc00';
+            }
+            if(elInput.value=='4'){
+            etiqueta.innerHTML = "Ponderación alta";
+            document.getElementById('etiqueta').style.color = '#FF8000';
+            }
+            if(elInput.value=='5'){
+            etiqueta.innerHTML = "Ponderación muy alta";
+            document.getElementById('etiqueta').style.color = '#FF0000';
+            }
+            }
+            elInput.addEventListener('input', function() {
+            if(elInput.value=='1'){
+            etiqueta.innerHTML = "Ponderación muy baja";
+            document.getElementById('etiqueta').style.color = '#008000';
+            }
+            if(elInput.value=='2'){
+            etiqueta.innerHTML = "Ponderación baja";
+            document.getElementById('etiqueta').style.color = '#57a639';
+            }
+            if(elInput.value=='3'){
+            etiqueta.innerHTML = "Ponderación media";
+            document.getElementById('etiqueta').style.color = '#cccc00';
+            }
+            if(elInput.value=='4'){
+            etiqueta.innerHTML = "Ponderación alta";
+            document.getElementById('etiqueta').style.color = '#FF8000';
+            }
+            if(elInput.value=='5'){
+            etiqueta.innerHTML = "Ponderación muy alta";
+            document.getElementById('etiqueta').style.color = '#FF0000';
+            }
+            }, false);
+            }
+            }
+            </script>
             <small class="form-text text-muted">Permite darle un peso al criterio de evaluación para luego obtener una nota final.</small>   
             @if ($errors->has('ponderacion'))
                 <div id="ponderacion-error" class="error text-danger pl-3" for="ponderacion" style="display: block;">
@@ -108,7 +156,7 @@
         <div class="row">
         <div class="col">
           <label>Descripción</label>
-             <textarea class="form-control" rows="3" name="descripcion" id="descripcion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{ old('descripcion') }}" maxlength="150"></textarea>
+             <textarea class="form-control" rows="3" name="descripcion" id="descripcion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{$id->descripcion}}" maxlength="150">{{ old('descripcion', $id->descripcion) }}</textarea>
              <small id="comentHelp" class="form-text text-muted">Este campo es opcional. </small>
             @if ($errors->has('descripcion'))
                 <div id="descripcion-error" class="error text-danger pl-3" for="descripcion" style="display: block;">
@@ -125,8 +173,7 @@
           <br>
           <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
-                <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
+                <button type="submit" class="btn btn-sm btn-facebook">Guardar Cambios</button>
           </div>
         </div>
       </div>
