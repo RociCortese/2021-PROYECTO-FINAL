@@ -53,14 +53,11 @@ class CriteriosevaluacionController extends Controller
         foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
         }
+        $valor='0';
         if($tipodoc=='Grado'){
         $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
         $infocol=explode(',', $infocol);
-        $contador=count($infocol)-1;
-        for ($i=0; $i <= $contador ; $i++) { 
-        $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
-        }
-        return view('Criterios.create',compact('tipodoc','infoaño','nombreespacios'));
+        return view('Criterios.create',compact('tipodoc','infoaño','infocol','valor'));
         }
         if($tipodoc!='Grado'){
         $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
@@ -76,7 +73,7 @@ class CriteriosevaluacionController extends Controller
             }
         }
         }
-        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado','idgrado'));
+        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado','idgrado','valor'));
         }
     }
     public function store(Request $request)
@@ -87,16 +84,23 @@ class CriteriosevaluacionController extends Controller
             $tipodoc="$tipo->especialidad";
         }
         if($tipodoc=='Grado'){
-         $request->validate([
+        $check3=$request->aplicaespacios;
+        $nombreespaciocurri=$request->espaciocurricular;
+        $idcolegio=Auth::user()->colegio_id;
+        $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+        $infocolegio=Colegio::where('id',$idcolegio)->get();
+        foreach($infocolegio as $info){
+            $infocol="$info->espacioscurriculares";
+        }
+        $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
+        $infocol=explode(',', $infocol);
+        if(empty($check3)){
+        $request->validate([
             'criterio' => ['required','max:50'],
             'ponderacion' => ['required','int'],
             'descripcion' => ['max:150'],
-            //'espaciocurricular' => ['required'],
+            'espaciocurricular' => ['required'],
         ]);
-        $check=$request->aplicaespacios;
-        $idcolegio=Auth::user()->colegio_id;
-        $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
-        if(empty($check)){
         $nuevocriterio=new CriteriosEvaluacion();
         $nuevocriterio->criterio=$request->criterio;
         $nuevocriterio->ponderacion=$request->ponderacion;
@@ -109,12 +113,12 @@ class CriteriosevaluacionController extends Controller
         $nuevocriterio->save(); 
         }
         else{
-        $infocolegio=Colegio::where('id',$idcolegio)->get();
-        foreach($infocolegio as $info){
-            $infocol="$info->espacioscurriculares";
-        }
-        $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
-        $infocol=explode(',', $infocol);
+         $request->validate([
+            'criterio' => ['required','max:50'],
+            'ponderacion' => ['required','int'],
+            'descripcion' => ['max:150'],
+            'aplicaespacios' => ['required'],
+        ]);
         $contador=count($infocol)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $nuevocriterio=new CriteriosEvaluacion();
@@ -131,22 +135,29 @@ class CriteriosevaluacionController extends Controller
         }
         $nuevocriterio->save();
         }
-        }       
+        }
+        if($request->guardar=='1'){
+        $valor= $request->guardar;
+         return redirect()->route('criteriocreate')->with('success', 'El criterio de evaluación se cargó correctamente.');
+        }
+        else{
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
         }
-
-
-         if($tipodoc!='Grado'){
-         $request->validate([
-            'criterio' => ['required','max:50'],
-            'ponderacion' => ['required','int'],
-            'descripcion' => ['max:150'],
-        ]);
+        }
+        else{
         $idcolegio=Auth::user()->colegio_id;
         $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
         $check1=$request->aplicagrados;
         $check2=$request->aplicadivisiones;
+        $nombregrado=$request->grado;
+
         if(empty($check1) and empty($check2)){
+        $request->validate([
+        'criterio' => ['required','max:50'],
+        'ponderacion' => ['required','int'],
+        'descripcion' => ['max:150'],
+        'grado' => ['required'],
+        ]);
         $nuevocriterio=new CriteriosEvaluacion();
         $nuevocriterio->criterio=$request->criterio;
         $nuevocriterio->ponderacion=$request->ponderacion;
@@ -157,34 +168,15 @@ class CriteriosevaluacionController extends Controller
         }
         $nuevocriterio->id_grado=$request->grado;
         $nuevocriterio->save();        
-        return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
         }
-        $nuevocriterio->id_espacio=$request->espaciocurricular;
-        $nuevocriterio->save(); 
-        }
-        $infoespacio=$request->espaciocurricular;
 
-        if(empty($check1) and empty($infoespacio)){
-        $infocolegio=Colegio::where('id',$idcolegio)->get();
-        foreach($infocolegio as $info){
-            $infocol="$info->espacioscurriculares";
-        }
-        $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
-        $infocol=explode(',', $infocol);
-        $contador=count($infocol)-1;
-        for ($i=0; $i <= $contador ; $i++) { 
-        $nuevocriterio=new CriteriosEvaluacion();
-        $nuevocriterio->criterio=$request->criterio;
-        $nuevocriterio->ponderacion=$request->ponderacion;
-        $nuevocriterio->descripcion=$request->descripcion;
-        foreach($infoaño as $info){
-        $nuevocriterio->id_año="$info->descripcion";
-        }
-        $nuevocriterio->id_usuario=Auth::user()->id;
-        $nuevocriterio->save();
-        }
-        }
-        if(empty($check2) and empty($infoespacio)){
+        elseif(empty($check2) and empty($infoespacio)){
+        $request->validate([
+        'criterio' => ['required','max:50'],
+        'ponderacion' => ['required','int'],
+        'descripcion' => ['max:150'],
+        'aplicagrados' => ['required'],
+        ]);
         $grados=Grado::where('colegio_id',$idcolegio)->get();
         foreach($grados as $grad){
         $descripciongrado[]="$grad->descripcion";
@@ -203,12 +195,57 @@ class CriteriosevaluacionController extends Controller
         $nuevocriterio->id_grado=$descripciongrado[$i];
         $nuevocriterio->save();
         }
-       
-        }           
+        }
+        else{
+        $request->validate([
+        'criterio' => ['required','max:50'],
+        'ponderacion' => ['required','int'],
+        'descripcion' => ['max:150'],
+        'aplicadivisiones' => ['required'],
+        ]);
+        $datosgrado=Grado::where('descripcion',$nombregrado)->where('colegio_id',Auth::user()->colegio_id)->get();
+        foreach($datosgrado as $dato){
+            $infogrado="$dato->num_grado";
+        }
+        $asignacriterio=Grado::where('num_grado',$infogrado)->where('colegio_id',Auth::user()->colegio_id)->get();
+        foreach($asignacriterio as $asigna){
+            $nombre="$asigna->descripcion";
+            $nuevocriterio=new CriteriosEvaluacion();
+            $nuevocriterio->criterio=$request->criterio;
+            $nuevocriterio->ponderacion=$request->ponderacion;
+            $nuevocriterio->descripcion=$request->descripcion;
+            foreach($infoaño as $info){
+            $nuevocriterio->id_año="$info->descripcion";
+            }
+            $nuevocriterio->id_usuario=Auth::user()->id;
+            $nuevocriterio->id_grado=$nombre;
+            $nuevocriterio->save();
+            }
+        }
+        if($request->guardar=='1'){
+        $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
+        foreach($infogrado as $informaciongrado){
+        $docentesespeciales="$informaciongrado->id_docentesespe";
+        $docentesespeciales = preg_replace('/[\[\]\.\;\" "]+/', '', $docentesespeciales);
+        $docentesespeciales=explode(',', $docentesespeciales);
+        $contador=count($docentesespeciales)-1;
+        for($i=0;$i<=$contador;$i++){
+            if($docentesespeciales[$i]==Auth::user()->id){
+            $nombresgrado[]="$informaciongrado->descripcion";
+            $idgrado[]="$informaciongrado->id";
+            }
+        }
+        }
+        $valor= $request->guardar;
+        return redirect()->route('criteriocreate')->with('success', 'El criterio de evaluación se cargó correctamente.');
+        }
+        else{
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
         }
-   }
-
+        }
+       
+        
+        }
      public function destroy(CriteriosEvaluacion $id)
     {
         $id->delete();

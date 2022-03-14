@@ -16,12 +16,14 @@
           <div class="col form-group">
             <label>Año escolar</label>
               <select name="descripcion" class="form-control" value="{{$id->descripcion}}">
-                <option value="{{$id->descripcion}}" <?php echo 'selected="selected" ';?>>{{$id->descripcion}}</option>
+                <option value=""></option>
+                <option value="{{$id->descripcion}}"<?php echo 'selected="selected" ';?>>{{$id->descripcion}}
                       <?php 
                       use Carbon\Carbon;
                       $añoactual=date("Y");
                       $hasta=$añoactual+2;
                       for($i=$añoactual;$i<=$hasta;$i++) { echo "<option value='".$i."'>".$i."</option>"; } ?>
+                        </option>
                 </select>
             @if ($errors->has('descripcion'))
                 <div id="descripcion-error" class="error text-danger pl-3" for="descripcion" style="display: block;">

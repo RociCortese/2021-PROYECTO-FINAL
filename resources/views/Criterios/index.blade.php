@@ -151,7 +151,6 @@
                 @endif
                 @else
                 @if($datoscriterio->isEmpty())
-
                   @if(empty($especialidad) && empty($añoescolar))
                   <div class="row">
                   <div class="col-12 text-right">
