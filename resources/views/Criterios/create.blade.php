@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('criterios.store') }}" method="POST" class="form-horizontal">
+        <form action="{{ route('criterios.store') }}" method="POST" class="form-horizontal" id="form" name="form">
         @csrf
         <div class="card">
           <div class= "card-header card-header-info">
@@ -17,11 +17,33 @@
             <h5><span class="badge badge-info">El año escolar activo es el {{$año->descripcion}}.</span></h5>
           </div>
         @endforeach
-        <div class="row">
+         @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif 
           @if($tipodoc=='Grado')
+          @if($valor=='0')
+          <div class="row">
           <div class="col">
             <label>Espacio curricular</label>
               <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ old('espaciocurricular') }}">
+                <option value=""></option>
+                <?php
+                $contador=count($infocol)-1;
+                for ($i=0; $i <= $contador ; $i++) { 
+                $nombreespacios=App\Models\espacioscurriculares::where('id',$infocol[$i])->get();
+                foreach($nombreespacios as $nombreesp){
+                $nomespacio="$nombreesp->nombre";
+                ?>
+                <option value="{{$nomespacio}}">{{$nomespacio}}</option>
                 <?php
                 header('Content-type: text/html; charset=UTF-8');
                 $nomespacio = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
@@ -30,15 +52,9 @@
                 $nomespacio=utf8_decode($nomespacio);
                 $nomespacio=explode(',', $nomespacio);
                 $contador=count($nomespacio)-1;
+                }
+                }
                 ?>
-                <option value=""></option>
-                <?php
-                for ($i=0; $i <=$contador ; $i++) {
-                ?>
-                <option value="{{$nomespacio[$i]}}">{{$nomespacio[$i]}}</option>
-            <?php
-              }
-            ?>
               </select>
             @if ($errors->has('espaciocurricular'))
                 <div id="espaciocurricular-error" class="error text-danger pl-3" for="espaciocurricular" style="display: block;">
@@ -48,12 +64,46 @@
           </div>
           <div class="col">
               <br>
-              <input type="checkbox" name="aplicaespacios" id="aplicaespacios" value="aplicaespacios" >&nbsp<label>Aplica a todos los espacios curriculares</label>
-            </div>
+              <input type="checkbox" name="aplicaespacios" id="aplicaespacios" value="aplicaespacios"onclick="espaciocurricular.disabled =this.checked">&nbsp<label>Aplica a todos los espacios curriculares</label>
+          </div>
         </div>
-        <div class="row">
           @else
-          
+          <div class="row">
+          <div class="col">
+            <label>Espacio curricular</label>
+              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ old('espaciocurricular') }}">
+                
+                <option value="{{$nombreespaciocurri}}">{{$nombreespaciocurri}}</option>
+                <option value=""></option>
+                <?php
+                $contador=count($infocol)-1;
+                for ($i=0; $i <= $contador ; $i++) { 
+                $nombreespacios=App\Models\espacioscurriculares::where('id',$infocol[$i])->get();
+                foreach($nombreespacios as $nombreesp){
+                $nomespacio="$nombreesp->nombre";
+                ?>
+                <option value="{{$nomespacio}}">{{$nomespacio}}</option>
+                <?php
+                }
+                }
+                ?>
+              </select>
+            @if ($errors->has('espaciocurricular'))
+                <div id="espaciocurricular-error" class="error text-danger pl-3" for="espaciocurricular" style="display: block;">
+                  <strong>{{ $errors->first('espaciocurricular') }}</strong>
+                </div>
+              @endif
+          </div>
+          <div class="col">
+              <br>
+              <input type="checkbox" name="aplicaespacios" id="aplicaespacios" value="aplicaespacios"onclick="espaciocurricular.disabled =this.checked" checked="{{$check3}}">&nbsp<label>Aplica a todos los espacios curriculares</label>
+          </div>
+        </div>
+          @endif
+          @else
+          @if($valor=='0')
+          <div class="row">
+
           <div class="col">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{old('grado') }}">
@@ -74,12 +124,39 @@
           </div>
             <div class="col">
               <br>
-              <input type="checkbox" name="aplicagrados" id="aplicagrados" value="aplicagrados">&nbsp<label>Aplica a todos los grados</label>
+              <input type="checkbox" name="aplicagrados" id="aplicagrados" value="aplicagrados" onclick="grado.disabled =this.checked,aplicadivisiones.disabled =this.checked">&nbsp<label>Aplica a todos los grados</label>
               <br><input type="checkbox" name="aplicadivisiones" id="aplicadivisiones" value="aplicadivisiones">&nbsp<label>Aplica a todas las divisiones</label>
             </div>
+          </div>
+            @else
+            <div class="row">
+            <div class="col">
+            <label>Grado</label>
+              <select name="grado" id="grado" class="form-control" value="{{old('grado') }}">
+                    <option value="{{$nombregrado}}">{{$nombregrado}}</option>
+                    <option value=""></option>
+                    <?php
+                    $cont=count($nombresgrado)-1;
+                    for($i=0;$i<=$cont;$i++){?>
+                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
+                    <?php
+                    }
+                    ?>
+              </select>
+            @if ($errors->has('grado'))
+                <div id="grado-error" class="error text-danger pl-3" for="grado" style="display: block;">
+                  <strong>{{ $errors->first('grado') }}</strong>
+                </div>
+              @endif
+          </div>
+            <div class="col">
+              <br>
+              <input type="checkbox" name="aplicagrados" id="aplicagrados" value="aplicagrados" onclick="grado.disabled =this.checked,aplicadivisiones.disabled =this.checked" checked="{{$check1}}">&nbsp<label>Aplica a todos los grados</label>
+              <br><input type="checkbox" name="aplicadivisiones" id="aplicadivisiones" value="aplicadivisiones" checked="{{$check2}}">&nbsp<label>Aplica a todas las divisiones</label>
+            </div>
+          </div>
             @endif
-        </div>
-          
+            @endif
         <br>
         <div class="row">
           <div class="col">
@@ -158,15 +235,16 @@
               @endif
             </div>
           </div>
-          <!--<div class="text-center">
-            <a type="button" class="btn btn-info btn-sm" style="font-size: 0.5em;">
+         <!-- <div class="text-center">
+            <a type="button" class="btn btn-success btn-sm" style="font-size: 0.5em;">
           <i class="bi bi-plus-circle" style="font-size: 2em;color: white;" title="Agregar criterio"></i>
             </a>
-          </div>-->
+          </div> -->
           <br>
           <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-facebook" name="guardar" value="1">Guardar y crear otro</button>
+                <button type="submit" class="btn btn-sm btn-facebook" name="guardar" value="0">Guardar y salir</button>
                 <button type="reset" class="btn btn-sm btn-facebook">Limpiar</button>
           </div>
         </div>

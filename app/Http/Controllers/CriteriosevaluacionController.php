@@ -34,7 +34,7 @@ class CriteriosevaluacionController extends Controller
         $tipodoc="$tipo->especialidad";
     }
     if($tipodoc=='Grado'){
-    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->orderby('id','ASC')->paginate(5);
+    $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->orderby('id_espacio','ASC')->paginate(5);
     }
     if($tipodoc!='Grado'){
     $datoscriterio= CriteriosEvaluacion::where('id_usuario',$idusuario)->especialidad($especialidad)->año($añoescolar)->grado($grado)->orderby('id','ASC')->paginate(5);
@@ -42,7 +42,7 @@ class CriteriosevaluacionController extends Controller
     return view('Criterios/index',compact('datoscriterio','tipodoc','especialidad','añoescolar','grado'));
    }
     
-    public function create()
+ public function create()
     {
         $idpersona= Auth::user()->idpersona;
         $tipodocente=Docente::where('id',$idpersona)->get();
@@ -55,6 +55,7 @@ class CriteriosevaluacionController extends Controller
         foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
         }
+        $valor='0';
         if($tipodoc=='Grado'){
         $infocol = preg_replace('/[\[\]\.\;\" "]+/', '', $infocol);
         $infocol=explode(',', $infocol);
@@ -62,7 +63,7 @@ class CriteriosevaluacionController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-        return view('Criterios.create',compact('tipodoc','infoaño','nombreespacios'));
+        return view('Criterios.create',compact('tipodoc','infoaño','infocol','valor','nombreespacios'));
         }
         if($tipodoc!='Grado'){
         $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
@@ -81,6 +82,7 @@ class CriteriosevaluacionController extends Controller
         }
     }
  public function store(Request $request)
+
     {
         $idpersona= Auth::user()->idpersona;
         $idusuario= Auth::user()->id;
@@ -233,6 +235,7 @@ class CriteriosevaluacionController extends Controller
         'criterio' => ['required','max:50'],
         'ponderacion' => ['required','int'],
         'descripcion' => ['max:150'],
+        'grado'=> ['required'],
         'aplicadivisiones' => ['required'],
         ]);
         $datosgrado=Grado::where('descripcion',$nombregrado)->where('colegio_id',Auth::user()->colegio_id)->get();
@@ -311,7 +314,7 @@ class CriteriosevaluacionController extends Controller
         }
     }
 
-   public function editarcriterio(CriteriosEvaluacion $id)
+    public function editarcriterio(CriteriosEvaluacion $id)
     {
         $idpersona= Auth::user()->idpersona;
         $tipodocente=Docente::where('id',$idpersona)->get();
@@ -351,9 +354,14 @@ class CriteriosevaluacionController extends Controller
         }
     }
 
+
+
+
+
     public function update(Request $request,$id)
     {
         $criterio = CriteriosEvaluacion::findOrFail($id);
+
         $idpersona= Auth::user()->idpersona;
         $tipodocente=Docente::where('id',$idpersona)->get();
         foreach($tipodocente as $tipo){
@@ -389,14 +397,7 @@ class CriteriosevaluacionController extends Controller
         $criterio->update($data);
         return redirect()->route('criteriosevaluacion')->with('success','El criterio de evaluación se modificó correctamente.');
         }
-        }
-
-    
-    
-
-
-
-
+    }
      public function destroy(CriteriosEvaluacion $id)
     {
         $id->delete();

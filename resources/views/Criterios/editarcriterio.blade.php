@@ -36,6 +36,7 @@
                 }
                 ?>
               </select>
+              
             @if ($errors->has('espaciocurricular'))
                 <div id="espaciocurricular-error" class="error text-danger pl-3" for="espaciocurricular" style="display: block;">
                   <strong>{{ $errors->first('espaciocurricular') }}</strong>
@@ -166,11 +167,6 @@
               @endif
             </div>
           </div>
-          <!--<div class="text-center">
-            <a type="button" class="btn btn-info btn-sm" style="font-size: 0.5em;">
-          <i class="bi bi-plus-circle" style="font-size: 2em;color: white;" title="Agregar criterio"></i>
-            </a>
-          </div>-->
           <br>
           <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center ">

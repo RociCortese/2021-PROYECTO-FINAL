@@ -105,6 +105,22 @@
                                 <label><strong>Criterio de Evaluación:</strong></label>  {{$criterio->criterio}}
                                 </td>
                               </tr>
+                                 <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Ponderación:</strong> {{$criterio->ponderacion}} - </label>&nbsp  
+                                @if($criterio->ponderacion==1) 
+                                  <label style="color: #008000;"><strong>Muy baja.</strong></label>
+                                @elseif($criterio->ponderacion==2) 
+                                  <label style="color: #57a639;"><strong>Baja.</strong></label>
+                                @elseif($criterio->ponderacion==3) 
+                                  <label style="color: #cccc00;"><strong>Media.</strong></label>
+                                @elseif($criterio->ponderacion==4) 
+                                  <label style="color: #FF8000;"><strong>Alta.</strong></label>
+                                @elseif($criterio->ponderacion==5) 
+                                  <label style="color: #FF0000;"><strong>Muy Alta.</strong></label>
+                                </td>
+                              </tr>
+                              @endif
                               <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Descripción:</strong></label>  {{$criterio->descripcion}}
@@ -129,7 +145,7 @@
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                          <p class="text-center">¿Está seguro que desea eliminar el Criterio de Evaluación <strong>{{$criterio->criterio}}</strong>?</p>
+                          <p class="text-center">¿Está seguro que desea eliminar el Criterio de Evaluación <strong>{{$criterio->criterio}}</strong>, para el espacio curricular {{$criterio->id_espacio}}?</p>
                           </div>
                           <div class="modal-footer justify-content-center">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -247,6 +263,22 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
+                                <label><strong>Ponderación:</strong> {{$criterio->ponderacion}} - </label>&nbsp  
+                                @if($criterio->ponderacion==1) 
+                                  <label style="color: #008000;"><strong>Muy baja.</strong></label>
+                                @elseif($criterio->ponderacion==2) 
+                                  <label style="color: #57a639;"><strong>Baja.</strong></label>
+                                @elseif($criterio->ponderacion==3) 
+                                  <label style="color: #cccc00;"><strong>Media.</strong></label>
+                                @elseif($criterio->ponderacion==4) 
+                                  <label style="color: #FF8000;"><strong>Alta.</strong></label>
+                                @elseif($criterio->ponderacion==5) 
+                                  <label style="color: #FF0000;"><strong>Muy Alta.</strong></label>
+                                </td>
+                              </tr>
+                              @endif
+                              <tr>
+                                <td class="v-align-middle" >
                                 <label><strong>Descripción:</strong></label>  {{$criterio->descripcion}}
                                 </td>
                               </tr>
@@ -269,7 +301,7 @@
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                          <p class="text-center">¿Está seguro que desea eliminar el Criterio de Evaluación <strong>{{$criterio->criterio}}</strong>?</p>
+                          <p class="text-center">¿Está seguro que desea eliminar el Criterio de Evaluación <strong>{{$criterio->criterio}}</strong>, para  {{$criterio->id_grado}} ?</p>
                           </div>
                           <div class="modal-footer justify-content-center">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

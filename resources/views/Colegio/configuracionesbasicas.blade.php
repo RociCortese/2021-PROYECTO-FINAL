@@ -4,24 +4,50 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script type="text/javascript">
+function valoracionnumerica() {
+    var x = document.getElementById('valoracionnumerica');
+    if (x.style.display =='none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
+  <script type="text/javascript">
+function valoracioncualitativa() {
+    var x = document.getElementById('valoracioncualitativa');
+    if (x.style.display =='none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
 
 <div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12">
-<form action="{{ url('configuraciones/create') }}" method="POST" class="form-horizontal">
-   @csrf
-  <div class="card">
+        <form action="{{ url('configuraciones/create') }}" method="POST" class="form-horizontal">
+          @csrf
+            
+            <div class="card">
+            
             <div class= "card-header card-header-info">
             <h4 class="card-title">Configuraciones</h4>
             <p class="card-category">Configuraciones básicas</p>
             </div>
+
              @if($colegio->isEmpty())
-                <br>
-               <div class="col-md-12">
-              <h4><span class="badge badge-warning">Para cargar las configuraciones básicas antes deberá cargar la información del colegio.</span></h4>
+              <br>
+              <div class="col-md-12 text-center">
+              <h4><span class="badge badge-warning">Para cargar las configuraciones básicas, antes deberá cargar la información del colegio.</span></h4>
               </div>
+              <br>
               @else
+
+            
             <div class="card-body">
               @if(session('success'))
                     <div class="alert alert-success text-left" role="success">
@@ -36,8 +62,10 @@
                     </script>
                     @endif
          
-          <div class="row">
-          <div class="col">
+            <div class="row">
+
+            <div class="col">
+            
             <label><strong>Período</strong></label>
             <br>
             @foreach($colegio as $colegios)
@@ -82,8 +110,9 @@
          <br>
 
          <br>
-            <label><strong>Turno</strong></label>
+         
 
+         <label><strong>Turno</strong></label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -118,7 +147,6 @@
 
           <br>
           <label><strong>Cantidad de grados</strong></label>
-
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -143,73 +171,61 @@
               @endif
               <br>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
-              <div class="form-group">
-    <label><strong>Divisiones</strong></label>
-    <br>
-    <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
-      @if(empty($colegios->divisiones))
-      @else
-      <?php
-        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->divisiones);
-        $array=explode(',', $res);
-    for ($i=0;$i<=count($array)-1;$i++)    
-      {     
-       $division=App\Models\Abecedario::where('id',$array[$i])->get();
-        foreach ($division as $div) {
-          $letradiv="$div->letras";
-          $iddiv="$div->id";
-        }
-      ?>
-        <option value="{{$iddiv}}"<?php echo 'selected="selected" ';?>>
-       {{$letradiv}}
-       </option>
-       <?php
-      }
-      ?>
-      @endif
-
-    </select>
-
-    <script type="text/javascript">
-
-    $('.divisiones').select2({
-    placeholder: 'Ingrese las divisiones que desea agregar',
-    ajax: {
-    url: '/autocomplete/divisiones/',
-    dataType: 'json',
-    delay: 250,
-    processResults: function (data) {
-      return {
-        results:  $.map(data, function (item) {
+              
+          <div class="form-group">
+          <label><strong>Divisiones</strong></label>
+          <br>
+          <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
+          @if(empty($colegios->divisiones))
+          @else
+          <?php
+            $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->divisiones);
+            $array=explode(',', $res);
+            for ($i=0;$i<=count($array)-1;$i++){     
+              $division=App\Models\Abecedario::where('id',$array[$i])->get();
+              foreach ($division as $div) {
+              $letradiv="$div->letras";
+              $iddiv="$div->id";
+                }
+          ?>
+            <option value="{{$iddiv}}"<?php echo 'selected="selected" ';?>>{{$letradiv}}</option>
+          <?php
+          }
+          ?>
+          @endif
+          </select>
+          <script type="text/javascript">
+            $('.divisiones').select2({
+            placeholder: 'Ingrese las divisiones que desea agregar',
+            ajax: {
+            url: '/autocomplete/divisiones/',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+              return {
+            results:  $.map(data, function (item) {
               return {
                   text: item.letras,
                   id: item.id,
               }
-
           })
-
-      };
-
-    },
-    
-
-    cache: true
-    }
-
-});
-   $('#divisiones').select2('data');
-</script>
-<small id="eventoHelp" class="form-text text-muted">Por ejemplo: A.</small>
-
-
+          };
+          },
+            cache: true
+            }
+            });
+            $('#divisiones').select2('data');
+        </script>
+        <small id="eventoHelp" class="form-text text-muted">Por ejemplo: A.</small>
     @if ($errors->has('divisiones'))
-                <div id="divisiones-error" class="error text-danger pl-3" for="divisiones" style="display: block;">
-                  <strong>{{ $errors->first('divisiones') }}</strong>
-                </div>
-              @endif
+      <div id="divisiones-error" class="error text-danger pl-3" for="divisiones" style="display: block;">
+      <strong>{{ $errors->first('divisiones') }}</strong>
+      </div>
+      @endif
     </div>
 
-            <div class="form-group">
+
+    <div class="form-group">
     <label for="espacioscurriculares"><strong>Espacios curriculares</strong></label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
@@ -252,42 +268,117 @@
               return {
                   text: item.nombre,
                   id: item.id
-
               }
           })
       };
-
-
     },
-
     cache: true
-
-
     }
-
 });
-   
 </script>
     @if ($errors->has('espacioscurriculares'))
-                <div id="espacioscurriculares-error" class="error text-danger pl-3" for="espacioscurriculares" style="display: block;">
-                  <strong>{{ $errors->first('espacioscurriculares') }}</strong>
-                </div>
-              @endif
+      <div id="espacioscurriculares-error" class="error text-danger pl-3" for="espacioscurriculares" style="display: block;">
+      <strong>{{ $errors->first('espacioscurriculares') }}</strong>
+      </div>
+      @endif
     </div>
+    
+
+
+
+    <div class="form-group">
+    <label><strong>Forma de Calificación:</strong></label>
+    <div class="row">
+    <br>
+    <div class="col form-check-inline">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion" onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
+        </label>&nbsp&nbsp&nbsp&nbsp
+        <br>
+        @if ($errors->has('calinumerica'))
+        <div id="calinumerica-error" class="error text-danger pl-3" for="calinumerica" style="display: block;"><strong>{{ $errors->first('calinumerica') }}</strong>
             </div>
+       @endif
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
+        </label>
+    </div> 
+    </div>
+    </div>
+
+   
+
+
+    <div id="valoracionnumerica" style = "display: none;">
+       <br>
+      <label class="form-check-label">Valor Mínimo: 
+          <input type="number" name="minimo" style="width: 20%">
+      </label> 
+      
+      <label class="form-check-label">Valor Máximo: 
+        <input type="number" name="maximo" style="width: 20%">
+      </label>
+    </div>
+
+    <div id="valoracioncualitativa" style = "display: none;">
+    <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%">
+    </select>
+    <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
+    <script type="text/javascript">
+    $('.calicualitativa').select2({
+    tokenSeparators: [','],
+    placeholder: 'Ingrese las calificaciones que desea agregar',
+    minimumInputLength: 3,
+    tags: true,
+    tokenSeparatrs : [ ',' , ' ' ],
+    ajax: {
+    url: '/autocomplete/calificacion/',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.calificacion,
+                  id: item.id_calificacion
+              }
+          })
+      };
+    },
+    cache: true
+    }
+});
+</script>
+  @if ($errors->has('calificacion'))
+  <div id="calificacion-error" class="error text-danger pl-3" for="calificacion" style="display: block;">
+      <strong>{{ $errors->first('calificacion') }}</strong>
+      </div>
+      @endif
+   </div>
+    </div>
+
+
+
+    </div> <!--cierra el col-->
               
               @endforeach
-          </div>
+
+    </div> <!--cierra el row-->
+          
 
 
 
-<div class="card-footer">
-          <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
-          </div>
+      <div class="card-footer">
+        <div class="  col-xs-12 col-sm-12 col-md-12 text-right ">
+          <button type="submit" class="btn btn-sm btn-facebook">Guardar</button>
         </div>
-         @endif
       </div>
+         @endif
+      
+
+
+
+      </div> <!--cierra card body-->
       
       </div>
       
