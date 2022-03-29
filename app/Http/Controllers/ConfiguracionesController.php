@@ -87,9 +87,9 @@ class ConfiguracionesController extends Controller
         }
     return response()->json($data);
    }
-
+   
     public function getAutocompleteespacios(Request $request){
-     $data = [];
+    $data = [];
     if($request->has('q')){
     $search = $request->q;
     $data =espacioscurriculares::select("id","nombre")

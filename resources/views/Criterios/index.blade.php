@@ -14,7 +14,6 @@
               <div class="card-body">
                 @if($tipodoc=='Grado')
                 @if($datoscriterio->isEmpty())
-
                   @if(empty($especialidad) && empty($añoescolar))
                   <div class="row">
                   <div class="col-12 text-right">
@@ -253,9 +252,9 @@
                               </tr>
                            </table>
                          </div>
-                       </div>
-                     </div>
-                   </div>      
+                        </div>
+                      </div>
+                    </div>
                     
                     <a href="{{ route('editarcriterio',$criterio->id) }}" class="btn btn-warning"  title="Editar Criterio de Evaluación"><i class="bi bi-pencil"></i></a>  
 
@@ -291,10 +290,11 @@
                 </div>
                    @endif
                 @endif
-            </div>
-            <div class="card-footer mr-auto">
+                <div class="card-footer mr-auto">
                     {{ $datoscriterio->links() }}
                   </div>
+            </div>
+            
           </div>
         </div>
       </div>

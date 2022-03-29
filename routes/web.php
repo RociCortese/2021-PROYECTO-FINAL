@@ -139,4 +139,7 @@ Route::delete('criterios/{id}/destroycriterio', 'App\Http\Controllers\Criteriose
 Route::get('criterios/{id}/editarcri', 'App\Http\Controllers\CriteriosevaluacionController@editarcriterio')->name('editarcriterio');
 Route::put('criterios/{id}', 'App\Http\Controllers\CriteriosevaluacionController@update')->name('criterios.update');
 
-
+/*Carga de notas*/
+Route::get('buscadornotas', 'App\Http\Controllers\NotasController@buscador')->name('buscadornotas');
+Route::get('listadonotas', 'App\Http\Controllers\NotasController@index')->name('listadonotas');
+Route::put('listadonotas/editar/{id}', 'App\Http\Controllers\NotasController@updateobservacion')->name('notas.update');

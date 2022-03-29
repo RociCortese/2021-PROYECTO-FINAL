@@ -7,6 +7,7 @@
       <div class=" col-md-12"> 
         <form action="{{ route('criterios.update',$id->id) }}" method="POST" class="form-horizontal">
         @csrf
+        @METHOD('PUT')
         <div class="card">
           <div class= "card-header card-header-info">
           <h4 class="card-title">Editar Criterio de Evaluación</h4>
@@ -21,19 +22,19 @@
           @if($tipodoc=='Grado')
           <div class="col">
             <label>Espacio curricular</label>
-              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->espaciocurricular }}">
+              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->id_espacio }}">
                 <?php
                 $nomespacio = preg_replace('/[\[\]\.\;\" "]+/', '', $nombreespacios);
                 $contador=count($nomespacio)-1;
                 ?>
-                <option value=""></option>
+                <option value="{{$id->id_espacio}}"<?php echo 'selected="selected" ';?>>{{$id->id_espacio}}</option>
                 <?php
                 for ($i=0; $i <=$contador ; $i++) {
                 ?>
-                <option value="{{$nomespacio[$i]}}"<?php echo 'selected="selected" ';?>>{{$id->espaciocurricular}}{{$nomespacio[$i]}}</option>
-            <?php
-              }
-            ?>
+                <option value="{{$nomespacio[$i]}}">{{$nomespacio[$i]}}</option>
+                <?php
+                }
+                ?>
               </select>
             @if ($errors->has('espaciocurricular'))
                 <div id="espaciocurricular-error" class="error text-danger pl-3" for="espaciocurricular" style="display: block;">
