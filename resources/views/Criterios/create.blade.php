@@ -45,6 +45,13 @@
                 ?>
                 <option value="{{$nomespacio}}">{{$nomespacio}}</option>
                 <?php
+                header('Content-type: text/html; charset=UTF-8');
+                $nomespacio = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
+                $nomespacio=implode(',', $nomespacio);
+                //$res=iconv("ISO-8859-1//TRANSLIT","UTF-8", $nomespacio);
+                $nomespacio=utf8_decode($nomespacio);
+                $nomespacio=explode(',', $nomespacio);
+                $contador=count($nomespacio)-1;
                 }
                 }
                 ?>

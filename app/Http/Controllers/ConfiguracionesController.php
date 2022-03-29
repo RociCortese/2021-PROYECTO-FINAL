@@ -120,7 +120,7 @@ class ConfiguracionesController extends Controller
         }
     return response()->json($data);
    }
-
+   
     public function getAutocompleteespacios(Request $request){
     $data = [];
     if($request->has('q')){

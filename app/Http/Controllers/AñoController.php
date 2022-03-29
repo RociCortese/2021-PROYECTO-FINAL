@@ -287,9 +287,11 @@ class AñoController extends Controller
             'año' => 'required|unique:grado,id_anio,'.$añoid,
         ]);
     }
-
       /*Busca el id del docente que fue seleccionado al momento de la creación*/
-      $iddocente=Docente::all()->where('nombredocente',$request->docente);
+      $infodocente= $request->docente; 
+      $infodocente=strtok($infodocente, " ");
+
+      $iddocente=Docente::all()->where('nombredocente',$infodocente);
       foreach ($iddocente as $iddoc) {
         $iddoc= "$iddoc->id";
       }
@@ -300,6 +302,7 @@ class AñoController extends Controller
       /*Crea un nuevo grado y asigna el valor a cada uno de sus atributos*/
       $grado=new Grado();
       $grado->descripcion=$request->grado;
+      $grado->colegio_id=$idcolegio;
       if(strpos($grado->descripcion, 'Primer grado') !== False){
         $grado->num_grado= '1';
       }
@@ -514,7 +517,7 @@ class AñoController extends Controller
       $request->validate([
             'id_docentesespe' => ['required'],
         ]);
-        $idpersona= Auth::user()->id;
+        $idpersona= Auth::user()->idpersona;
         $colegio= Colegio::all()->where('users_id',$idpersona);
         foreach($colegio as $col)
             {   

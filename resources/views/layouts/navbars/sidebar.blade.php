@@ -180,7 +180,7 @@
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'carganotas' ? ' active' : '' }}">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{route('buscadornotas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-pencil-square"></i>
                 <span class="sidebar-normal"> {{ __('Carga de notas') }} </span>

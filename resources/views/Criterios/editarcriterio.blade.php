@@ -22,7 +22,7 @@
           @if($tipodoc=='Grado')
           <div class="col">
             <label>Espacio curricular</label>
-          <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->id_espacio }}">
+              <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->id_espacio }}">
                 <?php
                 $nomespacio = preg_replace('/[\[\]\.\;\" "]+/', '', $nombreespacios);
                 $contador=count($nomespacio)-1;

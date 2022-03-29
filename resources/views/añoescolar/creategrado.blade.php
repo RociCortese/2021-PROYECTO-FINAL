@@ -151,7 +151,7 @@
               <select name="docente" class="form-control" value="{{ old('docente') }}">
                 <option value="0"></option>
                 @foreach($docentes as $doc)
-                <option value="{{$doc->nombredocente}}">{{$doc->nombredocente}}</option>
+                <option value="{{$doc->nombredocente}} {{$doc->apellidodocente}}">{{$doc->nombredocente}} {{$doc->apellidodocente}}</option>
                 @endforeach
                 </select>
             @if ($errors->has('docente'))

@@ -7,7 +7,7 @@
   <div class="row justify-content-center">
       <div class="col-lg-7 col-md-8">
           <div class="card card-login card-hidden mb-3">
-            <div class="card-header card-header-primary text-center">
+            <div class="card-header card-header-info text-center">
               <p class="card-title">{{ __('VERIFIQUE SU DIRECCIÓN DE CORREO ELECTRÓNICO') }}</p>
             </div>
             <div class="card-body" align="center">
