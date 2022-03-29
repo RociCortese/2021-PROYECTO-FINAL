@@ -101,6 +101,7 @@ Route::put('armadogrado/{id}', 'App\Http\Controllers\AñoController@actualizargr
 Route::get('/autocomplete/getAutocomplete/','App\Http\Controllers\ControllerEvent@getAutocomplete')->name('Autocomplte.getAutocomplte');
 Route::get('/autocomplete/divisiones/','App\Http\Controllers\ConfiguracionesController@getAutocompletedivisiones')->name('Autocomplte.divisiones');
 Route::get('/autocomplete/espacioscurriculares/','App\Http\Controllers\ConfiguracionesController@getAutocompleteespacios')->name('Autocomplte.espacios');
+Route::get('/autocomplete/calificacion/','App\Http\Controllers\ConfiguracionesController@getAutocompletecalificacion')->name('Autocomplte.calificacion');
 
 
 /*Calendario de eventos.*/
