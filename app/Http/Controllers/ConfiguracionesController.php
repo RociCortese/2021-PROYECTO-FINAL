@@ -57,11 +57,7 @@ class ConfiguracionesController extends Controller
             'grados'=> ['required'],
             'divisiones' => ['required'],
             'espacioscurriculares'=> ['required'],
-            'calicualitativa' => ['required'],
-            'calificualitativa' => ['required'],
-            'calinumerica' => ['required'],
-            'minimo' => ['required'],
-            'maximo' => ['required'],
+            
             
             
             ]);
