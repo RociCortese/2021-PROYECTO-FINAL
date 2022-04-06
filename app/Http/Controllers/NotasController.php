@@ -13,6 +13,7 @@ use App\Models\Alumno;
 use App\Models\Notas;
 use App\Models\CriteriosEvaluacion;
 use App\Models\espacioscurriculares;
+use App\Models\calificacioncualitativa;
 use App\Models\Informes;
 
 
@@ -111,11 +112,17 @@ class NotasController extends Controller
     }
     else{
     $espacio=$request->espacio;
+
+  $request->validate([
+            'espacio' => ['required'],
+            'periodo' => ['required'],
+    ]);
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->orderby('nombrealumno','asc')->get();
     $infoinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    
     $infoalumnos=$infonotas->unique('nombrealumno','apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
-     $infocolegio=Colegio::where('id',$idcolegio)->get();
+    $infocolegio=Colegio::where('id',$idcolegio)->get();
       foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
       }
@@ -125,7 +132,18 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos','infoinformes'));
+    $infocole=Colegio::where('id',$idcolegio)->get();
+      foreach($infocole as $info){
+            $infoco="$info->calificacion";
+      }
+        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
+        $infoco=explode(',', $infoco);
+        $contador=count($infoco)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $califi[]=calificacioncualitativa::where('id_calificacion',$infoco[$i])->pluck("calificacion");
+        }
+
+    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes'));
   }
 }
     public function updateobservacion(Request $request,$id_alumno)

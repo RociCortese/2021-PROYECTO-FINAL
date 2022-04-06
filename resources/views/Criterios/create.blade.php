@@ -46,6 +46,7 @@
                 <option value="{{$nomespacio}}">{{$nomespacio}}</option>
                 <?php
                 $nomespacio = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
+                $nomespacio=utf8_decode($nomespacio);
                 $nomespacio=explode(',', $nomespacio);
                 $contador=count($nomespacio)-1;
                 }

@@ -129,10 +129,26 @@
                       <td class="v-align-middle">{{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</td>
                       @foreach($infocriterios as $infocrit)
                       <td class="v-align-middle">
+                        <select name="calificacion" id="calificacion" class="form-control">
+                        <?php
+                        $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        $cont=count($califi)-1;
+                        ?>
+                        <option value=""></option>
+                        <?php
+                        for($i=0;$i<=$cont;$i++){?>
+                        <option value="{{$califi[$i]}}">{{$califi[$i]}}</option>
+                        <?php
+                        }
+                        ?>
+                        </select>
+                        
+                        
                       </td>
                       @endforeach
                       <td class="v-align-middle">
                         <form action="{{route('notas.update',$infoalu->id_alumno)}}" method="POST" class="form-horizontal">
+
                         @csrf
                         @METHOD('PUT')
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">

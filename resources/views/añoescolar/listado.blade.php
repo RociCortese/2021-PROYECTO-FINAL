@@ -14,15 +14,17 @@
               </div> 
               @if($colegio->isEmpty())
                 <br>
-               <div class="col-md-12">
+               <div class="col-md-12 text-center">
               <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar la información del colegio.</span></h4>
               </div>
+              <br>
               @else
               @if(empty($periodocolegio))
                 <br>
-               <div class="col-md-12">
-              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá realizar las configuraciones básicas.</span></h4>
+               <div class="col-md-12 text-center">
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar las configuraciones básicas.</span></h4>
               </div>
+              <br>
               @else
               <div class="card-body">
                 <div class="row">
