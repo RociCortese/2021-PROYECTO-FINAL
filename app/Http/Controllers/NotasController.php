@@ -15,6 +15,7 @@ use App\Models\CriteriosEvaluacion;
 use App\Models\espacioscurriculares;
 use App\Models\Informes;
 
+
 class NotasController extends Controller
 {
     public function __construct()
@@ -39,6 +40,7 @@ class NotasController extends Controller
       foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
       }
+    
     if($tipodoc=='Grado'){
         $infocol = preg_replace('/[\[\]\.\;\""]+/', '', $infocol);
         $infocol=explode(',', $infocol);
@@ -46,7 +48,6 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-        
       return view('notas.buscador',compact('infoaño','nombreespacios','tipodoc','informacionperiodo'));
     }
     else{
@@ -91,6 +92,7 @@ class NotasController extends Controller
             'periodo' => ['required'],
     ]);
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infoalumnos=$infonotas->unique('nombrealumno')->unique('apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
      $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
@@ -105,16 +107,13 @@ class NotasController extends Controller
             }
         }
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios'));   
+    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios','infoinformes'));   
     }
     else{
     $espacio=$request->espacio;
-    $request->validate([
-            'espacio' => ['required'],
-            'periodo' => ['required'],
-    ]);
-    $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
-    $infoalumnos=$infonotas->unique('nombrealumno')->unique('apellidoalumno');
+    $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->orderby('nombrealumno','asc')->get();
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    $infoalumnos=$infonotas->unique('nombrealumno','apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
      $infocolegio=Colegio::where('id',$idcolegio)->get();
       foreach($infocolegio as $info){
@@ -126,10 +125,10 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos'));
+    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos','infoinformes'));
   }
 }
-    public function updateobservacion(Request $request,$id)
+    public function updateobservacion(Request $request,$id_alumno)
     {
        $idcolegio=Auth::user()->colegio_id;
        $infoperiodo=Colegio::where('id',$idcolegio)->get();
@@ -141,34 +140,26 @@ class NotasController extends Controller
       $añoactivo="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
-    $periodo=$request->periodo;
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
         $tipodoc="$tipo->especialidad";
     }
-    $alumnonota=Notas::findOrFail($id);
-    $alu=Notas::where('id',$id)->get();
-    foreach($alu as $nombre){
+    $alumnonota=Notas::where('id_alumno',$id_alumno)->get();
+    foreach($alumnonota as $nombre){
       $nomalu="$nombre->nombrealumno";
       $apealu="$nombre->apellidoalumno";
     }
-    $infalumno=Alumno::where('nombrealumno', $nomalu)->where('apellidoalumno',$apealu)->get();
-    foreach($infalumno as $informacionalumno){
-      $idalumno="$informacionalumno->id";
-    }
-    $informe=new Informes();
-    $informe->observacion=$request->observacion;
-    $informe->año=$añoactivo;
-    $informe->colegio_id=$idcolegio;
-    $informe->id_alumno=$idalumno;
-    $informe->save();
+    $periodo=$request->periodo;
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
-    $infoalumnos=$infonotas->unique('nombrealumno');
+    $infoalumnos=$infonotas->unique('nombrealumno','apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','grado','tipodoc','infonotas','id','infocriterios','infoalumnos'));
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno);
+    $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+    return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }
     if($tipodoc=='Grado'){
     $infocolegio=Colegio::where('id',$idcolegio)->get();
@@ -183,9 +174,12 @@ class NotasController extends Controller
         }
     $espacio=$request->espacio;
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
-    $infoalumnos=$infonotas->unique('nombrealumno');
+    $infoalumnos=$infonotas->unique('nombrealumno','apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','infonotas','id','infocriterios','infoalumnos','nombreespacios'));
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno);
+    $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+     return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }  
   }
 }

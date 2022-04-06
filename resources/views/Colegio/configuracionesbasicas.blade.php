@@ -287,14 +287,13 @@ function valoracioncualitativa() {
 
 
     <div class="form-group">
-    <label><strong>Forma de Calificación:</strong></label>
+    <label><strong>Forma de Calificación</strong></label>
     <div class="row">
     <br>
     <div class="col form-check-inline">
         <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion" onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
         </label>&nbsp&nbsp&nbsp&nbsp
-        <br>
         @if ($errors->has('calinumerica'))
         <div id="calinumerica-error" class="error text-danger pl-3" for="calinumerica" style="display: block;"><strong>{{ $errors->first('calinumerica') }}</strong>
             </div>
@@ -302,22 +301,29 @@ function valoracioncualitativa() {
         <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
         </label>
+         @if ($errors->has('calificualitativa'))
+        <div id="calificualitativa-error" class="error text-danger pl-3" for="calificualitativa" style="display: block;"><strong>{{ $errors->first('calificualitativa') }}</strong>
+            </div>
+       @endif
     </div> 
     </div>
     </div>
-
-   
-
-
     <div id="valoracionnumerica" style = "display: none;">
        <br>
       <label class="form-check-label">Valor Mínimo: 
           <input type="number" name="minimo" style="width: 20%">
       </label> 
-      
+      @if ($errors->has('minimo'))
+        <div id="minimo-error" class="error text-danger pl-3" for="minimo" style="display: block;"><strong>{{ $errors->first('minimo') }}</strong>
+            </div>
+       @endif
       <label class="form-check-label">Valor Máximo: 
         <input type="number" name="maximo" style="width: 20%">
       </label>
+      @if ($errors->has('maximo'))
+        <div id="maximo-error" class="error text-danger pl-3" for="maximo" style="display: block;"><strong>{{ $errors->first('maximo') }}</strong>
+            </div>
+       @endif
     </div>
 
     <div id="valoracioncualitativa" style = "display: none;">
@@ -349,9 +355,9 @@ function valoracioncualitativa() {
     }
 });
 </script>
-  @if ($errors->has('calificacion'))
-  <div id="calificacion-error" class="error text-danger pl-3" for="calificacion" style="display: block;">
-      <strong>{{ $errors->first('calificacion') }}</strong>
+  @if ($errors->has('calicualitativa'))
+  <div id="calicualitativa-error" class="error text-danger pl-3" for="calicualitativa" style="display: block;">
+      <strong>{{ $errors->first('calicualitativa') }}</strong>
       </div>
       @endif
    </div>

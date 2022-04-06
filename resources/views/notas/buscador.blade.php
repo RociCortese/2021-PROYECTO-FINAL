@@ -14,7 +14,7 @@
               <div class="card-body">
                 @foreach($infoaño as $año)
                   <div class="text-left">
-                  <h5><span class="badge badge-info">El año escolar activo es el {{$año->descripcion}}.</span></h5>
+                  <h5><span class="badge badge-success">El año escolar activo es el {{$año->descripcion}}.</span></h5>
                   </div>
                 @endforeach
                 <form action="{{route('listadonotas') }}" class="form-horizontal">

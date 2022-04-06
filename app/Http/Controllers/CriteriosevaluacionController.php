@@ -14,6 +14,7 @@ use App\Models\espacioscurriculares;
 use App\Models\Grado;
 use App\Models\Alumno;
 use App\Models\Notas;
+use App\Models\Informes;
 
 class CriteriosevaluacionController extends Controller
 {
@@ -78,7 +79,7 @@ class CriteriosevaluacionController extends Controller
             }
         }
         }
-        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado'));
+        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado','valor'));
         }
     }
  public function store(Request $request)
@@ -156,6 +157,7 @@ class CriteriosevaluacionController extends Controller
         foreach($infoalumno as $infalu){
         $nombrealumnos="$infalu->nombrealumno";
         $apellidoalumnos="$infalu->apellidoalumno";
+        $idalu="$infalu->id";
         $nota=new Notas();
         $nota->docente=$idusuario;
         $nota->criterio=$nuevocriterio->criterio;
@@ -164,8 +166,17 @@ class CriteriosevaluacionController extends Controller
         $nota->año=$idaño;
         $nota->nombrealumno=$nombrealumnos;
         $nota->apellidoalumno=$apellidoalumnos;
+        $nota->id_alumno=$idalu;
         $nota->espacio=$nuevocriterio->id_espacio;
         $nota->save();
+        $informe=new Informes();
+        $informe->año=$idaño;
+        $informe->colegio_id=$idcolegio;
+        $informe->id_alumno=$idalu;
+        $informe->docente=$idusuario;
+        $informe->espacio=$nuevocriterio->id_espacio;
+        $informe->periodo='Primer período';
+        $informe->save();
         }
     }
     }
@@ -177,8 +188,6 @@ class CriteriosevaluacionController extends Controller
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
         }
         }
-    //$nombrealumnos = preg_replace('/[\[\]\.\;\""]+/', '', $nombrealumnos);
-        
         else{
         $idcolegio=Auth::user()->colegio_id;
         $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
@@ -276,16 +285,26 @@ class CriteriosevaluacionController extends Controller
         foreach($infoalumno as $infalu){
         $nombrealumnos="$infalu->nombrealumno";
         $apellidoalumnos="$infalu->apellidoalumno";
+        $idalu="$infalu->id";
         $nota=new Notas();
         $nota->docente=$idusuario;
         $nota->criterio=$nuevocriterio->criterio;
         $nota->colegio_id=$idcolegio;
         $nota->periodo='Primer período';
         $nota->año=$idaño;
+        $nota->id_alumno=$idalu;
         $nota->nombrealumno=$nombrealumnos;
         $nota->apellidoalumno=$apellidoalumnos;
         $nota->grado=$nuevocriterio->id_grado;
         $nota->save();
+        $informe=new Informes();
+        $informe->año=$idaño;
+        $informe->colegio_id=$idcolegio;
+        $informe->id_alumno=$idalu;
+        $informe->docente=$idusuario;
+        $informe->grado=$nuevocriterio->grado;
+        $informe->periodo='Primer período';
+        $informe->save();
         }
          }
         }
