@@ -15,19 +15,20 @@
               </div>
               @if($colegio->isEmpty())
                 <br>
-               <div class="col-md-12">
+               <div class="col-md-12 text-center">
               <h4><span class="badge badge-warning">Para poder cargar los alumnos, antes deberá cargar la información del colegio.</span></h4>
               </div>
+              <br>
               @else
               <div class="card-body">
                 @if ($alumnos->isEmpty())
                @if(empty($nombre) && empty($apellido) && empty($dni))
                <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">Registrar alumno</a>
+                    <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook" title="Registrar alumno"><i class="material-icons">person_add_alt</i></a>
                   </div>
                 </div>
-                  <div> Aún no hay alumnos creados.</div>
+                  <div> Aún no hay Alumnos creados.</div>
                   @else
                   <div class="card card-body" style="border: thin solid lightgrey;">
                   <form>

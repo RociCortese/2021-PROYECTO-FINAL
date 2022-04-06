@@ -13,15 +13,17 @@
               </div>
               @if($colegio->isEmpty())
                 <br>
-               <div class="col-md-12">
+               <div class="col-md-12 text-center">
               <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá cargar la información del colegio.</span></h4>
               </div>
+              <br>
               @else
               @if($todoestado->isEmpty())
               <br>
-               <div class="col-md-12">
+               <div class="col-md-12 text-center">
               <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá crear el año escolar.</span></h4>
               </div>
+              <br>
               @else
               <div class="card-body">
                 @if($estado->isEmpty())
