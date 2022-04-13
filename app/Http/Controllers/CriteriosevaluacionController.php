@@ -14,6 +14,8 @@ use App\Models\espacioscurriculares;
 use App\Models\Grado;
 use App\Models\Alumno;
 use App\Models\Notas;
+use App\Models\Informes;
+
 
 class CriteriosevaluacionController extends Controller
 {
@@ -78,11 +80,13 @@ class CriteriosevaluacionController extends Controller
             }
         }
         }
-        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado'));
+        return view('Criterios.create',compact('tipodoc','infoaño','nombresgrado','valor'));
         }
     }
- public function store(Request $request)
 
+
+
+public function store(Request $request)
     {
         $idpersona= Auth::user()->idpersona;
         $idusuario= Auth::user()->id;
@@ -112,6 +116,7 @@ class CriteriosevaluacionController extends Controller
             'ponderacion' => ['required','int'],
             'descripcion' => ['max:150'],
             'espaciocurricular' => ['required'],
+            /*'periodo'=> ['required'],*/
         ]);
         $nuevocriterio=new CriteriosEvaluacion();
         $nuevocriterio->criterio=$request->criterio;
@@ -128,6 +133,7 @@ class CriteriosevaluacionController extends Controller
             'ponderacion' => ['required','int'],
             'descripcion' => ['max:150'],
             'aplicaespacios' => ['required'],
+            /*'periodo'=> ['required'],*/
         ]);
         $contador=count($infocol)-1;
         for ($i=0; $i <= $contador ; $i++) { 
@@ -144,7 +150,6 @@ class CriteriosevaluacionController extends Controller
         $nuevocriterio->save();
         }
         }
-
         $infogrado=Grado::where('id_docentes',Auth::user()->idpersona)->where('id_anio',$idaño)->where('colegio_id',$idcolegio)->get();
         foreach($infogrado as $info){
         $listadoalumnos="$info->id_alumnos";
@@ -156,6 +161,8 @@ class CriteriosevaluacionController extends Controller
         foreach($infoalumno as $infalu){
         $nombrealumnos="$infalu->nombrealumno";
         $apellidoalumnos="$infalu->apellidoalumno";
+        $idalumno="$infalu->id";
+        }
         $nota=new Notas();
         $nota->docente=$idusuario;
         $nota->criterio=$nuevocriterio->criterio;
@@ -166,7 +173,15 @@ class CriteriosevaluacionController extends Controller
         $nota->apellidoalumno=$apellidoalumnos;
         $nota->espacio=$nuevocriterio->id_espacio;
         $nota->save();
-        }
+        $informe=new Informes();
+        $informe->observacion=$request->observacion;
+        $informe->año=$idaño;
+        $informe->colegio_id=$idcolegio;
+        $informe->id_alumno=$idalumno;
+        $iforme->docente=$idusuario;
+        $informe->periodo='Primer período';
+        $informe->espacio=$nuevocriterio->id_espacio;
+        $informe->save();
     }
     }
         if($request->guardar=='1'){
@@ -177,8 +192,6 @@ class CriteriosevaluacionController extends Controller
         return redirect()->route('criteriosevaluacion')->with('success', 'El criterio de evaluación se cargó correctamente.');
         }
         }
-    //$nombrealumnos = preg_replace('/[\[\]\.\;\""]+/', '', $nombrealumnos);
-        
         else{
         $idcolegio=Auth::user()->colegio_id;
         $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
@@ -276,6 +289,8 @@ class CriteriosevaluacionController extends Controller
         foreach($infoalumno as $infalu){
         $nombrealumnos="$infalu->nombrealumno";
         $apellidoalumnos="$infalu->apellidoalumno";
+        $idalumno="$infalu->id";
+    }
         $nota=new Notas();
         $nota->docente=$idusuario;
         $nota->criterio=$nuevocriterio->criterio;
@@ -286,7 +301,16 @@ class CriteriosevaluacionController extends Controller
         $nota->apellidoalumno=$apellidoalumnos;
         $nota->grado=$nuevocriterio->id_grado;
         $nota->save();
-        }
+        $informe=new Informes();
+        $informe->observacion=$request->observacion;
+        $informe->año=$idaño;
+        $informe->colegio_id=$idcolegio;
+        $informe->id_alumno=$idalumno;
+        $informe->docente=$idusuario;
+        $informe->periodo='Primer período';
+        $informe->grado=$nuevocriterio->id_grado;
+        $informe->save();
+        
          }
         }
     }

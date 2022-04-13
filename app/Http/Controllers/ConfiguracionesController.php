@@ -12,6 +12,7 @@ use App\Models\Abecedario;
 use App\Models\espacioscurriculares;
 use App\Models\calificacioncualitativa;
 
+
 class ConfiguracionesController extends Controller
 {
   
@@ -51,15 +52,12 @@ class ConfiguracionesController extends Controller
             }
         }
         $request->validate([
-
-             'periodo' => ['required'],
+            'periodo' => ['required'],
             'turno' => ['required'],
             'grados'=> ['required'],
             'divisiones' => ['required'],
             'espacioscurriculares'=> ['required'],
-            
-            
-            
+           
             ]);
         $idpersona= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idpersona);
@@ -67,37 +65,31 @@ class ConfiguracionesController extends Controller
             {   
                 $idcolegio= "$col->id";
             };
-
-        if($request->calificualitativa){
-
-            $calificacion=$request->input("calicualitativa");
-
         $modificar = Colegio::findOrFail($idcolegio);
         $modificar->periodo=$request->periodo;
         $modificar->turno=$request->turno;
         $modificar->grados=$request->grados;
         $modificar->divisiones=$request->divisiones;
-        $modificar->calificacion=$calificacion;
         $modificar->espacioscurriculares=$espacio;
-        $modificar->save();
-        
+        if($request->calificualitativa){
+            $request->validate([
+            'calicualitativa' => ['required'],
+            ]);
+        $calificacion=$request->input("calicualitativa");
+        $modificar->calicualitativa=$calificacion;
         }
-       if($request->calinumerica)
+        if($request->calinumerica)
         {
-        
+            $request->validate([
+            'minimo' => ['required'],
+            'maximo' => ['required'],
+            ]);
             $valorminimo=$request->input("minimo");
             $valormaximo=$request->input("maximo");
-           
-        
-        $modificar = Colegio::findOrFail($idcolegio);
-        $modificar->periodo=$request->periodo;
-        $modificar->turno=$request->turno;
-        $modificar->grados=$request->grados;
-        $modificar->divisiones=$request->divisiones;
-        $modificar->calificacion=$valorminimo.'-'.$valormaximo;
-        $modificar->espacioscurriculares=$espacio;
-        $modificar->save();
+            $datos = array($valorminimo, $valormaximo);
+            $modificar->calinumerica=$datos;
         }
+        $modificar->save();
         return redirect()->route('configuraciones',compact('colegio'))->with('success', 'Las configuraciones se modificaron correctamente.');
         }
     
