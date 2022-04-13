@@ -47,7 +47,6 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-        
       return view('notas.buscador',compact('infoaño','nombreespacios','tipodoc','informacionperiodo'));
     }
     else{
@@ -85,6 +84,30 @@ class NotasController extends Controller
       $descripcionaño="$activo->descripcion";
     }
     $periodo=$request->periodo;
+    $infocole=Colegio::where('id',$idcolegio)->get();
+      foreach($infocole as $info){
+            $infoco="$info->calinumerica";
+            $infocali="$info->calicualitativa";
+      }
+      if($infoco==NULL)
+        {
+        $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
+        $infocali=explode(',', $infocali);
+        $contador=count($infocali)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("calificacion");
+        }
+        }
+        else
+        {
+        $infoco=explode(',', $infoco);
+        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
+        $minimo= head($infoco);
+        $maximo= last($infoco);
+        for ($i=$minimo; $i <= $maximo ; $i++) { 
+        $califi[]=$i;
+        }
+      }
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $request->validate([
@@ -94,6 +117,7 @@ class NotasController extends Controller
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infoalumnos=$infonotas->unique('nombrealumno')->unique('apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
      $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
         foreach($infogrado as $informaciongrado){
         $docentesespeciales="$informaciongrado->id_docentesespe";
@@ -106,7 +130,7 @@ class NotasController extends Controller
             }
         }
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios'));   
+    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios','califi','infoinformes'));   
     }
     else{
     $espacio=$request->espacio;
@@ -117,6 +141,7 @@ class NotasController extends Controller
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infoalumnos=$infonotas->unique('nombrealumno','apellidoalumno');
     $infocriterios=$infonotas->unique('criterio');
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infocolegio=Colegio::where('id',$idcolegio)->get();
       foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
@@ -128,21 +153,15 @@ class NotasController extends Controller
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
 
-    $infocole=Colegio::where('id',$idcolegio)->get();
+   $infocole=Colegio::where('id',$idcolegio)->get();
       foreach($infocole as $info){
-            $infoco="$info->calificacion";
+            $infoco="$info->calinumerica";
+            $infocali="$info->calicualitativa";
       }
-        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
-        $infoco=explode(',', $infoco);
-        $contador=count($infoco)-1;
-        for ($i=0; $i <= $contador ; $i++) { 
-        $califi[]=calificacioncualitativa::where('id_calificacion',$infoco[$i])->pluck("calificacion");
-        }
-
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi'));
+    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes'));
   }
 }
-    public function updateobservacion(Request $request,$id)
+    public function updateobservacion(Request $request,$id_alumno)
     {
        $idcolegio=Auth::user()->colegio_id;
        $infoperiodo=Colegio::where('id',$idcolegio)->get();
@@ -160,8 +179,8 @@ class NotasController extends Controller
     foreach($tipodocente as $tipo){
         $tipodoc="$tipo->especialidad";
     }
-    $alumnonota=Notas::findOrFail($id);
-    $alu=Notas::where('id',$id)->get();
+    $alumnonota=Notas::findOrFail($id_alumno);
+    $alu=Notas::where('id',$id_alumno)->get();
     foreach($alu as $nombre){
       $nomalu="$nombre->nombrealumno";
       $apealu="$nombre->apellidoalumno";
@@ -170,25 +189,22 @@ class NotasController extends Controller
     foreach($infalumno as $informacionalumno){
       $idalumno="$informacionalumno->id";
     }
-    $informe=new Informes();
-    $informe->observacion=$request->observacion;
-    $informe->año=$añoactivo;
-    $informe->colegio_id=$idcolegio;
-    $informe->id_alumno=$idalumno;
-    $informe->save();
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infoalumnos=$infonotas->unique('nombrealumno');
     $infocriterios=$infonotas->unique('criterio');
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','grado','tipodoc','infonotas','id','infocriterios','infoalumnos'));
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno);
+    $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+    return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }
     if($tipodoc=='Grado'){
     $infocolegio=Colegio::where('id',$idcolegio)->get();
       foreach($infocolegio as $info){
             $infocol="$info->espacioscurriculares";
       }
-    $infocol = preg_replace('/[\[\]\.\;\""]+/', '', $infocol);
+        $infocol = preg_replace('/[\[\]\.\;\""]+/', '', $infocol);
         $infocol=explode(',', $infocol);
         $contador=count($infocol)-1;
         for ($i=0; $i <= $contador ; $i++) { 
@@ -198,7 +214,23 @@ class NotasController extends Controller
     $infonotas=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infoalumnos=$infonotas->unique('nombrealumno');
     $infocriterios=$infonotas->unique('criterio');
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','infonotas','id','infocriterios','infoalumnos','nombreespacios'));
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno);
+    $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+    return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }  
   }
+
+  public function updatenota(Request $request,$id)
+    {
+
+    $cali=$request->calificacion;
+    $periodo=$request->periodo;
+    return $periodo;
+       $busquedaNotas=Notas::where('id_alumno', $id)->where('grado', $per)->get();
+       return $busquedaNotas;
+      $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+     
+    }
 }
