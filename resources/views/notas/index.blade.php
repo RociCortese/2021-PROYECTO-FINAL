@@ -126,6 +126,9 @@
                     @foreach($infoalumnos as $infoalu)              
                     <tbody>
                     <tr>
+                      <form action="{{route('notas.update',$infoalu->id)}}" method="POST" class="form-horizontal">
+                        @csrf
+                        @METHOD('PUT') 
                       <td class="v-align-middle">{{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</td>
                       @foreach($infocriterios as $infocrit)
                       <td class="v-align-middle">
@@ -146,8 +149,14 @@
                         
                       </td>
                       @endforeach  
+                      <div class="card-footer">
+                      <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+                      <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
+                      </div>
+                      </div>
+                      </form>
                         <td class="v-align-middle">
-                        <form action="{{route('notas.update',$infoalu->id_alumno)}}" method="POST" class="form-horizontal">
+                        <form action="{{route('observacion.update',$infoalu->id_alumno)}}" method="POST" class="form-horizontal">
                         @csrf
                         @METHOD('PUT')
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">
@@ -205,6 +214,3 @@
  </div>
 </div>
 @endsection
-
-
-      

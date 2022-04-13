@@ -12,6 +12,7 @@ use App\Models\Abecedario;
 use App\Models\espacioscurriculares;
 use App\Models\calificacioncualitativa;
 
+
 class ConfiguracionesController extends Controller
 {
   
@@ -84,7 +85,8 @@ class ConfiguracionesController extends Controller
             ]);
             $valorminimo=$request->input("minimo");
             $valormaximo=$request->input("maximo");
-            $modificar->calinumerica=$valorminimo.'-'.$valormaximo;
+            $datos = array($valorminimo, $valormaximo);
+            $modificar->calinumerica=$datos;
         }
         $modificar->save();
         return redirect()->route('configuraciones',compact('colegio'))->with('success', 'Las configuraciones se modificaron correctamente.');

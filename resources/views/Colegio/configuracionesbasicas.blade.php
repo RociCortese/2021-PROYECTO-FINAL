@@ -253,6 +253,7 @@ function valoracioncualitativa() {
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Matemática.</small>
     <script type="text/javascript">
     $('.espacioscurriculares').select2({
+
     tokenSeparators: [','],
     placeholder: 'Ingrese los espacios curriculares que desea agregar',
     minimumInputLength: 3,
@@ -362,6 +363,7 @@ function valoracioncualitativa() {
     </div> <!--cierra el col-->
               
               @endforeach
+
 
     </div> <!--cierra el row-->
           

@@ -143,4 +143,6 @@ Route::put('criterios/{id}', 'App\Http\Controllers\CriteriosevaluacionController
 /*Carga de notas*/
 Route::get('buscadornotas', 'App\Http\Controllers\NotasController@buscador')->name('buscadornotas');
 Route::get('listadonotas', 'App\Http\Controllers\NotasController@index')->name('listadonotas');
-Route::put('listadonotas/editar/{id_alumno}', 'App\Http\Controllers\NotasController@updateobservacion')->name('notas.update');
+Route::put('listadonotas/editarnota/{id}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
+Route::put('listadonotas/editar/{id_alumno}', 'App\Http\Controllers\NotasController@updateobservacion')->name('observacion.update');
+

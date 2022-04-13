@@ -220,4 +220,17 @@ class NotasController extends Controller
     return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }  
   }
+
+  public function updatenota(Request $request,$id)
+    {
+
+    $cali=$request->calificacion;
+    $periodo=$request->periodo;
+    return $periodo;
+       $busquedaNotas=Notas::where('id_alumno', $id)->where('grado', $per)->get();
+       return $busquedaNotas;
+      $data= $request->only('observacion','nota');
+    $busquedaInformes->update($data);
+     
+    }
 }
