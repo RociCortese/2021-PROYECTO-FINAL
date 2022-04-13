@@ -37,22 +37,12 @@
               <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ old('espaciocurricular') }}">
                 <option value=""></option>
                 <?php
-                $contador=count($infocol)-1;
+                $contador=count($nombreespacios)-1;
                 for ($i=0; $i <= $contador ; $i++) { 
-                $nombreespacios=App\Models\espacioscurriculares::where('id',$infocol[$i])->get();
-                foreach($nombreespacios as $nombreesp){
-                $nomespacio="$nombreesp->nombre";
-                ?>
-                <option value="{{$nomespacio}}">{{$nomespacio}}</option>
+                $nombreespacios = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
+                  ?>
+                <option value="{{$nombreespacios[$i]}}">{{$nombreespacios[$i]}}</option>
                 <?php
-                header('Content-type: text/html; charset=UTF-8');
-                $nomespacio = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
-                //$nomespacio=implode(',', $nomespacio);
-                //$res=iconv("ISO-8859-1//TRANSLIT","UTF-8", $nomespacio);
-                $nomespacio=utf8_decode($nomespacio);
-                $nomespacio=explode(',', $nomespacio);
-                $contador=count($nomespacio)-1;
-                }
                 }
                 ?>
               </select>
@@ -157,6 +147,45 @@
           </div>
             @endif
             @endif
+        <br>
+        <div class="row">
+        <div class="col">
+            <label>Período</label>
+            <br>
+            <select id="periodo" name="periodo" class="form-control" value="periodo">
+            <option value=""></option>
+                @if($informacionperiodo=='Bimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                <option value="Tercer período">Tercer período</option>
+                <option value="Cuarto período">Cuarto período</option>
+                @endif
+                @if($informacionperiodo=='Trimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                <option value="Tercer período">Tercer período</option>
+                @endif
+                @if($informacionperiodo=='Cuatrimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                @endif
+                @if($informacionperiodo=='Semestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                @endif
+            </select>
+            @if ($errors->has('periodo'))
+                <div id="periodo-error" class="error text-danger pl-3" for="periodo" style="display: block;">
+                  <strong>{{ $errors->first('periodo') }}</strong>
+                </div>
+              @endif
+        </div>
+        <div class="col">
+              <br>
+              <br>
+              <input type="checkbox" name="aplicaperiodo" id="aplicaperiodo" value="aplicaperiodo">&nbsp<label>Aplica a todos los períodos</label>
+        </div>
+        </div>
         <br>
         <div class="row">
           <div class="col">

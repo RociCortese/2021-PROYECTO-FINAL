@@ -101,6 +101,11 @@
                                 </td>
                               </tr>
                               <tr>
+                               <td class="v-align-middle" >
+                                <label><strong>Período:</strong></label>  {{$criterio->periodo}}
+                                </td>
+                              </tr>
+                              <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Criterio de Evaluación:</strong></label>  {{$criterio->criterio}}
                                 </td>
@@ -166,7 +171,6 @@
                 @endif
                 @else
                 @if($datoscriterio->isEmpty())
-
                   @if(empty($especialidad) && empty($añoescolar))
                   <div class="row">
                   <div class="col-12 text-right">
@@ -184,7 +188,6 @@
                     </form> 
                   </div>
                   <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
-
                   @endif
             @else
               
@@ -256,6 +259,10 @@
                                 </td>
                               </tr>
                                <tr>
+                                <td class="v-align-middle" >
+                                <label><strong>Período:</strong></label>  {{$criterio->periodo}}
+                                </td>
+                              </tr>
                               <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Criterio de Evaluación:</strong></label>  {{$criterio->criterio}}
@@ -318,15 +325,13 @@
                     @endforeach
                     </tbody>
                   </table>
-
+                  <div class="card-footer mr-auto">
+                    {{$datoscriterio->links()}}
+                </div>
                 </div>
                    @endif
                 @endif
-                <div class="card-footer mr-auto">
-                    {{ $datoscriterio->links() }}
-                  </div>
-            </div>
-            
+                </div>
           </div>
         </div>
       </div>

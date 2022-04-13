@@ -26,10 +26,13 @@
                 <option value="{{$grado}}">{{$grado}}</option>
                 <?php
                 $cont=count($nombresgrado)-1;
-                for($i=0;$i<=$cont;$i++){?>
+                for($i=0;$i<=$cont;$i++){
+                  if($nombresgrado[$i]!=$grado){
+                    ?>
                 <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
                 <?php
                 }
+              }
                 ?>
                 </select>
                 @if ($errors->has('grado'))
@@ -46,10 +49,13 @@
                 <?php
                 $nombreespacios = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
                 $cont=count($nombreespacios)-1;
-                for($i=0;$i<=$cont;$i++){?>
+                for($i=0;$i<=$cont;$i++){
+                if($nombreespacios[$i]!=$espacio){
+                  ?>
                 <option value="{{$nombreespacios[$i]}}">{{$nombreespacios[$i]}}</option>
                 <?php
                 }
+              }
                 ?>
                 </select>
                 @if ($errors->has('espacio'))
@@ -141,13 +147,13 @@
                       </td>
                       @endforeach  
                         <td class="v-align-middle">
-                        <form action="{{route('notas.update',$infoalu->id)}}" method="POST" class="form-horizontal">
+                        <form action="{{route('notas.update',$infoalu->id_alumno)}}" method="POST" class="form-horizontal">
                         @csrf
                         @METHOD('PUT')
-                        <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id}}" title="Observaciones">
+                        <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
                           </a>
-                          <div class="modal fade bd-example-modal-lg" id="myModal{{$infoalu->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal fade bd-example-modal-lg" id="myModal{{$infoalu->id_alumno}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header">
@@ -155,7 +161,17 @@
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <textarea class="form-control" rows="3" name="observacion" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{ old('observacion') }}" maxlength="150"></textarea>
+                             <?php
+                             foreach($infoinformes as $infoinf)
+                              {
+                              $idalumno="$infoinf->id_alumno";
+                              if($idalumno==$infoalu->id_alumno){
+                              ?>
+                              <textarea class="form-control" rows="3" name="observacion" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
+                              <?php
+                              }
+                              }
+                             ?>  
                             <div class="modal-footer">
                     <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
                     <button type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>

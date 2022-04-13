@@ -21,7 +21,8 @@
                       use Carbon\Carbon;
                       $añoactual=date("Y");
                       $hasta=$añoactual+2;
-                      for($i=$añoactual;$i<=$hasta;$i++) { echo "<option value='".$i."'>".$i."</option>"; } ?>
+                      for($i=$añoactual;$i<=$hasta;$i++) { 
+                        if($i!=$id->descripcion){echo "<option value='".$i."'>".$i."</option>"; }} ?>
                 </select>
             @if ($errors->has('descripcion'))
                 <div id="descripcion-error" class="error text-danger pl-3" for="descripcion" style="display: block;">

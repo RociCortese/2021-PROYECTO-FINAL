@@ -26,7 +26,11 @@
                   ?>
                   {{$seleccion}}</option>
                   @foreach($año as $años)
+                  <?php if($años->id!=$grados->id_anio){?>
                   <option value="{{$años->id}}">{{$años->descripcion}} </option>
+                  <?php 
+                  }
+                  ?>
                   @endforeach
               </select>
             @if ($errors->has('id_anio'))
