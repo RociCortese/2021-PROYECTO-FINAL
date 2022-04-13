@@ -57,7 +57,6 @@ class ConfiguracionesController extends Controller
             'grados'=> ['required'],
             'divisiones' => ['required'],
             'espacioscurriculares'=> ['required'],
-           
             ]);
         $idpersona= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idpersona);

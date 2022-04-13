@@ -24,16 +24,18 @@
             <label>Espacio curricular</label>
               <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->id_espacio }}">
                 <?php
-                $nomespacio = preg_replace('/[\[\]\.\;\" "]+/', '', $nombreespacios);
+                $nomespacio = preg_replace('/[\[\]\.\;\""]+/', '', $nombreespacios);
                 $contador=count($nomespacio)-1;
                 ?>
                 <option value="{{$id->id_espacio}}"<?php echo 'selected="selected" ';?>>{{$id->id_espacio}}</option>
                 <?php
                 for ($i=0; $i <=$contador ; $i++) {
+                if($nomespacio[$i]!=$id->id_espacio){
                 ?>
                 <option value="{{$nomespacio[$i]}}">{{$nomespacio[$i]}}</option>
                 <?php
                 }
+              }
                 ?>
               </select>
               
@@ -51,13 +53,16 @@
           <div class="col">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{$id->id_grado }}">
-                    <option value=""></option>
+                    <option value="{{$id->id_grado}}"<?php echo 'selected="selected" ';?>>{{$id->id_grado}}</option>
                     <?php
                     $cont=count($nombresgrado)-1;
-                    for($i=0;$i<=$cont;$i++){?>
-                    <option value="{{$nombresgrado[$i]}}"<?php echo 'selected="selected" ';?>>{{$id->id_grado}}{{$nombresgrado[$i]}}</option>
+                    for($i=0;$i<=$cont;$i++){
+                    if($nombresgrado[$i]!=$id->id_grado){
+                        ?>
+                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
                     <?php
                     }
+                  }
                     ?>
               </select>
             @if ($errors->has('grado'))
@@ -68,7 +73,40 @@
           </div>
             @endif
         </div>
-          
+        <br>
+        <div class="row">
+        <div class="col">
+            <label>Período</label>
+            <br>
+            <select id="periodo" name="periodo" class="form-control" value="{{$id->periodo }}">>
+             <option value="{{$id->periodo}}"<?php echo 'selected="selected" ';?>>{{$id->periodo}}</option>
+                @if($informacionperiodo=='Bimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                <option value="Tercer período">Tercer período</option>
+                <option value="Cuarto período">Cuarto período</option>
+                @endif
+                @if($informacionperiodo=='Trimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                <option value="Tercer período">Tercer período</option>
+                @endif
+                @if($informacionperiodo=='Cuatrimestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                @endif
+                @if($informacionperiodo=='Semestre')
+                <option value="Primer período">Primer período</option>
+                <option value="Segundo período">Segundo período</option>
+                @endif
+            </select>
+            @if ($errors->has('periodo'))
+                <div id="periodo-error" class="error text-danger pl-3" for="periodo" style="display: block;">
+                  <strong>{{ $errors->first('periodo') }}</strong>
+                </div>
+              @endif
+        </div>
+        </div>  
         <br>
         <div class="row">
           <div class="col">
