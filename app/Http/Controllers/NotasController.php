@@ -95,7 +95,7 @@ class NotasController extends Controller
         $infocali=explode(',', $infocali);
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
-        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("calificacion");
+        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
         }
         }
         else
@@ -153,11 +153,7 @@ class NotasController extends Controller
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
 
-   $infocole=Colegio::where('id',$idcolegio)->get();
-      foreach($infocole as $info){
-            $infoco="$info->calinumerica";
-            $infocali="$info->calicualitativa";
-      }
+   
     return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes'));
   }
 }
@@ -174,6 +170,7 @@ class NotasController extends Controller
       $descripcionaño="$activo->descripcion";
     }
     $periodo=$request->periodo;
+    return $periodo;
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -224,11 +221,33 @@ class NotasController extends Controller
   public function updatenota(Request $request,$id)
     {
 
-    $cali=$request->calificacion;
-    $periodo=$request->periodo;
-    return $periodo;
+    $cali=$request->calificacion; 
+    $idcolegio=Auth::user()->colegio_id;
+    $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+     foreach($infoaño as $activo){
+      $añoactivo="$activo->id";
+      $descripcionaño="$activo->descripcion";
+    }
+
+    $infonotas=Notas::where('docente',Auth::user()->id)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+
+    
+    $infocriterios=$infonotas->unique('criterio');
+    foreach($infocriterios as $infocrit) 
+        {
+            $criterio[]=$infocrit->criterio;
+        }          
+    $contador=count($criterio)-1;
+    for ($i=0; $i <=$contador ; $i++) { 
+        
+        $crit=$criterio[$i];
+        $nota=$cali[$i];
+       
+    }
+    return $cali; 
+
        $busquedaNotas=Notas::where('id_alumno', $id)->where('grado', $per)->get();
-       return $busquedaNotas;
+       
       $data= $request->only('observacion','nota');
     $busquedaInformes->update($data);
      

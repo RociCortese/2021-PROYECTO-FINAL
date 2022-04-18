@@ -146,3 +146,6 @@ Route::get('listadonotas', 'App\Http\Controllers\NotasController@index')->name('
 Route::put('listadonotas/editarnota/{id}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
 Route::put('listadonotas/editar/{id_alumno}', 'App\Http\Controllers\NotasController@updateobservacion')->name('observacion.update');
 
+/*Registro docentes*/
+Route::get('asistencias','App\Http\Controllers\AsistenciaController@index')->name('asistencias');
+

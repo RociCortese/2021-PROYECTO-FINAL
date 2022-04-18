@@ -190,6 +190,14 @@
           </ul>
         </div>
       </li>
+       <li class="nav-item{{ $activePage == 'cargasistencia' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('asistencias')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
+                </div>
+              </a>
+            </li>
   </div>
 
 <?php
