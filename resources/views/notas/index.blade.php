@@ -67,7 +67,7 @@
                 @endif
                 <div class="col">
                 <label>Período</label>
-                <select name="periodo" id="periodo" class="form-control" value="{{$periodo}}">
+                <select name="periodo" id="periodo" class="form-control">
                 <option value="{{$periodo}}">{{$periodo}}</option>
                 @if($informacionperiodo=='Bimestre')
                 <option value="Primer período">Primer período</option>
@@ -101,6 +101,18 @@
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
                 </form>
+                <form class="form-horizontal" method="POST">
+                  @csrf
+                  @METHOD('PUT')
+                <div style="display: none;">
+                  <input type="text" value="{{$periodo}}" name="periodo">
+                  @if($tipodoc=='Grado')
+                  <input type="text" value="{{$espacio}}" name="espacio">
+                  @endif
+                  @if($tipodoc!='Grado')
+                  <input type="text" value="{{$grado}}" name="grado">
+                  @endif
+                </div>
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -123,42 +135,35 @@
                     }, 1000);
                     </script>  
                     @endif
-                    @foreach($infoalumnos as $infoalu)              
+                    @foreach($infoalumnos as $infoalu) 
+                                 
                     <tbody>
                     <tr>
-                      <form action="{{route('notas.update',$infoalu->id)}}" method="POST" class="form-horizontal">
-                        @csrf
-                        @METHOD('PUT') 
                       <td class="v-align-middle">{{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</td>
-                      @foreach($infocriterios as $infocrit)
+                      @foreach($infonotas as $infonot)
+                      @if($infonot->id_alumno==$infoalu->id_alumno)
                       <td class="v-align-middle">
-                        <select name="calificacion" id="calificacion" class="form-control">
+                        <select name="calificacion[]" id="calificacion" class="form-control">
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         $cont=count($califi)-1;
                         ?>
+
+                        <option value="{{$infonot->nota}}" <?php echo 'selected="selected" ';?>>{{$infonot->nota}}</option>
                         <option value=""></option>
                         <?php
+
                         for($i=0;$i<=$cont;$i++){?>
                         <option value="{{$califi[$i]}}">{{$califi[$i]}}</option>
                         <?php
                         }
                         ?>
                         </select>
-                        
-                        
                       </td>
+                      @endif
                       @endforeach  
-                      <div class="card-footer">
-                      <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                      <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
-                      </div>
-                      </div>
-                      </form>
+                      
                         <td class="v-align-middle">
-                        <form action="{{route('observacion.update',$infoalu->id_alumno)}}" method="POST" class="form-horizontal">
-                        @csrf
-                        @METHOD('PUT')
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
                           </a>
@@ -176,24 +181,30 @@
                               $idalumno="$infoinf->id_alumno";
                               if($idalumno==$infoalu->id_alumno){
                               ?>
-                              <textarea class="form-control" rows="3" name="observacion" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
+                              <textarea class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
                               <?php
                               }
                               }
                              ?>  
                             <div class="modal-footer">
                     <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
-                    <button type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
+                    <button formaction="{{route('observacion.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
                     </div>
                   </div>
-                            
                          </div>
                        </div>
                      </div>
                    </div>
-                 </form>
+                 
                       </td>
-                      <td class="v-align-middle"></td>                       
+                      <td class="v-align-middle">
+                         <select name="notafinal[]" id="notafinal" class="form-control">
+                          <option value=""></option>
+                         
+                       
+                      
+                        </select>
+                      </td>                       
                     </tr>                                        
                     </tbody>
                     @endforeach
@@ -203,7 +214,7 @@
                 </div>
                 <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
+                <button formaction="{{route('notas.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
        
