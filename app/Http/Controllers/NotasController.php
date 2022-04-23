@@ -96,6 +96,8 @@ class NotasController extends Controller
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
+
+        $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("calificacion");
         }
         }
         else
@@ -131,7 +133,10 @@ class NotasController extends Controller
             }
         }
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes'));   
+
+    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','califica'));   
+
+ 
     }
     else{
     $espacio=$request->espacio;
@@ -153,7 +158,12 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes'));
+
+
+   
+    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','califica'));
+
+   
   }
 }
     public function updateobservacion(Request $request,$id_alumno)
@@ -169,6 +179,7 @@ class NotasController extends Controller
       $descripcionaño="$activo->descripcion";
     }
     $periodo=$request->periodo;
+    return $periodo;
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -239,6 +250,7 @@ class NotasController extends Controller
       $añoactivo="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
+
     if($tipodoc=='Grado'){
     $espacio=$request->espacio;
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");

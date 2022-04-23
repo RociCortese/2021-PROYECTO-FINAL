@@ -9,5 +9,5 @@ class Notas extends Model
 {
     use HasFactory;
     protected $table = 'notas';
-    protected $fillable = ['id','nombrealumno','apellidoalumno','docente','criterio','nota','año','periodo','observacion','grado','colegio_id'];
+    protected $fillable = ['id','id_alumno','nombrealumno','apellidoalumno','docente','criterio','nota','año','periodo','observacion','grado','colegio_id'];
 }
