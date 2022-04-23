@@ -197,6 +197,8 @@
                     </tr>                                        
                     </tbody>
                     @endforeach
+
+                        
                   </table>
                 </div>
                 <div class="card-footer">
@@ -204,8 +206,31 @@
                 <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
+       
       </form>
+
+                       
+                        <?php
+                        $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
+                        $cont=count($califi)-1;
+                        ?>
+                        <h5><span class="badge badge-warning">Referencias:
+
+                        <?php
+                        for($i=0;$i<=$cont;$i++){?>
+                          <strong>{{$califi[$i]}}</strong>: {{$califica[$i]}}
+                        <?php
+                        }
+                        ?>
+                        .
+                      </span></h5>
+                        
+                        
+                     
+                      
             </div>
+       
           </div>
         </div>
       </div>

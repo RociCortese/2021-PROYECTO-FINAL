@@ -96,6 +96,8 @@ class NotasController extends Controller
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
+        $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("calificacion");
+     
         }
         }
         else
@@ -130,7 +132,7 @@ class NotasController extends Controller
             }
         }
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios','califi','infoinformes'));   
+    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infonotas','infoalumnos','infocriterios','califi','infoinformes','califica'));   
     }
     else{
     $espacio=$request->espacio;
@@ -154,7 +156,7 @@ class NotasController extends Controller
         }
 
    
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes'));
+    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','califica'));
   }
 }
     public function updateobservacion(Request $request,$id_alumno)
