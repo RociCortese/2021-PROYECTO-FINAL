@@ -179,7 +179,6 @@ class NotasController extends Controller
       $descripcionaño="$activo->descripcion";
     }
     $periodo=$request->periodo;
-    return $periodo;
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -231,7 +230,7 @@ class NotasController extends Controller
             $busquedaInformes->save();
         }
     }
-    return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
+    return redirect()->back()->with('success', 'Las observaciones se guardaron correctamente.');
     }  
   }
 
@@ -386,7 +385,7 @@ for($i=0;$i<=$contadortotal;$i++){
 $infosofi->nota=$infonota[$h];
 $infosofi->save();
 }  
-    
+    return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
     }
     if($tipodoc!='Grado'){
     $grado=$request->grado;
