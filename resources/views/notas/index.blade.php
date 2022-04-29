@@ -237,6 +237,8 @@
                        
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        if($infoco==NULL)
+                        {
                         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
                         $cont=count($califi)-1;
                         ?>
@@ -248,8 +250,10 @@
                         <?php
                         }
                         ?>
-                        .
                       </span></h5>
+                      <?php
+                    }
+                    ?>
                         
                         
                      
