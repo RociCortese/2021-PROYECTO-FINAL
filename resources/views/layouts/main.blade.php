@@ -52,6 +52,7 @@
         
         <script src="{{ asset('js/core/jquery.min.js')}}"></script>
         <script src="{{ asset('js/core/popper.min.js')}}"></script>
+        
         <script src="{{ asset('js/core/bootstrap-material-design.min.js')}}"></script>
         <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />

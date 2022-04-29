@@ -1,7 +1,13 @@
 @extends('layouts.main' , ['activePage' => 'notas', 'titlePage => Registro de notas'])
 
 @section ('content')
+
  <div class="content">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
    <div class="container-fluid">
      <div class="row">
       <div class="col-md-12">
@@ -114,6 +120,8 @@
                   @endif
                 </div>
                 <div class="table-responsive">
+
+</script>
                   <table class="table">
                     <thead class="text-primary">
                       <th>Alumnos</th>
@@ -121,7 +129,12 @@
                       <th>{{$infocrit->criterio}}</th>
                       @endforeach
                       <th>Observaciones</th>
-                      <th>Nota final</th>
+                      <th>Nota final </th>
+                     
+   
+                      
+                     
+ 
                     </thead>
                     @if(session('success'))
                     <div class="alert alert-success" role="success">
@@ -143,7 +156,8 @@
                       @foreach($infonotas as $infonot)
                       @if($infonot->id_alumno==$infoalu->id_alumno)
                       <td class="v-align-middle">
-                        <select name="calificacion[]" id="calificacion" class="form-control">
+                        
+                        <select name="calificacion[]" id="calificacion" class="select-css">
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         $cont=count($califi)-1;
@@ -198,7 +212,7 @@
                  
                       </td>
                       <td class="v-align-middle">
-                         <select name="notafinal[]" id="notafinal" class="form-control">
+                         <select name="notafinal[]" id="notafinal" class="select-css">
                           <option value=""></option>
                          
                        
@@ -223,6 +237,8 @@
                        
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        if($infoco==NULL)
+                        {
                         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
                         $cont=count($califi)-1;
                         ?>
@@ -234,8 +250,10 @@
                         <?php
                         }
                         ?>
-                        .
                       </span></h5>
+                      <?php
+                    }
+                    ?>
                         
                         
                      

@@ -311,14 +311,16 @@ function valoracioncualitativa() {
 
 
     <div id="valoracionnumerica" style = "display: none;">
+
        <br>
-      <label class="form-check-label">Valor Mínimo: 
-          <input type="number" name="minimo" style="width: 20%">
-      </label> 
-      
-      <label class="form-check-label">Valor Máximo: 
-        <input type="number" name="maximo" style="width: 20%">
-      </label>
+       <br>
+      <div class="col">
+      <label>Valor Mínimo:</label> 
+          <input type="number" name="minimo" style="width: 8%">
+          &nbsp&nbsp 
+      <label>Valor Máximo:</label>
+        <input type="number" name="maximo" style="width: 8%">
+      </div>
     </div>
 
     <div id="valoracioncualitativa" style = "display: none;">
@@ -327,9 +329,8 @@ function valoracioncualitativa() {
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
     <script type="text/javascript">
     $('.calicualitativa').select2({
-    tokenSeparators: [','],
     placeholder: 'Ingrese las calificaciones que desea agregar',
-    minimumInputLength: 3,
+    tokenSeparators: [','],
     tags: true,
     tokenSeparatrs : [ ',' , ' ' ],
     ajax: {
