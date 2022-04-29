@@ -311,7 +311,7 @@ function valoracioncualitativa() {
 
 
     <div id="valoracionnumerica" style = "display: none;">
-      <label>Ingrese el valor mínimo y máximo de calificación.</label>
+
        <br>
        <br>
       <div class="col">
