@@ -306,10 +306,6 @@ function valoracioncualitativa() {
     </div> 
     </div>
     </div>
-
-   
-
-
     <div id="valoracionnumerica" style = "display: none;">
        <br>
       <label class="form-check-label">Valor Mínimo: 
