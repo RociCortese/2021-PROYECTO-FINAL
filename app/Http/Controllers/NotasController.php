@@ -133,10 +133,12 @@ class NotasController extends Controller
             }
         }
         }
-
-    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','califica','infonotas'));   
-
- 
+    if($infoco==NULL)   {
+         return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','califica','infonotas','infoco'));   
+        }
+        else  {
+         return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','infonotas','infoco'));   
+        }
     }
     else{
     $espacio=$request->espacio;
@@ -158,7 +160,14 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-    return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','califica'));
+if($infoco==NULL)   {
+         return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','califica','infoco'));  
+
+        }
+        else  {
+         return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','infoco'));  
+
+        }
   }
 }
     public function updateobservacion(Request $request,$id_alumno)
@@ -244,7 +253,11 @@ class NotasController extends Controller
       $añoactivo="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
-
+    $infocole=Colegio::where('id',$idcolegio)->get();
+      foreach($infocole as $info){
+            $infoco="$info->calinumerica";
+            $infocali="$info->calicualitativa";
+      }
     if($tipodoc=='Grado'){
     $espacio=$request->espacio;
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
@@ -260,7 +273,7 @@ class NotasController extends Controller
     for ($i=0;$i<=$cantidadnotas;$i=$i+$contador){
         $elemento=floor($i/$contador);
         for($j=0;$j<$contador;$j++){
-            $busquedaNotas=Notas::where('id_alumno',$infonotas[$elemento])->where('criterio',$criterio[$j])->first();
+            $busquedaNotas=Notas::where('id_alumno',$infonotas[$elemento])->where('criterio',$criterio[$j])->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('docente',Auth::user()->id)->where('periodo',$periodo)->first();
             $busquedaNotas->nota=$cali[$i+$j]; 
             $busquedaNotas->save();
         }
@@ -268,9 +281,11 @@ class NotasController extends Controller
     foreach($infocriterios as $criterio){
         $nombrecriterio[]="$criterio->criterio";
     }
+
     $contcriterio=count($nombrecriterio)-1;
     for($i=0;$i<=$contcriterio;$i++){
-        $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->pluck("ponderacion");
+
+         $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->where('id_espacio',$espacio)->where('id_usuario',Auth::user()->id)->pluck("ponderacion");
     }
     $pondecriterios = preg_replace('/[\[\]\.\;\""]+/', '', $pondecriterios);
     $sumaponderacion=array_sum($pondecriterios);
@@ -283,59 +298,58 @@ class NotasController extends Controller
     }
 
     $contnota=count($informacionnota)-1;
+    if ($infoco == NULL) {
     for ($i=0; $i <=$contnota ; $i++) {
     $contotal=count($informacionnota[$i])-1;
     $variable=$informacionnota[$i];
     for ($j=0; $j <=$contotal ; $j++) { 
         $valornota[]=calificacioncualitativa::where('codigo',$variable[$j])->pluck('valor');
     }
-}
-$variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
-$cont1=count($variable)-1;
-$cont2=count($pondecriterios)-1;
-$cont3=count($pondecriterios);
-for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
-     $suma=0;
+    $variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
+    }
+    $cont1=count($variable)-1;
+    $cont2=count($pondecriterios)-1;
+    $cont3=count($pondecriterios);
+    for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
+         $suma=0;
     for ($j=0; $j <=$cont2 ; $j++) { 
     $suma=$suma+($pondecriterios[$j] * $variable[$i+$j]);
     }
     $array[]=$suma;
-}
-$contarray=count($array)-1;
-for($i=0;$i<=$contarray;$i++){
-    $calculototal[]=$array[$i]/$sumaponderacion;
-}
-$contadortotal=count($calculototal)-1;
-$infocole=Colegio::where('id',$idcolegio)->get();
-      foreach($infocole as $info){
-            $infoco="$info->calinumerica";
-            $infocali="$info->calicualitativa";
-      }
-      if($infoco==NULL)
-        {
+    }
+    }
+    else
+    {
+    $cont2=count($pondecriterios)-1;
+    for ($i=0; $i <=$contnota ; $i++) {
+         $suma=0;
+    $nota=$informacionnota[$i];
+    for ($j=0; $j <=$cont2 ; $j++) { 
+        
+    $suma=$suma+($pondecriterios[$j] * $nota[$j]);
+    }
+    $array[]=$suma;
+    }
+    }
+    $contarray=count($array)-1;
+    for($i=0;$i<=$contarray;$i++){
+        $calculototal[]=$array[$i]/$sumaponderacion;
+    }
+    $contadortotal=count($calculototal)-1;
+    if($infoco==NULL)
+    {
         $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
         $infocali=explode(',', $infocali);
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
         }
-        }
-        else
-        {
-        $infoco=explode(',', $infoco);
-        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
-        $minimo= head($infoco);
-        $maximo= last($infoco);
-        for ($i=$minimo; $i <= $maximo ; $i++) { 
-        $calificacion[]=$i;
-        }
-      }
-$contadorcalificacion=count($calificacion)-1;
-$calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
-foreach($infoalumnos as $informacion){
-for($i=0;$i<=$contadortotal;$i++){
-    if($informacion->id_alumno==$infonotas[$i]){
-    if(1<=$calculototal[$i] and $calculototal[$i]<=3){
+        $contadorcalificacion=count($calificacion)-1;
+        $calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
+        foreach($infoalumnos as $informacion){
+        for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        if(1<=$calculototal[$i] and $calculototal[$i]<=3){
         $infonota[]='NS';
     }
     elseif(3<$calculototal[$i] and $calculototal[$i]<=5){
@@ -347,8 +361,8 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='I';
         }
     }
-} 
- elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
+    } 
+    elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='R'){
             $infonota[]='R';
@@ -357,11 +371,11 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='B';
         }
     }
-}
- elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
+    }
+    elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
         $infonota[]='MB';
     } 
- elseif(9<$calculototal[$i]){
+    elseif(9<$calculototal[$i]){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='E'){
             $infonota[]='E';
@@ -376,6 +390,21 @@ $informacion->save();
 }
 }
 }
+}
+    else
+    {
+    foreach($infoalumnos as $informacion){
+    for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        $redondeo[$i]= round($calculototal[$i]);
+        $informacion->nota=$redondeo[$i];
+        $informacion->save();
+    }
+    }   
+    }
+   
+    }
+
     return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
     }
     if($tipodoc!='Grado'){
@@ -393,7 +422,7 @@ $informacion->save();
     for ($i=0;$i<=$cantidadnotas;$i=$i+$contador){
         $elemento=floor($i/$contador);
         for($j=0;$j<$contador;$j++){
-            $busquedaNotas=Notas::where('id_alumno',$infonotas[$elemento])->where('criterio',$criterio[$j])->first();
+            $busquedaNotas=Notas::where('id_alumno',$infonotas[$elemento])->where('criterio',$criterio[$j])->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('docente',Auth::user()->id)->where('periodo',$periodo)->first();
             $busquedaNotas->nota=$cali[$i+$j]; 
             $busquedaNotas->save();
         }
@@ -403,7 +432,8 @@ $informacion->save();
     }
     $contcriterio=count($nombrecriterio)-1;
     for($i=0;$i<=$contcriterio;$i++){
-        $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->pluck("ponderacion");
+
+         $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->where('id_grado',$grado)->where('id_usuario',Auth::user()->id)->pluck("ponderacion");
     }
     $pondecriterios = preg_replace('/[\[\]\.\;\""]+/', '', $pondecriterios);
     $sumaponderacion=array_sum($pondecriterios);
@@ -414,61 +444,59 @@ $informacion->save();
     for ($i=0; $i <=$contalu ; $i++) { 
     $informacionnota[]=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->pluck('nota');
     }
-
     $contnota=count($informacionnota)-1;
+    if ($infoco == NULL) {
     for ($i=0; $i <=$contnota ; $i++) {
     $contotal=count($informacionnota[$i])-1;
     $variable=$informacionnota[$i];
     for ($j=0; $j <=$contotal ; $j++) { 
         $valornota[]=calificacioncualitativa::where('codigo',$variable[$j])->pluck('valor');
     }
-}
-$variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
-$cont1=count($variable)-1;
-$cont2=count($pondecriterios)-1;
-$cont3=count($pondecriterios);
-for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
-     $suma=0;
+    $variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
+    }
+    $cont1=count($variable)-1;
+    $cont2=count($pondecriterios)-1;
+    $cont3=count($pondecriterios);
+    for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
+         $suma=0;
     for ($j=0; $j <=$cont2 ; $j++) { 
     $suma=$suma+($pondecriterios[$j] * $variable[$i+$j]);
     }
     $array[]=$suma;
-}
-$contarray=count($array)-1;
-for($i=0;$i<=$contarray;$i++){
-    $calculototal[]=$array[$i]/$sumaponderacion;
-}
-$contadortotal=count($calculototal)-1;
-$infocole=Colegio::where('id',$idcolegio)->get();
-      foreach($infocole as $info){
-            $infoco="$info->calinumerica";
-            $infocali="$info->calicualitativa";
-      }
-      if($infoco==NULL)
-        {
+    }
+    }
+    else
+    {
+    $cont2=count($pondecriterios)-1;
+    for ($i=0; $i <=$contnota ; $i++) {
+         $suma=0;
+    $nota=$informacionnota[$i];
+    for ($j=0; $j <=$cont2 ; $j++) { 
+        
+    $suma=$suma+($pondecriterios[$j] * $nota[$j]);
+    }
+    $array[]=$suma;
+    }
+    }
+    $contarray=count($array)-1;
+    for($i=0;$i<=$contarray;$i++){
+        $calculototal[]=$array[$i]/$sumaponderacion;
+    }
+    $contadortotal=count($calculototal)-1;
+    if($infoco==NULL)
+    {
         $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
         $infocali=explode(',', $infocali);
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
         }
-        }
-        else
-        {
-        $infoco=explode(',', $infoco);
-        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
-        $minimo= head($infoco);
-        $maximo= last($infoco);
-        for ($i=$minimo; $i <= $maximo ; $i++) { 
-        $calificacion[]=$i;
-        }
-      }
-$contadorcalificacion=count($calificacion)-1;
-$calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
-foreach($infoalumnos as $informacion){
-for($i=0;$i<=$contadortotal;$i++){
-    if($informacion->id_alumno==$infonotas[$i]){
-    if(1<=$calculototal[$i] and $calculototal[$i]<=3){
+        $contadorcalificacion=count($calificacion)-1;
+        $calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
+        foreach($infoalumnos as $informacion){
+        for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        if(1<=$calculototal[$i] and $calculototal[$i]<=3){
         $infonota[]='NS';
     }
     elseif(3<$calculototal[$i] and $calculototal[$i]<=5){
@@ -480,8 +508,8 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='I';
         }
     }
-} 
- elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
+    } 
+    elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='R'){
             $infonota[]='R';
@@ -490,11 +518,11 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='B';
         }
     }
-}
- elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
+    }
+    elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
         $infonota[]='MB';
     } 
- elseif(9<$calculototal[$i]){
+    elseif(9<$calculototal[$i]){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='E'){
             $infonota[]='E';
@@ -509,7 +537,22 @@ $informacion->save();
 }
 }
 }
-    return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
 }
+    else
+    {
+    foreach($infoalumnos as $informacion){
+    for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        $redondeo[$i]= round($calculototal[$i]);
+        $informacion->nota=$redondeo[$i];
+        $informacion->save();
+    
+    }
+    }   
+    }
+    }
+
+    return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
+    }
 }
 }
