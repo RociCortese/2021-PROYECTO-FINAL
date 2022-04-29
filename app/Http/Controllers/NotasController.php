@@ -263,8 +263,6 @@ if($infoco==NULL)   {
             $infoco="$info->calinumerica";
             $infocali="$info->calicualitativa";
       }
-
-
     if($tipodoc=='Grado'){
     $espacio=$request->espacio;
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
@@ -303,22 +301,15 @@ if($infoco==NULL)   {
     for ($i=0; $i <=$contalu ; $i++) { 
     $informacionnota[]=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->pluck('nota');
     }
-
-
     $contnota=count($informacionnota)-1;
-
     if ($infoco == NULL) {
     for ($i=0; $i <=$contnota ; $i++) {
     $contotal=count($informacionnota[$i])-1;
     $variable=$informacionnota[$i];
-
-    /*Si entra al if la nota es cualitativa*/
-    
-        for ($j=0; $j <=$contotal ; $j++) { 
+    for ($j=0; $j <=$contotal ; $j++) { 
         $valornota[]=calificacioncualitativa::where('codigo',$variable[$j])->pluck('valor');
     }
     $variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
-
     }
     $cont1=count($variable)-1;
     $cont2=count($pondecriterios)-1;
@@ -326,17 +317,12 @@ if($infoco==NULL)   {
     for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
          $suma=0;
     for ($j=0; $j <=$cont2 ; $j++) { 
-      
     $suma=$suma+($pondecriterios[$j] * $variable[$i+$j]);
     }
-
     $array[]=$suma;
     }
-
     }
-
     else
-
     {
     $cont2=count($pondecriterios)-1;
     for ($i=0; $i <=$contnota ; $i++) {
@@ -349,14 +335,11 @@ if($infoco==NULL)   {
     $array[]=$suma;
     }
     }
-
     $contarray=count($array)-1;
     for($i=0;$i<=$contarray;$i++){
         $calculototal[]=$array[$i]/$sumaponderacion;
     }
     $contadortotal=count($calculototal)-1;
- 
-
     if($infoco==NULL)
     {
         $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
@@ -406,7 +389,6 @@ if($infoco==NULL)   {
         }
     }
 }
-
 $informacion->nota=$infonota[$i];
 $informacion->save();
 }
@@ -430,8 +412,6 @@ $informacion->save();
 
     return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
     }
-
-
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
@@ -458,11 +438,10 @@ $informacion->save();
 
     $contcriterio=count($nombrecriterio)-1;
     for($i=0;$i<=$contcriterio;$i++){
-        $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->where('id_grado',$grado)->where('id_usuario',Auth::user()->id)->pluck("ponderacion");
+
+         $pondecriterios[]=CriteriosEvaluacion::where('criterio',$nombrecriterio[$i])->where('id_grado',$grado)->where('id_usuario',Auth::user()->id)->pluck("ponderacion");
     }
-
     $pondecriterios = preg_replace('/[\[\]\.\;\""]+/', '', $pondecriterios);
-
     $sumaponderacion=array_sum($pondecriterios);
     foreach($infoalumnos as $infoalu){
         $idalumnos[]="$infoalu->id_alumno";
@@ -471,62 +450,59 @@ $informacion->save();
     for ($i=0; $i <=$contalu ; $i++) { 
     $informacionnota[]=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->pluck('nota');
     }
-
     $contnota=count($informacionnota)-1;
+    if ($infoco == NULL) {
     for ($i=0; $i <=$contnota ; $i++) {
     $contotal=count($informacionnota[$i])-1;
     $variable=$informacionnota[$i];
     for ($j=0; $j <=$contotal ; $j++) { 
         $valornota[]=calificacioncualitativa::where('codigo',$variable[$j])->pluck('valor');
     }
-}
-$variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
-$cont1=count($variable)-1;
-$cont2=count($pondecriterios)-1;
-$cont3=count($pondecriterios);
-
-for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
-     $suma=0;
+    $variable = preg_replace('/[\[\]\\;\""]+/', '', $valornota);
+    }
+    $cont1=count($variable)-1;
+    $cont2=count($pondecriterios)-1;
+    $cont3=count($pondecriterios);
+    for ($i=0; $i <=$cont1 ; $i=$i+$cont3) { 
+         $suma=0;
     for ($j=0; $j <=$cont2 ; $j++) { 
     $suma=$suma+($pondecriterios[$j] * $variable[$i+$j]);
     }
     $array[]=$suma;
-}
-$contarray=count($array)-1;
-for($i=0;$i<=$contarray;$i++){
-    $calculototal[]=$array[$i]/$sumaponderacion;
-}
-$contadortotal=count($calculototal)-1;
-$infocole=Colegio::where('id',$idcolegio)->get();
-      foreach($infocole as $info){
-            $infoco="$info->calinumerica";
-            $infocali="$info->calicualitativa";
-      }
-      if($infoco==NULL)
-        {
+    }
+    }
+    else
+    {
+    $cont2=count($pondecriterios)-1;
+    for ($i=0; $i <=$contnota ; $i++) {
+         $suma=0;
+    $nota=$informacionnota[$i];
+    for ($j=0; $j <=$cont2 ; $j++) { 
+        
+    $suma=$suma+($pondecriterios[$j] * $nota[$j]);
+    }
+    $array[]=$suma;
+    }
+    }
+    $contarray=count($array)-1;
+    for($i=0;$i<=$contarray;$i++){
+        $calculototal[]=$array[$i]/$sumaponderacion;
+    }
+    $contadortotal=count($calculototal)-1;
+    if($infoco==NULL)
+    {
         $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
         $infocali=explode(',', $infocali);
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
         $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("codigo");
         }
-        }
-        else
-        {
-        $infoco=explode(',', $infoco);
-        $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
-        $minimo= head($infoco);
-        $maximo= last($infoco);
-        for ($i=$minimo; $i <= $maximo ; $i++) { 
-        $calificacion[]=$i;
-        }
-      }
-$contadorcalificacion=count($calificacion)-1;
-$calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
-foreach($infoalumnos as $informacion){
-for($i=0;$i<=$contadortotal;$i++){
-    if($informacion->id_alumno==$infonotas[$i]){
-    if(1<=$calculototal[$i] and $calculototal[$i]<=3){
+        $contadorcalificacion=count($calificacion)-1;
+        $calificacion = preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
+        foreach($infoalumnos as $informacion){
+        for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        if(1<=$calculototal[$i] and $calculototal[$i]<=3){
         $infonota[]='NS';
     }
     elseif(3<$calculototal[$i] and $calculototal[$i]<=5){
@@ -538,8 +514,8 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='I';
         }
     }
-} 
- elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
+    } 
+    elseif(5<$calculototal[$i] and $calculototal[$i]<=7){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='R'){
             $infonota[]='R';
@@ -548,11 +524,11 @@ for($i=0;$i<=$contadortotal;$i++){
             $infonota[]='B';
         }
     }
-}
- elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
+    }
+    elseif(7<$calculototal[$i] and $calculototal[$i]<=9){
         $infonota[]='MB';
     } 
- elseif(9<$calculototal[$i]){
+    elseif(9<$calculototal[$i]){
         for($j=0;$j<=$contadorcalificacion;$j++){
         if($calificacion[$j]=='E'){
             $infonota[]='E';
@@ -567,7 +543,22 @@ $informacion->save();
 }
 }
 }
-    return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
 }
+    else
+    {
+    foreach($infoalumnos as $informacion){
+    for($i=0;$i<=$contadortotal;$i++){
+        if($informacion->id_alumno==$infonotas[$i]){
+        $redondeo[$i]= round($calculototal[$i]);
+        $informacion->nota=$redondeo[$i];
+        $informacion->save();
+    
+    }
+    }   
+    }
+    }
+
+    return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
+    }
 }
 }
