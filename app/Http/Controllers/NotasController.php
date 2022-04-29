@@ -135,11 +135,9 @@ class NotasController extends Controller
         }
     if($infoco==NULL)   {
          return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','califica','infonotas','infoco'));   
-
         }
         else  {
          return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','periodo','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','infonotas','infoco'));   
-
         }
     }
     else{
@@ -162,7 +160,6 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
         $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
         }
-
 if($infoco==NULL)   {
          return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','califica','infoco'));  
 
@@ -171,8 +168,6 @@ if($infoco==NULL)   {
          return view('notas.index',compact('infoaño','informacionperiodo','periodo','espacio','tipodoc','nombreespacios','infonotas','id','infocriterios','infoalumnos', 'califi','infoinformes','infoco'));  
 
         }
-
-    
   }
 }
     public function updateobservacion(Request $request,$id_alumno)
@@ -301,6 +296,7 @@ if($infoco==NULL)   {
     for ($i=0; $i <=$contalu ; $i++) { 
     $informacionnota[]=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->pluck('nota');
     }
+
     $contnota=count($informacionnota)-1;
     if ($infoco == NULL) {
     for ($i=0; $i <=$contnota ; $i++) {
@@ -403,7 +399,6 @@ $informacion->save();
         $redondeo[$i]= round($calculototal[$i]);
         $informacion->nota=$redondeo[$i];
         $informacion->save();
-    
     }
     }   
     }
@@ -435,7 +430,6 @@ $informacion->save();
     foreach($infocriterios as $criterio){
         $nombrecriterio[]="$criterio->criterio";
     }
-
     $contcriterio=count($nombrecriterio)-1;
     for($i=0;$i<=$contcriterio;$i++){
 

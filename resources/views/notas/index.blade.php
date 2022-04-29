@@ -128,13 +128,8 @@
                       @foreach($infocriterios as $infocrit) 
                       <th>{{$infocrit->criterio}}</th>
                       @endforeach
+                      <th>Nota final (*)</th>
                       <th>Observaciones</th>
-                      <th>Nota final </th>
-                     
-   
-                      
-                     
- 
                     </thead>
                     @if(session('success'))
                     <div class="alert alert-success" role="success">
@@ -176,8 +171,20 @@
                       </td>
                       @endif
                       @endforeach  
-                      
-                        <td class="v-align-middle">
+                      <td class="v-align-middle">
+                          <?php
+                        foreach($infoinformes as $infoinf){
+                         $idalumno="$infoinf->id_alumno";
+                              if($idalumno==$infoalu->id_alumno){
+                                ?>
+                                <input name="notafinal[]" id="notafinal" class="form-control" value="{{$infoinf->nota}}" disabled></input>
+                        <?php
+                        }
+                      }
+                        ?>
+                        
+                      </td>
+                      <td class="v-align-middle">
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
                           </a>
@@ -209,32 +216,22 @@
                        </div>
                      </div>
                    </div>
-                 
-                      </td>
-                      <td class="v-align-middle">
-                         <select name="notafinal[]" id="notafinal" class="select-css">
-                          <option value=""></option>
-                         
-                       
-                      
-                        </select>
-                      </td>                       
-                    </tr>                                        
+                      </td>                      
+                    </tr>                                         
+
                     </tbody>
                     @endforeach
-
-                        
+                
+                       
                   </table>
+                   <small>(*) La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas y a la ponderación de cada criterio de evaluación. </small>
                 </div>
                 <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
                 <button formaction="{{route('notas.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
           </div>
         </div>
-       
       </form>
-
-                       
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         if($infoco==NULL)
@@ -254,13 +251,9 @@
                       <?php
                     }
                     ?>
-                        
-                        
-                     
-                      
             </div>
-       
           </div>
+          
         </div>
       </div>
      </div>

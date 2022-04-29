@@ -11,6 +11,7 @@ use App\Models\Grado;
 use App\Models\Colegio;
 use App\Models\Alumno;
 use App\Models\Abecedario;
+use App\Models\Asistencia;
 
 class AñoController extends Controller
 {
@@ -348,7 +349,22 @@ class AñoController extends Controller
       $todoesta="$todoest->id";
     }
     $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
-      $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
+    $nombrealumno=Alumno::where('grado',$grado->descripcion)->pluck("nombrealumno");
+    $apellidoalumno=Alumno::where('grado',$grado->descripcion)->pluck("apellidoalumno");
+    $idalumno=Alumno::where('grado',$grado->descripcion)->pluck("id");
+    $contadoralumnos=count($alumnos)-1;
+    for ($i=0; $i <=$contadoralumnos ; $i++) { 
+    $creacionasistencia=new Asistencia();
+    $creacionasistencia->id_alumno=$idalumno[$i];
+    $creacionasistencia->nombrealumno=$nombrealumno[$i].' '.$apellidoalumno[$i];
+    $creacionasistencia->grado=$grado->descripcion;
+    $creacionasistencia->año_id=$idest;
+    $creacionasistencia->docente=$iddoc;
+    $creacionasistencia->colegio_id=$idcolegio;
+    $creacionasistencia->estado='No registrada';
+    $creacionasistencia->save();
+    }
+
       if(empty($idest)){
         $descripcionaño=" ";
         $descripcionselect=" ";

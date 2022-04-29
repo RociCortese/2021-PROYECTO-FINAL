@@ -306,10 +306,6 @@ function valoracioncualitativa() {
     </div> 
     </div>
     </div>
-
-   
-
-
     <div id="valoracionnumerica" style = "display: none;">
 
        <br>
