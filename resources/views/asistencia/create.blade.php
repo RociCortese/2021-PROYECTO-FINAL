@@ -79,11 +79,30 @@
           </table>
         </div>
         </div>
+          
+         @if($tipodoc=='Grado')
+         <div style="display:none;">
+            <input type="text" value="{{$mes}}" name="mes">
+          </div>
           <div class="card-footer">
           <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar asistencia</button>
+          <button type="submit" class="btn btn-sm btn-facebook">Guardar asistencia</button>
           </div>
-        </div>
+          </div>
+        @endif
+
+        @if($tipodoc!='Grado')
+          <div style="display:none;">
+            <input type="text" value="{{$gradodocente}}" name="gradodocente">
+            <input type="text" value="{{$mes}}" name="mes">
+          </div>
+          <div class="card-footer">
+          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+          <button type="submit" class="btn btn-sm btn-facebook">Guardar asistencia</button>
+          </div>
+          </div>
+           
+        @endif
       </div>
        </form>
         </div>

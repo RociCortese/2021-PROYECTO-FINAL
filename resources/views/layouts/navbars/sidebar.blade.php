@@ -189,17 +189,36 @@
             </li>
           </ul>
         </div>
-      </li>
-       <li class="nav-item{{ $activePage == 'cargasistencia' ? ' active' : '' }}">
+      <?php
+      $idpersona= Auth::user()->idpersona;
+      $tipodocente=App\Models\Docente::where('id',$idpersona)->get();
+      foreach($tipodocente as $tipo){
+        $tipodoc="$tipo->especialidad";
+      }
+      if($tipodoc=='Grado'){?>
+       <li class="nav-item{{ $activePage == 'cargasistenciagrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('asistencias')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
                 <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
                 </div>
               </a>
-            </li>
-  </div>
+      </li>
+      <?php 
+      }
+      if($tipodoc!='Grado'){?>
+      <li class="nav-item{{ $activePage == 'cargasistencia' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('asistencias.especiales')}}">
+        <div class="items-dashboard">
+        <i class="bi bi-journal-text"></i>
+        <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
+        </div>
+        </a>
+      </li>
 
+<?php
+}?>
+</div>
 <?php
 }
 ?>
