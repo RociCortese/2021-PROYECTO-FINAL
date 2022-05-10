@@ -2066,7 +2066,10 @@ $(function () {
   $('[data-toggle="popover"]').popover();
 });
 
+
 /***/ }),
+
+
 
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\

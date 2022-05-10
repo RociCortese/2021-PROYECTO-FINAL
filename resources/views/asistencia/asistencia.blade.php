@@ -193,6 +193,11 @@
                     </tbody>
                   </table>
                 </div>
+                 <br>
+                  <div class="text-right">
+                  <a class="btn btn-sm btn-facebook" href="{{url ('asistencias/create') }}">Cargar Asistencia</a>
+                  <a class="btn btn-sm btn-facebook" href="{{url ('asistencias/edita') }}">Editar Asistencia</a>
+              </div>
               <br>
               <div class="text-right">
               @if($tipodoc=='Grado')
