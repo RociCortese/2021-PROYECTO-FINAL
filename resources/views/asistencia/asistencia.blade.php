@@ -35,9 +35,6 @@
               <div class="text-right">
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
               </div>
-              <div class="text-right">
-                  <a class="btn btn-sm btn-facebook" href="{{url ('asistencias/create') }}">Cargar asistencia</a>
-              </div>
               <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -81,6 +78,11 @@
                     </tbody>
                   </table>
                 </div>
+                 <br>
+                  <div class="text-right">
+                  <a class="btn btn-sm btn-facebook" href="{{url ('asistencias/create') }}">Cargar Asistencia</a>
+                  <a class="btn btn-sm btn-facebook" href="{{url ('asistencias/edita') }}">Editar Asistencia</a>
+              </div>
               <br>
               <div class="row">
                 <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
