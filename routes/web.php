@@ -146,7 +146,15 @@ Route::get('listadonotas', 'App\Http\Controllers\NotasController@index')->name('
 Route::put('listadonotas/editarnota/{id_alumno}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
 Route::put('listadonotas/editar/{id_alumno}', 'App\Http\Controllers\NotasController@updateobservacion')->name('observacion.update');
 
-/*Registro docentes*/
+/*Registro de asistencias*/
+
 Route::get('asistencias','App\Http\Controllers\AsistenciaController@index')->name('asistencias');
+
 Route::get('asistencias/create', 'App\Http\Controllers\AsistenciaController@create')->name('asistencia.create');
+
 Route::post('asistencias/store', 'App\Http\Controllers\AsistenciaController@store')->name('asistencia.store');
+
+Route::get('asistencias/editarasis', 'App\Http\Controllers\AsistenciaController@editarasistencia')->name('asistencia.editar');
+Route::put('asistencias/editar', 'App\Http\Controllers\AsistenciaController@update')->name('asistencia.update');
+
+Route::get('asistencias/edita', 'App\Http\Controllers\AsistenciaController@buscador')->name('asistencia.edita');
