@@ -151,33 +151,15 @@ class CriteriosevaluacionController extends Controller
         $nota->id_alumno=$idalumno;
         $nota->espacio=$nuevocriterio->id_espacio;
         $nota->save();
-        $todosinformes=Informes::where('docente',Auth::user()->id)->where('periodo',$nuevocriterio->periodo)->where('espacio',$nuevocriterio->id_espacio)->where('colegio_id',$idcolegio)->where('año',$idaño)->get();
-        $continformes=count($todosinformes);
-        if($continformes==0){
-            $informe=new Informes();
-            $informe->observacion=$request->observacion;
-            $informe->año=$idaño;
-            $informe->colegio_id=$idcolegio;
-            $informe->id_alumno=$idalumno;
-            $informe->docente=Auth::user()->id;
-            $informe->periodo=$nuevocriterio->periodo;
-            $informe->espacio=$nuevocriterio->id_espacio;
-            $informe->save();
-        }
-        else{
-        $contadorinforme=count($todosinformes)-1;
-            if($array[$i]!=$idalumno){
-            $informe=new Informes();
-            $informe->observacion=$request->observacion;
-            $informe->año=$idaño;
-            $informe->colegio_id=$idcolegio;
-            $informe->id_alumno=$idalumno;
-            $informe->docente=Auth::user()->id;
-            $informe->periodo=$nuevocriterio->periodo;
-            $informe->espacio=$nuevocriterio->id_espacio;
-            $informe->save();
-            }
-        }
+        $informe=new Informes();
+        $informe->observacion=$request->observacion;
+        $informe->año=$idaño;
+        $informe->colegio_id=$idcolegio;
+        $informe->id_alumno=$idalumno;
+        $informe->docente=Auth::user()->id;
+        $informe->periodo=$nuevocriterio->periodo;
+        $informe->espacio=$nuevocriterio->id_espacio;
+        $informe->save();
     } 
     }
     
@@ -1196,7 +1178,6 @@ class CriteriosevaluacionController extends Controller
         $informe->periodo=$nuevocriterio->periodo;
         $informe->grado=$nuevocriterio->id_grado;
         $informe->save();
-        
          }
         }
     }

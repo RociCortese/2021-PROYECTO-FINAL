@@ -120,8 +120,6 @@
                   @endif
                 </div>
                 <div class="table-responsive">
-
-</script>
                   <table class="table">
                     <thead class="text-primary">
                       <th>Alumnos</th>

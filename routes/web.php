@@ -148,5 +148,7 @@ Route::put('listadonotas/editar/{id_alumno}', 'App\Http\Controllers\NotasControl
 
 /*Registro docentes*/
 Route::get('asistencias','App\Http\Controllers\AsistenciaController@index')->name('asistencias');
+Route::get('asistenciasespe','App\Http\Controllers\AsistenciaController@index')->name('asistencias.especiales');
+Route::get('listadoasistencias','App\Http\Controllers\AsistenciaController@listadoasistencias')->name('listado.asistencias');
 Route::get('asistencias/create', 'App\Http\Controllers\AsistenciaController@create')->name('asistencia.create');
 Route::post('asistencias/store', 'App\Http\Controllers\AsistenciaController@store')->name('asistencia.store');

@@ -19,48 +19,10 @@
                 </div>
               @endforeach
               <form action="{{route('listado.asistencias')}}">
+              <div class="row">
               <div class="col">
               <label>Mes</label>
               <select name="mes" id="mes" class="form-control" onchange="mensajebuscar()">
-                <?php 
-                $mes=date("m");
-                if($mes==1){
-                $mes='Enero';
-                }
-                if($mes==2){
-                $mes='Febrero';
-                }
-                if($mes==3){
-                $mes='Marzo';
-                }
-                if($mes==4){
-                $mes='Abril';
-                }
-                if($mes==5){
-                $mes='Mayo';
-                }
-                if($mes==6){
-                $mes='Junio';
-                }
-                if($mes==7){
-                $mes='Julio';
-                }
-                if($mes==8){
-                $mes='Agosto';
-                }
-                if($mes==9){
-                $mes='Septiembre';
-                }
-                if($mes==10){
-                $mes='Octubre';
-                }
-                if($mes==11){
-                $mes='Noviembre';
-                }
-                if($mes==12){
-                $mes='Diciembre';
-                }
-                ?>
                 <option value="{{$mes}}">{{$mes}}</option>
                 <?php
                 $cont=count($meses)-1;
@@ -71,36 +33,63 @@
                 }
                 ?>
                 </select>
-              <br>
-              <div id="mensaje" class="text-center">
-
               </div>
+              @if($tipodoc!='Grado')
+              <div class="col">
+              <label>Grado</label>
+                 <select name="grado" id="grado" class="form-control" value="{{old('grado') }}" onchange="mensajebuscar()">
+                    <option value="{{$grado}}">{{$grado}}</option>
+                    <?php
+                    $cont=count($nombresgrado)-1;
+                    for($i=0;$i<=$cont;$i++){?>
+                    <option value="{{$nombresgrado[$i]}}">{{$nombresgrado[$i]}}</option>
+                    <?php
+                    }
+                    ?>
+              </select>
             </div>
-
+              @endif
+            </div>
+            <br>
+            <div id="mensaje" class="text-warning text-center">
+              </div>
               <script>
               function mensajebuscar(){
                 document.getElementById('mensaje').innerHTML = "<p style='font-size:0.8rem;' class='badge badge-warning'><i style='font-size:1.1rem;' class='bi bi-exclamation-circle'></i><strong>   Para actualizar la tabla presione Buscar.</strong></p>"
               }
-              
               </script>
+            
+              <br>
               <div class="text-right">
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
               </div>
             </form>
             <br>
+            @if(session('success'))
+            <div class="alert alert-success" role="success">
+            {{session('success')}}
+            </div>
+            <script type="text/javascript">
+            window.setTimeout(function() {
+            $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+            $(this).remove(); 
+            });
+            }, 1000);
+            </script>
+            @endif
               <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
                     <th>Alumnos</th>
                     <th>Total</th>
                     <?php 
-                    if($mes=='Enero' or $mes=='Marzo' or $mes=='Mayo' or $mes=='Julio' or $mes=='Agosto' or $mes=='Octubre' or $mes=='Diciembre'){
+                     if($mes=='Enero' or $mes=='Marzo' or $mes=='Mayo' or $mes=='Julio' or $mes=='Agosto' or $mes=='Octubre' or $mes=='Diciembre'){
                       $diasmes=31;
                     }
                     if($mes=='Abril' or $mes=='Junio' or $mes=='Septiembre' or $mes=='Noviembre'){
                       $diasmes=30;
                     }
-                    for ($i=1; $i <=$diasmes ; $i++) {?>
+                      for ($i=1; $i <=$diasmes ; $i++) {?>
                       <th>
                       {{$i}}
                       <?php 
@@ -108,7 +97,7 @@
                       ?></th>
                     </thead>                    
                     <tbody>
-                    <?php 
+                    <?php
                     if($infoasistencia->isEmpty()){
                     $contador=count($nombrecompleto)-1;
                     for ($i=0; $i <=$contador ; $i++) {?> 
@@ -158,7 +147,7 @@
                       <?php
                      }?>
                      <td>{{$suma}}</td><?php
-                     for ($i=1; $i <=$diasmes; $i++){
+                     for ($i=1; $i <=$diasmes ; $i++){
                       if($a[$i]=='Presente'){?>
                       <td>
                       <i class="bi bi-circle-fill" style="color:#77dd77;"></i>
@@ -188,14 +177,13 @@
                     </tr>
                     @endforeach
                     <?php 
-                    }
-                    ?>
+                  }
+                  ?>
                     </tbody>
                   </table>
                 </div>
               <br>
-              <div class="text-right">
-              @if($tipodoc=='Grado')
+               @if($tipodoc=='Grado')
               <form>
               <div style="display:none;">
                 <input type="text" value="{{$mes}}" name="mes">
@@ -205,15 +193,26 @@
               </div>
            </form>
             @endif
-          </div>
+            @if($tipodoc!='Grado')
+            <form>
+              <div style="display:none;">
+                <input type="text" value="{{$grado}}" name="grado">
+                <input type="text" value="{{$mes}}" name="mes">
+              </div>
+              <div class="text-right">
+                  <button class="btn btn-sm btn-facebook" type="submit" formaction="{{url ('asistencias/create') }}">Cargar asistencia</button>
+              </div>
+           </form>
+           @endif
               <div class="row">
                 <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
-                <i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
-                <i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
-                <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
-                <i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
+                &nbsp<i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
+                &nbsp<i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
+                &nbsp<i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
+                &nbsp<i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
               </div>
-              </div> 
+              </div>
+                  
             </div>
           </div>
         </div>
