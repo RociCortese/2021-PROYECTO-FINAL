@@ -11,6 +11,9 @@
           <h4 class="card-title">Agregar nueva asistencia</h4>
           </div>
         <div class="card-body">
+          <div class="text-left">
+                <h5><span class="badge badge-success">Carga de asistencias de {{$gradodocente}}.</span></h5>
+          </div>
         <div class="row">
           <div class="col">
             <script type="text/javascript">
@@ -63,6 +66,7 @@
               });
               });
               </script>
+
             &nbsp <strong><input onclick="habilitartardanza()" type="checkbox"  id="checkTodos" style="width: 13px;height: 13px; padding: 0;margin:0;vertical-align: bottom;position: relative;top: -6.5px;*overflow: hidden;"/>&nbspMarcar/Desmarcar todos</strong>
               @foreach($infoasistencia as $infoasist)
               <tr>

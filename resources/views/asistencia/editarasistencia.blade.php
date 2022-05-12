@@ -12,22 +12,28 @@
           <h4 class="card-title">Editar asistencia</h4>
           </div>
         <div class="card-body">
+        <div class="text-left">
+                <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
+          </div>
         <div class="row">
           <div class="col">
             <label>Fecha</label>
-              <input type="date" id="fechaActual"  name="diaasistencia" class="form-control" >
-            @if ($errors->has('diaasistencia'))
-                <div id="diaasistencia-error" class="error text-danger pl-3" for="diaasistencia" style="display: block;">
-                  <strong>{{ $errors->first('diaasistencia') }}</strong>
-                </div>
-              @endif
-          </div>
-          <div class="col">
-            <br>
-           <button type="submit" class="btn btn-sm btn-facebook " >Editar Fecha</button>
+              <input type="date" id="fechaActual"  name="diaasistencia" disabled class="form-control" value="{{$fechaseleccionada}}">
           </div>
         </div>
         <br>
+        @if($infoasistencia->isEmpty())
+        <div class="text-center"> 
+        No hay asistencias cargadas para la fecha seleccionada.
+        <form>
+        <div style="display:none;">
+          <input type="text" value="{{$grado}}" name="grado">
+        </div>
+        <a class="text-primary" href="{{route('asistencia.edita')}}">Seleccionar otra fecha</a>
+          </form>
+        
+        </div>
+        @else
         <div class="table-responsive">
           <table class="table">
             <thead class="text-primary">
@@ -36,19 +42,71 @@
               <th>Tardanza</th>
             </thead>                    
             <tbody>
-              
-          
-           
-     
+              <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+              <script type="text/javascript">
+              function habilitartardanza() {
+              var x = document.getElementById("tardanzas");
+              if (x.disabled == false) {
+              x.disabled = true;
+              } else {
+              x.disabled = false;
+              }
+              }
+              </script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+              <script>
+              $(function(){
+              $('#checkTodos').change(function() {
+              $('input[id=estadoasistencias]').prop('checked', $(this).is(':checked'));
+              });
+              });
+              </script>
+            @foreach($infoasistencia as $infoasist)
+              <tr>
+              <td class="v-align-middle">{{$infoasist->nombrealumno}}</td>
+              <td>
+              <input type="checkbox" id="estadoasistencias" name="estadoasistencia[]"  value="{{$infoasist->id_alumno}}" onclick="habilitartardanza()" <?php if($infoasist->estado=='Presente') echo 'checked ';?>>
+              </td>
+              <td>
+              <input type="checkbox" id="tardanzas" name="tardanza[]" value="{{$infoasist->id_alumno}}"<?php if($infoasist->tardanza==1) echo 'checked ';?>>
+              </td>
+            </tr>
+            @endforeach
             </tbody>
           </table>
         </div>
         </div>
-          <div class="card-footer">
-          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button type="submit" class="btn btn-sm btn-facebook">Guardar asistencia</button>
-          </div>
-        </div>
+        @if($tipodoc=='Grado')
+          <form>
+            <div style="display:none;">
+                <input type="text" value="{{$mes}}" name="mes">
+                <input type="text" value="{{$fechaseleccionada}}" name="diaasistencia">
+                
+            </div>
+            <br>
+           <div class="card-footer">
+            <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+            <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
+           </div>
+           </div>
+          </form>
+        @endif
+        @if($tipodoc!='Grado')
+          <form>
+            <div style="display:none;">
+                <input type="text" value="{{$mes}}" name="mes">
+                <input type="text" value="{{$grado}}" name="grado">
+                <input type="text" value="{{$fechaseleccionada}}" name="diaasistencia">
+            </div>
+            <br>
+           <div class="card-footer">
+            <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+            <button type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
+           </div>
+           </div>
+          </form>
+        @endif
+        @endif
       </div>
        </form>
         </div>

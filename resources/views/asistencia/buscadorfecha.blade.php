@@ -5,14 +5,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class=" col-md-12"> 
-        <form action="{{ route('asistencia.update') }}" method="POST" class="form-horizontal">
+        <form action="{{ route('asistencia.editar') }}" class="form-horizontal">
         @csrf
-        @METHOD('PUT')
         <div class="card">
           <div class= "card-header card-header-info">
           <h4 class="card-title">Editar asistencia</h4>
           </div>
         <div class="card-body">
+        <div class="text-left">
+                <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
+          </div>
         <div class="row">
           <div class="col">
             <label>Fecha</label>
@@ -23,18 +25,33 @@
                 </div>
               @endif
           </div>
-
-          <div class="col">
-            <br>
-           <button type="submit" class="btn btn-sm btn-facebook " >Editar Fecha</button>
-          </div>
+            @if($tipodoc=='Grado')
+              <form>
+              <div class="col">
+              <div style="display:none;">
+              <input type="text" value="{{$mes}}" name="mes">
+              </div>
+              <br>
+              <button type="submit" class="btn btn-sm btn-facebook " >Editar asistencia</button>
+              </div>
+              </form>
+            @endif
+            @if($tipodoc!='Grado')
+              <form>
+              <div class="col">
+              <div style="display:none;">
+              <input type="text" value="{{$mes}}" name="mes">
+              <input type="text" value="{{$grado}}" name="grado">
+              </div>
+              <br>
+              <button type="submit" class="btn btn-sm btn-facebook " >Editar asistencia</button>
+              </div>
+              </form>
+            @endif
         </div>   
         </div>
           <div class="card-footer">
-          
         </div>
-
-        
       </div>
        </form>
         </div>

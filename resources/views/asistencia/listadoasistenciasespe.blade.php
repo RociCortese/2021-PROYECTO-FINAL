@@ -65,9 +65,10 @@
               </div>
             </form>
             <br>
-            @if(session('success'))
-            <div class="alert alert-success" role="success">
-            {{session('success')}}
+            @if(empty($success))
+            @else
+            <div class="alert alert-success">
+            {{$success}}
             </div>
             <script type="text/javascript">
             window.setTimeout(function() {
@@ -190,6 +191,7 @@
               </div>
               <div class="text-right">
                   <button class="btn btn-sm btn-facebook" type="submit" formaction="{{url ('asistencias/create') }}">Cargar asistencia</button>
+                  <button class="btn btn-sm btn-facebook" formaction="{{url ('asistencias/edita') }}">Editar Asistencia</button>
               </div>
            </form>
             @endif
@@ -201,6 +203,7 @@
               </div>
               <div class="text-right">
                   <button class="btn btn-sm btn-facebook" type="submit" formaction="{{url ('asistencias/create') }}">Cargar asistencia</button>
+                  <button class="btn btn-sm btn-facebook" formaction="{{url ('asistencias/edita') }}">Editar Asistencia</button>
               </div>
            </form>
            @endif
