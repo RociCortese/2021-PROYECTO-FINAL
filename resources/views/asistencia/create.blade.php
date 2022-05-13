@@ -11,9 +11,11 @@
           <h4 class="card-title">Agregar nueva asistencia</h4>
           </div>
         <div class="card-body">
-          <div class="text-left">
-                <h5><span class="badge badge-success">Carga de asistencias de {{$gradodocente}}.</span></h5>
-          </div>
+          @if($tipodoc!='Grado')  
+        <div class="text-left">
+            <h5><span class="badge badge-success">Edición de asistencias de {{$gradodocente}}.</span></h5>
+        </div>
+        @endif
         <div class="row">
           <div class="col">
             <script type="text/javascript">

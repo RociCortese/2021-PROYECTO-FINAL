@@ -12,9 +12,11 @@
           <h4 class="card-title">Editar asistencia</h4>
           </div>
         <div class="card-body">
+        @if($tipodoc!='Grado')  
         <div class="text-left">
-                <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
-          </div>
+            <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
+        </div>
+        @endif
         <div class="row">
           <div class="col">
             <label>Fecha</label>
@@ -25,13 +27,21 @@
         @if($infoasistencia->isEmpty())
         <div class="text-center"> 
         No hay asistencias cargadas para la fecha seleccionada.
+        @if($tipodoc=='Grado')
+        <form>
+        <div style="display:none;">
+          <input type="text" value="{{$mes}}" name="mes">
+        </div>
+        <a class="text-primary" type="submit" href="javascript:history.back()">Seleccionar otra fecha</a>
+        </form>
+        @else
         <form>
         <div style="display:none;">
           <input type="text" value="{{$grado}}" name="grado">
         </div>
-        <a class="text-primary" href="{{route('asistencia.edita')}}">Seleccionar otra fecha</a>
-          </form>
-        
+        <a class="text-primary" href="javascript:history.back()">Seleccionar otra fecha</a>
+        </form>
+        @endif
         </div>
         @else
         <div class="table-responsive">

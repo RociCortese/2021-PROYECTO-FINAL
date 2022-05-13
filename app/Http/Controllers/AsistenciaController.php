@@ -592,9 +592,9 @@ class AsistenciaController extends Controller
     $infoasistencia[$i]->update();
     }
     if($tipodoc=='Grado'){
-    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('fechaseleccionada',$fechaseleccionada)->get();
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('mes',$mes)->get();
     $infoasistencia=$infoasistencias->unique('nombrealumno');
-        if($infoasistencia->isEmpty()){
+    if($infoasistencia->isEmpty()){
     $alugradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('id_alumnos');
     $alugradodocente = preg_replace('/[\[\]\.\;\" "]+/', '', $alugradodocente);
     $alugradodocente=explode(',', $alugradodocente);
@@ -612,11 +612,10 @@ class AsistenciaController extends Controller
     else{
     return view('asistencia.listadoasistenciasespe',compact('tipodoc','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','success'));
     } 
-    
     }
     else{
     $grado=$request->grado;
-    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->where('fecha',$fechaseleccionada)->get();
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->where('mes',$mes)->get();
     $infoasistencia=$infoasistencias->unique('nombrealumno');
      $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
         foreach($infogrado as $informaciongrado){

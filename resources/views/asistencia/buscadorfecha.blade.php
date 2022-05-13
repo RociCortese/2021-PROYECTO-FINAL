@@ -12,9 +12,11 @@
           <h4 class="card-title">Editar asistencia</h4>
           </div>
         <div class="card-body">
+        @if($tipodoc!='Grado')  
         <div class="text-left">
-                <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
-          </div>
+            <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
+        </div>
+        @endif
         <div class="row">
           <div class="col">
             <label>Fecha</label>
