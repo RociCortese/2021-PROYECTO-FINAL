@@ -406,6 +406,7 @@ class AsistenciaController extends Controller
         $asistencia->save();
         }
     }
+    $success='Las asistencias se guardaron correctamente';
     if($tipodoc=='Grado'){
     $mes=$request->mes;
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
@@ -424,10 +425,10 @@ class AsistenciaController extends Controller
         }
         $nombrecompleto[]=$nombrealumno.' '.$apellidoalumno;
     }
-   return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','nombrecompleto'));
+   return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','nombrecompleto','success'));
     }
     else{
-    return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes'));
+    return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','success'));
     } 
     
     }
@@ -461,18 +462,16 @@ class AsistenciaController extends Controller
         }
         $nombrecompleto[]=$nombrealumno.' '.$apellidoalumno;
     }
-     return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','gradodocente','mes','grado','nombresgrado','nombrecompleto'));
+     return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','gradodocente','mes','grado','nombresgrado','nombrecompleto','success'));
     }
     else{
-    return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','gradodocente','mes','grado','nombresgrado'));
+    return view('asistencia.listadoasistenciasespe',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','gradodocente','mes','grado','nombresgrado','success'));
     } 
-   
     } 
     }
 
-    public function buscador()
+    public function buscador(Request $request)
     {
-
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -488,20 +487,26 @@ class AsistenciaController extends Controller
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
-    
+    $mes=$request->mes;
     if($tipodoc=='Grado'){
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
     $infoasistencia=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->get();
-     
-
-
+    return view('asistencia.buscadorfecha',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','infoasistencia','mes')); 
     }
-    return view('asistencia.buscadorfecha',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','infoasistencia')); 
+    if($tipodoc!='Grado'){
+    $grado=$request->grado;
+    $infoasistencia=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->get();
+    return view('asistencia.buscadorfecha',compact('tipodoc','informacionperiodo','descripcionaño','infoaño','infoasistencia','mes','grado')); 
     }
-
+    }
     
-    public function editarasistencia()
+    public function editarasistencia(Request $request)
     {
+    $mes=$request->mes;
+    $fechaseleccionada=$request->diaasistencia;
+    $request->validate([
+            'diaasistencia' => ['required'],
+        ]);
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -513,22 +518,23 @@ class AsistenciaController extends Controller
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
-
     if($tipodoc=='Grado'){
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
-    $infoasistencia=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->get();
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('fecha',$fechaseleccionada)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');
+    return view('asistencia.editarasistencia',compact('infoasistencia','fechaseleccionada','mes','tipodoc')); 
     }
     if($tipodoc!='Grado'){
-    $gradodocente='Primer grado A';
-    $infoasistencia=Asistencia::where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->get();   
+    $grado=$request->grado;
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->where('fecha',$fechaseleccionada)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');
+    return view('asistencia.editarasistencia',compact('infoasistencia','fechaseleccionada','mes','tipodoc','grado'));   
     }
-
-
-    return view('asistencia.editarasistencia',compact('infoasistencia')); 
+    
     }
-
     public function update(Request $request)
     {
+    $fechaseleccionada=$request->diaasistencia;
     $idpersona= Auth::user()->idpersona;
     $tipodocente=Docente::where('id',$idpersona)->get();
     foreach($tipodocente as $tipo){
@@ -540,21 +546,110 @@ class AsistenciaController extends Controller
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
-        
+    $mes=$request->mes;
+    $meses = array('Marzo', 'Abril', 'Mayo', 'Junio',
+       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+    $success='Las asistencias se modificaron correctamente';
     if($tipodoc=='Grado'){
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
-    $infoasistencia=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->first();
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('fecha',$fechaseleccionada)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');
     }
     if($tipodoc!='Grado'){
-    $gradodocente='Primer grado A';
-    $infoasistencia=Asistencia::where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->get();   
+    $grado=$request->grado;
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->where('fecha',$fechaseleccionada)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');  
+    }
+    $contadorasist=count($infoasistencia)-1;
+    for ($i=0; $i <=$contadorasist ; $i++) {
+    $infoasistencia[$i]->estado='Ausente'; 
+    $presentes=$request->estadoasistencia;
+        if(empty($presentes)){
+        
+        }
+        else{
+        $contadorpresentes=count($presentes)-1;
+        for ($j=0; $j <=$contadorpresentes; $j++) { 
+            if($presentes[$j]==$infoasistencia[$i]->id_alumno){
+            $infoasistencia[$i]->estado='Presente';
+            break;
+            }
+        }
+        }
+        $infoasistencia[$i]->tardanza=0;  
+        $tardanzas=$request->tardanza;
+        if(empty($tardanzas)){
+        }
+        else{
+        $contadortardanzas=count($tardanzas)-1;
+        for ($j=0; $j <=$contadortardanzas; $j++) { 
+            if($tardanzas[$j]==$infoasistencia[$i]->id_alumno){
+            $infoasistencia[$i]->tardanza=1; 
+            break;
+            }
+        }
+        }
+    $infoasistencia[$i]->update();
+    }
+    if($tipodoc=='Grado'){
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('mes',$mes)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');
+    if($infoasistencia->isEmpty()){
+    $alugradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('id_alumnos');
+    $alugradodocente = preg_replace('/[\[\]\.\;\" "]+/', '', $alugradodocente);
+    $alugradodocente=explode(',', $alugradodocente);
+    $contadoralugradodocente=count($alugradodocente)-1;
+    for ($i=0; $i <=$contadoralugradodocente ; $i++) { 
+        $nombrealumno=Alumno::where('id',$alugradodocente[$i])->get();
+        foreach($nombrealumno as $nombrealu){
+            $nombrealumno="$nombrealu->nombrealumno";
+            $apellidoalumno="$nombrealu->apellidoalumno";
+        }
+        $nombrecompleto[]=$nombrealumno.' '.$apellidoalumno;
+    }
+   return view('asistencia.listadoasistenciasespe',compact('tipodoc','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','nombrecompleto','success'));
+    }
+    else{
+    return view('asistencia.listadoasistenciasespe',compact('tipodoc','descripcionaño','infoaño','meses','infoasistencia','infoasistencias','mes','success'));
+    } 
+    }
+    else{
+    $grado=$request->grado;
+    $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$grado)->where('año_id',$idaño)->where('mes',$mes)->get();
+    $infoasistencia=$infoasistencias->unique('nombrealumno');
+     $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
+        foreach($infogrado as $informaciongrado){
+        $docentesespeciales="$informaciongrado->id_docentesespe";
+        $docentesespeciales = preg_replace('/[\[\]\.\;\" "]+/', '', $docentesespeciales);
+        $docentesespeciales=explode(',', $docentesespeciales);
+        $contador=count($docentesespeciales)-1;
+        for($i=0;$i<=$contador;$i++){
+            if($docentesespeciales[$i]==Auth::user()->idpersona){
+            $nombresgrado[]="$informaciongrado->descripcion";
+            }
+        }
+        }
+    if($infoasistencia->isEmpty()){
+    $alugradodocente=Grado::where('colegio_id',$idcolegio)->where('id_anio',$idaño)->where('descripcion',$grado)->pluck('id_alumnos');
+    $alugradodocente = preg_replace('/[\[\]\.\;\" "]+/', '', $alugradodocente);
+    $alugradodocente=explode(',', $alugradodocente);
+    $contadoralugradodocente=count($alugradodocente)-1;
+    for ($i=0; $i <=$contadoralugradodocente ; $i++) { 
+        $nombrealumno=Alumno::where('id',$alugradodocente[$i])->get();
+        foreach($nombrealumno as $nombrealu){
+            $nombrealumno="$nombrealu->nombrealumno";
+            $apellidoalumno="$nombrealu->apellidoalumno";
+        }
+        $nombrecompleto[]=$nombrealumno.' '.$apellidoalumno;
+    }
+     return view('asistencia.listadoasistenciasespe',compact('infoasistencia','infoasistencias','fechaseleccionada','tipodoc','descripcionaño','infoaño','meses','mes','success','grado','nombresgrado'));
+    }
+    else{
+    return view('asistencia.listadoasistenciasespe',compact('infoasistencia','infoasistencias','fechaseleccionada','tipodoc','descripcionaño','infoaño','meses','mes','success','grado','nombresgrado')); 
+    } 
+     
     }
 
-    $infoasistencia->fecha=$request->diaasistencia;
-    $infoasistencia->update();
-
-return view('asistencia.editarasistencia',compact('infoasistencia')); 
-    
     }
     
 }

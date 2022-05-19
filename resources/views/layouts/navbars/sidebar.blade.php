@@ -101,6 +101,14 @@
           </ul>
         </div>
       </li>
+       <li class="nav-item{{ $activePage == 'libretas' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('libretas')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Impresión de libretas') }} </span>
+                </div>
+              </a>
+            </li>
           <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('calendario')}}">
                 <div class="items-dashboard">

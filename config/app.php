@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
         Chatify\ChatifyServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
         /*
@@ -234,6 +235,7 @@ return [
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'Chatify' => Chatify\Facades\ChatifyMessenger::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 
 ];

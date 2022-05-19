@@ -156,3 +156,9 @@ Route::post('asistencias/store', 'App\Http\Controllers\AsistenciaController@stor
 Route::get('asistencias/editarasis', 'App\Http\Controllers\AsistenciaController@editarasistencia')->name('asistencia.editar');
 Route::put('asistencias/editar', 'App\Http\Controllers\AsistenciaController@update')->name('asistencia.update');
 Route::get('asistencias/edita', 'App\Http\Controllers\AsistenciaController@buscador')->name('asistencia.edita');
+
+/*Impresión de libretas*/
+Route::get('libretas','App\Http\Controllers\LibretasController@buscador')->name('libretas');
+Route::get('listadoalumnos','App\Http\Controllers\LibretasController@index')->name('listadoalumnos');
+Route::get('generarlibreta/{nombrecompleto}','App\Http\Controllers\LibretasController@generarlibreta')->name('generarlibreta');
+Route::get('generartodosinformes','App\Http\Controllers\LibretasController@generartodosinformes')->name('generartodosinformes');
