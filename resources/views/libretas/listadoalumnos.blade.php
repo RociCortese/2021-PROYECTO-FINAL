@@ -9,7 +9,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-info">
-                <h4 class="card-title ">Libretas escolares</h4>
+                <h4 class="card-title ">Informes de progreso escolar</h4>
               </div>
               <div class="card-body">
                 @foreach($infoaño as $año)
@@ -90,10 +90,21 @@
                     ?>
                       <td class="td-actions v-align-middle">
                         <form action="{{route('generarlibreta',$nombrecompleto)}}">
+                          <div style="display: none;">
+                          <input type="text" value="{{$periodo}}" name="periodo">
+                          </div>
                         <button class="btn btn-success" title="Descargar informe">
                         <i class="bi bi-download"></i>
                         </button>
                         </form>
+                        <!--<form action="{{route('compartirinforme',$nombrecompleto)}}">
+                          <div style="display: none;">
+                          <input type="text" value="{{$periodo}}" name="periodo">
+                          </div>
+                        <button class="btn btn-info" title="Compartir informe">
+                        <i class="bi bi-share"></i>
+                        </button>
+                        </form>-->
                       </td>
                     </tr>
                     <?php 
@@ -102,11 +113,17 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="text-center">
                 <form action="{{route('generartodosinformes')}}">
-                  <button class="btn btn-facebook" title="Descargar todos los informes">Descargar todos
+                  <div style="display: none;">
+                  <input type="text" value="{{$periodo}}" name="periodo">
+                  <input type="text" value="{{$grado}}" name="grado">
+                  </div>
+                  <button class="btn btn-sm btn-facebook" title="Descargar todos los informes">Descargar todos los informes
                   </button>
                   </form>
-
+               </div>
+           
             </div>
           </div>
         </div>

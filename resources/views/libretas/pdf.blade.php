@@ -5,18 +5,19 @@
             margin: 0.1cm 0.1cm;
         }
         body {
-            margin: 3cm 2cm 2cm;
+            margin: 3cm 2cm 4cm;
         }
-
         header {
             position: fixed;
+            margin-top:-8px;
+            vertical-align:middle;
             top: 0cm;
             left: 0cm;
             right: 0cm;
-            height: 4cm;
+            height: 3cm;
             color: black;
             text-align: center;
-            line-height: 5px;
+            line-height: 10px;
         }
 
         p {
@@ -24,7 +25,7 @@
         }
 
         footer {
-            position: fixed;
+            position:absolute;
             bottom: 0cm;
             left: 0cm;
             right: 0cm;
@@ -43,7 +44,7 @@
 <header>
 	<table style="width:87%;"> 
 	<tr>
-		<td style="width:17%;text-align: center;"> 
+		<td style="width:17%;text-align:center;"> 
         <?php 
          $idcolegio=Auth::user()->colegio_id;
          $files_id=App\Models\Colegio::where('id',$idcolegio)->pluck('files_id');
@@ -51,10 +52,11 @@
          $files=App\Models\File::where('id',$files_id)->pluck('file');
          $files=preg_replace('/[\[\]\\;\""]+/', '', $files);
         ?>
-        <img src="./file/{{$files}}" width="120px" height="120px"/>
+
+        <img src="./file/{{$files}}" width="130px" height="130px"/>
 		</td>
 		<td style="width:83%;text-align: center;">
-			<p style="font-size: 25px;">
+			<p style="font-size: 22px;">
     	<?php 
     	 $idcolegio=Auth::user()->colegio_id;
             $nombrecolegio=App\Models\Colegio::where('id',$idcolegio)->pluck('nombre');
@@ -83,13 +85,10 @@
 	</table>
     <hr style="background-color:#5B86E5;color:#5B86E5 ;height: 5px;">
 </header>
-<br>
-<main>
-    <br>
+<main style="position:relative;top: 40px;">
     <u><h3 style="text-align:center;">INFORME DE PROGRESO ESCOLAR</h3></u>
     <p style="text-align: justify;">
         <?php
-        $periodo='Primer período';
         $generoalumno=App\Models\Alumno::where('nombrecompleto',$nombrecompleto)->pluck('generoalumno');
         $generoalumno = preg_replace('/[\[\]\.\;\""]+/', '', $generoalumno);
         $gradoalumno=App\Models\Alumno::where('nombrecompleto',$nombrecompleto)->pluck('grado');
@@ -117,8 +116,7 @@
     $idalumno = preg_replace('/[\[\]\.\;\""]+/', '', $idalumno);
     $informealumno=App\Models\Informes::where('id_alumno',$idalumno)->where('año',$idaño)->where('colegio_id',$idcolegio)->where('periodo',$periodo)->get();
     ?>
-    <div>
-        <table class="tabla" style="width: 100%;" >
+        <table class="tabla" style="width: 100%;page-break-after:auto;" >
         <thead style="background-color:#BEC2DD;">
         <th class="tabla" style="width:30%;">Espacio curricular</th>
         <th class="tabla" style="width:15%;">Calificación</th>
@@ -149,17 +147,58 @@
         @endforeach
         </tbody>
         </table>
-    </div>
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
+Esperamos nuevas oportunidades y siempre estaremos listos para ayudarlo con todas y cada una de sus necesidades de diseño de interiores. Desde 2009, nuestro equipo ha estado diseñando espacios modernos y contemporáneos en Londres y en toda Europa. Trabajamos con arquitectos, diseñadores de interiores, fotógrafos y curadores para hacer realidad el aspecto de sus sueños. En HUB, diseñamos con una sensibilidad moderna que es contemporánea con una sensación claramente londinense.
+Esperamos nuevas oportunidades y siempre estaremos 
 </main>
-<footer>
-  <script type="text/php">
+   <div id="content" style="position: absolute; left: 91px;bottom:50px;">
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align:center;width: 200px;">..........................................</td>
+            <td style="text-align:center;width: 200px;"></td>
+            <td style="text-align:center;width: 200px;">...........................................</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;font-size: 17px;width: 200px;">Firma directivo</td>
+            <td style="text-align:center;font-size: 17px;width: 200px; ">Sello establecimiento</td>
+            <td style="text-align:center;font-size: 17px;width: 200px; ">Firma docente</td>
+        </tr>
+    </table>
+</div>
+
+   <div id="footer"><script type="text/php">
         if ( isset($pdf) ) {
             $pdf->page_script('
                 $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
                 $pdf->text(260, 810, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
             ');
         }
-    </script>
-</footer>
+    </script></div>
+
+
 </body>
 </html>
