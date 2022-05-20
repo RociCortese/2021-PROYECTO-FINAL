@@ -11,6 +11,8 @@ use App\Models\Docente;
 use App\Models\Colegio;
 use App\Models\Grado;
 use App\Models\Alumno;
+use App\Models\Informes;
+use Mail;
 
 class LibretasController extends Controller
 {
@@ -45,10 +47,12 @@ class LibretasController extends Controller
     foreach($infoperiodo as $infoperi){
       $informacionperiodo="$infoperi->periodo";
     }
-    $infogrado=Grado::where('colegio_id',$idcolegio)->where('id_anio',$idaño)->where('descripcion',$grado)->pluck('id_alumnos');
-    $infogrado = preg_replace('/[\[\]\.\;\" "]+/', '', $infogrado);
+    $infogrado=Informes::where('colegio_id',$idcolegio)->where('año',$idaño)->where('grado',$grado)->where('periodo',$periodo)->pluck('id_alumno');
+    $infogrado = preg_replace('/[\[\]\.\;\""]+/', '', $infogrado);
     $infogrado=explode(',',$infogrado);
+
     $contador=count($infogrado)-1;
+    
     for ($i=0; $i <=$contador ; $i++) { 
         $nombrealumno[]=Alumno::where('id',$infogrado[$i])->pluck('nombrealumno');
         $apellidoalumno[]=Alumno::where('id',$infogrado[$i])->pluck('apellidoalumno');
@@ -57,25 +61,40 @@ class LibretasController extends Controller
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
     return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo'));
     }
-    public function generarlibreta($nombrecompleto)
+    public function generarlibreta(Request $request, $nombrecompleto)
     {
-    $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto'));
-    return $pdf->download('LibretaEscolar'.'-'.$nombrecompleto.'.pdf');
+    $periodo=$request->periodo;
+    $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto','periodo'));
+    return $pdf->download('InformeEscolar'.'-'.$nombrecompleto.'.pdf');
     }
-    public function compartirinforme($nombrecompleto){
-    $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto'));
-    Mail::send('libretas.pdf', $messageData, function ($mail) use ($pdf) {
+
+    /*public function compartirinforme(Request $request, $nombrecompleto){
+    $periodo=$request->periodo;
+    $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto','periodo'));
+    Mail::send('emails/templates/send-invoice', $messageData, function ($mail) use ($pdf) {
     $mail->from('sofibovo501@gmail.com', 'John Doe');
     $mail->to('sofibovo501@gmail.com');
     $mail->attachData($pdf->output(), 'libretas.pdf');
-});
-    }
-    /*    
-    public function generartodosinformes(){ 
-    $pdf = \PDF::loadView('libretas.pdf');
-    $zip = new ZipArchive();
-    $zip->add_file($pdf)
-    $zip = "Informes.zip";
-    return response()->download(public_path($zip));
+    });
     }*/
+
+    public function generartodosinformes(Request $request){ 
+    $grado=$request->grado;
+    $periodo=$request->periodo;
+    $idcolegio=Auth::user()->colegio_id;
+    $nombre=Alumno::where('grado',$grado)->where('colegio_id',$idcolegio)->pluck('nombrecompleto');
+    $nombre = preg_replace('/[\[\]\.\;\""]+/', '', $nombre);
+    $nombre=explode(',',$nombre);
+    $contadoralumnos=count($nombre)-1;
+    $zipfile = new ZipArchive();
+    $zipfile->open(storage_path('app/public/archivos/Informes'.'-'.$grado.'.zip'), ZipArchive::CREATE);
+    for ($i=0; $i <=$contadoralumnos ; $i++) { 
+    $nombrecompleto=$nombre[$i];
+    $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto','periodo'))
+        ->save(storage_path('app/public/archivos/') . 'InformeEscolar'.'-'.$nombrecompleto.'.pdf');
+    $zipfile->addFile(storage_path('app/public/archivos/InformeEscolar'.'-'.$nombrecompleto.'.pdf'), 'InformeEscolar'.'-'.$nombrecompleto.'.pdf');
+    }
+    $zipfile->close();
+    return response()->download(storage_path('app/public/archivos/Informes'.'-'.$grado.'.zip'));
+}
 }

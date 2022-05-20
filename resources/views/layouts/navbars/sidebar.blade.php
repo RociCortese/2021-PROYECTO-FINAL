@@ -105,7 +105,7 @@
               <a class="nav-link" href="{{route('libretas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
-                <span class="sidebar-normal"> {{ __('Impresión de libretas') }} </span>
+                <span class="sidebar-normal"> {{ __('Impresión de informes') }} </span>
                 </div>
               </a>
             </li>

@@ -162,3 +162,4 @@ Route::get('libretas','App\Http\Controllers\LibretasController@buscador')->name(
 Route::get('listadoalumnos','App\Http\Controllers\LibretasController@index')->name('listadoalumnos');
 Route::get('generarlibreta/{nombrecompleto}','App\Http\Controllers\LibretasController@generarlibreta')->name('generarlibreta');
 Route::get('generartodosinformes','App\Http\Controllers\LibretasController@generartodosinformes')->name('generartodosinformes');
+Route::get('compartirinforme/{nombrecompleto}','App\Http\Controllers\LibretasController@compartirinforme')->name('compartirinforme');
