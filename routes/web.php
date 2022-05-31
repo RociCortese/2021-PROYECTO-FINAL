@@ -163,3 +163,11 @@ Route::get('listadoalumnos','App\Http\Controllers\LibretasController@index')->na
 Route::get('generarlibreta/{nombrecompleto}','App\Http\Controllers\LibretasController@generarlibreta')->name('generarlibreta');
 Route::get('generartodosinformes','App\Http\Controllers\LibretasController@generartodosinformes')->name('generartodosinformes');
 Route::get('compartirinforme/{nombrecompleto}','App\Http\Controllers\LibretasController@compartirinforme')->name('compartirinforme');
+
+/*Visualización asistencias por parte de la familia*/
+Route::get('asistenciasalumnos','App\Http\Controllers\AsistenciaFamiliaController@buscador')->name('asistenciasalumnos');
+Route::put('enviarjustificacion/{id}', 'App\Http\Controllers\AsistenciaFamiliaController@enviarjustificacion')->name('enviarjustificacion');
+Route::get('justificacioninasistencias','App\Http\Controllers\AsistenciaFamiliaController@justificacioninasistencias')->name('justificacioninasistencias');
+Route::put('aceptarjustificacion/{id}', 'App\Http\Controllers\AsistenciaFamiliaController@aceptarjustificacion')->name('aceptarjustificacion');
+Route::put('descargararchivo/{id}','App\Http\Controllers\AsistenciaFamiliaController@descargararchivo')->name('descargararchivo');
+

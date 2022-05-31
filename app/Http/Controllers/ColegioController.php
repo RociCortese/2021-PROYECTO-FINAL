@@ -44,7 +44,7 @@ public function store(Request $request)
 
   $files=new File();
   $files->file=$request->file;
-  if($request->hasfile("file")){
+  if($request->hasFile("file")){
     $imagen=$request->file("file");
     $nombreimagen = Str::slug($request->file).".".$imagen->guessExtension();
     $ruta=public_path("file");

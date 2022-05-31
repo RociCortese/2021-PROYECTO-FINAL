@@ -219,9 +219,6 @@ class AsistenciaController extends Controller
     return view('asistencia.create',compact('infoasistencia','gradodocente','tipodoc','mes')); 
     }
     }
-
-
-
     public function store(Request $request)
     {
     $idpersona= Auth::user()->idpersona;
@@ -297,7 +294,8 @@ class AsistenciaController extends Controller
             $mes='Diciembre';
         }
         $infoasistencia[$i]->mes=$mes;
-        $infoasistencia[$i]->estado='Ausente';  
+        $infoasistencia[$i]->estado='Ausente';
+        $infoasistencia[$i]->justificacion=0;
         $presentes=$request->estadoasistencia;
         if(empty($presentes)){
         }
@@ -373,6 +371,7 @@ class AsistenciaController extends Controller
         }
         $asistencia->mes=$mes;
         $asistencia->estado='Ausente';  
+        $infoasistencia[$i]->justificacion=0;
         $presentes=$request->estadoasistencia;
         if(empty($presentes)){
         }
@@ -469,7 +468,6 @@ class AsistenciaController extends Controller
     } 
     } 
     }
-
     public function buscador(Request $request)
     {
     $idpersona= Auth::user()->idpersona;

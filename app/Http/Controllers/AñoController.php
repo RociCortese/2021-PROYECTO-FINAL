@@ -144,7 +144,7 @@ class AñoController extends Controller
       $todoestado= Año::where('id_colegio',$idcolegio)->orderBy('descripcion','ASC')->get();
       foreach ($todoestado as $todoest) {
       $todoesta="$todoest->id";
-    }
+      }
       if($todoestado->isEmpty())
         {
             return view('añoescolar.listadogrado',compact('todoestado','colegio'));
@@ -533,7 +533,7 @@ class AñoController extends Controller
       $request->validate([
             'id_docentesespe' => ['required'],
         ]);
-        $idpersona= Auth::user()->idpersona;
+        $idpersona= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idpersona);
         foreach($colegio as $col)
             {   

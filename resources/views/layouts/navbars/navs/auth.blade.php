@@ -72,27 +72,139 @@
                 <?php
                   use App\Models\Event;
                   use App\Models\estadoevento;
+                  use App\Models\Asistencia;
+                  use Illuminate\Support\Facades\Auth;
+                  use App\Models\Año;
+                  use App\Models\Alumno;
                   $eventosparticipantes=estadoevento::where('id_participante',Auth::user()->id)->get();
-                  $count=0;
+                  $idcolegio=Auth::user()->colegio_id;
+                  $idpersona= Auth::user()->idpersona;
+                  $rol= Auth::user()->role;
+                  if($rol=='docente'){
+                  $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                  foreach($infoaño as $activo){
+                  $idaño="$activo->id";
+                  $descripcionaño="$activo->descripcion";
+                  }
+                  $nuevajustificacion=Asistencia::where('docente',$idpersona)->where('colegio_id',$idcolegio)->where('año_id',$idaño)->where('justificacion',1)->where('gestionjustificacion',NULL)->orderby('fecha','DESC')->get();
+                  }
+                  if($rol=='familia'){
+                  $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                  foreach($infoaño as $activo){
+                  $idaño="$activo->id";
+                  $descripcionaño="$activo->descripcion";
+                  }
+                  $idfamilia=Auth::user()->idpersona;
+                  $nombrealumno=Alumno::where('familias_id',$idfamilia)->pluck('nombrecompleto');
+                  $contadoralumnos=count($nombrealumno)-1;
+                  for($i=0;$i<=$contadoralumnos;$i++){
+                  $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
+                  }
+                  }
+                  $count1=0;
                   foreach($eventosparticipantes as $eventpart)
                   {
                   $evento=Event::where('id',$eventpart->id_evento)->get();
                   foreach($evento as $event){
                   $fechaevento="$event->fecha";
                   if($fechaevento>=date("Y-m-d")){
-                  $count++;
+                  $count1++;
                   }
                 }
+              }
+                  $count2=0;
+                  if($rol=='docente'){
+                  foreach($nuevajustificacion as $nuevajusti)
+                  {
+                  $count2++;
+                  }
+                  }
+                  if($rol=='familia'){
+                  for($i=0;$i<=$contadoralumnos;$i++){
+                foreach($nuevajustificacion[$i] as $nuevajusti[$i]){
+                  {
+                  $count2++;
+                  }
+                  }
                 }
+              }
+              $contador=$count1+$count2;
                   ?>
                 <a class="nav-link posicion" data-toggle="dropdown" href="#">
                   <i class="bi bi-bell" style="font-size: 1.5rem; "></i>
-                    <span class="num">{{$count}}</span>
+                    <span class="num">{{$contador}}</span>
                 </a>
-
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="width:500%;">
+
                 <?php
-                if($count==0)
+                  $idcolegio=Auth::user()->colegio_id;
+                  $idpersona= Auth::user()->idpersona;
+                  $rol= Auth::user()->role;
+                  if($rol=='docente'){?>
+                  <strong><span class="dropdown-header"  style="color: #007991;">JUSTIFICACIONES DE INASISTENCIAS</span></strong>
+                    <?php
+                  $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                  foreach($infoaño as $activo){
+                  $idaño="$activo->id";
+                  $descripcionaño="$activo->descripcion";
+                  }
+                  $nuevajustificacion=Asistencia::where('docente',$idpersona)->where('colegio_id',$idcolegio)->where('año_id',$idaño)->where('justificacion',1)->where('gestionjustificacion',NULL)->orderby('fecha','DESC')->get();
+                  if(empty($nuevajustificacion)){?>
+                  <span>No hay justificaciones para gestionar</span>
+                  <?php
+                  }
+                  else{
+                  ?>
+                  <?php 
+                  foreach($nuevajustificacion as $nuevajusti){?>
+                    <div class="row" style="margin-left:10px;">
+                    <a href="{{route('justificacioninasistencias',$nuevajusti->id)}}" class="dropdown-item">
+                    <i class="bi bi-journal-text" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$nuevajusti->nombrealumno}}</span>
+                    <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($nuevajusti->fecha)->format('d-m-Y')}}</span>
+                    </a>
+                    </div>
+                  <?php 
+                  }
+                  }
+                  }
+                  if($rol=='familia'){?>
+                  <strong><span class="dropdown-header" style="color: #007991;">JUSTIFICACIONES DE INASISTENCIAS</span></strong>
+                    <?php
+                  $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                  foreach($infoaño as $activo){
+                  $idaño="$activo->id";
+                  $descripcionaño="$activo->descripcion";
+                  }
+                  $idfamilia=Auth::user()->idpersona;
+                  $nombrealumno=Alumno::where('familias_id',$idfamilia)->pluck('nombrecompleto');
+                  $contadoralumnos=count($nombrealumno)-1;
+                  for($i=0;$i<=$contadoralumnos;$i++){
+                  $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
+                  }
+                  if(empty($nuevajustificacion)){?>
+                  <span>No hay justificaciones para gestionar</span>
+                  <?php
+                  }
+                  else{
+                  for($i=0;$i<=$contadoralumnos;$i++){
+                foreach($nuevajustificacion[$i] as $nuevajusti[$i]){?>
+                    <div class="row" style="margin-left:10px;">
+                    <a href="{{route('asistenciasalumnos',$nuevajusti[$i]->id)}}" class="dropdown-item">
+                    <i class="bi bi-journal-text" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$nuevajusti[$i]->nombrealumno}}</span>
+                    <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($nuevajusti[$i]->fecha)->format('d-m-Y')}}</span>
+                    </a>
+                    </div>
+                  <?php 
+                  }
+                  }
+                  }
+                }
+                  ?>
+
+                <strong><span class="dropdown-header"  style="color: #007991;">EVENTOS</span></strong>
+                <small class="ml-3 text-muted">Solo se muestran los próximos tres eventos.</small>
+                <?php
+                if($count1==0)
                 {
                   ?>
                   <span class="dropdown-header" >No tiene próximos eventos.</span>
@@ -100,14 +212,13 @@
                 }
                 else{
                     ?>
-                <span class="dropdown-header" style="color: #007991; margin-left:-4%;"><strong>PRÓXIMOS EVENTOS</strong></span>
                 <?php
-                  $count = 0;
+                  $count1 = 0;
                   $nuevoseventos=estadoevento::where('id_participante',Auth::user()->id)->get();
                   $rolparticipante=User::where('id',Auth::user()->id)->pluck("role");
                     $rolparticipante = preg_replace('/[\[\]\.\;\" "]+/', '', $rolparticipante);
                   foreach($nuevoseventos as $nueveventos){
-                    if($count == 3){
+                    if($count1 == 3){
                         break;
                       }
                   $idevento="$nueveventos->id_evento";
@@ -119,36 +230,43 @@
                     if($rolparticipante=='familia'){
                     if($month>=date("Y-m-d")){ 
                     ?>
+                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('eventosfamilianotif',$nuevo->id)}}" class="dropdown-item">
                     <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
+                  </div>
                     <?php }
                   }
                     if($rolparticipante=='docente'){
                     if($month>=date("Y-m-d")){ 
                     ?>
+                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('calendariodocente',$month)}}" class="dropdown-item">
                     <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
+                    </div>
                     <?php }
                   }
                     if($rolparticipante=='directivo'){
                     if($month>=date("Y-m-d")){ 
                     ?>
+                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('calendariodirectivo',$month)}}" class="dropdown-item">
                     <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
+                  </div>
                     <?php } }
                     }
                     }?>
-                    <span class="dropdown-header text-center" >Solo se muestran los próximos tres eventos.</span>
-                    <?php $count++;
+                    
+                    <?php $count1++;
                   }
-                
                   ?>
+
+
                 </div>
               </li>
       </ul>
