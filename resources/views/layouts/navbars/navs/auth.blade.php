@@ -135,7 +135,6 @@
                     <span class="num">{{$contador}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="width:500%;">
-
                 <?php
                   $idcolegio=Auth::user()->colegio_id;
                   $idpersona= Auth::user()->idpersona;
@@ -181,7 +180,11 @@
                   for($i=0;$i<=$contadoralumnos;$i++){
                   $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
                   }
-                  if(empty($nuevajustificacion)){?>
+                  $nuevajustif = preg_replace('/[\[\]\.\;\" "]+/', '', $nuevajustificacion);
+                  ?>
+                  <span>{{$nuevajustif[$i]}}</span>
+                  <?php 
+                  if(empty($nuevajustif)){?>
                   <span>No hay justificaciones para gestionar</span>
                   <?php
                   }
@@ -202,7 +205,6 @@
                   ?>
 
                 <strong><span class="dropdown-header"  style="color: #007991;">EVENTOS</span></strong>
-                <small class="ml-3 text-muted">Solo se muestran los próximos tres eventos.</small>
                 <?php
                 if($count1==0)
                 {
@@ -212,61 +214,65 @@
                 }
                 else{
                     ?>
+                    <small class="ml-3 text-muted">Solo se muestran los próximos tres eventos.</small>
+                  <div class="row" style="margin-left:10px;">
                 <?php
-                  $count1 = 0;
                   $nuevoseventos=estadoevento::where('id_participante',Auth::user()->id)->get();
                   $rolparticipante=User::where('id',Auth::user()->id)->pluck("role");
                     $rolparticipante = preg_replace('/[\[\]\.\;\" "]+/', '', $rolparticipante);
+                    $count1 = 0;
                   foreach($nuevoseventos as $nueveventos){
-                    if($count1 == 3){
+                    if($count1 == 4){
                         break;
                       }
                   $idevento="$nueveventos->id_evento";
-                  $infoevento=Event::where('id',$idevento)->get();
+                  $hoy = Carbon::now();
+                  $infoevento=Event::where('id',$idevento)->where('fecha','>=',$hoy)->get();
                   foreach($infoevento as $nuevo)
                     { 
                       $month= "$nuevo->fecha";
                       $titulo="$nuevo->titulo";
+                      $longitudtitulo=strlen($titulo);
+                      $titulo=substr($titulo,0,9);
                     if($rolparticipante=='familia'){
                     if($month>=date("Y-m-d")){ 
                     ?>
-                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('eventosfamilianotif',$nuevo->id)}}" class="dropdown-item">
-                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}</span>
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}...</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
-                  </div>
                     <?php }
                   }
                     if($rolparticipante=='docente'){
                     if($month>=date("Y-m-d")){ 
                     ?>
-                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('calendariodocente',$month)}}" class="dropdown-item">
-                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}...</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
-                    </div>
                     <?php }
                   }
                     if($rolparticipante=='directivo'){
                     if($month>=date("Y-m-d")){ 
                     ?>
-                    <div class="row" style="margin-left:10px;">
                     <a href="{{route('calendariodirectivo',$month)}}" class="dropdown-item">
-                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span> {{$titulo}}</span>
+                    <i class="bi bi-calendar-event" style="font-size: 1rem;margin-left:-10%">&nbsp &nbsp</i><span>{{$titulo}}..</span>
                     <span class="ml-3 text-muted">{{\Carbon\Carbon::parse($month)->diffForHumans()}}</span>
                     </a>
-                  </div>
-                    <?php } }
+                    <?php 
+                    } 
                     }
-                    }?>
-                    
-                    <?php $count1++;
-                  }
+                    }
+                    $count1++;
+                    }
                   ?>
+                 </div>
+                  <?php 
+                  }?>
+                  
+                  
 
-
+                
                 </div>
               </li>
       </ul>

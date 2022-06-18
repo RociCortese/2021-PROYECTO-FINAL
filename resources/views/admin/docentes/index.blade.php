@@ -129,7 +129,7 @@
                               </tr>
                               <tr>
                                 <td class="v-align-middle">
-                                <label><strong>Teléfono:</strong></label>  {{$doc->telefonodocente}}
+                                <label><strong>Teléfono celular:</strong></label>  {{$doc->telefonodocente}}
                                 </td>
                                 <td class="v-align-middle">
                                 <label><strong>Email:</strong></label>  {{$doc->emaildocente}}

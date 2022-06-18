@@ -217,11 +217,11 @@
        <div class="row">
 
             <div class="col">
-            <label>Teléfono</label>
+            <label>Teléfono celular</label>
             <input type="text" name="telefono" class="form-control" value="{{$fam->telefono}}" >
             @if ($errors->has('telefono'))
                 <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
-                  <strong>{{ $errors->first('telefono') }}</strong>
+                  <strong>El campo debe ser del tipo numérico y contener 10 caracteres.</strong>
                 </div>
               @endif
             </div>

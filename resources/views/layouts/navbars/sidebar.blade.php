@@ -136,8 +136,6 @@
   </div>
   <?php 
 }
-?>
- <?php
   if (Auth::user()->role =='docente') { ?>
   <div class="sidebar-wrapper">
     <ul class="nav">

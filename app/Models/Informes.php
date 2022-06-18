@@ -9,5 +9,5 @@ class Informes extends Model
 {
     use HasFactory;
     protected $table = 'informes';
-    protected $fillable = ['id_alumno','grado', 'espacio','nota','observacion','año','colegio_id'];
+    protected $fillable = ['id_alumno','grado', 'espacio','nota','observacion','año','colegio_id','periodo','docente'];
 }

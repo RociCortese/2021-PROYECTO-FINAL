@@ -12,6 +12,7 @@ use App\Models\Colegio;
 use App\Models\Grado;
 use App\Models\Alumno;
 use App\Models\Informes;
+use App\Models\Familia;
 use Mail;
 
 class LibretasController extends Controller
@@ -56,10 +57,13 @@ class LibretasController extends Controller
     for ($i=0; $i <=$contador ; $i++) { 
         $nombrealumno[]=Alumno::where('id',$infogrado[$i])->pluck('nombrealumno');
         $apellidoalumno[]=Alumno::where('id',$infogrado[$i])->pluck('apellidoalumno');
+        $idalumno[]=Alumno::where('id',$infogrado[$i])->pluck('id');
+
     }
     $nombrealumno = preg_replace('/[\[\]\.\;\" "]+/', '', $nombrealumno);
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
-    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo'));
+    $idalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $idalumno);
+    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno'));
     }
     public function generarlibreta(Request $request, $nombrecompleto)
     {
@@ -68,15 +72,29 @@ class LibretasController extends Controller
     return $pdf->download('InformeEscolar'.'-'.$nombrecompleto.'.pdf');
     }
 
-    /*public function compartirinforme(Request $request, $nombrecompleto){
+    public function compartirinforme(Request $request, $nombrecompleto){
     $periodo=$request->periodo;
+    $idalumno=$request->idalumno;
+    $nombrecompleto=$request->nombrecompleto;
+    $nombrecolegio=$request->nombrecolegio;
+    $direccioncolegio=$request->direccioncolegio;
+    $localidadcolegio=$request->localidadcolegio;
+    $provinciacolegio=$request->provinciacolegio;
+    $telefonocolegio=$request->telefonocolegio;
+    $emailcolegio=$request->emailcolegio;
+    $idfamilia=Alumno::where('id',$idalumno)->pluck('familias_id');
+    $idfamilia = preg_replace('/[\[\]\.\;\" "]+/', '', $idfamilia);
+    $emailfamilia=Familia::where('id',$idfamilia)->pluck('email');
+    $emailfamilia = preg_replace('/[\[\]\\;\" "]+/', '', $emailfamilia);
     $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto','periodo'));
-    Mail::send('emails/templates/send-invoice', $messageData, function ($mail) use ($pdf) {
-    $mail->from('sofibovo501@gmail.com', 'John Doe');
-    $mail->to('sofibovo501@gmail.com');
-    $mail->attachData($pdf->output(), 'libretas.pdf');
+    Mail::send('emails/templates/send-invoice', $request->all(), function ($mail) use ($pdf,$nombrecompleto,$emailfamilia) {
+    $mail->from('snotraeducacion@gmail.com','Snotra');
+    $mail->to($emailfamilia);
+    $mail->subject('Informe escolar de '. $nombrecompleto);
+    $mail->attachData($pdf->output(), 'InformeEscolar'.'-'.$nombrecompleto.'.pdf');
     });
-    }*/
+    return back()->with('success', 'El informe se ha compartido correctamente.');
+    }
 
     public function generartodosinformes(Request $request){ 
     $grado=$request->grado;

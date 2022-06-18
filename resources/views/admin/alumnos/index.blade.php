@@ -149,7 +149,7 @@
                                 <label>Género:</label>  {{$infofam->generofamilia}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label>Teléfono:</label>  {{$infofam->telefono}}
+                                <label>Teléfono celular:</label>  {{$infofam->telefono}}
                                 </td> 
                               </tr>
                               <tr>

@@ -283,17 +283,13 @@ function valoracioncualitativa() {
       </div>
       @endif
     </div>
-    
-
-
-
     <div class="form-group">
     <label><strong>Forma de Calificación:</strong></label>
     <div class="row">
     <br>
     <div class="col form-check-inline">
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion" onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
+        <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion"<?php if(empty($colegios->calicualitativa)) echo 'checked ';?> onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
         </label>&nbsp&nbsp&nbsp&nbsp
         <br>
         @if ($errors->has('calinumerica'))
@@ -301,7 +297,7 @@ function valoracioncualitativa() {
             </div>
        @endif
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
+        <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" <?php if(empty($colegios->calinumerica)) echo 'checked ';?> onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
         </label>
     </div> 
     </div>
@@ -312,7 +308,7 @@ function valoracioncualitativa() {
        <br>
       <div class="col">
       <label>Valor Mínimo:</label> 
-          <input type="number" name="minimo" style="width: 8%">
+          <input type="number" name="minimo" style="width: 8%" value="{{$colegios->calinumerica}}">
           &nbsp&nbsp 
       <label>Valor Máximo:</label>
         <input type="number" name="maximo" style="width: 8%">
@@ -320,7 +316,7 @@ function valoracioncualitativa() {
     </div>
 
     <div id="valoracioncualitativa" style = "display: none;">
-    <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%">
+    <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%"><?php echo 'selected="selected" ';?>
     </select>
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
     <script type="text/javascript">

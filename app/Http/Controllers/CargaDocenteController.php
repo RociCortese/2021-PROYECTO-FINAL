@@ -98,7 +98,7 @@ class CargaDocenteController extends Controller
             'localidaddocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'provinciadocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'estadocivildoc' => ['required'],
-            'telefonodocente' => ['required','int'],
+            'telefonodocente' => ['required','int','min:1000000000','max:9999999999'],
             'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes'],
             'legajo' => ['required','int'],
             //'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
@@ -187,7 +187,7 @@ class CargaDocenteController extends Controller
     {
         $doc = Docente::findOrFail($id);
          $request->validate([
-            'dnidocente' => ['required', 'int','digits_between:7,8','unique:docentes,dni,'. $id],
+            'dnidocente' => ['required', 'int','digits_between:7,8','unique:docentes,dnidocente,'. $id],
             'nombredocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidodocente' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'fechanacimientodoc' => 'required',
@@ -196,10 +196,9 @@ class CargaDocenteController extends Controller
             'localidaddocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'provinciadocente' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
             'estadocivildoc' => ['required'],
-            'telefonodocente' => ['required','int'],
-            'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes,email,'. $id],
+            'telefonodocente' => ['required','int','min:1000000000','max:9999999999'],
+            'emaildocente' => ['required', 'string', 'email', 'max:255', 'unique:docentes,emaildocente,'. $id],
             'legajo' => ['required','int'],
-            'especialidad' => ['required','regex:/^[\pL\s\-]+$/u','max:25'],
         ]);
         $data= $request->only('dnidocente','nombredocente','apellidodocente','fechanacimientodoc','generodocente','domiciliodocente','localidaddocente','provinciadocente','estadocivildoc','telefonodocente','emaildocente','legajo','especialidad');
         $doc->update($data);

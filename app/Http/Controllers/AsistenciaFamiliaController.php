@@ -27,7 +27,9 @@ class AsistenciaFamiliaController extends Controller
     $contadoralumnos=count($nombrealumno)-1;
     for($i=0;$i<=$contadoralumnos;$i++){
     $infoasistencia[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->orderby('justificacion','ASC')->orderby('fecha','ASC')->get(); 
+    $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
     }
+    return $nuevajustificacion;
     return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia'));
     }
 

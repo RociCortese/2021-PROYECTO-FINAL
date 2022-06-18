@@ -74,10 +74,7 @@
                   <strong>{{ $errors->first('generodocente') }}</strong>
                 </div>
               @endif
-              
             </div>
-
-
             <div class="col">
               <label>Estado civil</label>
             <select name="estadocivildoc" id="opcionestadocivil" class="form-control" value="{{ old('estadocivildoc') }}" >
@@ -108,11 +105,58 @@
         </div>
 
         <br>
-        <br>
-
-        
         <div class="row">
+        <div class="col">
+            <label>Provincia</label>
+            <select class="form-control" id="provinciadocente" name="provinciadocente" onchange="mostrarlocalidades(this.value)">
+            <option value="">Seleccione una provincia </option>
+            <?php 
+            $provincias=App\Models\Provincia::orderBy('nombre','ASC')->get();
+            foreach($provincias as $prov){?>
+            <option value="{{$prov->nombre}}">{{$prov->nombre}}</option>
+            <?php 
+            }
+            ?>
+        </select>
+            @if ($errors->has('provinciadocente'))
+                <div id="provinciadocente-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
+                  <strong>{{ $errors->first('provinciadocente') }}</strong>
+                </div>
+              @endif
+          
+            <?php 
+          $provinciaseleccionada='null';
+          ?>
+          <script type="text/javascript">
+            function mostrarlocalidades(provinciaseleccionada){
+            location.href='?provinciaseleccionada=' + provinciaseleccionada;
+            }
+          </script>
+          
+          </div>
           <div class="col">
+            <label>Localidad</label>
+            <select class="form-control" name="localidaddocente">
+            <option value="">Seleccione una localidad </option>
+            <?php
+            if(isset($_GET['provinciaseleccionada']))
+              {
+              $provinciaseleccionada=$_GET['provinciaseleccionada'];
+              }
+            $localidades=App\Models\Localidad::orderBy('nombre','ASC')->where('provincia_nombre',$provinciaseleccionada)->get(); 
+            foreach($localidades as $loc){?>
+            <option value="{{$loc->nombre}}">{{$loc->nombre}}</option>
+            <?php 
+            }
+            ?>
+            </select>
+            @if ($errors->has('localidaddocente'))
+                <div id="localidaddocente-error" class="error text-danger pl-3" for="localidaddocente" style="display: block;">
+                  <strong>{{ $errors->first('localidaddocente') }}</strong>
+                </div>
+              @endif
+            </div>
+            <div class="col">
             <label>Domicilio</label>
             <input type="text" name="domiciliodocente" class="form-control" value="{{ old('domiciliodocente') }}">
             @if ($errors->has('domiciliodocente'))
@@ -122,26 +166,9 @@
               @endif
           </div>
 
-            <div class="col">
-              <label>Localidad</label>
-            <input type="text" name="localidaddocente" class="form-control" value="{{ old('localidaddocente') }}">
-            @if ($errors->has('localidaddocente'))
-                <div id="localidaddocente-error" class="error text-danger pl-3" for="localidaddocente" style="display: block;">
-                  <strong>{{ $errors->first('localidaddocente') }}</strong>
-                </div>
-              @endif
-            </div>
-
-
-            <div class="col">
-                 <label>Provincia</label>
-            <input type="text" name="provinciadocente" class="form-control" value="{{ old('provinciadocente') }}">
-            @if ($errors->has('provinciadocente'))
-                <div id="provinciadocente-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
-                  <strong>{{ $errors->first('provinciadocente') }}</strong>
-                </div>
-              @endif
-            </div>
+          
+            
+            
 
           
         </div>
@@ -150,13 +177,15 @@
         <div class="row">
 
           <div class="col">
-              <label>Teléfono</label>
+              <label>Teléfono celular</label>
             <input type="text" name="telefonodocente" class="form-control" value="{{ old('telefonodocente') }}">
+            <small id="eventoHelp" class="form-text text-muted" >Debe ingresar el número de teléfono sin el 0, sin el 15 y sin espacios.</small>
             @if ($errors->has('telefonodocente'))
                 <div id="telefonodocente-error" class="error text-danger pl-3" for="telefonodocente" style="display: block;">
-                  <strong>{{ $errors->first('telefonodocente') }}</strong>
+                  <strong>El campo debe ser del tipo numérico y contener 10 caracteres.</strong>
                 </div>
               @endif
+
           </div>
 
           <div class="col">
