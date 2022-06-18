@@ -29,6 +29,12 @@ class Alumno extends Model
             return $query->where('dnialumno','like',"%$dnis%");
         }
     }
+    public function scopeGrados($query, $grados) {
+
+        if ($grados) {
+            return $query->where('grado','like',"%$grados%");
+        }
+    }
 }
 
 

@@ -11,6 +11,7 @@
               <div class="card-header card-header-info">
                 <h4 class="card-title ">Informes de progreso escolar</h4>
               </div>
+               
               <div class="card-body">
                 @foreach($infoaño as $año)
                   <div class="text-left">
@@ -74,6 +75,7 @@
                 </div>
                 </form>
             </div>
+            
           </div>
         </div>
       </div>

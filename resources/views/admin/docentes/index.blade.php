@@ -29,7 +29,7 @@
                     <a href="{{url ('admin/docentes/create') }}" class="btn btn-sm btn-facebook" title="Registrar Docente"><i class="material-icons">person_add_alt</i></a></a>
                   </div>
                 </div>
-                  <div> Aún no hay Docentes creados.</div>
+                  <div class="text-center"> <h4><span class="badge badge-warning">Aún no hay Docentes creados.</span></h4></div>
                   @else
                   <div class="card card-body" style="border: thin solid lightgrey;">
                   <form>

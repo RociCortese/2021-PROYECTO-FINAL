@@ -13,7 +13,7 @@ class calificacioncualitativa extends Model
 
     protected $fillable = [
 
-        'id_calificacion','calificacion','codigo','valor',
+        'id_calificacion','calificacion','codigo','valor','orden'
 
     ];
 }

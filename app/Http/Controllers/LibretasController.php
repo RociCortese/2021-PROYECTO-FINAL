@@ -48,9 +48,9 @@ class LibretasController extends Controller
       $informacionperiodo="$infoperi->periodo";
     }
     $infogrado=Informes::where('colegio_id',$idcolegio)->where('año',$idaño)->where('grado',$grado)->where('periodo',$periodo)->pluck('id_alumno');
-    $infogrado = preg_replace('/[\[\]\.\;\""]+/', '', $infogrado);
+   
+$infogrado = preg_replace('/[\[\]\.\;\""]+/', '', $infogrado);
     $infogrado=explode(',',$infogrado);
-
     $contador=count($infogrado)-1;
     
     for ($i=0; $i <=$contador ; $i++) { 
@@ -59,8 +59,11 @@ class LibretasController extends Controller
     }
     $nombrealumno = preg_replace('/[\[\]\.\;\" "]+/', '', $nombrealumno);
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
-    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo'));
+    
+    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','infogrado'));
     }
+    
+
     public function generarlibreta(Request $request, $nombrecompleto)
     {
     $periodo=$request->periodo;
