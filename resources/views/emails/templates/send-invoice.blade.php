@@ -1,13 +1,13 @@
 <header>
 <tr>
 <td class="header">
-<h4>Informe escolar del alumno {{$nombrecompleto}}</h4>
+<h4><u>Informe escolar del alumno {{$nombrecompleto}} de {{$gradoalumno}}</u></h4>
 </td>
 </tr>
 </header>
 
 <body>
-<p> Desde el colegio le compartimos el informe escolar correspondiente al período {{$periodo}}.</p>
+<p> Desde el colegio le compartimos el informe escolar correspondiente al {{$periodo}} del año {{$descripcionaño}}.</p>
 <p>Cualquier duda o consulta estamos a su disposición.</p>
 </body>
 

@@ -100,6 +100,8 @@
                     <?php 
                     $nombrecompleto=$nombrealumno[$i].' '.$apellidoalumno[$i];
                     $idcolegio=App\Models\Alumno::where('id',$idalumno[$i])->pluck("colegio_id");
+                    $gradoalumno=App\Models\Alumno::where('id',$idalumno[$i])->pluck("grado");
+                    $gradoalumno = preg_replace('/[\[\]\\;\""]+/', '', $gradoalumno);
                     $idcolegio = preg_replace('/[\[\]\\;\" "]+/', '', $idcolegio);
                     $nombrecolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("nombre");
                     $nombrecolegio = preg_replace('/[\[\]\\;\""]+/', '', $nombrecolegio);
@@ -113,6 +115,10 @@
                     $telefonocolegio = preg_replace('/[\[\]\\;\""]+/', '', $telefonocolegio);
                     $emailcolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("email");
                     $emailcolegio = preg_replace('/[\[\]\\;\""]+/', '', $emailcolegio);
+                    $infoaño=App\Models\Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                    foreach($infoaño as $activo){
+                    $descripcionaño="$activo->descripcion";
+                    }
                     ?>
                       <td class="td-actions v-align-middle ">
                         <form>
@@ -126,12 +132,14 @@
                           <input type="text" value="{{$periodo}}" name="periodo">
                           <input type="text" value="{{$idalumno[$i]}}" name="idalumno">
                           <input type="text" value="{{$nombrecompleto}}" name="nombrecompleto">
+                          <input type="text" value="{{$gradoalumno}}" name="gradoalumno">
                           <input type="text" value="{{$nombrecolegio}}" name="nombrecolegio">
                           <input type="text" value="{{$direccioncolegio}}" name="direccioncolegio">
                           <input type="text" value="{{$localidadcolegio}}" name="localidadcolegio">
                           <input type="text" value="{{$provinciacolegio}}" name="provinciacolegio">
                           <input type="text" value="{{$telefonocolegio}}" name="telefonocolegio">
                           <input type="text" value="{{$emailcolegio}}" name="emailcolegio">
+                          <input type="text" value="{{$descripcionaño}}" name="descripcionaño">
                           </div>
                         <button formaction="{{route('compartirinforme',$nombrecompleto)}}" class="btn btn-info" title="Compartir informe">
                         <i class="bi bi-share"></i>

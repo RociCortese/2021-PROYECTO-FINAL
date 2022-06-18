@@ -82,6 +82,8 @@ class LibretasController extends Controller
     $provinciacolegio=$request->provinciacolegio;
     $telefonocolegio=$request->telefonocolegio;
     $emailcolegio=$request->emailcolegio;
+    $gradoalumno=$request->gradoalumno;
+    $descripcionaño=$request->descripcionaño;
     $idfamilia=Alumno::where('id',$idalumno)->pluck('familias_id');
     $idfamilia = preg_replace('/[\[\]\.\;\" "]+/', '', $idfamilia);
     $emailfamilia=Familia::where('id',$idfamilia)->pluck('email');
