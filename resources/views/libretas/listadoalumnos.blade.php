@@ -11,7 +11,7 @@
               <div class="card-header card-header-info">
                 <h4 class="card-title ">Informes de progreso escolar</h4>
               </div>
-             @if(empty($infogrado))
+             @if(sizeof($infogrado)==0)
               <br>
 
           <div class="col-md-12 text-center">
