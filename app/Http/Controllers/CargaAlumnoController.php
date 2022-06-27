@@ -110,7 +110,7 @@ class CargaAlumnoController extends Controller
         $alumno=new Alumno();
         $alumno->nombrealumno=$request->nombrealumno;
         $alumno->apellidoalumno=$request->apellidoalumno;
-        $alumno->nombrecompleto=$request->nombrealumno. $request->apellidoalumno;
+        $alumno->nombrecompleto=$request->nombrealumno.' '.$request->apellidoalumno;
         $alumno->dnialumno=$request->dnialumno;
         $alumno->generoalumno=$request->generoalumno;
         $alumno->fechanacimiento=$request->fechanacimiento;

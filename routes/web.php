@@ -171,3 +171,8 @@ Route::get('justificacioninasistencias','App\Http\Controllers\AsistenciaFamiliaC
 Route::put('aceptarjustificacion/{id}', 'App\Http\Controllers\AsistenciaFamiliaController@aceptarjustificacion')->name('aceptarjustificacion');
 Route::put('descargararchivo/{id}','App\Http\Controllers\AsistenciaFamiliaController@descargararchivo')->name('descargararchivo');
 
+/*Información académica*/
+Route::get('informacionacademica','App\Http\Controllers\InformacionAcademicaController@buscador')->name('informacionacademica');
+Route::get('/autocomplete/alumnos/','App\Http\Controllers\InformacionAcademicaController@getAutocompletealumno')->name('Autocomplete.Alumnos');
+Route::get('listadoinfoacademica','App\Http\Controllers\InformacionAcademicaController@index')->name('listadoinfoacademica');
+

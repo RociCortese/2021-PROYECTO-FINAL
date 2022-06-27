@@ -101,6 +101,20 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
+              <a class="nav-link" href="{{url('informacionacademica')}}">
+                <div class="items-dashboard">
+                 <i class="bi bi-person-plus"></i>
+                <span class="sidebar-normal">{{ __('Información académica') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
        <li class="nav-item{{ $activePage == 'libretas' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('libretas')}}">
                 <div class="items-dashboard">
