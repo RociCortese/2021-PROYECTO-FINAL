@@ -43,13 +43,15 @@ class CargaAlumnoController extends Controller
         $apellido = trim($request->get('buscarapellido'));
         $nombre = trim($request->get('buscarnombre'));
         $dni = trim($request->get('buscardni'));
-        $alumnos = Alumno::orderby('id','DESC')
+        $grado= trim($request->get('buscargrado'));
+        $alumnos = Alumno::orderby('id','ASC')
            ->nombres($nombre)
            ->apellidos($apellido)
            ->dnis($dni)
+           ->grados($grado)
            ->where('colegio_id',$idcolegio)
            ->paginate(5);
-        return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos','colegio')); 
+        return view('admin.alumnos.index', compact('apellido','nombre','dni','alumnos','colegio','grado')); 
                     }
                 }
     }
@@ -110,7 +112,7 @@ class CargaAlumnoController extends Controller
         $alumno=new Alumno();
         $alumno->nombrealumno=$request->nombrealumno;
         $alumno->apellidoalumno=$request->apellidoalumno;
-        $alumno->nombrecompleto=$request->nombrealumno. $request->apellidoalumno;
+        $alumno->nombrecompleto=$request->nombrealumno.' '.$request->apellidoalumno;
         $alumno->dnialumno=$request->dnialumno;
         $alumno->generoalumno=$request->generoalumno;
         $alumno->fechanacimiento=$request->fechanacimiento;
