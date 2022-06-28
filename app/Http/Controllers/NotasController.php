@@ -89,12 +89,14 @@ class NotasController extends Controller
             $infoco="$info->calinumerica";
             $infocali="$info->calicualitativa";
       }
+
       if($infoco==NULL)
         {
         $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
         $infocali=explode(',', $infocali);
         $contador=count($infocali)-1;
         for ($i=0; $i <= $contador ; $i++) { 
+
         $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("orden");
 
         
@@ -110,6 +112,14 @@ class NotasController extends Controller
         }
         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
+
+        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
+
+        $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','ASC')->pluck("calificacion");
+        }
+       
+       
+
         }
 
      
