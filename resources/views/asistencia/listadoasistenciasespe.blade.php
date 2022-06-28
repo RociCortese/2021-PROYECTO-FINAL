@@ -161,6 +161,12 @@
                       </td>
                       <?php 
                       }
+                       if($a[$i]=='Ausente justificada'){?>
+                      <td>
+                      <i class="bi bi-circle-fill" style="color:#6c96c1;"></i> 
+                      </td>
+                      <?php 
+                      }
                       if($a[$i]=='Tarde'){?>
                       <td>
                        <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>

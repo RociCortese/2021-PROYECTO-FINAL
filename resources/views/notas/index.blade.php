@@ -142,8 +142,7 @@
                     }, 1000);
                     </script>  
                     @endif
-                    @foreach($infoalumnos as $infoalu) 
-                                 
+                    @foreach($infoalumnos as $infoalu)        
                     <tbody>
                     <tr>
                       <td class="v-align-middle">{{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</td>

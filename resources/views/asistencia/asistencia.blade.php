@@ -151,7 +151,6 @@
                       if($infoasisten->estado=='Ausente'){
                         $suma=$suma+1;
                       }
-
                       }  
                        }?>
                       @endforeach
@@ -168,6 +167,12 @@
                       if($a[$i]=='Ausente'){?>
                       <td>
                       <i class="bi bi-circle-fill" style="color:#ff6961;"></i> 
+                      </td>
+                      <?php 
+                      }
+                      if($a[$i]=='Ausente justificada'){?>
+                      <td>
+                      <i class="bi bi-circle-fill" style="color:#6c96c1;"></i> 
                       </td>
                       <?php 
                       }

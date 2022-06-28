@@ -38,14 +38,14 @@ if($colegio->isEmpty()){?>
                 &nbsp &nbsp &nbsp
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="{{ old('gestion') }}">Privada
                     <span class="circle">
                     <span class="check"></span>
                     </span>
                     </label>
                     &nbsp &nbsp
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="{{ old('gestion') }}" checked>Pública
                             <span class="circle">
                                 <span class="check"></span>
                             </span>
@@ -61,8 +61,9 @@ if($colegio->isEmpty()){?>
                 <label class="col-sm-2 col-form-label">Teléfono</label>
                 <div class="col-sm-7">
                 <input type="text" class="form-control" name="telefono" id="telefono" autocomplete="off" value="{{ old('telefono') }}">
+                <small id="eventoHelp" class="form-text text-muted">Ingrese el número de teléfono sin espacios. En caso que sea un celular debe ingresarlo sin el 0 y sin el 15.</small>
                 @error('telefono')
-                <small class="text-danger">{{$message}}</small>
+                 <small class="text-danger">El campo debe ser del tipo numérico y contener 10 caracteres.</small>
               @enderror 
               </div>
             </div>

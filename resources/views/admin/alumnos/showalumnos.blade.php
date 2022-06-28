@@ -67,7 +67,7 @@
                                 <label>Género:</label>  {{$familia->generofamilia}}
                                 </td>
                                 <td class="v-align-middle">
-                                <label>Teléfono:</label>  {{$familia->telefono}}
+                                <label>Teléfono celular:</label>  {{$familia->telefono}}
                                 </td>
                                 <td class="v-align-middle">
                                 <label>Email:</label>  {{$familia->email}}

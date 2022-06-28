@@ -66,12 +66,13 @@
             </div>
           </div>
               <div class="row">
-            <label class="col-sm-2 col-form-label">Teléfono</label>
+            <label class="col-sm-2 col-form-label">Teléfono celular</label>
             <div class="col-sm-7">
             <input type="text" name="telefono" class="form-control" value="{{$id->telefono}}">
+            <small id="eventoHelp" class="form-text text-muted" >Debe ingresar el número de teléfono sin el 0, sin el 15 y sin espacios.</small>
             @if ($errors->has('telefono'))
                 <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
-                  <strong>{{ $errors->first('telefono') }}</strong>
+                  <strong>El campo debe ser del tipo numérico y contener 10 caracteres.</strong>
                 </div>
               @endif
             </div>

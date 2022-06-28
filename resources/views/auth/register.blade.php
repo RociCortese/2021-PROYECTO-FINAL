@@ -78,11 +78,11 @@
                   </span>
                 </div>
             <input type="text" name="telefono" class="form-control" placeholder="{{ __('Teléfono celular (*)') }}" value="{{ old('telefono') }}" autocomplete="off">
-           <small id="eventoHelp" class="form-text text-muted" style="margin-left: 20px;">Debe ingresar su número de teléfono sin el 0 y sin el 15.</small>
+           <small id="eventoHelp" class="form-text text-muted" style="margin-left: 20px;">Debe ingresar su número de teléfono sin el 0, sin el 15 y sin espacios.</small>
               </div>
               @if ($errors->has('telefono'))
                 <div id="apellido-error" class="error text-danger pl-3" for="telefono" style="display: block;">
-                  <strong>{{ $errors->first('telefono') }}</strong>
+                  <strong>El campo debe ser del tipo numérico y contener 10 caracteres.</strong>
                 </div>
               @endif
             </div>

@@ -43,6 +43,7 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
+            
         ],
 
         'ses' => [
@@ -82,11 +83,11 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
-    'from' => [
+      'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'snotraeducacion@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Snotra'),
     ],
+   
 
     /*
     |--------------------------------------------------------------------------

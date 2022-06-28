@@ -160,7 +160,7 @@ class CargaAlumnoController extends Controller
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'generofamilia' => ['required'],
-            'telefono' => ['required','int'],
+            'telefonofamilia' => ['required','int','min:1000000000','max:9999999999'],
             'email' => ['required','string', 'email', 'max:255', 'unique:familias'],
             'vinculofamiliar' => ['required'],
             ]);
@@ -239,7 +239,7 @@ class CargaAlumnoController extends Controller
             'nombrefamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'apellidofamilia' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
             'generofamilia' => ['required'],
-            'telefono' => ['required','int'],
+            'telefono' => ['required','int','min:1000000000','max:9999999999'],
             'email' => ['required','string', 'email', 'max:255','unique:familias,email,'.$familiaid],
             'vinculofamiliar' => ['required'],
         ]);

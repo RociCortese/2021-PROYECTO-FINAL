@@ -23,8 +23,8 @@ class ColegioController extends Controller
     public function index()
    {
     //$colegio = Colegio::all();
-    $idusuario = Auth::user()->id;
-    $colegio = Colegio::usuario($idusuario)->get();
+    $idcolegio = Auth::user()->colegio_id;
+    $colegio = Colegio::where('id', $idcolegio)->get();
     return view('Colegio/cargacolegio',compact('colegio'));
    }
 
@@ -34,7 +34,7 @@ public function store(Request $request)
    $request->validate([
   'file'=> ['required','image','max:2048','dimensions:min_width=128,min_height=128'],
   'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
-  'telefono' => ['required','int'],
+  'telefono' => ['required','int','min:1000000000','max:9999999999'],
   'direccion' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
   'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
   'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
@@ -44,7 +44,7 @@ public function store(Request $request)
 
   $files=new File();
   $files->file=$request->file;
-  if($request->hasfile("file")){
+  if($request->hasFile("file")){
     $imagen=$request->file("file");
     $nombreimagen = Str::slug($request->file).".".$imagen->guessExtension();
     $ruta=public_path("file");
@@ -84,6 +84,17 @@ public function update(Request $request,$id)
         $col = Colegio::findOrFail($id);
         $files=new File();
         $files->file=$request->file;
+         $request->validate([
+  'file'=> ['required','image','max:2048','dimensions:min_width=128,min_height=128'],
+  'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
+  'telefono' => ['required','int','min:1000000000','max:9999999999'],
+  'direccion' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+  'localidad' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+  'provincia' => ['required','regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/','max:50'],
+  'email' => ['required', 'string', 'email', 'max:255', 'unique:colegio'],
+  'gestion' => ['required', 'string'],
+        ]);
+
         if($request->hasfile("file")){
         $imagen=$request->file("file");
         $nombreimagen = Str::slug($request->file).".".$imagen->guessExtension();

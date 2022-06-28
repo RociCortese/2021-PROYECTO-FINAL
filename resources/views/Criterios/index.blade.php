@@ -40,6 +40,7 @@
                     <thead class="text-primary">
                       <th>ID</th>
                       <th>Año escolar</th>
+                      <th>Período</th>
                       <th>Espacio curricular</th>
                       <th>Criterio</th>
                       <th>Acciones</th>
@@ -55,7 +56,19 @@
                     });
                     }, 1000);
                     </script>
-                    @endif 
+                    @endif
+                     @if(session('danger'))
+                    <div class="alert alert-danger" role="danger">
+                    {{session('danger')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-danger").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 2000);
+                    </script>
+                  @endif
                      <div class="text-right">
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
@@ -76,6 +89,7 @@
                     <tr>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
+                      <td class="v-align-middle">{{$criterio->periodo}}</td>
                       <td class="v-align-middle">{{$criterio->id_espacio}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>
                       <td class="td-actions v-align-middle">
@@ -197,6 +211,7 @@
                     <thead class="text-primary">
                       <th>ID</th>
                       <th>Año escolar</th>
+                      <th>Periodo</th>
                       <th>Grado</th>
                       <th>Criterio</th>
                       <th>Acciones</th>
@@ -212,7 +227,19 @@
                     });
                     }, 1000);
                     </script>
-                    @endif  
+                    @endif
+                     @if(session('danger'))
+                    <div class="alert alert-danger" role="danger">
+                    {{session('danger')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-danger").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 2000);
+                    </script>
+                  @endif
                     <div class="text-right">
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
@@ -234,6 +261,7 @@
                     <tr>
                       <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
+                      <td class="v-align-middle">{{$criterio->periodo}}</td>
                       <td class="v-align-middle">{{$criterio->id_grado}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td> 
                       <td class="td-actions v-align-middle">
@@ -325,12 +353,13 @@
                     @endforeach
                     </tbody>
                   </table>
-                  <div class="card-footer mr-auto">
-                    {{$datoscriterio->links()}}
-                </div>
+                  
                 </div>
                    @endif
                 @endif
+                <div class="card-footer mr-auto">
+                    {{$datoscriterio->links()}}
+                </div>
                 </div>
           </div>
         </div>

@@ -83,6 +83,18 @@
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
                 </form>
+                 @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1000);
+                    </script>
+                    @endif
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -97,24 +109,52 @@
                       <td class="v-align-middle">{{$nombrealumno[$i]}} {{$apellidoalumno[$i]}}</td>
                     <?php 
                     $nombrecompleto=$nombrealumno[$i].' '.$apellidoalumno[$i];
+                    $idcolegio=App\Models\Alumno::where('id',$idalumno[$i])->pluck("colegio_id");
+                    $gradoalumno=App\Models\Alumno::where('id',$idalumno[$i])->pluck("grado");
+                    $gradoalumno = preg_replace('/[\[\]\\;\""]+/', '', $gradoalumno);
+                    $idcolegio = preg_replace('/[\[\]\\;\" "]+/', '', $idcolegio);
+                    $nombrecolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("nombre");
+                    $nombrecolegio = preg_replace('/[\[\]\\;\""]+/', '', $nombrecolegio);
+                    $direccioncolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("direccion");
+                    $direccioncolegio = preg_replace('/[\[\]\\;\""]+/', '', $direccioncolegio);
+                    $localidadcolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("localidad");
+                    $localidadcolegio = preg_replace('/[\[\]\\;\""]+/', '', $localidadcolegio);
+                    $provinciacolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("provincia");
+                    $provinciacolegio = preg_replace('/[\[\]\\;\""]+/', '', $provinciacolegio);
+                    $telefonocolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("telefono");
+                    $telefonocolegio = preg_replace('/[\[\]\\;\""]+/', '', $telefonocolegio);
+                    $emailcolegio = App\Models\Colegio::where('id',$idcolegio)->pluck("email");
+                    $emailcolegio = preg_replace('/[\[\]\\;\""]+/', '', $emailcolegio);
+                    $infoaño=App\Models\Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+                    foreach($infoaño as $activo){
+                    $descripcionaño="$activo->descripcion";
+                    }
                     ?>
-                      <td class="td-actions v-align-middle">
-                        <form action="{{route('generarlibreta',$nombrecompleto)}}">
+                      <td class="td-actions v-align-middle ">
+                        <form>
                           <div style="display: none;">
                           <input type="text" value="{{$periodo}}" name="periodo">
                           </div>
-                        <button class="btn btn-success" title="Descargar informe">
+                        <button formaction= "{{route('generarlibreta',$nombrecompleto)}}" class="btn btn-success" title="Descargar informe">
                         <i class="bi bi-download"></i>
                         </button>
-                        </form>
-                        <!--<form action="{{route('compartirinforme',$nombrecompleto)}}">
                           <div style="display: none;">
                           <input type="text" value="{{$periodo}}" name="periodo">
+                          <input type="text" value="{{$idalumno[$i]}}" name="idalumno">
+                          <input type="text" value="{{$nombrecompleto}}" name="nombrecompleto">
+                          <input type="text" value="{{$gradoalumno}}" name="gradoalumno">
+                          <input type="text" value="{{$nombrecolegio}}" name="nombrecolegio">
+                          <input type="text" value="{{$direccioncolegio}}" name="direccioncolegio">
+                          <input type="text" value="{{$localidadcolegio}}" name="localidadcolegio">
+                          <input type="text" value="{{$provinciacolegio}}" name="provinciacolegio">
+                          <input type="text" value="{{$telefonocolegio}}" name="telefonocolegio">
+                          <input type="text" value="{{$emailcolegio}}" name="emailcolegio">
+                          <input type="text" value="{{$descripcionaño}}" name="descripcionaño">
                           </div>
-                        <button class="btn btn-info" title="Compartir informe">
+                        <button formaction="{{route('compartirinforme',$nombrecompleto)}}" class="btn btn-info" title="Compartir informe">
                         <i class="bi bi-share"></i>
                         </button>
-                        </form>-->
+                        </form>
                       </td>
                     </tr>
                     <?php 

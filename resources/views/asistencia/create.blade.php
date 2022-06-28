@@ -16,6 +16,19 @@
             <h5><span class="badge badge-success">Edición de asistencias de {{$gradodocente}}.</span></h5>
         </div>
         @endif
+            @if(empty($danger))
+            @else
+            <div class="alert alert-danger">
+            {{$danger}}
+            </div>
+            <script type="text/javascript">
+            window.setTimeout(function() {
+            $(".alert-danger").fadeTo(400, 0).slideUp(400, function(){
+            $(this).remove(); 
+            });
+            }, 2000);
+            </script>
+            @endif
         <div class="row">
           <div class="col">
             <script type="text/javascript">
@@ -41,6 +54,8 @@
           </div>
         </div>
         <br>
+        <div id="mostrarjava">
+        </div>
         <div class="table-responsive">
           <table class="table">
             <thead class="text-primary">
@@ -51,8 +66,9 @@
             <tbody>
               <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
               <script type="text/javascript">
-              function habilitartardanza() {
-              var x = document.getElementById("tardanzas");
+              function habilitartardanza(i) {
+              var x = document.getElementByName("tardanza");
+              document.getElementById("mostrarjava").innerHTML=x.value;
               if (x.disabled == false) {
               x.disabled = true;
               } else {
@@ -68,19 +84,19 @@
               });
               });
               </script>
-
             &nbsp <strong><input onclick="habilitartardanza()" type="checkbox"  id="checkTodos" style="width: 13px;height: 13px; padding: 0;margin:0;vertical-align: bottom;position: relative;top: -6.5px;*overflow: hidden;"/>&nbspMarcar/Desmarcar todos</strong>
               @foreach($infoasistencia as $infoasist)
               <tr>
               <td class="v-align-middle">{{$infoasist->nombrealumno}}</td>
               <td>
-              <input type="checkbox" id="estadoasistencias" name="estadoasistencia[]" onclick="habilitartardanza()" value="{{$infoasist->id_alumno}}">
+              <input type="checkbox" id="estadoasistencias" name="estadoasistencia[]" onclick="habilitartardanza(this)" value="{{$infoasist->id_alumno}}">
               </td>
               <td>
               <input type="checkbox" id="tardanzas" name="tardanza[]" disabled value="{{$infoasist->id_alumno}}">
               </td>
-            </tr>
+              </tr>
               @endforeach
+
             </tbody>
           </table>
         </div>

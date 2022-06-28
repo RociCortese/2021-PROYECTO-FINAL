@@ -20,21 +20,20 @@
             
             <div class="col">
             <label>DNI</label>
-            <input type="text" name="dni" class="form-control" value="{{$id->dnidocente}}">
-            @if ($errors->has('dni'))
-                <div id="dni-error" class="error text-danger pl-3" for="dni" style="display: block;">
-                  <strong>{{ $errors->first('dni') }}</strong>
+            <input type="text" name="dnidocente" class="form-control" value="{{$id->dnidocente}}">
+            @if ($errors->has('dnidocente'))
+                <div id="dnidocente-error" class="error text-danger pl-3" for="dnidocente" style="display: block;">
+                  <strong>{{ $errors->first('dnidocente') }}</strong>
                 </div>
               @endif
             </div>
             
-            
             <div class="col">
             <label>Nombre</label>
-            <input type="text" name="nombre" class="form-control" value="{{$id->nombredocente}}">
-            @if ($errors->has('nombre'))
-                <div id="nombre-error" class="error text-danger pl-3" for="nombre" style="display: block;">
-                  <strong>{{ $errors->first('nombre') }}</strong>
+            <input type="text" name="nombredocente" class="form-control" value="{{$id->nombredocente}}">
+            @if ($errors->has('nombredocente'))
+                <div id="nombredocente-error" class="error text-danger pl-3" for="nombredocente" style="display: block;">
+                  <strong>{{ $errors->first('nombredocente') }}</strong>
                 </div>
               @endif
             </div>
@@ -43,10 +42,10 @@
 
             <div class="col">
             <label>Apellido</label>
-            <input class="form-control" name="apellido" value="{{$id->apellidodocente}}"></input>
-            @if ($errors->has('apellido'))
-                <div id="apellido-error" class="error text-danger pl-3" for="apellido" style="display: block;">
-                  <strong>{{ $errors->first('apellido') }}</strong>
+            <input class="form-control" name="apellidodocente" value="{{$id->apellidodocente}}"></input>
+            @if ($errors->has('apellidodocente'))
+                <div id="apellidodocente-error" class="error text-danger pl-3" for="apellidodocente" style="display: block;">
+                  <strong>{{ $errors->first('apellidodocente') }}</strong>
                 </div>
               @endif
             </div>
@@ -65,10 +64,10 @@
 
            <div class="col">
             <label>Fecha de nacimiento</label>
-            <input type="date" name="fechanacimiento" class="form-control" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{$id->fechanacimientodoc}}">
-            @if ($errors->has('fechanacimiento'))
-                <div id="fechanacimiento-error" class="error text-danger pl-3" for="fechanacimiento" style="display: block;">
-                  <strong>{{ $errors->first('fechanacimiento') }}</strong>
+            <input type="date" name="fechanacimientodoc" class="form-control" min="1951-01-01" max = "<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 18 years"));?>" value="{{$id->fechanacimientodoc}}">
+            @if ($errors->has('fechanacimientodoc'))
+                <div id="fechanacimientodoc-error" class="error text-danger pl-3" for="fechanacimientodoc" style="display: block;">
+                  <strong>{{ $errors->first('fechanacimientodoc') }}</strong>
                 </div>
               @endif
           </div>
@@ -115,10 +114,10 @@
           <div class="row">
             <div class="col">
             <label>Domicilio</label>
-            <input type="text" name="domicilio" class="form-control" value="{{$id->domiciliodocente}}">
-            @if ($errors->has('domicilio'))
-                <div id="domicilio-error" class="error text-danger pl-3" for="domicilio" style="display: block;">
-                  <strong>{{ $errors->first('domicilio') }}</strong>
+            <input type="text" name="domiciliodocente" class="form-control" value="{{$id->domiciliodocente}}">
+            @if ($errors->has('domiciliodocente'))
+                <div id="domiciliodocente-error" class="error text-danger pl-3" for="domiciliodocente" style="display: block;">
+                  <strong>{{ $errors->first('domiciliodocente') }}</strong>
                 </div>
               @endif
             </div>
@@ -126,10 +125,10 @@
  
          <div class="col">
             <label >Localidad</label>
-            <input type="text" name="localidad" class="form-control" value="{{$id->localidaddocente}}">
-            @if ($errors->has('localidad'))
-                <div id="localidad-error" class="error text-danger pl-3" for="localidad" style="display: block;">
-                  <strong>{{ $errors->first('localidad') }}</strong>
+            <input type="text" name="localidaddocente" class="form-control" value="{{$id->localidaddocente}}">
+            @if ($errors->has('localidaddocente'))
+                <div id="localidaddocente-error" class="error text-danger pl-3" for="localidaddocente" style="display: block;">
+                  <strong>{{ $errors->first('localidaddocente') }}</strong>
                 </div>
               @endif
             </div>
@@ -137,10 +136,10 @@
 
             <div class="col">
             <label>Provincia</label>
-            <input type="text" name="provincia" class="form-control" value="{{$id->provinciadocente}}">
-            @if ($errors->has('provincia'))
-                <div id="provincia-error" class="error text-danger pl-3" for="provincia" style="display: block;">
-                  <strong>{{ $errors->first('provincia') }}</strong>
+            <input type="text" name="provinciadocente" class="form-control" value="{{$id->provinciadocente}}">
+            @if ($errors->has('provinciadocente'))
+                <div id="provinciadocente-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
+                  <strong>{{ $errors->first('provinciadocente') }}</strong>
                 </div>
               @endif
             </div>
@@ -155,11 +154,12 @@
           <div class="row">
 
             <div class="col"> 
-            <label>Teléfono</label>
-            <input type="text" name="telefono" class="form-control" value="{{$id->telefonodocente}}">
-            @if ($errors->has('telefono'))
-                <div id="telefono-error" class="error text-danger pl-3" for="telefono" style="display: block;">
-                  <strong>{{ $errors->first('telefono') }}</strong>
+            <label>Teléfono celular</label>
+            <input type="text" name="telefonodocente" class="form-control" value="{{$id->telefonodocente}}">
+            <small id="eventoHelp" class="form-text text-muted" >Debe ingresar el número de teléfono sin el 0, sin el 15 y sin espacios.</small>
+            @if ($errors->has('telefonodocente'))
+                <div id="telefonodocente-error" class="error text-danger pl-3" for="telefonodocente" style="display: block;">
+                  <strong>El campo debe ser del tipo numérico y contener 10 caracteres.</strong>
                 </div>
               @endif
             </div>
@@ -167,10 +167,10 @@
 
             <div class="col">
             <label>Correo electrónico</label>
-            <input type="text" name="email" class="form-control" value="{{$id->emaildocente}}">
-            @if ($errors->has('email'))
-                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
+            <input type="text" name="emaildocente" class="form-control" value="{{$id->emaildocente}}">
+            @if ($errors->has('emaildocente'))
+                <div id="emaildocente-error" class="error text-danger pl-3" for="emaildocente" style="display: block;">
+                  <strong>{{ $errors->first('emaildocente') }}</strong>
                 </div>
               @endif
             </div>

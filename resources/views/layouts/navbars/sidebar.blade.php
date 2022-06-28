@@ -101,6 +101,20 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
+              <a class="nav-link" href="{{url('informacionacademica')}}">
+                <div class="items-dashboard">
+                 <i class="bi bi-person-plus"></i>
+                <span class="sidebar-normal">{{ __('Información académica') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
        <li class="nav-item{{ $activePage == 'libretas' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('libretas')}}">
                 <div class="items-dashboard">
@@ -136,8 +150,6 @@
   </div>
   <?php 
 }
-?>
- <?php
   if (Auth::user()->role =='docente') { ?>
   <div class="sidebar-wrapper">
     <ul class="nav">
@@ -204,14 +216,37 @@
         $tipodoc="$tipo->especialidad";
       }
       if($tipodoc=='Grado'){?>
-       <li class="nav-item{{ $activePage == 'cargasistenciagrado' ? ' active' : '' }}">
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#asistencias" aria-expanded="false">
+          <div class="items-dashboard">
+          <i class="bi bi-journal-text"></i>
+          <span class="sidebar-normal">Asistencias</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="collapse navbar-collapse" id="asistencias">
+          <ul class="nav">
+             <li class="nav-item{{ $activePage == 'cargasistenciagrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('asistencias')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
                 <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
                 </div>
               </a>
+            </li>
+             <li class="nav-item{{ $activePage == 'justificacioninasistencias' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('justificacioninasistencias')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Gestión de justificaciones') }} </span>
+                </div>
+              </a>
+            </li>
+           
+          </ul>
+        </div>
       </li>
+       
       <?php 
       }
       if($tipodoc!='Grado'){?>
@@ -240,6 +275,14 @@
            <strong><p>{{ __('MENU FAMILIA') }}</p></strong> 
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'asistenciasfamilia' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('asistenciasalumnos')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Asistencias') }} </span>
+                </div>
+              </a>
+            </li>
       <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('eventosfamilia')}}">
                 <div class="items-dashboard">

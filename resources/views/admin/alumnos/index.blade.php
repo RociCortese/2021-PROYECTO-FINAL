@@ -159,13 +159,13 @@
                               </td>
                               <td class="v-align-middle">
                                 <label>Género:</label>  {{$infofam->generofamilia}}
-                              </td>
-                              <td class="v-align-middle">
-                                <label>Teléfono:</label>  {{$infofam->telefono}}
-                              </td> 
-                            </tr>
-                            <tr>
-                              <td class="v-align-middle">
+                                </td>
+                                <td class="v-align-middle">
+                                <label>Teléfono celular:</label>  {{$infofam->telefono}}
+                                </td> 
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
                                 <label>Email:</label>  {{$infofam->email}}
                               </td>
                               <td class="v-align-middle">
