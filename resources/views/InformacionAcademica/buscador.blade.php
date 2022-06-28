@@ -15,6 +15,9 @@
                 <h4 class="card-title ">Información académica</h4>
               </div>
               <div class="card-body">
+                <div class="text-left col">
+                  <h5><span class="badge badge-info">Para una búsqueda eficiente se recomienda seleccionar al menos dos criterios.</span></h5>
+                  </div>
                 @if(session('danger'))
                     <div class="alert alert-danger" role="danger">
                     {{session('danger')}}
@@ -123,9 +126,6 @@
                 </div>
                 </div>
                 <br>
-                <div class="text-left col">
-                  <h5><span class="badge badge-info">Para una búsqueda eficiente se recomienda seleccionar al menos dos criterios.</span></h5>
-                  </div>
                 <div class="text-right">
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
