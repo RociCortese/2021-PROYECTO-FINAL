@@ -1,11 +1,12 @@
 @extends('layouts.main' , ['activePage' => 'notas', 'titlePage => Registro de notas'])
+ 
 
 @section ('content')
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
  <div class="content">
+ 
 
    <div class="container-fluid">
      <div class="row">
@@ -199,16 +200,31 @@
                               $idalumno="$infoinf->id_alumno";
                               if($idalumno==$infoalu->id_alumno){
                               ?>
-                              <textarea class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
+                              <div class="text-right"><small class="form-text text-muted contador" id="contador">150 caracteres restantes.</small></div>
+                              <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
+
+
                               <?php
                               }
                               }
                              ?>  
+                             
                             <div class="modal-footer">
                     <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
                     <button formaction="{{route('observacion.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
                     </div>
                   </div>
+                  <script type="text/javascript">
+var limit = 150;
+$(function() {
+    $("#observacion").on("input", function () {
+        //al cambiar el texto del txt_detalle
+        var init = $(this).val().length;
+        total_characters = (limit - init);
+        $('#contador').html(total_characters + " caracteres restantes.");
+    });
+});
+</script>
                          </div>
                        </div>
                      </div>

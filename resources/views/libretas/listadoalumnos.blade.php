@@ -11,6 +11,16 @@
               <div class="card-header card-header-info">
                 <h4 class="card-title ">Informes de progreso escolar</h4>
               </div>
+             @if(sizeof($infogrado)==0)
+              <br>
+
+          <div class="col-md-12 text-center">
+          <h4><span class="badge badge-warning">Aún no hay Informes creados para el Grado y Periodo seleccionado </span></h4>
+          <u><strong><a class="text-primary" href="{{route('libretas')}}">Volver al buscador.</a></strong></u>
+          </div>
+
+          <br>
+          @else
               <div class="card-body">
                 @foreach($infoaño as $año)
                   <div class="text-left">
@@ -165,6 +175,7 @@
                </div>
            
             </div>
+            @endif
           </div>
         </div>
       </div>

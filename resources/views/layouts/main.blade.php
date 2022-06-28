@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
@@ -35,6 +36,7 @@
       };
       const app = initializeApp(firebaseConfig);
     </script>
+
     </head>
 
     <body class="{{ $class ?? '' }}">
@@ -51,14 +53,20 @@
        
         @endif
         <!--   Core JS Files   -->
-        
-        
+
+ 
+
         <script src="{{ asset('js/core/jquery.min.js')}}"></script>
         <script src="{{ asset('js/core/popper.min.js')}}"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="{{ asset('js/core/bootstrap-material-design.min.js')}}"></script>
+
         <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
 
