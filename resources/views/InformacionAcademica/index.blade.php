@@ -288,9 +288,19 @@
                     @endforeach
                   </table>
                   </div>
-                  <div class="text-right">
-                  <a href="{{url ('linechart') }}" class="btn btn-sm btn-success">Visualizar gráfico</a>
-                </div>
+                   @if(empty($infgrado) and empty($añolec))
+                  <form action="{{url ('linechart') }}">
+                    <div style="display: none;">
+                    <input type="text" name="alumno" value="{{$nombrealumno}}">
+                    <input type="text" name="añolectivo" value="{{$añolec}}">
+                    <input type="text" name="grado" value="{{$infgrado}}">
+                    <input type="text" name="espacio" value="{{$espaciocurricular}}">
+                    </div>
+                    <div class="text-right">
+                    <button  class="btn btn-sm btn-success">Visualizar gráfico</button>
+                    </div>
+                  </form>
+                  @endif
                   @endif
                        </div>
                        <div class="card-footer mr-auto">
