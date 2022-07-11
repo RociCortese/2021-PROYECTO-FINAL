@@ -56,7 +56,9 @@
                     </script>
                     @endif
                   @if($años->isEmpty())
-                  <div class="text-center"> No hay ningún año escolar asociado a este colegio.</div>
+                  <div class="text-center"> 
+                    <h4><span class="badge badge-warning">No hay ningún año escolar asociado a este colegio.</span></h4>
+                  </div>
                   @else
                   <br>
                   <div class="table-responsive">

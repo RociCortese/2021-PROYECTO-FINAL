@@ -51,8 +51,6 @@ if($colegio->isEmpty()){?>
                             </span>
                         </label>
                     </div>
-                  
-
                 @error('gestion')
                 <small class="text-danger">{{$message}}</small>
               @enderror 
