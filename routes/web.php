@@ -175,4 +175,4 @@ Route::put('descargararchivo/{id}','App\Http\Controllers\AsistenciaFamiliaContro
 Route::get('informacionacademica','App\Http\Controllers\InformacionAcademicaController@buscador')->name('informacionacademica');
 Route::get('/autocomplete/alumnos/','App\Http\Controllers\InformacionAcademicaController@getAutocompletealumno')->name('Autocomplete.Alumnos');
 Route::get('listadoinfoacademica','App\Http\Controllers\InformacionAcademicaController@index')->name('listadoinfoacademica');
-
+Route::get('linechart','App\Http\Controllers\InformacionAcademicaController@showChart')->name('linechart');

@@ -11,11 +11,5 @@ class calificacioncualitativa extends Model
 
     protected $table= 'calificacioncualitativa';
 
-    protected $fillable = [
-
-
-        'id_calificacion','calificacion','codigo','valor','orden'
-
-
-    ];
+    protected $fillable = ['id_calificacion','calificacion','codigo','valor','orden'];
 }
