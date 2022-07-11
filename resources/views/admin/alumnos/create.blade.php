@@ -310,23 +310,32 @@ function mostrar() {
                     <i class="material-icons">person_add_alt</i></a>
                   </div>
           <div class="col">
-           <h4> <span class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione el familiar correspondiente.</span></h4>
+           <small class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione el familiar correspondiente.</small>
           </div>
           <br>
           <table class="table">
                     <thead class="text-primary">
                       <th>(*)</th>
-                      <th>ID</th>
                       <th>DNI</th>
                       <th>Nombre</th>
                       <th>Apellido</th>
+                      <th>Acciones</th>
                     </thead>
                     <tbody>
+                       @if($errors->any())
+                        <script>
+                        new MyModal.modal({
+                        content = {
+                        clone: false,
+    }
+});
+                        </script>
+                        @endif 
+                        
                       @foreach($familias as $fam)
                         <tr>
                           <td class="v-align-middle">
                           <input type="checkbox" value="{{$fam->id}}" id="check" name="check" onclick="botonalumnos.disabled =this.checked"></td>
-                          <td class="v-align-middle">{{$fam->id}}</td>
                           <td class="v-align-middle">{{$fam->dnifamilia}}</td>
                           <td class="v-align-middle">{{$fam->nombrefamilia}}</td>
                           <td class="v-align-middle">{{$fam->apellidofamilia}}</td>

@@ -98,11 +98,7 @@ class NotasController extends Controller
         for ($i=0; $i <= $contador ; $i++) { 
 
         $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("orden");
-
-        
         }
-
-
         $calificacion= preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
         rsort($calificacion);
         $contador=count($calificacion)-1;
@@ -114,15 +110,8 @@ class NotasController extends Controller
         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
 
         $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
-
         $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','ASC')->pluck("calificacion");
         }
-       
-       
-
-        }
-
-     
         else
         {
         $infoco=explode(',', $infoco);

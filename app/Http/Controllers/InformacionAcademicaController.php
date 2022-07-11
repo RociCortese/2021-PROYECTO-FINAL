@@ -363,7 +363,6 @@ class InformacionAcademicaController extends Controller
         if($periodo=='Trimestre'){
             $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
             $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
-            
             $notasperiodo3 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Tercer período')->orderBy('año','ASC')->pluck("nota");
             $notas1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Primer período')->orderBy('año','ASC')->get();
             $notas2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Segundo período')->orderBy('año','ASC')->get();
@@ -401,7 +400,6 @@ class InformacionAcademicaController extends Controller
             }      
             }
             }
-
             for ($i=0; $i <=$contadoraños; $i++) {
             if(empty($calificacioncuali)){
             $cantidadnotas=0;

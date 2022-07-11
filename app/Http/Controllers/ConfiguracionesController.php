@@ -70,23 +70,23 @@ class ConfiguracionesController extends Controller
         $modificar->grados=$request->grados;
         $modificar->divisiones=$request->divisiones;
         $modificar->espacioscurriculares=$espacio;
+
         if($request->calificualitativa){
             $request->validate([
             'calicualitativa' => ['required'],
             ]);
         $calificacion=$request->input("calicualitativa");
         $modificar->calicualitativa=$calificacion;
+        $modificar->calinumerica= null;
         }
+
         if($request->calinumerica)
         {
-            $request->validate([
-            'minimo' => ['required'],
-            'maximo' => ['required'],
-            ]);
             $valorminimo=$request->input("minimo");
             $valormaximo=$request->input("maximo");
             $datos = array($valorminimo, $valormaximo);
             $modificar->calinumerica=$datos;
+            $modificar->calicualitativa= null;
         }
         $modificar->save();
         return redirect()->route('configuraciones',compact('colegio'))->with('success', 'Las configuraciones se modificaron correctamente.');

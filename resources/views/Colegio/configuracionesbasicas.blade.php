@@ -7,8 +7,13 @@
   <script type="text/javascript">
 function valoracionnumerica() {
     var x = document.getElementById('valoracionnumerica');
-    if (x.style.display =='none') {
+    var y = document.getElementById('calificualitativa');
+    var z = document.getElementById('calinumerica');
+    var w = document.getElementById('valoracioncualitativa');
+    y.checked=false;
+    if (z.checked) {
         x.style.display = 'block';
+        w.style.display = 'none';
     } else {
         x.style.display = 'none';
     }
@@ -17,8 +22,13 @@ function valoracionnumerica() {
   <script type="text/javascript">
 function valoracioncualitativa() {
     var x = document.getElementById('valoracioncualitativa');
-    if (x.style.display =='none') {
+    var y = document.getElementById('calinumerica');
+    var z = document.getElementById('calificualitativa');
+    var w = document.getElementById('valoracionnumerica');
+    y.checked=false;
+    if (z.checked) {
         x.style.display = 'block';
+        w.style.display = 'none';
     } else {
         x.style.display = 'none';
     }
@@ -66,7 +76,7 @@ function valoracioncualitativa() {
 
             <div class="col">
             
-            <label><strong>Período</strong></label>
+            <label>Período</label>
             <br>
             @foreach($colegio as $colegios)
             <div class="form-check form-check-radio form-check-inline">
@@ -112,7 +122,7 @@ function valoracioncualitativa() {
          <br>
          
 
-         <label><strong>Turno</strong></label>
+         <label>Turno</label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -146,7 +156,7 @@ function valoracioncualitativa() {
           <br>
 
           <br>
-          <label><strong>Cantidad de grados</strong></label>
+          <label>Cantidad de grados</label>
             <br>
             <div class="form-check form-check-radio form-check-inline">
                 <label class="form-check-label">
@@ -173,7 +183,7 @@ function valoracioncualitativa() {
               <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
               
           <div class="form-group">
-          <label><strong>Divisiones</strong></label>
+          <label>Divisiones</label>
           <br>
           <select class="form-control divisiones" name="divisiones[]" id='divisiones' multiple="multiple" lang="es" style="width: 100%">
           @if(empty($colegios->divisiones))
@@ -226,7 +236,7 @@ function valoracioncualitativa() {
 
 
     <div class="form-group">
-    <label for="espacioscurriculares"><strong>Espacios curriculares</strong></label>
+    <label for="espacioscurriculares">Espacios curriculares</label>
     <br>
     <select class="form-control espacioscurriculares" name="espacioscurriculares[]" id='espacioscurriculares' multiple="multiple" lang="es" style="width: 100%">
       @if(empty($colegios->espacioscurriculares))
@@ -284,12 +294,12 @@ function valoracioncualitativa() {
       @endif
     </div>
     <div class="form-group">
-    <label><strong>Forma de Calificación:</strong></label>
+    <label>Forma de Calificación</label>
     <div class="row">
     <br>
     <div class="col form-check-inline">
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion"<?php if(empty($colegios->calicualitativa)) echo 'checked ';?> onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
+        <input class="form-check-input" type="checkbox" id="calinumerica" name="calinumerica" value="calificacion"<?php if(empty($colegios->calicualitativa)) echo 'checked ';?> onchange="valoracionnumerica()">Calificación Numérica
         </label>&nbsp&nbsp&nbsp&nbsp
         <br>
         @if ($errors->has('calinumerica'))
@@ -297,23 +307,95 @@ function valoracioncualitativa() {
             </div>
        @endif
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" <?php if(empty($colegios->calinumerica)) echo 'checked ';?> onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
+        <input class="form-check-input" id="calificualitativa" type="checkbox" name="calificualitativa" value="Cualitativa" <?php if(empty($colegios->calinumerica)) echo 'checked ';?> onchange="valoracioncualitativa()">Calificación Cualitativa
         </label>
     </div> 
     </div>
     </div>
-    <div id="valoracionnumerica" style = "display: none;">
-
-       <br>
-       <br>
+    <?php 
+    if(empty($colegios->calicualitativa)){
+      $valores = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->calinumerica);
+      $valores = explode(',',$valores);
+      ?>
+        <div id="valoracionnumerica">
       <div class="col">
-      <label>Valor Mínimo:</label> 
-          <input type="number" name="minimo" style="width: 8%" value="{{$colegios->calinumerica}}">
+      <label class="form-check-label">Valor Mínimo</label> 
+          <input type="number" name="minimo" style="width: 6%" value="{{$valores[0]}}">
           &nbsp&nbsp 
-      <label>Valor Máximo:</label>
-        <input type="number" name="maximo" style="width: 8%">
+
+      <label>Valor Máximo</label>
+        <input type="number" name="maximo" style="width: 6%" value="{{$valores[1]}}">
       </div>
     </div>
+    <?php 
+  }
+      if(empty($colegios->calinumerica)){
+      $valores = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->calicualitativa);
+      $valores = explode(',',$valores);
+      ?>
+     <div id="valoracioncualitativa">
+    <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%"><?php echo 'selected="selected" ';?>
+      <?php
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->calicualitativa);
+        $array=explode(',', $res);
+     for ($i=0;$i<=count($array)-1;$i++)    
+      {     
+       $calificaciones=App\Models\calificacioncualitativa::where('id_calificacion',$array[$i])->get();
+        foreach ($calificaciones as $ca) {
+          $nombrecali="$ca->calificacion";
+          $idcali="$ca->id_calificacion";
+        }
+      ?>
+        <option value="{{$idcali}}"<?php echo 'selected="selected" ';?>>
+       {{$nombrecali}}
+       </option>
+       <?php
+      }
+      ?>
+    </select>
+    <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
+    <script type="text/javascript">
+    $('.calicualitativa').select2({
+    placeholder: 'Ingrese las calificaciones que desea agregar',
+    tokenSeparators: [','],
+    tags: true,
+    tokenSeparatrs : [ ',' , ' ' ],
+    ajax: {
+    url: '/autocomplete/calificacion/',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.calificacion,
+                  id: item.id_calificacion
+              }
+          })
+      };
+    },
+    cache: true
+    }
+});
+</script>
+  @if ($errors->has('calificacion'))
+  <div id="calificacion-error" class="error text-danger pl-3" for="calificacion" style="display: block;">
+      <strong>{{ $errors->first('calificacion') }}</strong>
+      </div>
+      @endif
+   </div>
+    <div id="valoracionnumerica" style = "display: none;">
+      <div class="col">
+      <label>Valor Mínimo:</label> 
+          <input type="number" name="minimo" style="width: 6%" value="{{ old('minimo') }}">
+          &nbsp&nbsp 
+      <label>Valor Máximo:</label>
+        <input type="number" name="maximo" style="width: 6%" value="{{ old('maximo') }}">
+      </div>
+    </div>
+    <?php 
+  }
+  ?>
 
     <div id="valoracioncualitativa" style = "display: none;">
     <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%"><?php echo 'selected="selected" ';?>
