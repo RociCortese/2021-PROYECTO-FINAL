@@ -150,6 +150,10 @@ class InformacionAcademicaController extends Controller
             $notasperiodo4=[];
             $contadoraños=count($años)-1;
             for ($i=0; $i <=$contadoraños; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
             foreach ($notas1 as $nota1) {
              if($nota1->año==$idaños[$i]){
                 $notasperiodo1[$i]=$nota1->nota;
@@ -159,6 +163,11 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo1[$i]=null;
             }    
             }
+            }
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
             foreach ($notas2 as $nota2) {
              if($nota2->año==$idaños[$i]){
                 $notasperiodo2[$i]=$nota2->nota;
@@ -168,6 +177,11 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo2[$i]=null;
             }    
             }
+            } 
+            if(sizeof($notas3)==0){
+            $notasperiodo3[$i]=null;
+            }
+            else{  
             foreach ($notas3 as $nota3) {
              if($nota3->año==$idaños[$i]){
                 $notasperiodo3[$i]=$nota3->nota;
@@ -177,6 +191,11 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo3[$i]=null;
             }    
             }
+            }
+            if(sizeof($notas4)==0){
+            $notasperiodo4[$i]=null;
+            }
+            else{
             foreach ($notas4 as $nota4) {
              if($nota4->año==$idaños[$i]){
                 $notasperiodo4[$i]=$nota4->nota;
@@ -185,6 +204,7 @@ class InformacionAcademicaController extends Controller
             else{
                 $notasperiodo4[$i]=null;
             }    
+            }
             }
             }
             for ($i=0; $i <=$contadoraños; $i++) {
@@ -202,8 +222,13 @@ class InformacionAcademicaController extends Controller
             if($notasperiodo4[$i]!=null){
                 $cantidadnotas++;
             }
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
             $suma=$notasperiodo1[$i]+$notasperiodo2[$i]+$notasperiodo3[$i]+$notasperiodo4[$i];
             $notasprom[$i]=$suma/$cantidadnotas;
+            }
             }
             else{
             $cantidadnotas=0;
@@ -363,7 +388,6 @@ class InformacionAcademicaController extends Controller
         if($periodo=='Trimestre'){
             $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
             $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
-            
             $notasperiodo3 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Tercer período')->orderBy('año','ASC')->pluck("nota");
             $notas1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Primer período')->orderBy('año','ASC')->get();
             $notas2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('espacio',$espacio)->where('periodo','Segundo período')->orderBy('año','ASC')->get();
@@ -373,6 +397,10 @@ class InformacionAcademicaController extends Controller
             $notasperiodo3=[];
             $contadoraños=count($años)-1;
             for ($i=0; $i <=$contadoraños; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
             foreach ($notas1 as $nota1) {
              if($nota1->año==$idaños[$i]){
                 $notasperiodo1[$i]=$nota1->nota;
@@ -382,15 +410,25 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo1[$i]=null;
             }    
             }
+            }      
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
             foreach ($notas2 as $nota2) {
              if($nota2->año==$idaños[$i]){
                 $notasperiodo2[$i]=$nota2->nota;
-                 break;
+                break;
             }    
              else{
                 $notasperiodo2[$i]=null;
             }    
             }
+            }
+            if(sizeof($notas3)==0){
+            $notasperiodo3[$i]=null;
+            }
+            else{
             foreach ($notas3 as $nota3) {
              if($nota3->año==$idaños[$i]){
                 $notasperiodo3[$i]=$nota3->nota;
@@ -401,7 +439,7 @@ class InformacionAcademicaController extends Controller
             }      
             }
             }
-
+            }
             for ($i=0; $i <=$contadoraños; $i++) {
             if(empty($calificacioncuali)){
             $cantidadnotas=0;
@@ -414,8 +452,13 @@ class InformacionAcademicaController extends Controller
             if($notasperiodo3[$i]!=null){
                 $cantidadnotas++;
             }
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
             $suma=$notasperiodo1[$i]+$notasperiodo2[$i]+$notasperiodo3[$i];
             $notasprom[$i]=$suma/$cantidadnotas;
+            }
             }
             else{
             $cantidadnotas=0;
@@ -534,6 +577,10 @@ class InformacionAcademicaController extends Controller
             $notasperiodo2=[];
             $contadoraños=count($años)-1;
             for ($i=0; $i <=$contadoraños; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
             foreach ($notas1 as $nota1) {
              if($nota1->año==$idaños[$i]){
                 $notasperiodo1[$i]=$nota1->nota;
@@ -543,6 +590,11 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo1[$i]=null;
             }    
             }
+            }
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
             foreach ($notas2 as $nota2) {
              if($nota2->año==$idaños[$i]){
                 $notasperiodo2[$i]=$nota2->nota;
@@ -551,6 +603,7 @@ class InformacionAcademicaController extends Controller
              else{
                 $notasperiodo2[$i]=null;
             }    
+            }
             }
             }
             for ($i=0; $i <=$contadoraños; $i++) {
@@ -562,8 +615,13 @@ class InformacionAcademicaController extends Controller
             if($notasperiodo2[$i]!=null){
                 $cantidadnotas++;
             }
-            $suma=$notasperiodo1[$i]+$notasperiodo2[$i];
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
+            $suma=$notasperiodo1[$i]+$notasperiodo2[$i]+$notasperiodo3[$i]+$notasperiodo4[$i];
             $notasprom[$i]=$suma/$cantidadnotas;
+            }
             }
             else{
             $cantidadnotas=0;
@@ -658,6 +716,10 @@ class InformacionAcademicaController extends Controller
             $notasperiodo2=[];
             $contadoraños=count($años)-1;
             for ($i=0; $i <=$contadoraños; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
             foreach ($notas1 as $nota1) {
              if($nota1->año==$idaños[$i]){
                 $notasperiodo1[$i]=$nota1->nota;
@@ -667,6 +729,11 @@ class InformacionAcademicaController extends Controller
                 $notasperiodo1[$i]=null;
             }    
             }
+            }
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
             foreach ($notas2 as $nota2) {
              if($nota2->año==$idaños[$i]){
                 $notasperiodo2[$i]=$nota2->nota;
@@ -675,6 +742,7 @@ class InformacionAcademicaController extends Controller
              else{
                 $notasperiodo2[$i]=null;
             }    
+            }
             }
             }
             for ($i=0; $i <=$contadoraños; $i++) {
@@ -686,8 +754,13 @@ class InformacionAcademicaController extends Controller
             if($notasperiodo2[$i]!=null){
                 $cantidadnotas++;
             }
-            $suma=$notasperiodo1[$i]+$notasperiodo2[$i];
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
+            $suma=$notasperiodo1[$i]+$notasperiodo2[$i]+$notasperiodo3[$i]+$notasperiodo4[$i];
             $notasprom[$i]=$suma/$cantidadnotas;
+            }
             }
             else{
             $cantidadnotas=0;
