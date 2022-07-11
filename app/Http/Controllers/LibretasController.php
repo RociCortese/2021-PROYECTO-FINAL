@@ -72,7 +72,7 @@ class LibretasController extends Controller
     $nombrealumno = preg_replace('/[\[\]\.\;\" "]+/', '', $nombrealumno);
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
     $idalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $idalumno);
-    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno'));
+    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
     }
 
     }

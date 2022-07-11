@@ -104,7 +104,7 @@
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
-          <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
+          <li class="nav-item{{ $activePage == 'informacionacademica' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('informacionacademica')}}">
                 <div class="items-dashboard">
                  <i class="bi bi-person-plus"></i>
