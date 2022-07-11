@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activePage' => 'informacionacademica', 'titlePage => Información académica'])
+@extends('layouts.main' , ['activePage' => 'informacionacademica', 'titlePage => Información Académica'])
 
 @section ('content')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>

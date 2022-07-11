@@ -118,7 +118,9 @@
                 </div>
                 </form>
                @if($inforgrado->isEmpty())
-                <div> No se encontraron resultados para esos parámetros de búsqueda.</div>
+                <div class="text-center"> 
+                <h4><span class="badge badge-warning">No se encontraron resultados para los criterios seleccionados en la búsqueda.</span></h4>
+                </div>
                @else
                 <div class="table-responsive">
                   <table class="table">
