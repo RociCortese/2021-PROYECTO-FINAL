@@ -919,6 +919,246 @@ class InformacionAcademicaController extends Controller
         $año=$request->añolectivo;
         $idaño=Año::where('descripcion',$año)->pluck("id");
         $idaño = preg_replace('/[\[\]\.\;\""]+/', '', $idaño);
+        if($periodo=='Bimestre'){
+            $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
+            $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
+            $notasperiodo3 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Tercer período')->orderBy('año','ASC')->pluck("nota");
+            $notasperiodo4 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Cuarto período')->orderBy('año','ASC')->pluck("nota");
+            $notas1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->get();
+            $notas2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->get();
+            $notas3 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Tercer período')->orderBy('año','ASC')->get();
+            $notas4 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Cuarto período')->orderBy('año','ASC')->get();
+            $notasperiodo1=[];
+            $notasperiodo2=[];
+            $notasperiodo3=[];
+            $notasperiodo4=[];
+            $contadorespacios=count($nombrespacio)-1;
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
+            foreach ($notas1 as $nota1) {
+             if($nota1->espacio==$nombrespacio[$i]){
+                $notasperiodo1[$i]=$nota1->nota;
+                break;
+            }
+            else{
+                $notasperiodo1[$i]=null;
+            }    
+            }
+            }      
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
+            foreach ($notas2 as $nota2) {
+             if($nota2->espacio==$nombrespacio[$i]){
+                $notasperiodo2[$i]=$nota2->nota;
+                break;
+            }    
+             else{
+                $notasperiodo2[$i]=null;
+            }    
+            }
+            }
+            if(sizeof($notas3)==0){
+            $notasperiodo3[$i]=null;
+            }
+            else{
+            foreach ($notas3 as $nota3) {
+             if($nota3->espacio==$nombrespacio[$i]){
+                $notasperiodo3[$i]=$nota3->nota;
+                break;
+            }
+            else{
+                $notasperiodo3[$i]=null;
+            }      
+            }
+            }
+            if(sizeof($notas4)==0){
+            $notasperiodo4[$i]=null;
+            }
+            else{
+            foreach ($notas4 as $nota4) {
+             if($nota4->espacio==$nombrespacio[$i]){
+                $notasperiodo4[$i]=$nota4->nota;
+                break;
+            }
+            else{
+                $notasperiodo4[$i]=null;
+            }    
+            }
+            } 
+            }
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(empty($calificacioncuali)){
+            $cantidadnotas=0;
+            if($notasperiodo1[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($notasperiodo2[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($notasperiodo3[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($notasperiodo4[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
+            $suma=$notasperiodo1[$i]+$notasperiodo2[$i]+$notasperiodo3[$i]+$notasperiodo4[$i];
+            $notasprom[$i]=$suma/$cantidadnotas;
+            }
+            }
+            else{
+            $cantidadnotas=0;
+            $puntos1=calificacioncualitativa::where('codigo',$notasperiodo1[$i])->pluck("valor");
+            $puntos1 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos1));
+            if($puntos1!=null){
+                $cantidadnotas++;
+            }
+            $puntos2=calificacioncualitativa::where('codigo',$notasperiodo2[$i])->pluck("valor");
+            $puntos2 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos2));
+            if($puntos2!=null){
+                $cantidadnotas++;
+            }
+            $puntos3=calificacioncualitativa::where('codigo',$notasperiodo3[$i])->pluck("valor");
+            $puntos3 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos3));
+            if($puntos3!=null){
+                $cantidadnotas++;
+            }
+            $puntos4=calificacioncualitativa::where('codigo',$notasperiodo4[$i])->pluck("valor");
+            $puntos4 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos4));
+            if($puntos4!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas!=0){ 
+            $suma=$puntos1+$puntos2+$puntos3+$puntos4;
+            $promedio=$suma/$cantidadnotas;
+            if(1<=$promedio and $promedio<=3){
+            $calcuali[$i]='NS';
+            }
+            elseif(3<$promedio and $promedio<=5){
+            $calcuali[$i]='S';
+            } 
+            elseif(5<$promedio and $promedio<=7){
+            $calcuali[$i]='B';
+            }
+            elseif(7<$promedio and $promedio<=9){
+            $calcuali[$i]='MB';
+            } 
+            elseif(9<$promedio){
+            $calcuali[$i]='E';
+            }
+            }
+            else{
+            $calcuali[$i]=null;    
+            }
+            }
+            }
+            $notasperiodo1 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo1);
+            $contador1=count($notasperiodo1);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador1 ; $i++) {
+            $notasperi1[]=floatval($notasperiodo1[$i]);   
+            }
+            }
+            else{
+            $valorcali[]=' ';
+            $nombrescalificaciones=array_merge($valorcali,$nombrescalificaciones);
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador1 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo1[$i]==$nombrescali[$j]){
+            $notasperi1[]=$j;
+            }
+            elseif($notasperiodo1[$i]==null){
+                $notasperi1[$i]=0;
+            }
+            }
+            }
+            for ($i=0; $i <=$contadorespacios ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($calcuali[$i]==$nombrescali[$j]){
+            $notasprom[]=$j;
+            }
+            }
+            }
+            }
+            $notasperiodo2 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo2);
+            $contador2=count($notasperiodo2);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador2 ; $i++) {
+            $notasperi2[]=floatval($notasperiodo2[$i]);   
+            }
+            }
+            else{
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador2 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo2[$i]==$nombrescali[$j]){
+            $notasperi2[$i]=$j;
+            }
+            elseif($notasperiodo2[$i]==null){
+                $notasperi2[$i]=0;
+            }
+            }
+            }
+            }
+            $notasperiodo3 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo3);
+            $contador3=count($notasperiodo3);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador3 ; $i++) {
+            $notasperi3[]=floatval($notasperiodo3[$i]);   
+            }
+            }
+            else{
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador3 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo3[$i]==$nombrescali[$j]){
+            $notasperi3[]=$j;
+            }
+            elseif($notasperiodo3[$i]==null){
+                $notasperi3[$i]=0;
+            }
+            }
+            }
+            }
+            $notasperiodo4 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo4);
+            $contador4=count($notasperiodo4);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador4 ; $i++) {
+            $notasperi4[]=floatval($notasperiodo4[$i]);   
+            }
+            }
+            else{
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador4 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo4[$i]==$nombrescali[$j]){
+            $notasperi4[$i]=$j;
+            }
+            elseif($notasperiodo4[$i]==null){
+                $notasperi4[$i]=0;
+            }
+            }
+            }
+            }
+            $per1='Primer período';
+            $per2='Segundo período';
+            $per3='Tercer período';
+            $per4='Cuarto período';
+            return view("Graficos.Grafico2", compact('año','periodo','alumno','calificacioncuali'),["data1" => json_encode($notasperi1),"data2" => json_encode($notasperi2),"data3" => json_encode($notasperi3),"data4" => json_encode($notasperi4),"nombrespacios" => json_encode($nombrespacio), "per1" => json_encode($per1),"per2" => json_encode($per2),"per3" => json_encode($per3),"per4" => json_encode($per4) "califi" => json_encode($nombrescalificaciones),"califpromedio" => json_encode($notasprom)]);
+        }
         if($periodo=='Trimestre'){
             $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
             $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
@@ -1111,7 +1351,299 @@ class InformacionAcademicaController extends Controller
             $per2='Segundo período';
             $per3='Tercer período';
             return view("Graficos.Grafico2", compact('año','periodo','alumno','calificacioncuali'),["data1" => json_encode($notasperi1),"data2" => json_encode($notasperi2),"data3" => json_encode($notasperi3),"nombrespacios" => json_encode($nombrespacio), "per1" => json_encode($per1),"per2" => json_encode($per2),"per3" => json_encode($per3), "califi" => json_encode($nombrescalificaciones),"califpromedio" => json_encode($notasprom)]);
-        }    
+        } 
+        if($periodo=='Cuatrimestre'){
+            $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
+            $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
+            $notas1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->get();
+            $notas2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->get();
+            $notasperiodo1=[];
+            $notasperiodo2=[];
+            $contadorespacios=count($nombrespacio)-1;
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
+            foreach ($notas1 as $nota1) {
+             if($nota1->espacio==$nombrespacio[$i]){
+                $notasperiodo1[$i]=$nota1->nota;
+                break;
+            }
+            else{
+                $notasperiodo1[$i]=null;
+            }    
+            }
+            }      
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
+            foreach ($notas2 as $nota2) {
+             if($nota2->espacio==$nombrespacio[$i]){
+                $notasperiodo2[$i]=$nota2->nota;
+                break;
+            }    
+             else{
+                $notasperiodo2[$i]=null;
+            }    
+            }
+            }
+            }
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(empty($calificacioncuali)){
+            $cantidadnotas=0;
+            if($notasperiodo1[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($notasperiodo2[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
+            $suma=$notasperiodo1[$i]+$notasperiodo2[$i];
+            $notasprom[$i]=$suma/$cantidadnotas;
+            }
+            }
+            else{
+            $cantidadnotas=0;
+            $puntos1=calificacioncualitativa::where('codigo',$notasperiodo1[$i])->pluck("valor");
+            $puntos1 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos1));
+            if($puntos1!=null){
+                $cantidadnotas++;
+            }
+            $puntos2=calificacioncualitativa::where('codigo',$notasperiodo2[$i])->pluck("valor");
+            $puntos2 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos2));
+            if($puntos2!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas!=0){ 
+            $suma=$puntos1+$puntos2;
+            $promedio=$suma/$cantidadnotas;
+            if(1<=$promedio and $promedio<=3){
+            $calcuali[$i]='NS';
+            }
+            elseif(3<$promedio and $promedio<=5){
+            $calcuali[$i]='S';
+            } 
+            elseif(5<$promedio and $promedio<=7){
+            $calcuali[$i]='B';
+            }
+            elseif(7<$promedio and $promedio<=9){
+            $calcuali[$i]='MB';
+            } 
+            elseif(9<$promedio){
+            $calcuali[$i]='E';
+            }
+            }
+            else{
+            $calcuali[$i]=null;    
+            }
+            }
+            }
+            $notasperiodo1 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo1);
+            $contador1=count($notasperiodo1);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador1 ; $i++) {
+            $notasperi1[]=floatval($notasperiodo1[$i]);   
+            }
+            }
+            else{
+            $valorcali[]=' ';
+            $nombrescalificaciones=array_merge($valorcali,$nombrescalificaciones);
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador1 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo1[$i]==$nombrescali[$j]){
+            $notasperi1[]=$j;
+            }
+            elseif($notasperiodo1[$i]==null){
+                $notasperi1[$i]=0;
+            }
+            }
+            }
+            for ($i=0; $i <=$contadorespacios ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($calcuali[$i]==$nombrescali[$j]){
+            $notasprom[]=$j;
+            }
+            }
+            }
+            }
+            $notasperiodo2 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo2);
+            $contador2=count($notasperiodo2);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador2 ; $i++) {
+            $notasperi2[]=floatval($notasperiodo2[$i]);   
+            }
+            }
+            else{
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador2 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo2[$i]==$nombrescali[$j]){
+            $notasperi2[$i]=$j;
+            }
+            elseif($notasperiodo2[$i]==null){
+                $notasperi2[$i]=0;
+            }
+            }
+            }
+            }
+            $per1='Primer período';
+            $per2='Segundo período';
+            return view("Graficos.Grafico2", compact('año','periodo','alumno','calificacioncuali'),["data1" => json_encode($notasperi1),"data2" => json_encode($notasperi2),"nombrespacios" => json_encode($nombrespacio), "per1" => json_encode($per1),"per2" => json_encode($per2), "califi" => json_encode($nombrescalificaciones),"califpromedio" => json_encode($notasprom)]);
+        } 
+        if($periodo=='Semestre'){
+            $notasperiodo1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->pluck("nota");
+            $notasperiodo2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->pluck("nota");
+            $notas1 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Primer período')->orderBy('año','ASC')->get();
+            $notas2 = Informes::where('colegio_id',$idcolegio)->where('id_alumno',$nombrealumno)->where('año',$idaño)->where('periodo','Segundo período')->orderBy('año','ASC')->get();
+            $notasperiodo1=[];
+            $notasperiodo2=[];
+            $contadorespacios=count($nombrespacio)-1;
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(sizeof($notas1)==0){
+            $notasperiodo1[$i]=null;
+            }
+            else{
+            foreach ($notas1 as $nota1) {
+             if($nota1->espacio==$nombrespacio[$i]){
+                $notasperiodo1[$i]=$nota1->nota;
+                break;
+            }
+            else{
+                $notasperiodo1[$i]=null;
+            }    
+            }
+            }      
+            if(sizeof($notas2)==0){
+            $notasperiodo2[$i]=null;
+            }
+            else{
+            foreach ($notas2 as $nota2) {
+             if($nota2->espacio==$nombrespacio[$i]){
+                $notasperiodo2[$i]=$nota2->nota;
+                break;
+            }    
+             else{
+                $notasperiodo2[$i]=null;
+            }    
+            }
+            }
+            }
+            for ($i=0; $i <=$contadorespacios; $i++) {
+            if(empty($calificacioncuali)){
+            $cantidadnotas=0;
+            if($notasperiodo1[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($notasperiodo2[$i]!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas==0){
+            $notasprom[$i]=null;
+            }
+            else{
+            $suma=$notasperiodo1[$i]+$notasperiodo2[$i];
+            $notasprom[$i]=$suma/$cantidadnotas;
+            }
+            }
+            else{
+            $cantidadnotas=0;
+            $puntos1=calificacioncualitativa::where('codigo',$notasperiodo1[$i])->pluck("valor");
+            $puntos1 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos1));
+            if($puntos1!=null){
+                $cantidadnotas++;
+            }
+            $puntos2=calificacioncualitativa::where('codigo',$notasperiodo2[$i])->pluck("valor");
+            $puntos2 = floatval(preg_replace('/[\[\]\\;\""]+/', '', $puntos2));
+            if($puntos2!=null){
+                $cantidadnotas++;
+            }
+            if($cantidadnotas!=0){ 
+            $suma=$puntos1+$puntos2;
+            $promedio=$suma/$cantidadnotas;
+            if(1<=$promedio and $promedio<=3){
+            $calcuali[$i]='NS';
+            }
+            elseif(3<$promedio and $promedio<=5){
+            $calcuali[$i]='S';
+            } 
+            elseif(5<$promedio and $promedio<=7){
+            $calcuali[$i]='B';
+            }
+            elseif(7<$promedio and $promedio<=9){
+            $calcuali[$i]='MB';
+            } 
+            elseif(9<$promedio){
+            $calcuali[$i]='E';
+            }
+            }
+            else{
+            $calcuali[$i]=null;    
+            }
+            }
+            }
+            $notasperiodo1 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo1);
+            $contador1=count($notasperiodo1);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador1 ; $i++) {
+            $notasperi1[]=floatval($notasperiodo1[$i]);   
+            }
+            }
+            else{
+            $valorcali[]=' ';
+            $nombrescalificaciones=array_merge($valorcali,$nombrescalificaciones);
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador1 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo1[$i]==$nombrescali[$j]){
+            $notasperi1[]=$j;
+            }
+            elseif($notasperiodo1[$i]==null){
+                $notasperi1[$i]=0;
+            }
+            }
+            }
+            for ($i=0; $i <=$contadorespacios ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($calcuali[$i]==$nombrescali[$j]){
+            $notasprom[]=$j;
+            }
+            }
+            }
+            }
+            $notasperiodo2 = preg_replace('/[\[\]\.\;\""]+/', '', $notasperiodo2);
+            $contador2=count($notasperiodo2);
+            if(empty($calificacioncuali)){
+            for ($i=0; $i <$contador2 ; $i++) {
+            $notasperi2[]=floatval($notasperiodo2[$i]);   
+            }
+            }
+            else{
+            $nombrescali = preg_replace('/[\[\]\.\;\""]+/', '', $nombrescalificaciones);
+            $contadorcuali=count($nombrescalificaciones)-1;
+            for ($i=0; $i <$contador2 ; $i++) {
+            for ($j=0; $j <=$contadorcuali ; $j++) {
+            if($notasperiodo2[$i]==$nombrescali[$j]){
+            $notasperi2[$i]=$j;
+            }
+            elseif($notasperiodo2[$i]==null){
+                $notasperi2[$i]=0;
+            }
+            }
+            }
+            }
+            $per1='Primer período';
+            $per2='Segundo período';
+            return view("Graficos.Grafico2", compact('año','periodo','alumno','calificacioncuali'),["data1" => json_encode($notasperi1),"data2" => json_encode($notasperi2),"nombrespacios" => json_encode($nombrespacio), "per1" => json_encode($per1),"per2" => json_encode($per2), "califi" => json_encode($nombrescalificaciones),"califpromedio" => json_encode($notasprom)]);
+        }         
 
         }
     }
