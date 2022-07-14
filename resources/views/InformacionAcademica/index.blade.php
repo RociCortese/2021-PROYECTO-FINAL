@@ -301,6 +301,19 @@
                     </div>
                   </form>
                   @endif
+                  @if(empty($infgrado) and empty($espaciocurricular))
+                  <form action="{{url ('linechart') }}">
+                    <div style="display: none;">
+                    <input type="text" name="alumno" value="{{$nombrealumno}}">
+                    <input type="text" name="añolectivo" value="{{$añolec}}">
+                    <input type="text" name="grado" value="{{$infgrado}}">
+                    <input type="text" name="espacio" value="{{$espaciocurricular}}">
+                    </div>
+                    <div class="text-right">
+                    <button  class="btn btn-sm btn-success">Visualizar gráfico</button>
+                    </div>
+                  </form>
+                  @endif
                   @endif
                        </div>
                        <div class="card-footer mr-auto">

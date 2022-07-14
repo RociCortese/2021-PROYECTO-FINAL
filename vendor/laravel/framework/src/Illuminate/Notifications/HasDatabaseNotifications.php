@@ -31,6 +31,6 @@ trait HasDatabaseNotifications
      */
     public function unreadNotifications()
     {
-        return $this->notifications()->whereNull('seen');
+        return $this->notifications()->unread();
     }
 }
