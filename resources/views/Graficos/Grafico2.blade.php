@@ -12,6 +12,12 @@
                 <h4 class="card-title ">Visualización de gráficos</h4>
               </div>
               <div class="card-body">
+                <a class="btn btn-sm btn-default" onclick="back()"><i class="material-icons">arrow_back</i></a>
+                <script type="text/javascript">
+                 function back(){
+                history.back();
+                }
+                </script>
                 <div id="container">
                 </div> 
                 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -162,12 +168,6 @@
                 </script>
               
             </div>
-            <a class="btn btn-sm btn-default" onclick="back()"><i class="material-icons">arrow_back</i></a>
-                <script type="text/javascript">
-                 function back(){
-                history.back();
-                }
-                </script>
           </div>
         </div>
       </div>
