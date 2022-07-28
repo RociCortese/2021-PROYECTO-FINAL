@@ -27,6 +27,9 @@
  * - Daniel Commesse Liévanos (danielcommesse)
  * - Pete Scopes (pdscopes)
  */
+
+use Carbon\CarbonInterface;
+
 return [
     'year' => ':count año|:count años',
     'a_year' => 'un año|:count años',
@@ -43,11 +46,11 @@ return [
     'hour' => ':count hora|:count horas',
     'a_hour' => 'una hora|:count horas',
     'h' => ':counth',
-    'minute' => ':count minuto|:count min.',
-    'a_minute' => 'un minuto|:count min.',
+    'minute' => ':count minuto|:count minutos',
+    'a_minute' => 'un minuto|:count minutos',
     'min' => ':countm',
-    'second' => ':count segundo|:count seg.',
-    'a_second' => 'unos segundos|:count seg.',
+    'second' => ':count segundo|:count segundos',
+    'a_second' => 'unos segundos|:count segundos',
     's' => ':counts',
     'millisecond' => ':count milisegundo|:count milisegundos',
     'a_millisecond' => 'un milisegundo|:count milisegundos',
@@ -56,7 +59,7 @@ return [
     'a_microsecond' => 'un microsegundo|:count microsegundos',
     'µs' => ':countµs',
     'ago' => 'hace :time',
-    'from_now' => 'dentro de :time',
+    'from_now' => 'en :time',
     'after' => ':time después',
     'before' => ':time antes',
     'diff_now' => 'ahora mismo',
@@ -77,19 +80,19 @@ return [
         'LLLL' => 'dddd, D [de] MMMM [de] YYYY H:mm',
     ],
     'calendar' => [
-        'sameDay' => function (\Carbon\CarbonInterface $current) {
+        'sameDay' => function (CarbonInterface $current) {
             return '[hoy a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'nextDay' => function (\Carbon\CarbonInterface $current) {
+        'nextDay' => function (CarbonInterface $current) {
             return '[mañana a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+        'nextWeek' => function (CarbonInterface $current) {
             return 'dddd [a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'lastDay' => function (\Carbon\CarbonInterface $current) {
+        'lastDay' => function (CarbonInterface $current) {
             return '[ayer a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
-        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+        'lastWeek' => function (CarbonInterface $current) {
             return '[el] dddd [pasado a la'.($current->hour !== 1 ? 's' : '').'] LT';
         },
         'sameElse' => 'L',

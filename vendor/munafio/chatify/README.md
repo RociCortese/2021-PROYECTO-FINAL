@@ -8,16 +8,17 @@
 
 A Laravel package helps you add a complete real-time messaging system to your new / existing application with only one command.
 
-# Announcement 📣
+# Need a Help? 📣
 
 I have created a server for **Chatify** on `Discord` to let you **up-to-date** and help you as much as I can .. so now you can chat with me, get a help, showcases, and most importantly to get announcements and updates about **Chatify**.
-I'll announce a **big news** soon 🤩🤩 .. So, [join now](https://discord.gg/RaxyKVykYJ) and keep updated.
+
+So, [join now](https://discord.gg/RaxyKVykYJ) and keep updated.
 
 # Features
 
  <img src="https://1.bp.blogspot.com/-KSPiLL3tq_o/XgpLmCgWAuI/AAAAAAAAA6w/n6m4k2MC1joNMgKS6Vpki2-3z92HXUvQwCLcBGAsYHQ/s1600/Screenshot%2Bfrom%2B2019-12-30%2B21-59-55.png" style="width:50%;" />
 
-- Users / groups(soon) chat system.
+- Users chat system.
 - Real-time contacts list updates.
 - Favorites contacts list (Like stories style) and add to favorite button.
 - Saved Messages to save your messages online like Telegram messenger app.
@@ -35,7 +36,9 @@ I'll announce a **big news** soon 🤩🤩 .. So, [join now](https://discord.gg/
 
 # Demo
 
-- [Live Demo](https://chatify-demo.munafio.com/)
+- [Live Demo](http://chatify-demo.munafio.com/)
+
+`Note: since this is a demo link, your uploaded files may be deleted after a while .. you can try then to install the (Demo app) below in your machine.`
 
 Register a new user or login using the credentials below :
 
@@ -45,7 +48,7 @@ password : demo1234
 ```
 
 - Demo app - [Click Here](https://github.com/munafio/chatify-demo).
-- Video on YouTube - [Click Here](https://youtu.be/gjo74FUJJPI)
+- Demo video on YouTube - [Click Here](https://youtu.be/gjo74FUJJPI)
 
 # Official Documentation
 
