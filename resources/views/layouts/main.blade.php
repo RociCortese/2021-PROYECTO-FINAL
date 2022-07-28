@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ __('SNOTRA') }}</title>
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset ('img/favicon.png')}}">
+
+
     <link rel="icon" type="image/png" href="{{ asset ('img/favicon.png')}}">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!-- Scripts -->
@@ -21,7 +23,8 @@
     
 
     <!-- CSS Files -->
-    <link href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
+    <link media="only screen and (min-width: 769px)" href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
+    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="{{ asset('css/estilosmobile.css?v=2.1.1')}}">
 
     
     <script type="module">
@@ -50,6 +53,7 @@
             @include('layouts.page_templates.guest')
         @endguest
         @if (auth()->check())
+        
        
         @endif
         <!--   Core JS Files   -->
