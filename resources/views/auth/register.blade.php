@@ -1,7 +1,17 @@
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'title' => __('')])
 
 @section('content')
-<div class="container" style="height: auto;">
+<?php
+$detect = new Mobile_Detect;
+if ($detect->isMobile() or $detect->isTablet()) {?>
+<div class="container"style="margin-top: 10%;">
+<?php 
+}
+else{?>
+<div class="container"> 
+<?php
+}
+?>
   <div class="row align-items-center">
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <form class="form" method="POST" action="{{ route('register') }}">

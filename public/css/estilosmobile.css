@@ -14681,14 +14681,13 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar .nav {
-  margin-top: 20px;
-  display: block;
+  margin-top: 5px;
 }
 
 .sidebar .nav .caret {
   margin-top: 13px;
   position: absolute;
-  right: 6px;
+  right: -30px;
 }
 
 .sidebar .nav li>a:hover,
@@ -14698,7 +14697,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar .nav li:first-child>a {
-  margin: 0 15px;
+  margin: 50 100px;
 }
 
 .sidebar .nav li:hover>a,
@@ -14706,7 +14705,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav li .dropdown-menu a:focus,
 .sidebar .nav li.active>[data-toggle="collapse"] {
   background-color: rgba(200, 200, 200, 0.2);
-  color: #3C4858;
+  color: #5B86E5;
   box-shadow: none;
 }
 
@@ -14737,9 +14736,9 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar .nav p {
-  margin: 0;
-  line-height: 30px;
-  font-size: 18px;
+  margin: 50;
+  line-height: 10px;
+  font-size: 20px;
   position: relative;
   display: block;
   height: auto;
@@ -14749,8 +14748,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav i {
   font-size: 30px;
   float: left;
-  margin-right: 15px;
   margin-left: 7px;
+  margin-right: 15px;
   line-height: 30px;
   width: 30px;
   text-align: center;
@@ -14760,7 +14759,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav li a,
 .sidebar .nav li .dropdown-menu a {
   margin: 10px 15px 0;
-  border-radius: 3px;
+  border-radius: 50px;
   color: #FFFFFF;
   padding-left: 10px;
   padding-right: 10px;
@@ -14887,7 +14886,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar[data-color="azure"] li.active>a {
-  background-color: #36D1DC;
+  background-color: #00bcd5;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
@@ -18064,7 +18063,7 @@ Copyright (c) 2015 Daniel Eden
     transform: translate3d(-230px, 0, 0);
   }
   .navbar .navbar-translate {
-    width: 100%;
+    width: 20%;
     position: relative;
     display: flex;
     -ms-flex-pack: justify !important;
@@ -18439,7 +18438,6 @@ Copyright (c) 2015 Daniel Eden
     right: 0;
     left: auto;
     z-index: 1032;
-    background-color: #EB0820;
     overflow-y: visible;
     border-top: none;
     text-align: left;
@@ -18469,7 +18467,7 @@ Copyright (c) 2015 Daniel Eden
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: black;
+    background-color: grey;
     display: block;
     content: "";
     z-index: 1;

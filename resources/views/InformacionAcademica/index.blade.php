@@ -288,10 +288,36 @@
                     @endforeach
                   </table>
                   </div>
-                   @if(empty($infgrado) and empty($añolec))
+                  @if(empty($infgrado) and empty($añolec))
                   <form action="{{url ('linechart') }}">
                     <div style="display: none;">
                     <input type="text" name="alumno" value="{{$nombrealumno}}">
+                    <input type="text" name="añolectivo" value="{{$añolec}}">
+                    <input type="text" name="grado" value="{{$infgrado}}">
+                    <input type="text" name="espacio" value="{{$espaciocurricular}}">
+                    </div>
+                    <div class="text-right">
+                    <button  class="btn btn-sm btn-success">Visualizar gráfico</button>
+                    </div>
+                  </form>
+                  @endif
+                  @if(empty($infgrado) and empty($espaciocurricular))
+                  <form action="{{url ('linechart') }}">
+                    <div style="display: none;">
+                    <input type="text" name="alumno" value="{{$nombrealumno}}">
+                    <input type="text" name="añolectivo" value="{{$añolec}}">
+                    <input type="text" name="grado" value="{{$infgrado}}">
+                    <input type="text" name="espacio" value="{{$espaciocurricular}}">
+                    </div>
+                    <div class="text-right">
+                    <button  class="btn btn-sm btn-success">Visualizar gráfico</button>
+                    </div>
+                  </form>
+                  @endif
+                  @if(empty($alumno) and empty($espaciocurricular))
+                  <form action="{{url ('linechart') }}">
+                    <div style="display: none;">
+                    <input type="text" name="alumno" value="{{$alumno}}">
                     <input type="text" name="añolectivo" value="{{$añolec}}">
                     <input type="text" name="grado" value="{{$infgrado}}">
                     <input type="text" name="espacio" value="{{$espaciocurricular}}">
