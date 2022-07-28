@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9f8527b967035166662807cbbb9a1e36f86609ef',
+        'reference' => '5f5e55731d8c7d3083282fcb32f9c9d58ab32f71',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -442,7 +442,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9f8527b967035166662807cbbb9a1e36f86609ef',
+            'reference' => '5f5e55731d8c7d3083282fcb32f9c9d58ab32f71',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -524,6 +524,15 @@
             'install_path' => __DIR__ . '/../livewire/livewire',
             'aliases' => array(),
             'reference' => '020ad095cf1239138b097d22b584e2701ec3edfb',
+            'dev_requirement' => false,
+        ),
+        'mobiledetect/mobiledetectlib' => array(
+            'pretty_version' => '2.8.39',
+            'version' => '2.8.39.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mobiledetect/mobiledetectlib',
+            'aliases' => array(),
+            'reference' => '0fd6753003fc870f6e229bae869cc1337c99bc45',
             'dev_requirement' => false,
         ),
         'mockery/mockery' => array(

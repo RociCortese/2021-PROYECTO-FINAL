@@ -1,10 +1,32 @@
 <!-- Navbar -->
+<?php
+$detect = new Mobile_Detect;
+?>
+<?php
+if ($detect->isMobile() or $detect->isTablet()) {?>
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+<div style="text-align:center;width:100%;">
+<div class="logo" style="display:inline-block;">
+    <img style="width:70%;margin-right: 15%;margin-left:15%;" src="img/logo.png"class="simple-text logo-normal">
+</div>
+<div style="margin-top:8%;margin-left: 0%;display:inline-block;">
+<a href="{{ route('register') }}" style="font-size: 20px;padding:5rem 1rem;">
+  <i class="material-icons">person_add</i> {{ __('REGISTRARME') }}
+</a>
+<a href="{{ route('login') }}" style="font-size: 20px;padding:5rem 1rem;" >
+  <i class="material-icons">login</i> {{ __('LOGIN') }}
+</a>
+</div>
+</div>
+</nav>
+<?php 
+}
+else{?>
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
   <div class="logo">
     <img style="width:250px" src="img/logo.png"class="simple-text logo-normal">
   </div>
   <div class="container">
-    
     <div class="navbar-wrapper">
     <a class="navbar-brand" href="{{ route('home') }}"></a>
     </div>
@@ -35,4 +57,7 @@
     </div>
   </div>
 </nav>
+<?php 
+}
+?>
 <!-- End Navbar -->

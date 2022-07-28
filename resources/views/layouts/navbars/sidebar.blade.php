@@ -1,11 +1,14 @@
+<?php
+$detect = new Mobile_Detect;
+if ($detect->isMobile() or $detect->isTablet()) {?>
+<div class="sidebar" data-color="azure" data-background-color="white" style="display:none;">
+<?php
+}
+else{?>
 <div class="sidebar" data-color="azure" data-background-color="white">
-
-  <!--<div class="logo">
-    <img style="width:150px" src="img/logo.png"class="simple-text logo-normal">
-  </div>!-->
-  <?php
+<?php  
+}
   if (Auth::user()->role =='directivo') { ?>
-                
   <div class="sidebar-wrapper">
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
