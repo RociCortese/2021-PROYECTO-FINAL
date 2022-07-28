@@ -53,6 +53,7 @@
             @include('layouts.page_templates.guest')
         @endguest
         @if (auth()->check())
+        
        
         @endif
         <!--   Core JS Files   -->

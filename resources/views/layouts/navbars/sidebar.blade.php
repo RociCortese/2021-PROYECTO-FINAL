@@ -13,7 +13,7 @@ else{?>
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('directivo')}}">
-          <i class="bi bi-list"></i>
+          <i class="bi bi-list" style="color: black;"></i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
       </li>
@@ -54,7 +54,7 @@ else{?>
               <a class="nav-link" href="{{url('admin/docentes')}}">
                 <div class="items-dashboard">
                 <i class="bi bi-person-plus"></i>
-                <span class="sidebar-normal">{{ __('Registro de docentes') }} </span>
+                <span class="sidebar-normal">{{ __('Registro de Docentes') }} </span>
                 </div>
               </a>
             </li>
@@ -68,7 +68,7 @@ else{?>
               <a class="nav-link" href="{{url('admin/alumnos')}}">
                 <div class="items-dashboard">
                  <i class="bi bi-person-plus"></i>
-                <span class="sidebar-normal">{{ __('Registro de alumnos') }} </span>
+                <span class="sidebar-normal">{{ __('Registro de Alumnos') }} </span>
                 </div>
               </a>
             </li>
@@ -79,7 +79,7 @@ else{?>
         <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false">
           <div class="items-dashboard">
           <i class="bi bi-calendar4-event"></i>
-          <span class="sidebar-normal">Año escolar</span>
+          <span class="sidebar-normal">Año Escolar</span>
             <b class="caret"></b>
             </div>
         </a>
@@ -89,7 +89,7 @@ else{?>
               <a class="nav-link" href="{{route('añoescolar')}}">
                <div class="items-dashboard"> 
                 <i class="bi bi-calendar4-event"></i>
-                <span class="sidebar-normal">{{ __('Creación de año escolar') }}</span>
+                <span class="sidebar-normal">{{ __('Creación de Año Escolar') }}</span>
                 </div>
               </a>
             </li>
@@ -97,7 +97,7 @@ else{?>
               <a class="nav-link" href="{{route('armadogrado')}}">
                 <div class="items-dashboard">
                <i class="bi bi-people"></i>
-                <span class="sidebar-normal"> {{ __('Armado de grados') }} </span>
+                <span class="sidebar-normal"> {{ __('Armado de Grados') }} </span>
                 </div>
               </a>
             </li>
@@ -111,7 +111,7 @@ else{?>
               <a class="nav-link" href="{{url('informacionacademica')}}">
                 <div class="items-dashboard">
                  <i class="bi bi-person-plus"></i>
-                <span class="sidebar-normal">{{ __('Información académica') }} </span>
+                <span class="sidebar-normal">{{ __('Información Académica') }} </span>
                 </div>
               </a>
             </li>
@@ -122,7 +122,7 @@ else{?>
               <a class="nav-link" href="{{route('libretas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
-                <span class="sidebar-normal"> {{ __('Impresión de informes') }} </span>
+                <span class="sidebar-normal"> {{ __('Impresión de Informes') }} </span>
                 </div>
               </a>
             </li>
@@ -198,7 +198,7 @@ else{?>
               <a class="nav-link" href="{{route('criteriosevaluacion')}}">
                <div class="items-dashboard"> 
                 <i class="bi bi-list-check"></i>
-                <span class="sidebar-normal">{{ __('Criterios de evaluación') }}</span>
+                <span class="sidebar-normal">{{ __('Criterios de Evaluación') }}</span>
                 </div>
               </a>
             </li>
@@ -206,7 +206,7 @@ else{?>
               <a class="nav-link" href="{{route('buscadornotas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-pencil-square"></i>
-                <span class="sidebar-normal"> {{ __('Carga de notas') }} </span>
+                <span class="sidebar-normal"> {{ __('Carga de Notas') }} </span>
                 </div>
               </a>
             </li>
@@ -233,7 +233,7 @@ else{?>
               <a class="nav-link" href="{{route('asistencias')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
-                <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
+                <span class="sidebar-normal"> {{ __('Registro de Asistencias') }} </span>
                 </div>
               </a>
             </li>
@@ -241,7 +241,7 @@ else{?>
               <a class="nav-link" href="{{route('justificacioninasistencias')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
-                <span class="sidebar-normal"> {{ __('Gestión de justificaciones') }} </span>
+                <span class="sidebar-normal"> {{ __('Gestión de Justificaciones') }} </span>
                 </div>
               </a>
             </li>
@@ -257,7 +257,7 @@ else{?>
         <a class="nav-link" href="{{route('asistencias.especiales')}}">
         <div class="items-dashboard">
         <i class="bi bi-journal-text"></i>
-        <span class="sidebar-normal"> {{ __('Registro de asistencias') }} </span>
+        <span class="sidebar-normal"> {{ __('Registro de Asistencias') }} </span>
         </div>
         </a>
       </li>

@@ -1,4 +1,4 @@
-
+@
 .select-css {
   display: block;
   font-size: 14px;
@@ -26,8 +26,6 @@
   border-color: #36D1DC;
 }
 
-
-@media only screen and (min-width : 1224px) {
 .header-col{
       background: #E3E9E5;
       color:#536170;
@@ -14769,7 +14767,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   color: #3C4858;
   padding-left: 10px;
   padding-right: 10px;
-  text-transform: capitalize;
+  
   font-size: 13px;
   padding: 10px 15px;
 }
@@ -19095,22 +19093,5 @@ Copyright (c) 2015 Daniel Eden
 .progressbar__option.active:before, .progressbar__option.active:after {
     background-color: var(--color-header-step);
 }
-}
 
-/* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
-@media only screen and (max-width : 1024px) {
 
-.badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  width: 100%;
-  font-size: 50%;
-  font-weight: 200;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
-  position: relative;
-}
-}
