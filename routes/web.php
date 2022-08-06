@@ -161,6 +161,7 @@ Route::get('asistencias/edita', 'App\Http\Controllers\AsistenciaController@busca
 Route::get('libretas','App\Http\Controllers\LibretasController@buscador')->name('libretas');
 Route::get('listadoalumnos','App\Http\Controllers\LibretasController@index')->name('listadoalumnos');
 Route::get('generarlibreta/{nombrecompleto}','App\Http\Controllers\LibretasController@generarlibreta')->name('generarlibreta');
+Route::get('informefinal/{nombrecompleto}','App\Http\Controllers\LibretasController@informefinal')->name('informefinal');
 Route::get('generartodosinformes','App\Http\Controllers\LibretasController@generartodosinformes')->name('generartodosinformes');
 Route::get('compartirinforme/{nombrecompleto}','App\Http\Controllers\LibretasController@compartirinforme')->name('compartirinforme');
 

@@ -21,11 +21,6 @@
           <br>
           @else
               <div class="card-body">
-                @foreach($infoaño as $año)
-                  <div class="text-left">
-                  <h5><span class="badge badge-success">El año escolar activo es el {{$año->descripcion}}.</span></h5>
-                  </div>
-                @endforeach
                 <form action="{{route('listadoalumnos')}}" class="form-horizontal">
                 <div class="row">
                 <div class="col">
@@ -94,6 +89,12 @@
                     }, 1000);
                     </script>
                     @endif
+                    @foreach($infoaño as $año)
+                    <div class="text-left">
+                    <h5><span class="badge badge-success">Se podrán descargar los informes finales correspondientes al año {{$año->descripcion}}.</span></h5>
+                    </div>
+                    @endforeach
+                  
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -134,7 +135,7 @@
                           <div style="display: none;">
                           <input type="text" value="{{$periodo}}" name="periodo">
                           </div>
-                        <button formaction= "{{route('generarlibreta',$nombrecompleto)}}" class="btn btn-success" title="Descargar informe">
+                        <button formaction= "{{route('informefinal',$nombrecompleto)}}" class="btn btn-success" title="Descargar informe">
                         <i class="bi bi-download"></i>
                         </button>
                           <div style="display: none;">

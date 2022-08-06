@@ -116,13 +116,7 @@ class NotasController extends Controller
         $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
 
         $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','ASC')->pluck("calificacion");
-        }
-       
-       
-
-        }
-
-     
+        } 
         else
         {
         $infoco=explode(',', $infoco);
@@ -133,7 +127,6 @@ class NotasController extends Controller
         $califi[]=$i;
         }
       }
-
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $request->validate([

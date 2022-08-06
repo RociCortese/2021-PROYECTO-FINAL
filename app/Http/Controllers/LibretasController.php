@@ -38,52 +38,80 @@ class LibretasController extends Controller
     $grado=$request->grado;
     $periodo=$request->periodo;
     $idcolegio=Auth::user()->colegio_id;
+    $infoperiodo=Colegio::where('id',$idcolegio)->get();
+    foreach($infoperiodo as $infoperi){
+      $informacionperiodo="$infoperi->periodo";
+    }
     $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
     foreach($infoaño as $activo){
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
     $nombresgrado=Grado::where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
-    $infoperiodo=Colegio::where('id',$idcolegio)->get();
-    foreach($infoperiodo as $infoperi){
-      $informacionperiodo="$infoperi->periodo";
-    }
     $infogrado=Informes::where('colegio_id',$idcolegio)->where('año',$idaño)->where('grado',$grado)->where('periodo',$periodo)->pluck('id_alumno');
+    $infogrado=$infogrado->unique('id_alumno');
 
   if(sizeof($infogrado)==0) 
   {
-
+    if($informacionperiodo=='Bimestre' and $periodo=='Cuarto período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    }
+    if($informacionperiodo=='Trimestre' and $periodo=='Tercer período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    }
+    if($informacionperiodo=='Cuatrimestre' and $periodo=='Segundo período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    }
+    if($informacionperiodo=='Semestre' and $periodo=='Segundo período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    }
     return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
   }
   else
   {
    $infogrado = preg_replace('/[\[\]\.\;\""]+/', '', $infogrado);
     $infogrado=explode(',',$infogrado);
-   
     $contador=count($infogrado)-1;
-    
-
     for ($i=0; $i <=$contador ; $i++) { 
         $nombrealumno[]=Alumno::where('id',$infogrado[$i])->pluck('nombrealumno');
         $apellidoalumno[]=Alumno::where('id',$infogrado[$i])->pluck('apellidoalumno');
         $idalumno[]=Alumno::where('id',$infogrado[$i])->pluck('id');
-
     }
     $nombrealumno = preg_replace('/[\[\]\.\;\" "]+/', '', $nombrealumno);
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
     $idalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $idalumno);
+    if($informacionperiodo=='Bimestre' and $periodo=='Cuarto período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    }
+    if($informacionperiodo=='Trimestre' and $periodo=='Tercer período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    }
+    if($informacionperiodo=='Cuatrimestre' and $periodo=='Segundo período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    }
+    if($informacionperiodo=='Semestre' and $periodo=='Segundo período'){
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    }
     return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
     }
-
     }
-
-    
-
     public function generarlibreta(Request $request, $nombrecompleto)
     {
     $periodo=$request->periodo;
     $pdf = \PDF::loadView('libretas.pdf', compact('nombrecompleto','periodo'));
     return $pdf->download('InformeEscolar'.'-'.$nombrecompleto.'.pdf');
+    }
+
+    public function informefinal(Request $request, $nombrecompleto)
+    {
+    $periodo=$request->periodo;
+    $idcolegio=Auth::user()->colegio_id;
+    $infoperiodo=Colegio::where('id',$idcolegio)->get();
+    foreach($infoperiodo as $infoperi){
+      $informacionperiodo="$infoperi->periodo";
+    }
+    $pdf = \PDF::loadView('libretas.pdfinformefinal', compact('nombrecompleto','informacionperiodo','periodo'));
+    return $pdf->download('InformeFinal'.'-'.$nombrecompleto.'.pdf');
     }
 
     public function compartirinforme(Request $request, $nombrecompleto){
@@ -111,7 +139,6 @@ class LibretasController extends Controller
     });
     return back()->with('success', 'El informe se ha compartido correctamente.');
     }
-
     public function generartodosinformes(Request $request){ 
     $grado=$request->grado;
     $periodo=$request->periodo;

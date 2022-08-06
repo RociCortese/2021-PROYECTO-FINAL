@@ -145,31 +145,39 @@ if($colegio->isEmpty()){?>
       <?php 
     }
     else {?>
-<div class="card" >
+<div class="card">
     <div class= "card-header card-header-info">
     <h4 class="card-title">Información de colegio</h4>
     </div>
  <div class="card-body row justify-content-center">
   <div class="row">
     <div class="col-md-12">
+      <?php
+      $detect = new Mobile_Detect;
+      if ($detect->isMobile() or $detect->isTablet()) {
+      }
+      else{?>
       <div class="card card-user" style="border: thin solid lightgrey;">
-         <div class="card-body ">
+         <div class="card-body">
            <p class="card-text">
            <div class="author">
-  @if(session('success'))
-                    <div class="alert alert-success" role="success">
-                    {{session('success')}}
-                    </div>
-                    <script type="text/javascript">
-                    window.setTimeout(function() {
-                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
-                    $(this).remove(); 
-                    });
-                    }, 1000);
-                    </script>
+      <?php
+      }
+      ?>
+      @if(session('success'))
+      <div class="alert alert-success" role="success">
+      {{session('success')}}
+      </div>
+      <script type="text/javascript">
+      window.setTimeout(function() {
+      $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+      $(this).remove(); 
+      });
+      }, 1000);
+      </script>
   @endif
       @foreach($colegio as $col)
-          <h3 class="tittle mt-3 text-center"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
+          <h3 class="tittle mt-3 text-center" style="font-size:18px;"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
                           <p class="description">
                             <table class="table">
                               <tr>
@@ -204,7 +212,6 @@ if($colegio->isEmpty()){?>
         $uname = "root";
         $pwd = '';
         $db_name = "centro";
-
         $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
         mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
         $image_query = mysqli_query($result,"select file from files where id=$col->files_id");
@@ -213,7 +220,12 @@ if($colegio->isEmpty()){?>
             $img_src = $rows['file'];
         }
         $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';?>
+        if ($detect->isMobile() or $detect->isTablet()) {
+        echo'<img src="'.$rutaimagen.'" width="100px" height="100px" class="first" onClick="click()"/>';
+        }
+      else{
+        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';
+      }?>
         <script>
         document.querySelector(".first").addEventListener("click", function() {
         Swal.fire({
