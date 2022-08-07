@@ -24,7 +24,7 @@
 
     <!-- CSS Files -->
     <link media="only screen and (min-width: 769px)" href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
-    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="{{ asset('css/estilosmobile.css?v=2.1.1')}}">
+    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="{{ asset('css/estilosmobile.css')}}">
 
     
     <script type="module">
