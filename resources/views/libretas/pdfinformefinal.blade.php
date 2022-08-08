@@ -200,7 +200,7 @@
         </table>
         <?php
         $observacionesespacio=[];
-        for($j=0;$j<$cantidadperiodo;$j++){
+        for($j=0;$j<=$cantidadperiodo;$j++){
         $observacionesespacio[$j]='-';
         }
         for($i=0;$i<=$contadorespacios;$i++){   
