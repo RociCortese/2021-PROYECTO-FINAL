@@ -137,6 +137,10 @@ class LibretasController extends Controller
     $idfamilia = preg_replace('/[\[\]\.\;\" "]+/', '', $idfamilia);
     $emailfamilia=Familia::where('id',$idfamilia)->pluck('email');
     $emailfamilia = preg_replace('/[\[\]\\;\" "]+/', '', $emailfamilia);
+    $nombrefamilia=Familia::where('id',$idfamilia)->pluck('nombrefamilia');
+    $nombrefamilia = preg_replace('/[\[\]\\;\" "]+/', '', $nombrefamilia);
+    $apellidofamilia=Familia::where('id',$idfamilia)->pluck('apellidofamilia');
+    $apellidofamilia = preg_replace('/[\[\]\\;\" "]+/', '', $apellidofamilia);
     if($informacionperiodo=='Bimestre' and $periodo=='Cuarto período'){
     $pdf = \PDF::loadView('libretas.pdfinformefinal', compact('nombrecompleto','periodo','informacionperiodo'));
     Mail::send('emails/templates/send-invoice2', $request->all(), function ($mail) use ($pdf,$nombrecompleto,$emailfamilia) {
@@ -182,7 +186,7 @@ class LibretasController extends Controller
     $mail->attachData($pdf->output(), 'InformeEscolar'.'-'.$nombrecompleto.'.pdf');
     });
     }
-    return back()->with('success', 'El informe se ha compartido correctamente.');
+    return back()->with('success', 'El informe se ha compartido correctamente a '. $nombrefamilia.' '.$apellidofamilia.' '.'('.$emailfamilia.')'.'.');
     }
     public function generartodosinformes(Request $request){ 
     $grado=$request->grado;

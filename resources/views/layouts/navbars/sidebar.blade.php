@@ -158,34 +158,6 @@ else{?>
            <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
         </a>
       </li>
-       <li class="nav-item">
-        <div class="collapse show">
-          <ul class="nav">
-      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
-              <a class="nav-link" href="{{route('calendario')}}">
-                <div class="items-dashboard">
-               <i class="bi bi-calendar4-event"></i>
-                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-       <li class="nav-item">
-        <div class="collapse show" >
-          <ul class="nav">
-          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
-              <a class="nav-link" href="{{route('chatify')}}">
-                <div class="items-dashboard">
-                <i class="bi bi-chat-dots"></i>
-                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#registronotas" aria-expanded="false">
           <div class="items-dashboard">
@@ -208,7 +180,15 @@ else{?>
               <a class="nav-link" href="{{route('buscadornotas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-pencil-square"></i>
-                <span class="sidebar-normal"> {{ __('Carga de Notas') }} </span>
+                <span class="sidebar-normal"> {{ __('Notas por período') }} </span>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'notasfinales' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('buscadornotasfinales')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-pencil-square"></i>
+                <span class="sidebar-normal"> {{ __('Notas finales') }} </span>
                 </div>
               </a>
             </li>
@@ -272,10 +252,40 @@ else{?>
 }
 ?>
     </li>
+    <li class="nav-item">
+        <div class="collapse show">
+          <ul class="nav">
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-calendar4-event"></i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-chat-dots"></i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
   </ul>
   </div>
+
 <?php
 }
+
   if (Auth::user()->role =='familia') { ?>
   <div class="sidebar-wrapper">
     <ul class="nav">
