@@ -1,5 +1,4 @@
 @extends('layouts.main', ['activePage' => 'formulario', 'titlePage' => __('')])
-
 @section('content')
 <div class="content">
   <div class="container-fluid">

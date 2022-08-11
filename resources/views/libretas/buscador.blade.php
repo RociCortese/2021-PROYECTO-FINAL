@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'libretas', 'titlePage => Impresión de libretas'])
-
+<?php
+$detect = new Mobile_Detect;
+?>
 @section ('content')
  <div class="content">
    <div class="container-fluid">
@@ -15,7 +17,16 @@
               <div class="card-body">
                 @foreach($infoaño as $año)
                   <div class="text-left">
+                  <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?> 
                   <h5><span class="badge badge-success">El año escolar activo es el {{$año->descripcion}}.</span></h5>
+                  <?php 
+                  }
+                  else{?>
+                  <h5><span class="badge badge-success">El año escolar activo es el {{$año->descripcion}}.</span></h5>  
+                  <?php 
+                  }
+                  ?>
                   </div>
                 @endforeach
                 <form action="{{route('listadoalumnos')}}" class="form-horizontal">
@@ -70,9 +81,14 @@
                 </div>
                 </div>
                 <br>
-                <div class="text-right">
+                <div style="display : flex; flex-direction : row;">
+                  <div>
+                  <strong><p>Si busca a través del último período podrá descargar los informes finales.</p></strong>
+                  </div>
+                <div style="margin-left:43%;">
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
+              </div>
                 </form>
             </div>
             

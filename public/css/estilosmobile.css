@@ -5455,8 +5455,8 @@ button.close {
 .badge {
   display: inline-block;
   padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 500;
+  font-size: 80%;
+  font-weight: 300;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -19093,15 +19093,15 @@ Copyright (c) 2015 Daniel Eden
 
 .badge {
   display: inline-block;
-  padding: 0.25em 0.4em;
+  padding: 0.3em 0.4em;
   width: 100%;
-  font-size: 75%;
-  font-weight: 200;
+  font-size: 80%;
+  font-weight: 300;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: 0.25rem;
+  border-radius: 0.3rem;
   position: relative;
 }
 }

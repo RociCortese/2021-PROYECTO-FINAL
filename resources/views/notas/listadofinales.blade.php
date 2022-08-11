@@ -11,7 +11,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-info">
-                <h4 class="card-title ">Registro de notas</h4>
+                <h4 class="card-title ">Registro de notas finales</h4>
               </div>
               <div class="card-body">
                 @foreach($infoaño as $año)
@@ -67,36 +67,6 @@
                 @endif
                 </div>
                 @endif
-                <div class="col">
-                <label>Período</label>
-                <select name="periodo" id="periodo" class="form-control">
-                <option value="{{$periodo}}">{{$periodo}}</option>
-                @if($informacionperiodo=='Bimestre')
-                <option value="Primer período">Primer período</option>
-                <option value="Segundo período">Segundo período</option>
-                <option value="Tercer período">Tercer período</option>
-                <option value="Cuarto período">Cuarto período</option>
-                @endif
-                @if($informacionperiodo=='Trimestre')
-                <option value="Primer período">Primer período</option>
-                <option value="Segundo período">Segundo período</option>
-                <option value="Tercer período">Tercer período</option>
-                @endif
-                @if($informacionperiodo=='Cuatrimestre')
-                <option value="Primer período">Primer período</option>
-                <option value="Segundo período">Segundo período</option>
-                @endif
-                @if($informacionperiodo=='Semestre')
-                <option value="Primer período">Primer período</option>
-                <option value="Segundo período">Segundo período</option>
-                @endif
-                </select>
-                @if ($errors->has('periodo'))
-                <div id="periodo-error" class="error text-danger pl-3" for="periodo" style="display: block;">
-                  <strong>{{ $errors->first('periodo') }}</strong>
-                </div>
-                @endif
-                </div>
                 </div>
                 <br>
                 <div class="text-right">
@@ -107,7 +77,6 @@
                   @csrf
                   @METHOD('PUT')
                 <div style="display: none;">
-                  <input type="text" value="{{$periodo}}" name="periodo">
                   @if($tipodoc=='Grado')
                   <input type="text" value="{{$espacio}}" name="espacio">
                   @endif
@@ -119,11 +88,39 @@
                   <table class="table">
                     <thead class="text-primary">
                       <th>Alumnos</th>
-                      @foreach($infocriterios as $infocrit) 
-                      <th>{{$infocrit->criterio}}</th>
-                      @endforeach
-                      <th>Nota final &nbsp<a data-toggle="popover" title="Cálculo Nota Final" data-content="La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas y a la ponderación de cada criterio de evaluación."><i class="bi bi-exclamation-circle" class="text-primary" ></i></a>  </th>
-                      <th>Observaciones</th>
+                      @if($informacionperiodo=='Bimestre') 
+                      <th>Primer período</th>
+                      <th>Segundo período</th>
+                      <th>Tercer período</th>
+                      <th>Cuarto período</th>
+                      <?php 
+                      $cantidadperiodo=4;
+                      ?>
+                      @endif
+                      @if($informacionperiodo=='Trimestre') 
+                      <th>Primer período</th>
+                      <th>Segundo período</th>
+                      <th>Tercer período</th>
+                      <?php 
+                      $cantidadperiodo=3;
+                      ?>
+                      @endif
+                      @if($informacionperiodo=='Cuatrimestre') 
+                      <th>Primer período</th>
+                      <th>Segundo período</th>
+                      <?php 
+                      $cantidadperiodo=2;
+                      ?>
+                      @endif
+                      @if($informacionperiodo=='Semestre') 
+                      <th>Primer período</th>
+                      <th>Segundo período</th>
+                      <?php 
+                      $cantidadperiodo=2;
+                      ?>
+                      @endif
+                      <th>Nota final &nbsp<a data-toggle="popover" title="Cálculo Nota Final" data-content="La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas para cada período."><i class="bi bi-exclamation-circle" class="text-primary" ></i></a>  </th>
+                      <th>Observación final</th>
                     </thead>
                     <script >$('[data-toggle="popover"]').popover();  </script>
                     @if(session('success'))
@@ -137,107 +134,107 @@
                     });
                     }, 1000);
                     </script>  
-                    @endif
-                    @foreach($infoalumnos as $infoalu)        
+                    @endif    
                     <tbody>
+                    <?php
+                    $contadoralu=count($idalumnos)-1;
+                    for ($i=0; $i <=$contadoralu ; $i++) {?>  
                     <tr>
-                      <td class="v-align-middle">{{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</td>
-                      @foreach($infonotas as $infonot)
-                      @if($infonot->id_alumno==$infoalu->id_alumno)
-                      <td class="v-align-middle">
-                        <select name="calificacion[]" id="calificacion" class="select-css">
-                        <?php
-                        $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
-                        $cont=count($califi)-1;
-                        ?>
-
-                        <option value="{{$infonot->nota}}" <?php echo 'selected="selected" ';?>>{{$infonot->nota}}</option>
-                        <option value=""></option>
-                        <?php
-
-                        for($i=0;$i<=$cont;$i++){?>
-                        <option value="{{$califi[$i]}}">{{$califi[$i]}}</option>
-                        <?php
-                        }
-                        ?>
-                        </select>
-                      </td>
+                      <td class="v-align-middle">{{$nombresalumnos[$i]}}</td>
+                      <?php 
+                      $notasespacio=[];
+                      for($l=0;$l<$cantidadperiodo;$l++){
+                      $notasespacio[$l]='-';
+                      }
+                      ?>
+                      @foreach($infoinformes as $info)
+                      @if($info->id_alumno==$idalumnos[$i] and $info->periodo!='Final')
+                      <?php 
+                      if($info->periodo=='Primer período'){
+                      $notasespacio[0]=$info->nota;
+                      }
+                      elseif($info->periodo=='Segundo período'){
+                      $notasespacio[1]=$info->nota;
+                      }
+                      elseif($info->periodo=='Tercer período'){
+                      $notasespacio[2]=$info->nota;
+                      }
+                      elseif($info->periodo=='Cuarto período'){
+                      $notasespacio[3]=$info->nota;
+                      }
+                      ?>
                       @endif
-                      @endforeach  
+                      @endforeach
+                      <?php 
+                      for($m=0;$m<$cantidadperiodo;$m++){?>
                       <td class="v-align-middle">
+                      <label name="calificacion" id="calificacion" style="color: #3C4858;">
+                        {{$notasespacio[$m]}}
+                        </label>
+                      </td> 
+                      <?php   
+                      }
+                      ?>
+                       <td class="v-align-middle">
                           <?php
                         foreach($infoinformes as $infoinf){
                          $idalumno="$infoinf->id_alumno";
-                              if($idalumno==$infoalu->id_alumno){
+                              if($idalumno==$idalumnos[$i] and $infoinf->periodo=='Final'){
                                 ?>
                                 <input name="notafinal[]" id="notafinal" class="form-control" value="{{$infoinf->nota}}" disabled></input>
                         <?php
                         }
                       }
                         ?>
-                        
-                      </td>
+                      </td>  
                       <td class="v-align-middle">
-                        <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$infoalu->id_alumno}}" title="Observaciones">
+                        <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$idalumnos[$i]}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
                           </a>
-                          <div class="modal fade bd-example-modal-lg" id="myModal{{$infoalu->id_alumno}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                          <div class="modal fade bd-example-modal-lg" id="myModal{{$idalumnos[$i]}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones del alumno {{$infoalu->nombrealumno}} {{$infoalu->apellidoalumno}}</strong></h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones del alumno {{$nombresalumnos[$i]}}</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                             <?php
-                             foreach($infoinformes as $infoinf)
-                              {
-                              $idalumno="$infoinf->id_alumno";
-                              if($idalumno==$infoalu->id_alumno){
-                              ?>
                               <div class="text-right"><small class="form-text text-muted contador" id="contador">150 caracteres restantes.</small></div>
                               <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
-
-
-                              <?php
-                              }
-                              }
-                             ?>  
                              
                             <div class="modal-footer">
-                    <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
-                    <button formaction="{{route('observacion.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
-                    </div>
+                            <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
+                            <button formaction="{{route('observacionfinal.update',$idalumnos[$i])}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
+                            </div>
                   </div>
                   <script type="text/javascript">
-var limit = 150;
-$(function() {
-    $("#observacion").on("input", function () {
-        //al cambiar el texto del txt_detalle
-        var init = $(this).val().length;
-        total_characters = (limit - init);
-        $('#contador').html(total_characters + " caracteres restantes.");
-    });
-});
-</script>
+                  var limit = 150;
+                  $(function() {
+                  $("#observacion").on("input", function () {
+                  //al cambiar el texto del txt_detalle
+                  var init = $(this).val().length;
+                  total_characters = (limit - init);
+                  $('#contador').html(total_characters + " caracteres restantes.");
+                  });
+                  });
+                  </script>
                          </div>
                        </div>
                      </div>
                    </div>
-                      </td>                      
-                    </tr>                                         
+                      </td>                   
+                    </tr>
+                    <?php 
+                  }
+                  ?>                                       
 
                     </tbody>
-                    @endforeach
-                
+                    
                        
                   </table>
+                  
                 </div>
-                <div class="card-footer">
-          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
-                <button formaction="{{route('notas.update',$infoalu->id_alumno)}}" type="submit" class="btn btn-sm btn-facebook">Guardar cambios</button>
-          </div>
-        </div>
+             
       </form>
                         <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
@@ -249,8 +246,8 @@ $(function() {
                         <h5><span class="badge badge-warning">Referencias:
 
                         <?php
-                        for($i=0;$i<=$cont;$i++){?>
-                          <strong>{{$califi[$i]}}</strong>: {{$califica[$i]}}
+                        for($k=0;$k<=$cont;$k++){?>
+                          <strong>{{$califi[$k]}}</strong>: {{$califica[$k]}}
                         <?php
                         }
                         ?>

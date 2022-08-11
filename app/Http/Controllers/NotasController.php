@@ -101,28 +101,17 @@ class NotasController extends Controller
 
         
         }
-
-
         $calificacion= preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
         rsort($calificacion);
         $contador=count($calificacion)-1;
         for ($i=0; $i <= $contador ; $i++) { 
-        $califi[]=calificacioncualitativa::where('orden',$calificacion[$i])->pluck("codigo");
-        $califica[]=calificacioncualitativa::where('orden',$calificacion[$i])->pluck("calificacion");
+        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
+
+        $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("calificacion");
         }
         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
-
-        $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
-
-        $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','ASC')->pluck("calificacion");
-        }
-       
-       
-
-        }
-
-     
+        } 
         else
         {
         $infoco=explode(',', $infoco);
@@ -133,7 +122,6 @@ class NotasController extends Controller
         $califi[]=$i;
         }
       }
-
     if($tipodoc!='Grado'){
     $grado=$request->grado;
     $request->validate([
@@ -578,4 +566,162 @@ $informacion->save();
     return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
     }
 }
+
+public function buscadornotasfinales()
+   {
+    $idcolegio=Auth::user()->colegio_id;
+    $idpersona= Auth::user()->idpersona;
+    $tipodocente=Docente::where('id',$idpersona)->get();
+    foreach($tipodocente as $tipo){
+        $tipodoc="$tipo->especialidad";
+    }
+    $infoperiodo=Colegio::where('id',$idcolegio)->get();
+    foreach($infoperiodo as $infoperi){
+      $informacionperiodo="$infoperi->periodo";
+    }
+    $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+    $infocolegio=Colegio::where('id',$idcolegio)->get();
+      foreach($infocolegio as $info){
+            $infocol="$info->espacioscurriculares";
+      }
+    if($tipodoc=='Grado'){
+        $infocol = preg_replace('/[\[\]\.\;\""]+/', '', $infocol);
+        $infocol=explode(',', $infocol);
+        $contador=count($infocol)-1;
+        for ($i=0; $i <= $contador ; $i++) { 
+        $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
+        }
+      return view('notas.buscadornotasfinales',compact('infoaño','nombreespacios','tipodoc','informacionperiodo'));
+    }
+    else{
+    $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
+        foreach($infogrado as $informaciongrado){
+        $docentesespeciales="$informaciongrado->id_docentesespe";
+        $docentesespeciales = preg_replace('/[\[\]\.\;\" "]+/', '', $docentesespeciales);
+        $docentesespeciales=explode(',', $docentesespeciales);
+        $contador=count($docentesespeciales)-1;
+        for($i=0;$i<=$contador;$i++){
+            if($docentesespeciales[$i]==Auth::user()->idpersona){
+            $nombresgrado[]="$informaciongrado->descripcion";
+            }
+        }
+        }
+      return view('notas.buscadornotasfinales',compact('infoaño','nombresgrado','informacionperiodo','tipodoc'));
+      }
+   }
+   public function listadonotasfinales(Request $request, Notas $id)
+   {
+    $idpersona= Auth::user()->idpersona;
+    $tipodocente=Docente::where('id',$idpersona)->get();
+    foreach($tipodocente as $tipo){
+        $tipodoc="$tipo->especialidad";
+    }
+    $idcolegio=Auth::user()->colegio_id;
+    $infoperiodo=Colegio::where('id',$idcolegio)->get();
+    foreach($infoperiodo as $infoperi){
+      $informacionperiodo="$infoperi->periodo";
+    }
+    $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+    foreach($infoaño as $activo){
+    $añoactivo="$activo->id";
+    $descripcionaño="$activo->descripcion";
+    }
+    $infocole=Colegio::where('id',$idcolegio)->get();
+      foreach($infocole as $info){
+            $infoco="$info->calinumerica";
+            $infocali="$info->calicualitativa";
+    }
+    if($infoco==NULL)
+    {
+    $infocali = preg_replace('/[\[\]\.\;\""]+/', '', $infocali);
+    $infocali=explode(',', $infocali);
+    $contador=count($infocali)-1;
+    for ($i=0; $i <= $contador ; $i++) { 
+    $calificacion[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->pluck("orden");
+    }
+    $calificacion= preg_replace('/[\[\]\.\;\""]+/', '', $calificacion);
+    rsort($calificacion);
+    $contador=count($calificacion)-1;
+    for ($i=0; $i <= $contador ; $i++) { 
+    $califi[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','DESC')->pluck("codigo");
+    $califica[]=calificacioncualitativa::where('id_calificacion',$infocali[$i])->orderby('orden','ASC')->pluck("calificacion");
+    }
+    $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+    $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
+    } 
+    else
+    {
+    $infoco=explode(',', $infoco);
+    $infoco = preg_replace('/[\[\]\.\;\""]+/', '', $infoco);
+    $minimo= head($infoco);
+    $maximo= last($infoco);
+    for ($i=$minimo; $i <= $maximo ; $i++) { 
+    $califi[]=$i;
+    }
+    }
+
+    if($tipodoc!='Grado'){
+    $grado=$request->grado;
+    $request->validate([
+            'grado' => ['required'],
+    ]);
+    $infonotas=Notas::where('docente',Auth::user()->id)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    $infoalumnos=$infonotas->unique('nombrealumno')->unique('apellidoalumno');
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    $infogrado=Grado::where('colegio_id',$idcolegio)->orderby('num_grado','ASC')->get();
+    foreach($infogrado as $informaciongrado){
+    $docentesespeciales="$informaciongrado->id_docentesespe";
+    $docentesespeciales = preg_replace('/[\[\]\.\;\" "]+/', '', $docentesespeciales);
+    $docentesespeciales=explode(',', $docentesespeciales);
+    $contador=count($docentesespeciales)-1;
+    for($i=0;$i<=$contador;$i++){
+    if($docentesespeciales[$i]==Auth::user()->idpersona){
+    $nombresgrado[]="$informaciongrado->descripcion";
+    }
+    }
+    }
+    if($infoco==NULL){
+         return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','califica','infonotas','infoco'));   
+    }
+    else{
+    return view('notas.index',compact('infoaño','informacionperiodo','nombresgrado','grado','tipodoc','id','infoalumnos','infocriterios','califi','infoinformes','infonotas','infoco'));   
+        }
+    }
+    else{
+    $espacio=$request->espacio;
+    $request->validate([
+            'espacio' => ['required'],
+    ]);
+    $infoinformes=Informes::where('docente',Auth::user()->id)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
+    $infoalumnos=$infoinformes->unique('id_alumno');
+    $idalumnos=$infoalumnos->pluck('id_alumno');
+    $contadoralu=count($idalumnos)-1;
+    for ($i=0;$i<=$contadoralu;$i++) { 
+    $datosalumnos=Alumno::where('id',$idalumnos[$i])->get();
+    foreach($datosalumnos as $datoalumno){
+    $nombresalumnos[$i]=$datoalumno->nombrecompleto;
+    }
+    }
+    $infocolegio=Colegio::where('id',$idcolegio)->get();
+    foreach($infocolegio as $info){
+    $infocol="$info->espacioscurriculares";
+    }
+    $infocol = preg_replace('/[\[\]\.\;\""]+/', '', $infocol);
+    $infocol=explode(',', $infocol);
+    $contador=count($infocol)-1;
+    for ($i=0; $i <= $contador ; $i++) { 
+    $nombreespacios[]=espacioscurriculares::where('id',$infocol[$i])->pluck("nombre");
+        }
+    if($infoco==NULL){
+         return view('notas.listadofinales',compact('infoaño','informacionperiodo','espacio','tipodoc','nombreespacios','id','nombresalumnos','idalumnos','califi','infoinformes','califica','infoco'));  
+    }
+    else{
+    return view('notas.listadofinales',compact('infoaño','informacionperiodo','espacio','tipodoc','nombreespacios','id','nombresalumnos','idalumnos', 'califi','infoinformes','infoco'));
+        }
+  }
+}
+public function updateobservacionfinal(Request $request,$id_alumnos)
+    {
+    
+  }
 }

@@ -1,4 +1,7 @@
 @extends('layouts.main', ['activePage' => 'añoescolar', 'titlePage' => __('Año escolar')])
+<?php
+$detect = new Mobile_Detect;
+?>
 
 @section('content')
   <div class="content">
@@ -28,9 +31,21 @@
               @else
               <div class="card-body">
                 <div class="row">
-                  <div class="col-12 text-right">
+                  <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                       <div class="col-12" style="text-align:right;">
                     <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear</a>
                   </div>
+                  <?php 
+                  }
+                  else{?>
+                   <div class="col-12 text-right">
+                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear</a>
+                  </div>  
+                  <?php 
+                  }
+                  ?>
+                 
                   @if(session('danger'))
                     <div class="alert alert-danger" role="danger">
                     {{session('danger')}}
@@ -65,17 +80,40 @@
                     <br>
                   <table class="table">
                     <thead class="text-primary">
+                    <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                      <th>Año</th>
+                      <th>Inicio</th>
+                      <th>Fin</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>                     
+                    <?php 
+                    }
+                    else{?>
                       <th>Descripción</th>
                       <th>Fecha inicio</th>
                       <th>Fecha fin</th>
                       <th>Estado</th>
-                      <th>Acciones</th>
+                      <th>Acciones</th> 
+                    <?php 
+                    }
+                    ?>
                     </thead>
                     @foreach($años as $año)
                     <tr>
                       <td class="v-align-middle">{{$año->descripcion}}</td>
-                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}</td>
-                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}</td>
+                      <?php 
+                      if ($detect->isMobile() or $detect->isTablet()) {?>
+                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/y')}}</td>
+                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechafin)->format('d/m/y')}}</td>
+                      <?php 
+                      }
+                      else{?>
+                       <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechainicio)->format('d/m/Y')}}</td>
+                      <td class="v-align-middle">{{ \Carbon\Carbon::parse($año->fechafin)->format('d/m/Y')}}</td>  
+                      <?php 
+                      }
+                      ?>
                       <td class="td-actions v-align-middle">
                         <?php 
                         if($año->estado=='inactivo')

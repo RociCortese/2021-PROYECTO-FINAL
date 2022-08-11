@@ -1,10 +1,7 @@
 <style>
-    :root {
-        --messengerColor: {{ $messengerColor }},
-    }
 /* NProgress background */
 #nprogress .bar{
-	background: {{ $messengerColor }} !important;
+    background: {{ $messengerColor }} !important;
 }
 #nprogress .peg {
     box-shadow: 0 0 10px {{ $messengerColor }}, 0 0 5px {{ $messengerColor }} !important;
@@ -21,12 +18,12 @@
 .m-list-active,
 .m-list-active:hover,
 .m-list-active:focus{
-	background: {{ $messengerColor }};
+    background: {{ $messengerColor }};
 }
 
 .m-list-active b{
-	background: #fff !important;
-	color: {{ $messengerColor }} !important;
+    background: #fff !important;
+    color: {{ $messengerColor }} !important;
 }
 
 .messenger-list-item td b{
@@ -38,7 +35,7 @@
 }
 
 .messenger-infoView-btns a.default{
-	color: {{ $messengerColor }};
+    color: {{ $messengerColor }};
 }
 
 .mc-sender p{
@@ -56,7 +53,7 @@
 }
 
 .active-tab{
-	border-bottom: 2px solid {{ $messengerColor }};
+    border-bottom: 2px solid {{ $messengerColor }};
 }
 
 .lastMessageIndicator{
@@ -72,12 +69,5 @@
 }
 .m-list-active .activeStatus{
     border-color: {{ $messengerColor }} !important;
-}
-
-.messenger [type='text']:focus {
-    outline: 1px solid {{ $messengerColor }};
-    border-color: {{ $messengerColor }} !important;
-    border-color: {{ $messengerColor }};
-    box-shadow: 0 0 2px {{ $messengerColor }};
 }
 </style>

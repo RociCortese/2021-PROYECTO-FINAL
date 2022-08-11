@@ -8,11 +8,11 @@
   <div class="app-modal" data-name="delete">
       <div class="app-modal-container">
           <div class="app-modal-card" data-name="delete" data-modal='0'>
-              <div class="app-modal-header">Are you sure you want to delete this?</div>
-              <div class="app-modal-body">You can not undo this action</div>
+              <div class="app-modal-header">¿Estás segura de que quieres eliminar esto?</div>
+              <div class="app-modal-body">No puedes deshacer esta acción.</div>
               <div class="app-modal-footer">
-                  <a href="javascript:void(0)" class="app-btn cancel">Cancel</a>
-                  <a href="javascript:void(0)" class="app-btn a-btn-danger delete">Delete</a>
+                  <a href="javascript:void(0)" class="app-btn cancel">Cancelar</a>
+                  <a href="javascript:void(0)" class="app-btn a-btn-danger delete">Eliminar</a>
               </div>
           </div>
       </div>
@@ -24,7 +24,7 @@
               <div class="app-modal-header"></div>
               <div class="app-modal-body"></div>
               <div class="app-modal-footer">
-                  <a href="javascript:void(0)" class="app-btn cancel">Cancel</a>
+                  <a href="javascript:void(0)" class="app-btn cancel">Cancelar</a>
               </div>
           </div>
       </div>
@@ -35,37 +35,42 @@
           <div class="app-modal-card" data-name="settings" data-modal='0'>
               <form id="update-settings" action="{{ route('avatar.update') }}" enctype="multipart/form-data" method="POST">
                   @csrf
-                  {{-- <div class="app-modal-header">Update your profile settings</div> --}}
+                  <div class="app-modal-header">Actualiza la configuración de tu perfil.</div>
                   <div class="app-modal-body">
                       {{-- Udate profile avatar --}}
-                      <div class="avatar av-l upload-avatar-preview chatify-d-flex"
-                      style="background-image: url('{{ Chatify::getUserWithAvatar(Auth::user())->avatar }}');"
+                      <div class="avatar av-l upload-avatar-preview"
+                      style="background-image: url('{{ asset('/storage/public/'.config('chatify.user_avatar.folder').'/'.Auth::user()->avatar) }}');"
                       ></div>
                       <p class="upload-avatar-details"></p>
-                      <label class="app-btn a-btn-primary update" style="background-color:{{$messengerColor}}">
-                          Upload New
-                          <input class="upload-avatar chatify-d-none" accept="image/*" name="avatar" type="file" />
+                      <label class="app-btn a-btn-primary update">
+                          Subir foto de perfil
+                          <input class="upload-avatar" accept="image/*" name="avatar" type="file" style="display: none" />
                       </label>
                       {{-- Dark/Light Mode  --}}
                       <p class="divider"></p>
-                      <p class="app-modal-header">Dark Mode <span class="
+                      <p class="app-modal-header">Modo oscuro <span class="
                         {{ Auth::user()->dark_mode > 0 ? 'fas' : 'far' }} fa-moon dark-mode-switch"
                          data-mode="{{ Auth::user()->dark_mode > 0 ? 1 : 0 }}"></span></p>
                       {{-- change messenger color  --}}
                       <p class="divider"></p>
-                      {{-- <p class="app-modal-header">Change {{ config('chatify.name') }} Color</p> --}}
+                      <p class="app-modal-header">Cambiar color</p>
                       <div class="update-messengerColor">
-                      @foreach (config('chatify.colors') as $color)
-                        <span style="background-color: {{ $color}}" data-color="{{$color}}" class="color-btn"></span>
-                        @if (($loop->index + 1) % 5 == 0)
+                            <span class="messengerColor-1 color-btn"></span>
+                            <span class="messengerColor-2 color-btn"></span>
+                            <span class="messengerColor-3 color-btn"></span>
+                            <span class="messengerColor-4 color-btn"></span>
+                            <span class="messengerColor-5 color-btn"></span>
                             <br/>
-                        @endif
-                      @endforeach
+                            <span class="messengerColor-6 color-btn"></span>
+                            <span class="messengerColor-7 color-btn"></span>
+                            <span class="messengerColor-8 color-btn"></span>
+                            <span class="messengerColor-9 color-btn"></span>
+                            <span class="messengerColor-10 color-btn"></span>
                       </div>
                   </div>
                   <div class="app-modal-footer">
-                      <a href="javascript:void(0)" class="app-btn cancel">Cancel</a>
-                      <input type="submit" class="app-btn a-btn-success update" value="Save Changes" />
+                      <a href="javascript:void(0)" class="app-btn cancel">Cancelar</a>
+                      <input type="submit" class="app-btn a-btn-success update" value="Actualizar" />
                   </div>
               </form>
           </div>

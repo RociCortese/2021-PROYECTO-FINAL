@@ -1,4 +1,7 @@
 @extends('layouts.main', ['activePage' => 'armadogrado', 'titlePage' => __('Año escolar')])
+<?php
+$detect = new Mobile_Detect;
+?>
 
 @section('content')
   <div class="content">
@@ -36,9 +39,20 @@
                 </div>
                 @endif
                 <div class="row">
-                  <div class="col-12 text-right">
-                    <a href="{{route('armadogrado.create') }}" class="btn btn-sm btn-facebook">Crear grado</a>
+                  <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                       <div class="col-12" style="text-align:right;">
+                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear grado</a>
                   </div>
+                  <?php 
+                  }
+                  else{?>
+                   <div class="col-12 text-right">
+                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear grado</a>
+                  </div>  
+                  <?php 
+                  }
+                  ?>
                   <div class="col form-group">
               <form id="form1" action="{{route('buscar')}}" method="post">
                 @csrf

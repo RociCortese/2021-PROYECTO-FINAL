@@ -161,6 +161,7 @@ Route::get('asistencias/edita', 'App\Http\Controllers\AsistenciaController@busca
 Route::get('libretas','App\Http\Controllers\LibretasController@buscador')->name('libretas');
 Route::get('listadoalumnos','App\Http\Controllers\LibretasController@index')->name('listadoalumnos');
 Route::get('generarlibreta/{nombrecompleto}','App\Http\Controllers\LibretasController@generarlibreta')->name('generarlibreta');
+Route::get('informefinal/{nombrecompleto}','App\Http\Controllers\LibretasController@informefinal')->name('informefinal');
 Route::get('generartodosinformes','App\Http\Controllers\LibretasController@generartodosinformes')->name('generartodosinformes');
 Route::get('compartirinforme/{nombrecompleto}','App\Http\Controllers\LibretasController@compartirinforme')->name('compartirinforme');
 
@@ -176,3 +177,9 @@ Route::get('informacionacademica','App\Http\Controllers\InformacionAcademicaCont
 Route::get('/autocomplete/alumnos/','App\Http\Controllers\InformacionAcademicaController@getAutocompletealumno')->name('Autocomplete.Alumnos');
 Route::get('listadoinfoacademica','App\Http\Controllers\InformacionAcademicaController@index')->name('listadoinfoacademica');
 Route::get('linechart','App\Http\Controllers\InformacionAcademicaController@showChart')->name('linechart');
+
+/*Notas finales*/
+Route::get('buscadornotasfinales', 'App\Http\Controllers\NotasController@buscadornotasfinales')->name('buscadornotasfinales');
+Route::get('listadonotasfinales', 'App\Http\Controllers\NotasController@listadonotasfinales')->name('listadonotasfinales');
+//Route::put('listadonotas/editarnota/{id_alumno}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
+Route::put('listadonotasfinales/editar/{id_alumnos}', 'App\Http\Controllers\NotasController@updateobservacionfinal')->name('observacionfinal.update');

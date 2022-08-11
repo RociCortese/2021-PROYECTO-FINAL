@@ -13,7 +13,7 @@ else{?>
     <ul class="nav">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('directivo')}}">
-          <i class="bi bi-list" style="color: black;"></i>
+          <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
       </li>
@@ -47,9 +47,6 @@ else{?>
           </ul>
         </div>
       </li>
-        <li class="nav-item">
-        <div class="collapse show">
-          <ul class="nav">
             <li class="nav-item{{ $activePage == 'docente' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('admin/docentes')}}">
                 <div class="items-dashboard">
@@ -58,12 +55,6 @@ else{?>
                 </div>
               </a>
             </li>
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <div class="collapse show" >
-          <ul class="nav">
           <li class="nav-item{{ $activePage == 'alumno' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('admin/alumnos')}}">
                 <div class="items-dashboard">
@@ -72,9 +63,6 @@ else{?>
                 </div>
               </a>
             </li>
-          </ul>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false">
           <div class="items-dashboard">
@@ -105,20 +93,24 @@ else{?>
         </div>
       </li>
       <li class="nav-item">
-        <div class="collapse show" >
+        <a class="nav-link" data-toggle="collapse" href="#infoacademica" aria-expanded="false">
+          <div class="items-dashboard">
+          <i class="bi bi-mortarboard"></i>
+          <span class="sidebar-normal">Información académica</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="collapse navbar-collapse" id="infoacademica">
           <ul class="nav">
-          <li class="nav-item{{ $activePage == 'informacionacademica' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'informacionacademica' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('informacionacademica')}}">
                 <div class="items-dashboard">
                  <i class="bi bi-person-plus"></i>
-                <span class="sidebar-normal">{{ __('Información Académica') }} </span>
+                <span class="sidebar-normal">{{ __('Historial académico') }} </span>
                 </div>
               </a>
             </li>
-          </ul>
-        </div>
-      </li>
-       <li class="nav-item{{ $activePage == 'libretas' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'libretas' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('libretas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
@@ -126,6 +118,17 @@ else{?>
                 </div>
               </a>
             </li>
+            <li class="nav-item{{ $activePage == 'pasegrado' ? ' active' : '' }}">
+              <a class="nav-link" href="#">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Pase de grado') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
           <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('calendario')}}">
                 <div class="items-dashboard">
@@ -134,10 +137,6 @@ else{?>
                 </div>
               </a>
             </li>
-
-      <li class="nav-item">
-        <div class="collapse show" >
-          <ul class="nav">
           <li class="nav-item{{ $activePage == 'chatdirectivo' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('chatify')}}">
                 <div class="items-dashboard">
@@ -146,12 +145,9 @@ else{?>
                 </div>
               </a>
             </li>
-          </ul>
-        </div>
-      </li>
     </ul>
   </div>
-  <?php 
+<?php 
 }
   if (Auth::user()->role =='docente') { ?>
   <div class="sidebar-wrapper">
@@ -161,28 +157,6 @@ else{?>
           <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU DOCENTES') }}</p></strong> 
         </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
-              <a class="nav-link" href="{{route('calendario')}}">
-                <div class="items-dashboard">
-               <i class="bi bi-calendar4-event"></i>
-                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
-                </div>
-              </a>
-            </li>
-      <li class="nav-item">
-        <div class="collapse show" >
-          <ul class="nav">
-          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
-              <a class="nav-link" href="{{route('chatify')}}">
-                <div class="items-dashboard">
-                <i class="bi bi-chat-dots"></i>
-                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#registronotas" aria-expanded="false">
@@ -206,7 +180,15 @@ else{?>
               <a class="nav-link" href="{{route('buscadornotas')}}">
                 <div class="items-dashboard">
                <i class="bi bi-pencil-square"></i>
-                <span class="sidebar-normal"> {{ __('Carga de Notas') }} </span>
+                <span class="sidebar-normal"> {{ __('Notas por período') }} </span>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'notasfinales' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('buscadornotasfinales')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-pencil-square"></i>
+                <span class="sidebar-normal"> {{ __('Notas finales') }} </span>
                 </div>
               </a>
             </li>
@@ -253,6 +235,9 @@ else{?>
       <?php 
       }
       if($tipodoc!='Grado'){?>
+       <li class="nav-item">
+        <div class="collapse show">
+          <ul class="nav">
       <li class="nav-item{{ $activePage == 'cargasistencia' ? ' active' : '' }}">
         <a class="nav-link" href="{{route('asistencias.especiales')}}">
         <div class="items-dashboard">
@@ -261,14 +246,46 @@ else{?>
         </div>
         </a>
       </li>
-
-<?php
-}?>
-</div>
-<?php
+    </ul>
+  </div>
+      <?php
 }
 ?>
- <?php
+    </li>
+    <li class="nav-item">
+        <div class="collapse show">
+          <ul class="nav">
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-calendar4-event"></i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-chat-dots"></i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+  </ul>
+  </div>
+
+<?php
+}
+
   if (Auth::user()->role =='familia') { ?>
   <div class="sidebar-wrapper">
     <ul class="nav">
@@ -294,6 +311,7 @@ else{?>
                 </div>
               </a>
             </li>
+      
       <li class="nav-item">
         <div class="collapse show" >
           <ul class="nav">
@@ -308,8 +326,8 @@ else{?>
           </ul>
         </div>
       </li>
-  </div>
-
+    </ul>
+</div>
 <?php
 }
 ?>
