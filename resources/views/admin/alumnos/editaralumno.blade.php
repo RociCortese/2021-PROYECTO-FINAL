@@ -129,10 +129,10 @@
           </div>
 
           <br>
-           </div>
+           </div> <!--cierra tarjeta de alumnos-->
 
            
-          <div class="card" style="border: thin solid lightgrey;">
+      <div class="card" style="border: thin solid lightgrey;"><!--abre tarjeta de familia-->
        <br>
           <h4 class="card-tittle text-center"><strong>DATOS DE LA FAMILIA</strong></h4>
           
@@ -241,7 +241,7 @@
 <br>
           
       </div>
-            </div>        
+      </div>  <!--cierra tarjeta de familia-->     
         
      <div class="text-right">
             <h4><span class="badge badge-danger">*Recuerde que todos los campos son obligatorios.</span></h4>

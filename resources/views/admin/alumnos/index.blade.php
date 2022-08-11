@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'alumno', 'titlePage => Alumnos'])
-
+<?php
+$detect = new Mobile_Detect;
+?>
 @section ('content')
 <div class="content">
   <div class="container-fluid">
@@ -14,11 +16,20 @@
       </div>
         @if($colegio->isEmpty())
           <br>
-
-          <div class="col-md-12 text-center">
-          <h4><span class="badge badge-warning">Para poder cargar los alumnos, antes deberá cargar la información del colegio.</span></h4>
-          </div>
-
+                  <?php 
+                if ($detect->isMobile() or $detect->isTablet()) {?>
+                <div class="col-md-12 text-center">
+                <h4><span class="badge badge-warning">Para poder cargar los alumnos, antes deberá cargar la información del colegio.</span></h4>
+                </div>
+                <?php 
+                  }
+                else{?>
+                <div class="col-md-12 text-center">
+                <h4><span class="badge badge-warning">Para poder cargar los alumnos, antes deberá cargar la información del colegio.</span></h4>
+                </div>
+                  <?php 
+                        }
+                        ?>
           <br>
           
           @else
@@ -49,20 +60,36 @@
                     </div>
                     </form> 
                 </div>
-
-                <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos. No encontramos resultados para el filtro aplicado.</span></h4></div>
-                  
+                 <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos.<br> No encontramos resultados para el filtro aplicado.</span></h4></div><?php 
+                  }
+                 else{?>
+                  <div class="text-center"><h4><span class="badge badge-warning">Lo sentimos.<br> No encontramos resultados para el filtro aplicado.</span></h4></div> <?php 
+                  }
+                  ?>
                 @endif
             
               @else
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-primary">
+                     <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Acciones</th>
+                     <?php 
+                  }
+                  else{?>
                     <th>ID</th>
                     <th>DNI</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Acciones</th>
+                    <?php 
+                  }
+                  ?>
                   </thead>
                     
                     @if(session('success'))
@@ -104,14 +131,27 @@
 
                   @foreach($alumnos as $alu)
                     <tr>
+                  <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                      
+                      <td class="v-align-middle">{{$alu->nombrealumno}}</td>
+                      <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
+
+                      <?php 
+                  }
+                  else{?>
                       <td class="v-align-middle">{{$alu->id}}</td>
                       <td class="v-align-middle">{{$alu->dnialumno}}</td>
                       <td class="v-align-middle">{{$alu->nombrealumno}}</td>
                       <td class="v-align-middle">{{$alu->apellidoalumno}}</td>
-                      <td class="td-actions td-actions v-align-middle">
 
+                           <?php 
+                  }
+                  ?>
+                       <td class="td-actions td-actions v-align-middle">
+     
                       <button class="btn btn-info" data-toggle="modal" data-target="#myModal{{$alu->id}}" title="Ver Información Alumno"><i class="bi bi-person"></i></button>
-                          
+                 
                       <div class="modal fade bd-example-modal-lg" id="myModal{{$alu->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -119,6 +159,86 @@
                         <h5 class="modal-title" id="exampleModalLabel"><strong>Vista detallada del alumno {{$alu->nombrealumno}} {{$alu->apellidoalumno}}</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                         </div>
+                        <?php 
+                  
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <div class="modal-body ">
+                          <table class="table">
+                            <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                              <label>DNI:</label> {{$alu->dnialumno}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td  class="v-align-middle" style="width: 100%;">
+                              <label>Género:</label> {{$alu->generoalumno}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td  class="v-align-middle" style="width: 100%;">
+                              <label>Fecha de nacimiento:</label> {{\Carbon\Carbon::parse($alu->fechanacimiento)->format('d/m/y')}}
+                               </td>
+                            </tr>
+                            
+                            <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>Domicilio:</label>  {{$alu->domicilio}}
+                              </td>
+                              </tr>
+                               <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>Localidad:</label>  {{$alu->localidad}}
+                              </td>
+                              </tr>
+                                <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>Provincia:</label>  {{$alu->provincia}}
+                              </td>
+                            </tr>
+                           </table>
+
+                           <?php
+                           $infofamilia=App\Models\Familia::where('id',$alu->familias_id)->get();
+                           ?>
+                           @foreach($infofamilia as $infofam)
+                          <div class="author">
+                          <h5 class="tittle mt-3"><strong>Familiar: {{$infofam->nombrefamilia}} {{$infofam->apellidofamilia}}</strong></h5>
+                          </div>
+                          <table class="table">
+                            <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>DNI:</label>  {{$infofam->dnifamilia}}
+                              </td>
+                              </tr>
+
+                                <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>Género:</label>  {{$infofam->generofamilia}}
+                                </td>
+                                </tr>
+
+                                <tr>
+                                <td class="v-align-middle" style="width: 100%;">
+                                <label>Teléfono celular:</label>  {{$infofam->telefono}}
+                                </td> 
+                                </tr>
+                              
+                              <tr>
+                                <td class="v-align-middle" style="width: 100%;">
+                                <label>Email:</label>  {{$infofam->email}}
+                              </td>
+                               </tr>
+                                 <tr>
+                              <td class="v-align-middle" style="width: 100%;">
+                                <label>Vínculo familiar:</label>  {{$infofam->vinculofamiliar}}
+                              </td>
+                            </tr>
+                           </table>
+                           @endforeach
+                         </div>
+                  <?php 
+                  }
+                  else{?>
                         <div class="modal-body ">
                           <table class="table">
                             <tr>
@@ -175,6 +295,9 @@
                            </table>
                           @endforeach
                          </div>
+                          <?php 
+                  }
+                  ?>
                         </div>
                         </div>
                         </div>
