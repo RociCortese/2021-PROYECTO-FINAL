@@ -406,6 +406,8 @@
             <form method="post" action="{{route('profile.updatecontra')}}" autocomplete="off" class="form-horizontal">
             @csrf
             @method('put')
+            <br>
+            <br>
                 <div class="card ">
 
               <div class="card-header card-header-info">

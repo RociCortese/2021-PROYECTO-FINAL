@@ -79,7 +79,30 @@ $(function() {
                 </div>
               @endif
     </div>
-
+      <?php
+      $detect = new Mobile_Detect;
+      if ($detect->isMobile() or $detect->isTablet()) {?>
+      <div class="form-group">
+          <label>Fecha del Evento</label>
+            <input type="date" name="fecha" class="form-control"  value="{{ old('fecha') }}" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."- 0 days"));?>">
+            @if ($errors->has('fecha'))
+                <div id="fecha-error" class="error text-danger pl-3" for="fecha" style="display: block;">
+                  <strong>{{ $errors->first('fecha') }}</strong>
+                </div>
+              @endif
+    </div>
+    <div class="form-group">
+          <label>Hora del Evento</label>
+            <input type="time" name="hora" class="form-control"  value="{{ old('fecha') }}">
+            @if ($errors->has('hora'))
+                <div id="hora-error" class="error text-danger pl-3" for="hora" style="display: block;">
+                  <strong>{{ $errors->first('hora') }}</strong>
+                </div>
+              @endif
+    </div>
+    <?php 
+    }
+    else{?>
     <div class="row">
     <div class="form-group col" style="margin-left:-15px; ">
           <label>Fecha del Evento</label>
@@ -100,6 +123,9 @@ $(function() {
               @endif
     </div>
   </div>
+  <?php 
+  }
+  ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
   <div class="form-group">
     <label>Participantes</label><br>

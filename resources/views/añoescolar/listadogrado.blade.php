@@ -42,13 +42,13 @@ $detect = new Mobile_Detect;
                   <?php 
                     if ($detect->isMobile() or $detect->isTablet()) {?>
                        <div class="col-12" style="text-align:right;">
-                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear grado</a>
+                    <a href="{{route('armadogrado.create') }}" class="btn btn-sm btn-facebook">Crear grado</a>
                   </div>
                   <?php 
                   }
                   else{?>
                    <div class="col-12 text-right">
-                    <a href="{{route('añocreate') }}" class="btn btn-sm btn-facebook">Crear grado</a>
+                    <a href="{{route('armadogrado.create') }}" class="btn btn-sm btn-facebook">Crear grado</a>
                   </div>  
                   <?php 
                   }

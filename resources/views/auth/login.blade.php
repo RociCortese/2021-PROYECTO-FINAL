@@ -19,7 +19,7 @@ else{?>
 
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf        
-        <div class="card card-login card-hidden mb-3">
+        <div class="card card-login card-hidden mb-3" style="margin-top: 2%; margin-left: 2%;">
           <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('INICIAR SESIÓN') }}</strong></h4>
           </div>

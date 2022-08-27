@@ -183,3 +183,4 @@ Route::get('buscadornotasfinales', 'App\Http\Controllers\NotasController@buscado
 Route::get('listadonotasfinales', 'App\Http\Controllers\NotasController@listadonotasfinales')->name('listadonotasfinales');
 //Route::put('listadonotas/editarnota/{id_alumno}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
 Route::put('listadonotasfinales/editar/{id_alumnos}', 'App\Http\Controllers\NotasController@updateobservacionfinal')->name('observacionfinal.update');
+Route::put('notafinal/editar', 'App\Http\Controllers\NotasController@updatenotafinal')->name('notafinal.update');

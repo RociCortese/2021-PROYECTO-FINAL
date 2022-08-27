@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'criteriosevaluacion', 'titlePage => Criterios'])
-
+<?php
+      $detect = new Mobile_Detect;
+?>
 @section ('content')
  <div class="content">
    <div class="container-fluid">
@@ -38,12 +40,24 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
-                      <th>ID</th>
-                      <th>Año escolar</th>
-                      <th>Período</th>
-                      <th>Espacio curricular</th>
-                      <th>Criterio</th>
-                      <th>Acciones</th>
+                    <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <th>Espacio</th>
+                    <th>Criterio</th>
+                    <th>Acciones</th>
+                    <?php 
+                    }
+                    else{?>
+                    <th>ID</th>
+                    <th>Año escolar</th>
+                    <th>Período</th>
+                    <th>Espacio curricular</th>
+                    <th>Criterio</th>
+                    <th>Acciones</th>
+                    <?php 
+                    }
+                    ?>
+                      
                     </thead>
                     @if(session('success'))
                     <div class="alert alert-success" role="success">
@@ -70,9 +84,19 @@
                     </script>
                   @endif
                      <div class="text-right">
+                      <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
-                    <div class="card card-body" style="border: thin solid lightgrey;">
+                    <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; width: 95%; margin-left: 1%;">
+                    <?php 
+                  }
+                  else{?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; ">
+                    <?php 
+                  }
+                  ?>
                       <form>
                        <input name="buscarespecialidad" class="form-control mr-sm-2" type="search" placeholder="Buscar por espacio curricular" aria-label="Search" value="{{$especialidad}}">
                         <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
@@ -82,14 +106,19 @@
                      </form>
                   </div>
                     </div>
-                     <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                     </div>                   
                     <tbody>
                     @foreach($datoscriterio as $criterio)
                     <tr>
-                      <td class="v-align-middle">{{$criterio->id}}</td>
+                      <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {
+                    }
+                    else{?>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
-                      <td class="v-align-middle">{{$criterio->periodo}}</td>
+                       <td class="v-align-middle">{{$criterio->periodo}}</td>
+                    <?php 
+                    }
+                    ?>
                       <td class="v-align-middle">{{$criterio->id_espacio}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td>
                       <td class="td-actions v-align-middle">
@@ -209,12 +238,23 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
-                      <th>ID</th>
-                      <th>Año escolar</th>
-                      <th>Periodo</th>
-                      <th>Grado</th>
-                      <th>Criterio</th>
-                      <th>Acciones</th>
+                    <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <th>Espacio</th>
+                    <th>Criterio</th>
+                    <th>Acciones</th>
+                    <?php 
+                    }
+                    else{?>
+                    <th>ID</th>
+                    <th>Año escolar</th>
+                    <th>Período</th>
+                    <th>Espacio curricular</th>
+                    <th>Criterio</th>
+                    <th>Acciones</th>
+                    <?php 
+                    }
+                    ?>
                     </thead>
                     @if(session('success'))
                     <div class="alert alert-success" role="success">
@@ -241,9 +281,19 @@
                     </script>
                   @endif
                     <div class="text-right">
+                      <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="material-icons">filter_list</span></button>
                     <div class="collapse" id="collapseExample">
-                    <div class="card card-body" style="border: thin solid lightgrey;">
+                    <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; width: 95%; margin-left: 1%;">
+                    <?php 
+                  }
+                  else{?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; ">
+                    <?php 
+                  }
+                  ?>
                       <form>
                        <input name="buscarañoescolar" class="form-control mr-sm-2" type="search" placeholder="Buscar por año escolar" aria-label="Search" value="{{$añoescolar}}">
                         <input name="buscargrado" class="form-control mr-sm-2" type="search" placeholder="Buscar por grado" aria-label="Search" value="{{$grado}}">
@@ -253,15 +303,20 @@
                      </form>
                   </div>
                     </div>
-                     <a href="{{route('criteriocreate')}}" class="btn btn-sm btn-facebook" title="Crear criterio"><i class="material-icons">add</i></a>
                     </div> 
 
                     <tbody>
                     @foreach($datoscriterio as $criterio)
                     <tr>
-                      <td class="v-align-middle">{{$criterio->id}}</td>
+                       <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {
+                    }
+                    else{?>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
-                      <td class="v-align-middle">{{$criterio->periodo}}</td>
+                       <td class="v-align-middle">{{$criterio->periodo}}</td>
+                    <?php 
+                    }
+                    ?>
                       <td class="v-align-middle">{{$criterio->id_grado}}</td>
                       <td class="v-align-middle">{{$criterio->criterio}}</td> 
                       <td class="td-actions v-align-middle">

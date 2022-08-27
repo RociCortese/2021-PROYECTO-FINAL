@@ -175,18 +175,25 @@
                       <?php   
                       }
                       ?>
-                       <td class="v-align-middle">
-                          <?php
-                        foreach($infoinformes as $infoinf){
-                         $idalumno="$infoinf->id_alumno";
-                              if($idalumno==$idalumnos[$i] and $infoinf->periodo=='Final'){
-                                ?>
-                                <input name="notafinal[]" id="notafinal" class="form-control" value="{{$infoinf->nota}}" disabled></input>
+                       @foreach($notafinal as $nota)
+                      @if($nota->id_alumno==$idalumnos[$i])
+                         <td class="v-align-middle">
+                          <select name="calificacion[]" id="calificacion" class="select-css">
+                        <option value="{{$nota->nota}}">{{$nota->nota}}</option>
+                        <?php
+                        $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        $cont=count($califi)-1;
+                        for($m=0;$m<=$cont;$m++){?>
+                        <option value="{{$califi[$m]}}">{{$califi[$m]}}</option>
                         <?php
                         }
-                      }
                         ?>
-                      </td>  
+                        </select>
+                      </td>
+                      @endif
+                      @endforeach
+                      @foreach($notafinal as $nota)
+                      @if($nota->id_alumno==$idalumnos[$i] )
                       <td class="v-align-middle">
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$idalumnos[$i]}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
@@ -200,8 +207,7 @@
                           </div>
                           <div class="modal-body">
                               <div class="text-right"><small class="form-text text-muted contador" id="contador">150 caracteres restantes.</small></div>
-                              <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
-                             
+                              <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$nota->observacion}}">{{$nota->observacion}}</textarea>
                             <div class="modal-footer">
                             <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
                             <button formaction="{{route('observacionfinal.update',$idalumnos[$i])}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
@@ -222,7 +228,9 @@
                        </div>
                      </div>
                    </div>
-                      </td>                   
+                      </td>   
+                      @endif                
+                     @endforeach
                     </tr>
                     <?php 
                   }
@@ -235,8 +243,7 @@
                   
                 </div>
              
-      </form>
-                        <?php
+           <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         if($infoco==NULL)
                         {
@@ -256,6 +263,14 @@
                     }
                     ?>
             </div>
+            
+            <div class="card-footer">
+          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+                <button formaction="{{route('notafinal.update')}}" type="submit" class="btn btn-sm btn-facebook">Guardar nota final</button>
+          </div>
+        </div>
+        </form>
+               
           </div>
           
         </div>

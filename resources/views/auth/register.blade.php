@@ -1,5 +1,4 @@
 @extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'title' => __('')])
-
 @section('content')
 <?php
 $detect = new Mobile_Detect;
@@ -17,7 +16,7 @@ else{?>
       <form class="form" method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div class="card card-login card-hidden mb-3">
+        <div class="card card-login card-hidden mb-3" style="margin-top: 5%; margin-left: 2%;">
           <div class="card-header card-header-info text-center">
             <h4 class="card-title"><strong>{{ __('REGISTRARME') }}</strong></h4>
           </div>

@@ -101,11 +101,10 @@
                     </tbody>
                   </table>
                   </div>
+                  
                   <?php 
                     }
-                    
                     ?>
-                
                 </form>
             </div>
           </div>

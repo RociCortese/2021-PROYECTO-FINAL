@@ -24,8 +24,7 @@
 
     <!-- CSS Files -->
     <link media="only screen and (min-width: 769px)" href="{{ asset('css/material-dashboard.css?v=2.1.1')}}" rel="stylesheet" />
-
-    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="{{ asset('css/estilosmobile.css?')}}">
+    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="{{ asset('css/estilosmobile.css')}}">
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
       const firebaseConfig = {

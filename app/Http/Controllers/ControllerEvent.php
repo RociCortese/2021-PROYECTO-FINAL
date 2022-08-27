@@ -17,6 +17,7 @@ use App\Notifications\InvoicePaid;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
+use Mobile_Detect;
 
 class ControllerEvent extends Controller
 {
@@ -307,7 +308,50 @@ class ControllerEvent extends Controller
 
     public static function spanish_month($month)
     {
-
+    $detect = new Mobile_Detect;
+    if ($detect->isMobile() or $detect->isTablet()){
+      $mes = $month;
+        if ($month=="Jan") {
+          $mes = "Ene";
+        }
+        elseif ($month=="Feb")  {
+          $mes = "Feb";
+        }
+        elseif ($month=="Mar")  {
+          $mes = "Mar";
+        }
+        elseif ($month=="Apr") {
+          $mes = "Abr";
+        }
+        elseif ($month=="May") {
+          $mes = "May";
+        }
+        elseif ($month=="Jun") {
+          $mes = "Jun";
+        }
+        elseif ($month=="Jul") {
+          $mes = "Jul";
+        }
+        elseif ($month=="Aug") {
+          $mes = "Ago";
+        }
+        elseif ($month=="Sep") {
+          $mes = "Sep";
+        }
+        elseif ($month=="Oct") {
+          $mes = "Oct";
+        }
+        elseif ($month=="Nov") {
+          $mes = "Nov";
+        }
+        elseif ($month=="Dec") {
+          $mes = "Dic";
+        }
+        else {
+          $mes = $month;
+        }
+      }
+      else{
         $mes = $month;
         if ($month=="Jan") {
           $mes = "Enero";
@@ -348,6 +392,7 @@ class ControllerEvent extends Controller
         else {
           $mes = $month;
         }
+      }
         return $mes;
     }
 

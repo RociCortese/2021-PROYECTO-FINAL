@@ -29,7 +29,6 @@ class AsistenciaFamiliaController extends Controller
     $infoasistencia[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->orderby('justificacion','ASC')->orderby('fecha','ASC')->get(); 
     $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
     }
-    return $nuevajustificacion;
     return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia'));
     }
 

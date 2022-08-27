@@ -12,8 +12,6 @@
                 <h4 class="card-title "> Docentes</h4>
                 <p class="card-category">Docentes Registrados</p>    
               </div>
-
-
               @if($colegio->isEmpty())
                 <br>
                <div class="col-md-12 text-center">

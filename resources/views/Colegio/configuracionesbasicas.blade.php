@@ -284,10 +284,20 @@ function valoracioncualitativa() {
       @endif
     </div>
     <div class="form-group">
-    <label><strong>Forma de Calificación:</strong></label>
+    <label><strong>Forma de calificación</strong></label>
     <div class="row">
     <br>
-    <div class="col form-check-inline">
+    <?php 
+    $detect = new Mobile_Detect;
+    if ($detect->isMobile() or $detect->isTablet()) {?>
+    &nbsp&nbsp&nbsp&nbsp&nbsp<div class="col form-check-inline form-group">
+    <?php 
+    }
+    else{?>
+    <div class="col form-check-inline form-group"> 
+    <?php 
+    }
+    ?>
         <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion"<?php if(empty($colegios->calicualitativa)) echo 'checked ';?> onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
         </label>&nbsp&nbsp&nbsp&nbsp
