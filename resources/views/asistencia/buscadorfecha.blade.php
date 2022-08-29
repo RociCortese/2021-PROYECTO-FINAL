@@ -1,4 +1,7 @@
 @extends('layouts.main', ['activePage' => 'Editar asistencia', 'titlePage' => __('')])
+<?php
+$detect = new Mobile_Detect;
+?>
 @section('content')
 
 <div class="content">
@@ -17,6 +20,55 @@
             <h5><span class="badge badge-success">Edición de asistencias de {{$grado}}.</span></h5>
         </div>
         @endif
+        <?php 
+        if ($detect->isMobile() or $detect->isTablet()) {?> 
+        <div class="row">
+          <div class="col">
+            <label>Fecha</label>
+              <input type="date" id="fechaActual"  name="diaasistencia" class="form-control" >
+            @if ($errors->has('diaasistencia'))
+                <div id="diaasistencia-error" class="error text-danger pl-3" for="diaasistencia" style="display: block;">
+                  <strong>{{ $errors->first('diaasistencia') }}</strong>
+                </div>
+              @endif
+          </div>
+          </div>
+            @if($tipodoc=='Grado')
+              <form>
+              <div class="row">
+              <div class="col">
+              <div style="display:none;">
+              <input type="text" value="{{$mes}}" name="mes">
+              </div>
+              <br>
+              <div class="text-right">
+              <button type="submit" class="btn btn-sm btn-facebook " >Editar asistencia</button></div>
+              </div>
+              </div>
+              </form>
+           
+            @endif
+            @if($tipodoc!='Grado')
+            <form>
+              <div class="row">              
+              <div class="col">
+              <div style="display:none;">
+              <input type="text" value="{{$mes}}" name="mes">
+              <input type="text" value="{{$grado}}" name="grado">
+              </div>
+              <br>
+              <div class="text-right">
+              <button type="submit" class="btn btn-sm btn-facebook " >Editar asistencia</button></div>
+              </div>
+              </div>
+
+              </form>
+            @endif
+        </div> 
+        
+        <?php 
+        }
+        else{?>
         <div class="row">
           <div class="col">
             <label>Fecha</label>
@@ -50,10 +102,13 @@
               </div>
               </form>
             @endif
-        </div>   
-        </div>
-          <div class="card-footer">
-        </div>
+        </div> 
+        <?php 
+        }
+        ?> 
+          </div> 
+    
+         
       </div>
        </form>
         </div>

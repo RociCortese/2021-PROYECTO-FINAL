@@ -17,16 +17,31 @@ $detect = new Mobile_Detect;
               </div> 
               @if($colegio->isEmpty())
                 <br>
-               <div class="col-md-12 text-center">
-              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar la información del colegio.</span></h4>
+                 <div class="col-md-12 text-center">
+                <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, <br>antes deberá cargar las configuraciones básicas.</span></h4>
+              <?php 
+                  }
+                  else{?>
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar las configuraciones básicas.</span></h4>
               </div>
               <br>
               @else
               @if(empty($periodocolegio))
                 <br>
                <div class="col-md-12 text-center">
+                <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+              <h4><span class="badge badge-warning">Para poder crear el año escolar, <br>antes deberá cargar las configuraciones básicas.</span></h4>
+              <?php 
+                  }
+                  else{?>
               <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar las configuraciones básicas.</span></h4>
               </div>
+                <?php 
+                  }
+                  ?>
               <br>
               @else
               <div class="card-body">

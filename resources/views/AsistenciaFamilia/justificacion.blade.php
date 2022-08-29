@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'justificacioninasistencias', 'titlePage => Gestión de justificaciones'])
-
+<?php
+$detect = new Mobile_Detect;
+?>
 @section ('content')
  <div class="content">
    <div class="container-fluid">
@@ -33,11 +35,24 @@
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-primary">
+                  <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                  <th></th>
+                  <th>Alumnos</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>
+
+                     <?php 
+                  }
+                  else{?>
                   <th>Estado</th>
                   <th>Alumnos</th>
                   <th>Fecha de inasistencia</th>
                   <th>Acciones</th>
-                  </thead>                    
+                  </thead>     
+                  <?php 
+                  }
+                  ?>               
                   <tbody>
                   <?php 
                   foreach($infoasistencia as $infoasist){?>
@@ -152,8 +167,21 @@
                   ?>
                   </tbody>
                 </table>
+                <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <br>
+                <div class="text-center">
+                  <i class="bi bi-x-circle-fill" style="color:#ff6961 ;"></i>&nbspNo Gestionada
+                  &nbsp<i class="bi bi-check-circle-fill" style="color:#77dd77 ;"></i>&nbspGestionada
                 </div>
-              <br>
+                <?php 
+                  }
+                  else{?>
+                </div>
+                 <?php 
+                  }
+                  ?>
+           
               </div> 
               <div class="card-footer mr-auto">
                     {{ $infoasistencia->links() }}
