@@ -31,6 +31,7 @@ class ColegioController extends Controller
 
 public function store(Request $request)
 {
+    $gestion=$request->gestion;
    $request->validate([
   //'file'=> ['required','image','max:2048','dimensions:min_width=128,min_height=128'],
   'nombre' => ['required','regex:/^[\pL\s\-]+$/u','max:50'],
@@ -74,7 +75,6 @@ public function store(Request $request)
 
 public function edit(Colegio $id)
     {
-      //$col = Colegio::findOrFail($id);
       return view('Colegio/editar', compact('id'));
     }
 

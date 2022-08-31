@@ -36,7 +36,7 @@ class InformacionAcademicaController extends Controller
     public function buscador(Request $request)
     {
     $idcolegio=Auth::user()->colegio_id;
-    $años=Año::where('id_colegio',$idcolegio)->where('estado','!=','inactivo')->orderBy('descripcion','ASC')->pluck("descripcion");
+    $años=Año::where('id_colegio',$idcolegio)->orderBy('descripcion','ASC')->pluck("descripcion");
     $infocolegio=Colegio::where('id',$idcolegio)->pluck("espacioscurriculares");
     $infocolegio = preg_replace('/[\[\]\.\;\" "]+/', '', $infocolegio);
     $infocolegio = str_replace('\\','',$infocolegio); 

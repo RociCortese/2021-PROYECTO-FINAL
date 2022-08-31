@@ -73,6 +73,11 @@
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
                 </form>
+                @if($notafinal->isEmpty() or $infoinformes->isEmpty())
+                <div class="text-center"> 
+                <h4><span class="badge badge-warning">No se encontraron resultados para los criterios seleccionados en la búsqueda.</span></h4>
+                </div>
+               @else
                 <form class="form-horizontal" method="POST">
                   @csrf
                   @METHOD('PUT')
@@ -119,7 +124,7 @@
                       $cantidadperiodo=2;
                       ?>
                       @endif
-                      <th>Nota final &nbsp<a data-toggle="popover" title="Cálculo Nota Final" data-content="La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas para cada período."><i class="bi bi-exclamation-circle" class="text-primary" ></i></a>  </th>
+                      <th>Nota final </th>
                       <th>Observación final</th>
                     </thead>
                     <script >$('[data-toggle="popover"]').popover();  </script>
@@ -148,7 +153,7 @@
                       }
                       ?>
                       @foreach($infoinformes as $info)
-                      @if($info->id_alumno==$idalumnos[$i] and $info->periodo!='Final')
+                      @if($info->id_alumno==$idalumnos[$i])
                       <?php 
                       if($info->periodo=='Primer período'){
                       $notasespacio[0]=$info->nota;
@@ -175,18 +180,26 @@
                       <?php   
                       }
                       ?>
-                       <td class="v-align-middle">
-                          <?php
-                        foreach($infoinformes as $infoinf){
-                         $idalumno="$infoinf->id_alumno";
-                              if($idalumno==$idalumnos[$i] and $infoinf->periodo=='Final'){
-                                ?>
-                                <input name="notafinal[]" id="notafinal" class="form-control" value="{{$infoinf->nota}}" disabled></input>
+
+                       @foreach($notafinal as $nota)
+                      @if($nota->id_alumno==$idalumnos[$i])
+                         <td class="v-align-middle">
+                          <select name="calificacion[]" id="calificacion" class="select-css">
+                        <option value="{{$nota->nota}}">{{$nota->nota}}</option>
+                        <?php
+                        $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
+                        $cont=count($califi)-1;
+                        for($m=0;$m<=$cont;$m++){?>
+                        <option value="{{$califi[$m]}}">{{$califi[$m]}}</option>
                         <?php
                         }
-                      }
                         ?>
-                      </td>  
+                        </select>
+                      </td>
+                      @endif
+                      @endforeach
+                      @foreach($notafinal as $nota)
+                      @if($nota->id_alumno==$idalumnos[$i])
                       <td class="v-align-middle">
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$idalumnos[$i]}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
@@ -200,8 +213,7 @@
                           </div>
                           <div class="modal-body">
                               <div class="text-right"><small class="form-text text-muted contador" id="contador">150 caracteres restantes.</small></div>
-                              <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$infoinf->observacion}}">{{$infoinf->observacion}}</textarea>
-                             
+                              <textarea placeholder="Ingrese aquí la observación." class="form-control" rows="3" name="observacion[]" id="observacion" style="border: thin solid lightgrey;" aria-describedby="comentHelp"  maxlength="150" value="{{$nota->observacion}}">{{$nota->observacion}}</textarea>
                             <div class="modal-footer">
                             <div class="  col-xs-12 col-sm-12 col-md-12 text-right">
                             <button formaction="{{route('observacionfinal.update',$idalumnos[$i])}}" type="submit" class="btn btn-sm btn-facebook">Agregar observación</button>
@@ -222,7 +234,9 @@
                        </div>
                      </div>
                    </div>
-                      </td>                   
+                      </td> 
+                      @endif                
+                     @endforeach
                     </tr>
                     <?php 
                   }
@@ -235,8 +249,7 @@
                   
                 </div>
              
-      </form>
-                        <?php
+           <?php
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         if($infoco==NULL)
                         {
@@ -256,6 +269,15 @@
                     }
                     ?>
             </div>
+            
+            <div class="card-footer">
+          <div class="  col-xs-12 col-sm-12 col-md-12 text-center ">
+                <button formaction="{{route('notafinal.update')}}" type="submit" class="btn btn-sm btn-facebook">Guardar nota final</button>
+          </div>
+        </div>
+        </form>
+        @endif
+               
           </div>
           
         </div>

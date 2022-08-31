@@ -1,18 +1,382 @@
 <?php
 $detect = new Mobile_Detect;
 if ($detect->isMobile() or $detect->isTablet()) {?>
-<div class="sidebar" data-color="azure" data-background-color="white" style="display:none;">
+<link rel="stylesheet" href="{{ asset ('css/responsive-nav.css')}}">
+<script src="{{ asset ('js/responsive-nav.js')}}"></script>
 <?php
+  if (Auth::user()->role =='directivo') { ?>
+        <a href="#" class="nav-toggle" aria-hiden="false">
+        Menu
+        </a>
+    <div id="nav" class="nav-collapse"  style="transition: max-height 290ms ease 0s;">
+    <div class="sidebar"data-color="azure" data-background-color="white">
+  <div class="sidebar-wrapper">
+    <ul class="nav menu">
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route('profile.edit') }}">
+      <div class="items-dashboard">
+      <i class="bi bi-person-circle"></i>
+      <span class="sidebar-normal" style="font-size: 105%;">Mis datos</span>
+      </div>
+      </a>
+      </li>
+    <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="collapse" href="#micolegio" aria-expanded="false" aria-haspopup="true">
+          <div class="items-dashboard">
+          <i class="bi bi-mortarboard"></i>
+          <span class="sidebar-normal" style="font-size: 105%;">Mi Colegio</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="dropdown-menu" id="micolegio">
+          <a  href="{{route('formulario')}}">
+            <div class="items-dashboard">
+            <i class="bi bi-info-circle" style="font-size: 1rem;"></i>
+            <span class="sidebar-normal">Información de Colegio</span>
+            </div>
+          </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{route('configuraciones')}}">
+          <div class="items-dashboard" >
+          <i class="bi bi-gear" style="font-size: 1rem;"></i>
+          <span class="sidebar-normal">Configuraciones</span>
+          </div>
+        </a>
+        </div>
+        </li>
+    </ul>
+            <li>
+              <a class="nav-link" href="{{url('admin/docentes')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-person-plus"></i>
+                <span class="sidebar-normal" style="font-size: 105%;">Registro de Docentes</span>
+                </div>
+              </a>
+            </li>
+          <li >
+              <a class="nav-link" href="{{url('admin/alumnos')}}">
+                <div class="items-dashboard">
+                 <i class="bi bi-person-plus"></i>
+                <span class="sidebar-normal" style="font-size: 105%;">Registro de Alumnos</span>
+                </div>
+              </a>
+            </li>
+    <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="collapse" href="#añoescolar" aria-expanded="false" aria-haspopup="true">
+          <div class="items-dashboard">
+          <i class="bi bi-calendar4-event"></i>
+          <span class="sidebar-normal" style="font-size: 105%;">Año escolar</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="dropdown-menu" id="añoescolar">
+          <a  href="{{route('añoescolar')}}">
+            <div class="items-dashboard">
+            <i class="bi bi-calendar4-event" style="font-size: 1rem;"></i>
+            <span class="sidebar-normal">Creación de Año</span>
+            </div>
+          </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{route('armadogrado')}}">
+          <div class="items-dashboard">
+          <i class="bi bi-people" style="font-size: 1rem;"></i>
+          <span class="sidebar-normal">Armado de Grados</span>
+          </div>
+        </a>
+        </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="collapse" href="#infoacademica" aria-expanded="false" aria-haspopup="true">
+          <div class="items-dashboard">
+          <i class="bi bi-mortarboard"></i>
+          <span class="sidebar-normal" style="font-size: 105%;">Información académica</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="dropdown-menu" id="infoacademica">
+          <a  href="{{url('informacionacademica')}}">
+            <div class="items-dashboard">
+            <i class="bi bi-person-plus" style="font-size: 1rem;"></i>
+            <span class="sidebar-normal">Historial académico</span>
+            </div>
+          </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{route('libretas')}}">
+          <div class="items-dashboard">
+          <i class="bi bi-journal-text" style="font-size: 1rem;"></i>
+          <span class="sidebar-normal">Impresión de Informes</span>
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{route('buscadorpase')}}">
+          <div class="items-dashboard">
+          <i class="bi bi-journal-text" style="font-size: 1rem;"></i>
+          <span class="sidebar-normal">Impresión de Informes</span>
+          </div>
+        </a>
+        </div>
+        </li>
+    </ul>
+          <li>
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-calendar4-event"></i>
+                <span class="sidebar-normal" style="font-size: 105%;">Eventos</span>
+                </div>
+              </a>
+            </li>
+          <li>
+              <a class="nav-link" href="{{route('chatify')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-chat-dots"></i>
+                <span class="sidebar-normal" style="font-size: 105%;">Central de mensajes</span>
+                </div>
+              </a>
+            </li>
+            <li>
+            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <div class="items-dashboard">
+              <i class="bi bi-box-arrow-right"></i>
+              <span class="sidebar-normal" style="font-size: 105%;">Cerrar sesión</span>
+              </div>
+            </a>
+            </li>
+    </ul>
+  </div>
+</div>
+</div>
+  <script>
+var navigation = responsiveNav("#nav");
+</script>
+<?php 
 }
+ if (Auth::user()->role =='docente') { ?>
+    <a href="#" class="nav-toggle" aria-hiden="false">
+    Menu
+    </a>
+    <div id="nav" class="nav-collapse"  style="transition: max-height 290ms ease 0s;">
+    <div class="sidebar"data-color="azure" data-background-color="white">
+  <div class="sidebar-wrapper">
+    <ul class="nav menu">
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route('profile.edit') }}">
+      <div class="items-dashboard">
+      <i class="bi bi-person-circle"></i>
+      <span class="sidebar-normal" style="font-size: 105%;">Mis datos</span>
+      </div>
+      </a>
+      </li>
+      <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="collapse" href="#registronotas" aria-expanded="false" aria-haspopup="true">
+          <div class="items-dashboard">
+          <i class="bi bi-award"></i>
+          <span class="sidebar-normal" style="font-size: 105%;">Registro de notas</span>
+            <b class="caret"></b>
+          </div>
+        </a>
+        <div class="dropdown-menu" id="registronotas">
+              <a class="nav-link" href="{{route('criteriosevaluacion')}}">
+               <div class="items-dashboard"> 
+                <i class="bi bi-list-check"></i>
+                <span class="sidebar-normal">{{ __('Criterios de Evaluación') }}</span>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link" href="{{route('buscadornotas')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-pencil-square"></i>
+                <span class="sidebar-normal"> {{ __('Notas por período') }} </span>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link" href="{{route('buscadornotasfinales')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-pencil-square"></i>
+                <span class="sidebar-normal"> {{ __('Notas finales') }} </span>
+                </div>
+              </a>
+          </div>
+        </li>
+    </ul>
+      <?php
+      $idpersona= Auth::user()->idpersona;
+      $tipodocente=App\Models\Docente::where('id',$idpersona)->get();
+      foreach($tipodocente as $tipo){
+        $tipodoc="$tipo->especialidad";
+      }
+      if($tipodoc=='Grado'){?>
+         <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="collapse" href="#asistencias" aria-expanded="false">
+          <div class="items-dashboard">
+          <i class="bi bi-journal-text"></i>
+          <span class="sidebar-normal" style="font-size: 105%;">Asistencias</span>
+            <b class="caret"></b>
+            </div>
+        </a>
+        <div class="dropdown-menu" id="asistencias">
+              <a class="nav-link" href="{{route('asistencias')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Registro de Asistencias') }} </span>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+               <a class="nav-link" href="{{route('justificacioninasistencias')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Justificaciones') }} </span>
+                </div>
+              </a>
+          </div>
+        </li>
+    </ul>
+       
+      <?php 
+      }
+      if($tipodoc!='Grado'){?>
+       <li class="nav-item">
+        <div class="collapse show">
+          <ul class="nav">
+      <li class="nav-item{{ $activePage == 'cargasistencia' ? ' active' : '' }}">
+        <a class="nav-link" href="{{route('asistencias.especiales')}}">
+        <div class="items-dashboard">
+        <i class="bi bi-journal-text"></i>
+        <span class="sidebar-normal"> {{ __('Registro de Asistencias') }} </span>
+        </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+      <?php
+}
+?>
+    </li>
+    <li class="nav-item">
+        <div class="collapse show">
+          <ul class="nav">
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('calendario')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-calendar4-event"></i>
+                <span class="sidebar-normal" style="font-size: 105%;"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatdocente' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-chat-dots"></i>
+                <span class="sidebar-normal" style="font-size: 105%">{{ __('Central de mensajes') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <div class="items-dashboard">
+              <i class="bi bi-box-arrow-right"></i>
+              <span class="sidebar-normal" style="font-size: 105%;">Cerrar sesión</span>
+              </div>
+            </a>
+            </li>
+  </ul>
+  </div>
+</div>
+</div>
+  <script>
+var navigation = responsiveNav("#nav");
+</script>
+<?php 
+}
+if (Auth::user()->role =='familia') { ?>
+        <a href="#" class="nav-toggle" aria-hiden="false">
+        Menu
+        </a>
+    <div id="nav" class="nav-collapse"  style="transition: max-height 290ms ease 0s;">
+    <div class="sidebar"data-color="azure" data-background-color="white">
+  <div class="sidebar-wrapper">
+    <ul class="nav menu">
+      <li class="nav-item">
+      <a class="nav-link" href="{{ route('profile.edit') }}">
+      <div class="items-dashboard">
+      <i class="bi bi-person-circle"></i>
+      <span class="sidebar-normal" style="font-size: 105%;">Mis datos</span>
+      </div>
+      </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'asistenciasfamilia' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('asistenciasalumnos')}}">
+                <div class="items-dashboard">
+               <i class="bi bi-journal-text"></i>
+                <span class="sidebar-normal"> {{ __('Asistencias') }} </span>
+                </div>
+              </a>
+            </li>
+      <li class="nav-item{{ $activePage == 'eventos' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('eventosfamilia')}}">
+                <div class="items-dashboard">
+               <i class="material-icons">event</i>
+                <span class="sidebar-normal"> {{ __('Eventos') }} </span>
+                </div>
+              </a>
+            </li>
+      
+      <li class="nav-item">
+        <div class="collapse show" >
+          <ul class="nav">
+          <li class="nav-item{{ $activePage == 'chatfamilia' ? ' active' : '' }}">
+              <a class="nav-link" href="{{route('chatify')}}">
+                <div class="items-dashboard">
+                <i class="bi bi-chat-dots"></i>
+                <span class="sidebar-normal">{{ __('Central de mensajes') }} </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <div class="items-dashboard">
+              <i class="bi bi-box-arrow-right"></i>
+              <span class="sidebar-normal" style="font-size: 105%;">Cerrar sesión</span>
+              </div>
+            </a>
+            </li>
+    </ul>
+  </div>
+</div>
+</div>
+  <script>
+var navigation = responsiveNav("#nav");
+</script>
+<?php 
+}
+
+}
+
 else{?>
 <div class="sidebar" data-color="azure" data-background-color="white">
-<?php  
-}
+  <?php
   if (Auth::user()->role =='directivo') { ?>
   <div class="sidebar-wrapper">
-    <ul class="nav">
+    <ul class="nav menu">
      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('directivo')}}">
+        <a class="nav-link clo" href="{{route('directivo')}}">
           <i class="bi bi-list"></i>
            <strong><p>{{ __('MENU DIRECTIVOS') }}</p></strong> 
         </a>
@@ -119,7 +483,7 @@ else{?>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'pasegrado' ? ' active' : '' }}">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{route('buscadorpase')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
                 <span class="sidebar-normal"> {{ __('Pase de grado') }} </span>
@@ -332,3 +696,6 @@ else{?>
 }
 ?>
 </div>
+<?php  
+}
+?>

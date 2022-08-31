@@ -1,5 +1,7 @@
 @extends('layouts.main', ['activePage' => 'criteriosevaluacion', 'titlePage' => __('')])
-
+<?php
+      $detect = new Mobile_Detect;
+?>
 @section('content')
 <div class="content">
   <div class="container-fluid">
@@ -18,9 +20,8 @@
             <h5><span class="badge badge-info">El año escolar activo es el {{$año->descripcion}}.</span></h5>
           </div>
         @endforeach
-        <div class="row">
           @if($tipodoc=='Grado')
-          <div class="col">
+          <div class="row" style="margin-right: 3px; margin-left: 3px;">
             <label>Espacio curricular</label>
               <select name="espaciocurricular" id="espaciocurricular" class="form-control" value="{{ $id->id_espacio }}">
                 <?php
@@ -45,12 +46,8 @@
                 </div>
               @endif
           </div>
-        </div>
-        
-        <div class="row">
-         
           @else
-          <div class="col">
+          <div class="row" style="margin-right: 3px; margin-left: 3px;">
             <label>Grado</label>
               <select name="grado" id="grado" class="form-control" value="{{$id->id_grado }}">
                     <option value="{{$id->id_grado}}"<?php echo 'selected="selected" ';?>>{{$id->id_grado}}</option>
@@ -72,10 +69,8 @@
               @endif
           </div>
             @endif
-        </div>
         <br>
-        <div class="row">
-        <div class="col">
+        <div class="row" style="margin-right: 3px; margin-left: 3px;">
             <label>Período</label>
             <br>
             <select id="periodo" name="periodo" class="form-control" value="{{$id->periodo }}">>
@@ -106,10 +101,8 @@
                 </div>
               @endif
         </div>
-        </div>  
         <br>
-        <div class="row">
-          <div class="col">
+          <div class="row" style="margin-right: 3px; margin-left: 3px;">
             <label>Criterio de evaluación</label>
               <input type="text" name="criterio" class="form-control" value="{{$id->criterio}}">
             @if ($errors->has('criterio'))
@@ -118,11 +111,13 @@
                 </div>
               @endif
           </div>
-  <div class="col">
-            <label>Ponderación</label>
-            <br>
+        <br>
+        <div class="row" style="margin-right: 3px; margin-left: 3px;">
+          <label>Ponderación</label>
+        </div>
+        <div class="row" style="margin-right: 3px; margin-left: 3px;">
             <small class="form-text" id="etiqueta"></small>
-            <input id="input" name="ponderacion" type="range" min="1" max="5" step="1" list="opciones" value="{{$id->ponderacion}}" >
+            &nbsp<input id="input" name="ponderacion" type="range" min="1" max="5" step="1" list="opciones" value="{{$id->ponderacion}}" >
             <datalist id="opciones">
             <option value="1" label="1">
             <option value="2" label="2">
@@ -191,10 +186,8 @@
                 </div>
               @endif
         </div>
-        </div>
         <br>
-        <div class="row">
-        <div class="col">
+        <div class="row" style="margin-right: 3px; margin-left: 3px;">
           <label>Descripción</label>
              <textarea class="form-control" rows="3" name="descripcion" id="descripcion" style="border: thin solid lightgrey;" aria-describedby="comentHelp" value="{{$id->descripcion}}" maxlength="150">{{ old('descripcion', $id->descripcion) }}</textarea>
              <small id="comentHelp" class="form-text text-muted">Este campo es opcional. </small>
@@ -204,7 +197,6 @@
                 </div>
               @endif
             </div>
-          </div>
           <br>
           <div class="card-footer">
           <div class=" col-xs-12 col-sm-12 col-md-12 text-center ">

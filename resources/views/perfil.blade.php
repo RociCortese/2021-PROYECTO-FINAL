@@ -445,6 +445,8 @@ $detect = new Mobile_Detect;
             <form method="post" action="{{route('profile.updatecontra')}}" autocomplete="off" class="form-horizontal">
             @csrf
             @method('put')
+            <br>
+            <br>
 
                 <div class="card ">
 

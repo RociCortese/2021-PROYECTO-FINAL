@@ -183,3 +183,10 @@ Route::get('buscadornotasfinales', 'App\Http\Controllers\NotasController@buscado
 Route::get('listadonotasfinales', 'App\Http\Controllers\NotasController@listadonotasfinales')->name('listadonotasfinales');
 //Route::put('listadonotas/editarnota/{id_alumno}', 'App\Http\Controllers\NotasController@updatenota')->name('notas.update');
 Route::put('listadonotasfinales/editar/{id_alumnos}', 'App\Http\Controllers\NotasController@updateobservacionfinal')->name('observacionfinal.update');
+Route::put('notafinal/editar', 'App\Http\Controllers\NotasController@updatenotafinal')->name('notafinal.update');
+
+/*Pase de grado*/
+Route::get('buscadorpasegrado', 'App\Http\Controllers\PaseGradoController@buscador')->name('buscadorpase');
+Route::get('listadopasegrado', 'App\Http\Controllers\PaseGradoController@index')->name('listadopase');
+Route::put('pasedegrado/{id_alumno}', 'App\Http\Controllers\PaseGradoController@pasedegrado')->name('accionpasegrado');
+Route::put('pasartodos', 'App\Http\Controllers\PaseGradoController@pasartodos')->name('pasartodos');

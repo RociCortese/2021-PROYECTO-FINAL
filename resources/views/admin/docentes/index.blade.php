@@ -108,6 +108,7 @@ $detect = new Mobile_Detect;
                 <input name="buscardni" class="form-control mr-sm-2" type="search" placeholder="Buscar por DNI" aria-label="Search" value="{{$dni}}">
                 <div class="text-right"><button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 <a href="{{url ('admin/docentes') }}" class="btn btn-sm btn-facebook"> Limpiar </a>
+
                 </div>
               </form>
               </div>

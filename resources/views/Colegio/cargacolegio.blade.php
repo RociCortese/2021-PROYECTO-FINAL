@@ -37,14 +37,14 @@ if($colegio->isEmpty()){?>
                 &nbsp &nbsp &nbsp
                   <div class="form-check form-check-radio">
                   <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="{{ old('gestion') }}">Privada
+                  <input class="form-check-input" type="radio" name="gestion" id="exampleRadios1" value="Privada">Privada
                     <span class="circle">
                     <span class="check"></span>
                     </span>
                     </label>
                     &nbsp &nbsp
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="{{ old('gestion') }}" checked>Pública
+                            <input class="form-check-input" type="radio" name="gestion" id="exampleRadios2" value="Pública" checked>Pública
                             <span class="circle">
                                 <span class="check"></span>
                             </span>

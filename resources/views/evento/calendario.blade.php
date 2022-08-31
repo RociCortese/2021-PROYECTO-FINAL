@@ -43,15 +43,34 @@
           </a>
         </div>
       </div>
-        <div class="row" style="margin-right:10px;">
-        <div class="col header-col">Lunes</div>
-        <div class="col header-col">Martes</div>
-        <div class="col header-col">Miércoles</div>
-        <div class="col header-col">Jueves</div>
-        <div class="col header-col">Viernes</div>
-        <div class="col header-col">Sábado</div>
-        <div class="col header-col">Domingo</div>
-        </div>
+      <?php
+$detect = new Mobile_Detect;
+if ($detect->isMobile() or $detect->isTablet()) {?>
+  <div class="row" style="margin-right:10px;">
+  <div class="col header-col">LU</div>
+  <div class="col header-col">MA</div>
+  <div class="col header-col">Mi</div>
+  <div class="col header-col">JU</div>
+  <div class="col header-col">VI</div>
+  <div class="col header-col">SA</div>
+  <div class="col header-col">DO</div>
+  </div>
+<?php
+}
+else{?>
+  <div class="row" style="margin-right:10px;">
+  <div class="col header-col">Lunes</div>
+  <div class="col header-col">Martes</div>
+  <div class="col header-col">Miércoles</div>
+  <div class="col header-col">Jueves</div>
+  <div class="col header-col">Viernes</div>
+  <div class="col header-col">Sábado</div>
+  <div class="col header-col">Domingo</div>
+  </div>
+<?php   
+}
+?>
+        
       <!-- inicio de semana -->
       @foreach ($data['calendar'] as $weekdata)
         <div class="row" style="margin-right:10px;">
@@ -75,8 +94,15 @@
                 if(($event->creador==Auth::user()->name) || ($nomparti==Auth::user()->name)){
                   ?>
                 <br>
-                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>
+                <?php 
+                if ($detect->isMobile() or $detect->isTablet()) {?>
+                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}"><i class="bi bi-calendar2-check"></i></a>
                 <?php
+                }
+                else{?>
+                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>  
+                <?php
+                }
                 }
                 ?>
                     <div class="modal fade bd-example-modal-lg" id="evento{{$event->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -105,9 +131,17 @@
                                 </td>
                               </tr>
                               <tr>
+                                <?php 
+                                if(empty($event->descripcion)){
+                                
+                                } 
+                                else{?>
                                 <td class="v-align-middle" >
                                 <label><strong>Comentario sobre el evento:</strong></label>  {{$event->descripcion}}
                                 </td>
+                                <?php 
+                                }
+                                ?>
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >
@@ -117,8 +151,12 @@
                               <tr>
                                 <td class="v-align-middle" >
                                 <label><strong>Fecha:</strong></label>  {{ \Carbon\Carbon::parse($event->fecha)->format('d/m/Y')}}
-                                <label><strong>Hora:</strong></label>   {{$event->hora}}
                                 </td>
+                              </tr>
+                              <tr>
+                              <td class="v-align-middle">
+                              <label><strong>Hora:</strong></label>   {{$event->hora}}
+                              </td>
                               </tr>
                               <tr>
                                 <td class="v-align-middle" >

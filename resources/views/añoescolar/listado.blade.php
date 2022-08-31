@@ -27,8 +27,7 @@ $detect = new Mobile_Detect;
               <h4><span class="badge badge-warning">Para poder crear el año escolar, antes deberá cargar las configuraciones básicas.</span></h4>
               </div>
               <br>
-              @else
-              @if(empty($periodocolegio))
+              @elseif(empty($periodocolegio))
                 <br>
                <div class="col-md-12 text-center">
                 <?php 
@@ -280,7 +279,7 @@ $detect = new Mobile_Detect;
                 </div> 
           </div>
           @endif
-          @endif
+          
               </div>
                 </div> 
                 </div> 

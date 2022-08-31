@@ -1,4 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'notas', 'titlePage => Registro de notas'])
+<?php
+      $detect = new Mobile_Detect;
+?>
 @section ('content')
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -122,7 +125,16 @@
                       @foreach($infocriterios as $infocrit) 
                       <th>{{$infocrit->criterio}}</th>
                       @endforeach
+                      <?php 
+                      if ($detect->isMobile() or $detect->isTablet()) {?>
+                      <th>Final</th>
+                      <?php
+                      }
+                      else{?>
                       <th>Nota final &nbsp<a data-toggle="popover" title="Cálculo Nota Final" data-content="La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas y a la ponderación de cada criterio de evaluación."><i class="bi bi-exclamation-circle" class="text-primary" ></i></a>  </th>
+                      <?php 
+                      }
+                      ?>
                       <th>Observaciones</th>
                     </thead>
                     <script >$('[data-toggle="popover"]').popover();  </script>
@@ -150,11 +162,9 @@
                         $califi = preg_replace('/[\[\]\.\;\""]+/', '', $califi);
                         $cont=count($califi)-1;
                         ?>
-
                         <option value="{{$infonot->nota}}" <?php echo 'selected="selected" ';?>>{{$infonot->nota}}</option>
                         <option value=""></option>
                         <?php
-
                         for($i=0;$i<=$cont;$i++){?>
                         <option value="{{$califi[$i]}}">{{$califi[$i]}}</option>
                         <?php
@@ -229,8 +239,6 @@ $(function() {
 
                     </tbody>
                     @endforeach
-                
-                       
                   </table>
                 </div>
                 <div class="card-footer">
@@ -246,16 +254,22 @@ $(function() {
                         $califica = preg_replace('/[\[\]\.\;\""]+/', '', $califica);
                         $cont=count($califi)-1;
                         ?>
-                        <h5><span class="badge badge-warning">Referencias:
-
+                        <?php 
+                        if ($detect->isMobile() or $detect->isTablet()) {?>
+                        <span class="badge badge-warning">La nota final es obtenida automáticamente de acuerdo a las calificaciones <br> cargadas y a la ponderación de cada criterio de evaluación.</span>
+                        <?php
+                        }
+                      else{?>
+                       <h5><span class="badge badge-warning">Referencias:
                         <?php
                         for($i=0;$i<=$cont;$i++){?>
                           <strong>{{$califi[$i]}}</strong>: {{$califica[$i]}}
                         <?php
                         }
                         ?>
-                      </span></h5>
+                      </span></h5> 
                       <?php
+                      }
                     }
                     ?>
             </div>
