@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'cargasistencia', 'titlePage => Registro de Asistencias'])
-
+<?php
+$detect = new Mobile_Detect;
+?>
 @section ('content')
  <div class="content">
    <div class="container-fluid">
@@ -212,16 +214,33 @@
                   <button class="btn btn-sm btn-facebook" formaction="{{url ('asistencias/edita') }}">Editar Asistencia</button>
               </div>
            </form>
+
            @endif
+               <?php 
+          if ($detect->isMobile() or $detect->isTablet()) {?> 
+          <br>
+          <div class="row">
+                <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
+                <i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
+                <i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
+                <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
+                <i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
+              </div>
+          <?php 
+          }
+          else{?>
               <div class="row">
                 <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
-                &nbsp<i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
-                &nbsp<i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
-                &nbsp<i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
-                &nbsp<i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
+                <i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
+                <i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
+                <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
+                <i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
               </div>
-              </div>
-                  
+               <?php 
+                  }
+                  ?>
+        
+              </div> 
             </div>
           </div>
         </div>

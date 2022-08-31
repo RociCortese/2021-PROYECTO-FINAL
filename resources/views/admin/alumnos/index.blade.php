@@ -47,7 +47,16 @@ $detect = new Mobile_Detect;
               </div>
                   
               @else
-                <div class="card card-body" style="border: thin solid lightgrey;">
+                  <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; width: 95%; margin-left: 1%;">
+                    <?php 
+                  }
+                  else{?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; ">
+                    <?php 
+                  }
+                  ?>
                   <form>
                     <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" value="{{$apellido}}">
                     <input name="buscarnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar por Nombre" aria-label="Search" value="{{$nombre}}">
@@ -106,10 +115,21 @@ $detect = new Mobile_Detect;
                     @endif
 
                   <div class="text-right">
+                  <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook"><i class="material-icons">person_add_alt</i></a>
                   <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar alumnos"><span class="material-icons">filter_list</span></button>
 
                   <div class="collapse" id="collapseExample">
-                  <div class="card card-body" style="border: thin solid lightgrey;">
+                    <?php 
+                  if ($detect->isMobile() or $detect->isTablet()) {?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; width: 95%; margin-left: 1%;">
+                    <?php 
+                  }
+                  else{?>
+                    <div class="card card-body" style="border: thin solid lightgrey; margin-top: 2%; ">
+                    <?php 
+                  }
+                  ?>
+                  
                     <form>
                       
                       <input name="buscarapellido" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido" aria-label="Search" value="{{$apellido}}">
@@ -125,8 +145,7 @@ $detect = new Mobile_Detect;
                   </div>
                   </div>
 
-                  <a href="{{url ('admin/alumnos/create') }}" class="btn btn-sm btn-facebook">
-                    <i class="material-icons">person_add_alt</i></a>
+                  
                   </div>
 
                   @foreach($alumnos as $alu)

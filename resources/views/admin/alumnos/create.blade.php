@@ -298,9 +298,10 @@ function mostrar() {
         @else
               
           <div class="text-right" style="margin-right:2%;">
+            <a type="button" class="btn btn-sm btn-facebook" id="botonalumnos" name="botonalumnos" data-toggle="modal" data-target="#myModal" style="color: white;"><i class="material-icons">person_add_alt</i></a>
             <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Filtrar familia"><span class="material-icons">filter_list</span></button>
             <div class="collapse" id="collapseExample">
-            <div class="card card-body" style="border: thin solid lightgrey;margin-left:2%;width: 98%;">
+            <div class="card card-body" style="border: thin solid lightgrey;margin-left:2%;width: 98%;margin-top: 2%;">
             <form>
             <input name="buscarapellidofamilia" class="form-control mr-sm-2" type="search" placeholder="Buscar por apellido" aria-label="Search" value="{{$apellidofam}}">
             <div class="text-right"><button class="btn btn-sm btn-facebook"formaction="{{route('alumnos.create')}}" type="submit">Buscar</button>
@@ -309,11 +310,11 @@ function mostrar() {
             </form>
             </div>
             </div>
-            <a type="button" class="btn btn-sm btn-facebook" id="botonalumnos" name="botonalumnos" data-toggle="modal" data-target="#myModal" style="color: white;"><i class="material-icons">person_add_alt</i></a>
+            
           </div>
           
           <div class="col">
-            <h4> <span class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione <br>el familiar correspondiente.</span></h4>
+            <h4> <span class="badge badge-info">(*) En caso que ya se encuentre cargado, seleccione<br>el familiar correspondiente.</span></h4>
           </div>
           
           <br>

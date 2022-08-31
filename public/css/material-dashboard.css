@@ -16936,7 +16936,7 @@ label {
 .card.bg-rose,
 .card.card-rotate.bg-rose .front,
 .card.card-rotate.bg-rose .back {
-  background: linear-gradient(60deg, #ec407a, #d81b60);
+  background: linear-gradient(to right, #00b09b, #96c93d);
 }
 
 .card .card-header-primary .card-icon,
@@ -17238,9 +17238,9 @@ label {
 
 .card [class*="card-header-"] .card-icon,
 .card [class*="card-header-"] .card-text {
-  border-radius: 3px;
+  border-radius: 10px;
   background-color: #999999;
-  padding: 15px;
+  padding: 8px;
   margin-top: -20px;
   margin-right: 15px;
   float: left;

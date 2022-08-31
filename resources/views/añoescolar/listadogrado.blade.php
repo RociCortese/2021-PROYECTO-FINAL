@@ -17,6 +17,7 @@ $detect = new Mobile_Detect;
               @if($colegio->isEmpty())
                 <br>
                <div class="col-md-12 text-center">
+
               <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá cargar la información del colegio.</span></h4>
               </div>
               <br>
@@ -24,8 +25,17 @@ $detect = new Mobile_Detect;
               @if($todoestado->isEmpty())
               <br>
                <div class="col-md-12 text-center">
-              <h4><span class="badge badge-warning">Para poder armar los diferentes grados, antes deberá crear el año escolar.</span></h4>
+                <?php 
+                    if ($detect->isMobile() or $detect->isTablet()) {?>
+              <h4><span class="badge badge-warning">Para poder armar los diferentes grados,<br> antes deberá crear el año escolar.</span></h4>
+                <?php 
+                  }
+                  else{?>
+                    <h4><span class="badge badge-warning">Para poder armar los diferentes grados, <br> antes deberá crear el año escolar.</span></h4>
               </div>
+              <?php 
+                  }
+                  ?>
               <br>
               @else
               <div class="card-body">

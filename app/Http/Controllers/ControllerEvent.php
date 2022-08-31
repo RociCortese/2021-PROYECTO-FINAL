@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Mobile_Detect;
 
+
 class ControllerEvent extends Controller
 {
   public function __construct()
@@ -398,9 +399,10 @@ class ControllerEvent extends Controller
 
     public function listadofamilias(){
     $idautenticado=Auth::user()->id;
-    $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
-    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
-    return view('evento.eventosfamilia',compact('eventosproximos','eventosanteriores'));
+    
+    
+    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC');
+    return view('evento.eventosfamilia',compact('eventosanteriores','idautenticado'));
     }
 
     public function eventorechazado(Request $request,$id){
@@ -413,7 +415,7 @@ class ControllerEvent extends Controller
       $motivorechazo=$request->motivorechazo;
       $estadoevento->save();
       $idautenticado=Auth::user()->id;
-      $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(6)->get();
+      $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->paginate(3);
     $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
     $creador=Event::where('id',$id)->get();
     foreach($creador as $datosevento){
