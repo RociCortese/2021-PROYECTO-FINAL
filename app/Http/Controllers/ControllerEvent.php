@@ -356,7 +356,7 @@ class ControllerEvent extends Controller
     $idautenticado=Auth::user()->id;
     
     
-    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC')->paginate(5);
+    $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC');
     return view('evento.eventosfamilia',compact('eventosanteriores','idautenticado'));
     }
 

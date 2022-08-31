@@ -1,4 +1,6 @@
 @extends('layouts.main', ['activePage' => 'eventos', 'titlePage' => __('Dashboard Docente')])
+
+@section('content')
 <?php
 $detect = new Mobile_Detect;
 use Carbon\Carbon;
@@ -9,14 +11,8 @@ use Carbon\Carbon;
       $eventosproximos=App\Models\Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->paginate(3);
     }
 ?>
-@section('content')
 <div class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            
     <div class="card">
       <div class= "card-header card-header-info">
         <h4 class="card-title">Próximos eventos</h4>
@@ -30,6 +26,13 @@ use Carbon\Carbon;
       <?php 
       foreach($eventosproximos as $event){?>
         <div class="card" style="border: solid lightgrey;width: 300px">
+          <?php 
+          if ($detect->isMobile() or $detect->isTablet()) {?>
+          <br>
+          <br>
+          <br>
+          <?php 
+          }?>
           <div class="card-header card-header-icon card-header-rose">
             <div class="card-icon">
               <i class="material-icons">event</i>
@@ -391,14 +394,12 @@ use Carbon\Carbon;
                 </table>
                 </div>
                 </div> <!-- cierra el card body de eventos anteriores -->
-                <div class="card-footer mr-auto">{{$eventosanteriores->links() }}</div>      
+                    
                 </div> <!-- cierra el card  de eventos anteriores -->
                    
                 
-            </div>
-            </div>
-          </div>
-        </div>
+         
+          
       </div>
     </div>
 @endsection
