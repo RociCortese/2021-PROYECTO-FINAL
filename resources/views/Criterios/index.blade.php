@@ -114,6 +114,7 @@
                     if ($detect->isMobile() or $detect->isTablet()) {
                     }
                     else{?>
+                      <td class="v-align-middle">{{$criterio->id}}</td>
                       <td class="v-align-middle">{{$criterio->id_año}}</td>
                        <td class="v-align-middle">{{$criterio->periodo}}</td>
                     <?php 

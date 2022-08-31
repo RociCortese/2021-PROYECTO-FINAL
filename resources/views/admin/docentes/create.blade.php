@@ -106,51 +106,19 @@
 
         <br>
         <div class="row">
-        <div class="col">
-            <label>Provincia</label>
-            <select class="form-control" id="provinciadocente" name="provinciadocente" onchange="mostrarlocalidades(this.value)">
-            <option value="">Seleccione una provincia </option>
-            <?php 
-            $provincias=App\Models\Provincia::orderBy('nombre','ASC')->get();
-            foreach($provincias as $prov){?>
-            <option value="{{$prov->nombre}}">{{$prov->nombre}}</option>
-            <?php 
-            }
-            ?>
-        </select>
-            @if ($errors->has('provinciadocente'))
-                <div id="provinciadocente-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
-                  <strong>{{ $errors->first('provinciadocente') }}</strong>
-                </div>
-              @endif
-          
-            <?php 
-          $provinciaseleccionada='null';
-          ?>
-          <script type="text/javascript">
-            function mostrarlocalidades(provinciaseleccionada){
-            location.href='?provinciaseleccionada=' + provinciaseleccionada;
-            }
-          </script>
-          
+          <div class="col">
+          <label>Provincia</label>
+          <input type="text" name="provinciadocente" class="form-control" value="{{ old('provinciadocente') }}">
+          @if ($errors->has('provinciadocente'))
+          <div id="grado-error" class="error text-danger pl-3" for="provinciadocente" style="display: block;">
+          <strong>{{ $errors->first('provinciadocente') }}</strong>
+          </div>
+          @endif
           </div>
           <div class="col">
-            <label>Localidad</label>
-            <select class="form-control" name="localidaddocente">
-            <option value="">Seleccione una localidad </option>
-            <?php
-            if(isset($_GET['provinciaseleccionada']))
-              {
-              $provinciaseleccionada=$_GET['provinciaseleccionada'];
-              }
-            $localidades=App\Models\Localidad::orderBy('nombre','ASC')->where('provincia_nombre',$provinciaseleccionada)->get(); 
-            foreach($localidades as $loc){?>
-            <option value="{{$loc->nombre}}">{{$loc->nombre}}</option>
-            <?php 
-            }
-            ?>
-            </select>
-            @if ($errors->has('localidaddocente'))
+         <label>Localidad</label>
+             <input type="text" name="localidaddocente" class="form-control" value="{{ old('localidaddocente') }}">
+            @if ($errors->has('localidad'))
                 <div id="localidaddocente-error" class="error text-danger pl-3" for="localidaddocente" style="display: block;">
                   <strong>{{ $errors->first('localidaddocente') }}</strong>
                 </div>
@@ -165,12 +133,6 @@
                 </div>
               @endif
           </div>
-
-          
-            
-            
-
-          
         </div>
         <br>
 

@@ -111,6 +111,13 @@ if ($detect->isMobile() or $detect->isTablet()) {?>
           <span class="sidebar-normal">Impresión de Informes</span>
           </div>
         </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{route('buscadorpase')}}">
+          <div class="items-dashboard">
+          <i class="bi bi-journal-text" style="font-size: 1rem;"></i>
+          <span class="sidebar-normal">Impresión de Informes</span>
+          </div>
+        </a>
         </div>
         </li>
     </ul>
@@ -476,7 +483,7 @@ else{?>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'pasegrado' ? ' active' : '' }}">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{route('buscadorpase')}}">
                 <div class="items-dashboard">
                <i class="bi bi-journal-text"></i>
                 <span class="sidebar-normal"> {{ __('Pase de grado') }} </span>

@@ -169,7 +169,7 @@ class CargaAlumnoController extends Controller
         $familia->apellidofamilia=$request->apellidofamilia;
         $familia->dnifamilia=$request->dnifamilia;
         $familia->generofamilia=$request->generofamilia;
-        $familia->telefono=$request->telefono;
+        $familia->telefono=$request->telefonofamilia;
         $familia->email=$request->email;
         $familia->vinculofamiliar=$request->vinculofamiliar;
         $familia->colegio_id=$idcolegio;

@@ -73,6 +73,11 @@
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
                 </div>
                 </form>
+                @if($notafinal->isEmpty() or $infoinformes->isEmpty())
+                <div class="text-center"> 
+                <h4><span class="badge badge-warning">No se encontraron resultados para los criterios seleccionados en la búsqueda.</span></h4>
+                </div>
+               @else
                 <form class="form-horizontal" method="POST">
                   @csrf
                   @METHOD('PUT')
@@ -119,7 +124,7 @@
                       $cantidadperiodo=2;
                       ?>
                       @endif
-                      <th>Nota final &nbsp<a data-toggle="popover" title="Cálculo Nota Final" data-content="La nota final es obtenida automáticamente de acuerdo a las calificaciones cargadas para cada período."><i class="bi bi-exclamation-circle" class="text-primary" ></i></a>  </th>
+                      <th>Nota final </th>
                       <th>Observación final</th>
                     </thead>
                     <script >$('[data-toggle="popover"]').popover();  </script>
@@ -148,7 +153,7 @@
                       }
                       ?>
                       @foreach($infoinformes as $info)
-                      @if($info->id_alumno==$idalumnos[$i] and $info->periodo!='Final')
+                      @if($info->id_alumno==$idalumnos[$i])
                       <?php 
                       if($info->periodo=='Primer período'){
                       $notasespacio[0]=$info->nota;
@@ -175,6 +180,7 @@
                       <?php   
                       }
                       ?>
+
                        @foreach($notafinal as $nota)
                       @if($nota->id_alumno==$idalumnos[$i])
                          <td class="v-align-middle">
@@ -193,7 +199,7 @@
                       @endif
                       @endforeach
                       @foreach($notafinal as $nota)
-                      @if($nota->id_alumno==$idalumnos[$i] )
+                      @if($nota->id_alumno==$idalumnos[$i])
                       <td class="v-align-middle">
                         <a style="color: #00bcd4;font-size: 1.5em;"data-toggle="modal" data-target="#myModal{{$idalumnos[$i]}}" title="Observaciones">
                             <i class="bi bi-journals"></i>
@@ -228,7 +234,7 @@
                        </div>
                      </div>
                    </div>
-                      </td>   
+                      </td> 
                       @endif                
                      @endforeach
                     </tr>
@@ -270,6 +276,7 @@
           </div>
         </div>
         </form>
+        @endif
                
           </div>
           
