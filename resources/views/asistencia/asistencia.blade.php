@@ -1,5 +1,7 @@
 @extends('layouts.main' , ['activePage' => 'cargasistencia', 'titlePage => Registro de Asistencias'])
-
+<?php
+$detect = new Mobile_Detect;
+?>
 @section ('content')
  <div class="content">
    <div class="container-fluid">
@@ -212,6 +214,19 @@
            </form>
             @endif
           </div>
+          <?php 
+          if ($detect->isMobile() or $detect->isTablet()) {?> 
+          <br>
+          <div class="row">
+                <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
+                <i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
+                <i class="bi bi-circle-fill" style="color:#ff6961;"></i>&nbspAusente&nbsp
+                <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
+                <i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
+              </div>
+          <?php 
+          }
+          else{?>
               <div class="row">
                 <i class="bi bi-circle-fill" style="color:#c5c6c8;"></i>&nbspNo registrada&nbsp
                 <i class="bi bi-circle-fill" style="color:#77dd77;"></i>&nbspPresente&nbsp
@@ -219,6 +234,9 @@
                 <i class="bi bi-circle-fill" style="color:#fdfd96;"></i>&nbspTarde&nbsp
                 <i class="bi bi-circle-fill" style="color:#6C96C1;"></i>&nbspJustificada&nbsp
               </div>
+               <?php 
+                  }
+                  ?>
               </div> 
             </div>
           </div>

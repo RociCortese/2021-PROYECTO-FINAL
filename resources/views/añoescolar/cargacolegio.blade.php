@@ -148,15 +148,14 @@ if($colegio->isEmpty()){?>
     <div class= "card-header card-header-info">
     <h4 class="card-title">Información de colegio</h4>
     </div>
- 
+ <div class="card-body row justify-content-center">
+  <div class="row">
     <div class="col-md-12">
       <?php
       $detect = new Mobile_Detect;
       if ($detect->isMobile() or $detect->isTablet()) {
       }
       else{?>
-        <div class="card-body row justify-content-center">
-  <div class="row">
       <div class="card card-user" style="border: thin solid lightgrey;">
          <div class="card-body">
            <p class="card-text">
@@ -177,89 +176,8 @@ if($colegio->isEmpty()){?>
       </script>
   @endif
       @foreach($colegio as $col)
-      
-      <?php      
-      if ($detect->isMobile() or $detect->isTablet()) {?>
-      <h3 class="tittle mt-3 text-center" style="font-size:18px;"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>   
-              <table class="table">
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Teléfono</label>&nbsp;&nbsp;{{$col->telefono}}
-                    </td>
-                  </tr>
-                  <tr> 
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Dirección</label>&nbsp;&nbsp;{{$col->direccion}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Localidad</label>&nbsp;&nbsp;{{$col->localidad}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Provincia</label>&nbsp;&nbsp;{{$col->provincia}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Gestión</label>&nbsp;&nbsp;{{$col->gestion}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;">
-                    <label>Email</label>&nbsp;&nbsp;{{$col->email}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="v-align-middle" style="width: 100%;" >
-                    <label >Logo institucional</label>&nbsp;&nbsp;
-                        <?php
-        $Host ="127.0.0.1";
-        $uname = "u471978310_SofiaBovo";
-        $pwd = 'Sofia2022';
-        $db_name = "u471978310_centro";
-        $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
-        mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
-        $image_query = mysqli_query($result,"select file from files where id=$col->files_id");
-        while($rows = mysqli_fetch_array($image_query))
-        {
-            $img_src = $rows['file'];
-        }
-        $rutaimagen='file/'.$img_src.'';
-        if ($detect->isMobile() or $detect->isTablet()) {
-        echo'<img src="'.$rutaimagen.'" width="100px" height="100px" class="first" onClick="click()"/>';
-        }
-      else{
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';
-      }?>
-        <script>
-        document.querySelector(".first").addEventListener("click", function() {
-        Swal.fire({
-  title: 'Sweet!',
-  text: 'Modal with a custom image.',
-  imageUrl: '$rutaimagen',
-  imageWidth: 400,
-  imageHeight: 200,
-  imageAlt: 'Custom image',
-})
-        </script>
-      </td>
-    </tr>
-      </table>
-         <div class="text-right">
-        <a href="{{route('edit',$col->id)}}">
-            <button class="btn btn-sm btn-facebook" value="Editar">
-              Editar
-            </button>
-        </a>
-        </div>
-        <br>
- <?php 
-  }
-  else{?>
-    <h3 class="tittle mt-3 text-center" style="font-size:18px;"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
+          <h3 class="tittle mt-3 text-center" style="font-size:18px;"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>
+                          <p class="description">
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle">
@@ -321,24 +239,18 @@ if($colegio->isEmpty()){?>
       </td>
     </tr>
       </table>
-          <div class="text-right">
+        <div class="text-right">
         <a href="{{route('edit',$col->id)}}">
             <button class="btn btn-sm btn-facebook" value="Editar">
               Editar
             </button>
         </a>
         </div>
-                     <?php 
-                  }
-                  ?>
-
-          
-    
 
       </div>
                                                               
         @endforeach
- 
+      </p>
               
                 </div>
               </div>

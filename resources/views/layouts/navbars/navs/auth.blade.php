@@ -280,10 +280,10 @@
        <li class="nav-item dropdown">
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bi bi-person-circle" style="font-size: 1.5rem; "></i>
+            <i class="bi bi-person-circle" style="font-size: 1.5rem; "><!--<strong> <label class="text-primary"> {{auth()->user()->name }} !</label></strong>--></i>
             <p class="d-lg-none d-md-block">
 
-              {{ __('Account') }}
+              
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
