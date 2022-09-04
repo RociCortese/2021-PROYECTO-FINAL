@@ -121,15 +121,26 @@ $detect = new Mobile_Detect;
                                 <?php
                                 $res = preg_replace('/[\[\]\.\;\" "]+/', '', $grados->id_alumnos);
                                 $listadoalumnos=explode(',', $res);
+                                ?>
+                                <?php 
                                 $cantidad=count($listadoalumnos)-1;
                                 for($i=0; $i<=$cantidad; $i++){
-                                  $alumno=App\Models\Alumno::where('id',$listadoalumnos[$i])->get();
-                                  foreach ($alumno as $nomalu) {
-                                    $nombrealu="$nomalu->nombrealumno";
-                                    $apellidoalu="$nomalu->apellidoalumno";
-                                
-                                echo $nombrealu .'&nbsp'. $apellidoalu.'<br>';
-                              }
+                                  $nombrealumno=App\Models\Alumno::where('id',$listadoalumnos[$i])->pluck("nombrealumno");
+                                  $nombrealumno = preg_replace('/[\[\]\.\;\" "]+/', '', $nombrealumno);
+                                  $apellidoalumno=App\Models\Alumno::where('id',$listadoalumnos[$i])->pluck("apellidoalumno");
+                                  $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
+                                  ?>
+                                  <p>{{$nombrealumno}} {{$apellidoalumno}}
+                                  <?php 
+                                foreach($pasegrado as $pase){
+                                  if($listadoalumnos[$i]==$pase->id_alumno and $pase->estado=='No pasa'){
+                                  ?>
+                                  &nbsp<span class="badge badge-danger">Repitente</span>
+                                  </p>
+                                <?php
+                                  }
+                                }
+
                               }
                               
                             
