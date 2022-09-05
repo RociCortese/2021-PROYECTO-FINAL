@@ -52,6 +52,11 @@
                     }, 1000);
                     </script>
                     @endif
+                    @if($notasfinales->isEmpty())
+                  <div class="col-md-12 text-center">
+                  <h4><span class="badge badge-warning">No hay alumnos para el grado seleccionado. </span></h4>
+                  </div>    
+                  @else
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -130,6 +135,7 @@
                     @endforeach
                   </table>
                   </div>
+                
                   </div>
                   <div class="text-center">
                 <button class="btn btn-sm btn-facebook" data-toggle="modal" data-target="#myModal2" title="Pasar todos">
@@ -161,6 +167,7 @@
       
     </div>
   </div> 
+    @endif
                        <div class="card-footer mr-auto">
                     {{$notasfinales->links()}}
                 </div>
