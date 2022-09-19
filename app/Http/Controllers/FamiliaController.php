@@ -16,4 +16,8 @@ class FamiliaController extends Controller
     $eventosproximos=Event::where('participantes', $idautenticado)->where('fecha', '>=', Carbon::now()->format('Y-m-d'))->orderBy('fecha','ASC')->take(2)->get();
     return view('familia',compact('eventosproximos'));
     }
+    public function noverificado()
+    {
+    return view('noverificado');
+    }
 }

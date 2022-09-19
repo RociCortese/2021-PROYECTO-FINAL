@@ -267,6 +267,7 @@ class AñoController extends Controller
       foreach ($todoestado as $todoest) {
           $idaño="$todoest->id";
         }
+      $pasegrado=EstadoPaseGrado::where('colegio_id',$idcolegio)->where('año_id',$idaño)->get();
       $grado=Grado::where('id_anio',$idaño)->get();
       if($grado->isEmpty()){
       $request->validate([
@@ -365,6 +366,8 @@ class AñoController extends Controller
     $creacionasistencia->colegio_id=$idcolegio;
     $creacionasistencia->estado='No registrada';
     $creacionasistencia->save();
+    $pasegrado=EstadoPaseGrado::where('colegio_id',$idcolegio)->where('año_id',$idaño)->where('id_alumno',$idalumno[$i])->get();
+    if($pasegrado->isEmpty()){
     $creacionestadopase=new EstadoPaseGrado();
     $creacionestadopase->id_alumno=$idalumno[$i];
     $creacionestadopase->año_id=$idest;
@@ -372,18 +375,19 @@ class AñoController extends Controller
     $creacionestadopase->estado='Pendiente';
     $creacionestadopase->save();
     }
+    }
       if(empty($idest)){
         $descripcionaño=" ";
         $descripcionselect=" ";
         $estadoselect=" "; 
         $grado = Grado::where('id_anio',$todoesta)->orderBy('num_grado','ASC')->get();
-        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado'));
+        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado','pasegrado'));
       }
       else{
       $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
       $grados = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->pluck("id_alumnos");                         
                                 
-      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado','todosalumnos'));
+      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado','todosalumnos','pasegrado'));
     }
 
     }

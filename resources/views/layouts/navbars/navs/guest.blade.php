@@ -7,8 +7,7 @@ if ($detect->isMobile() or $detect->isTablet()) {?>
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
 <div style="text-align:center;width:100%;">
 <div class="logo" style="display:inline-block;">
-    <img style="width:50%;margin-right: 15%;margin-left:15%;" src="img/logo.png"class="simple-text logo-normal">
-</div>
+    <img style="width:50%;margin-right: 15%;margin-left:15%;" src="{{ asset ('img/logo.png')}}"class="simple-text logo-normal">
 <div style="margin-top:8%;margin-left: 0%;display:inline-block;">
 <a href="{{ route('register') }}" style="font-size: 20px;padding:5rem 1rem;">
   <i class="material-icons">person_add</i> {{ __('REGISTRARME') }}
@@ -24,7 +23,7 @@ if ($detect->isMobile() or $detect->isTablet()) {?>
 else{?>
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
   <div class="logo">
-    <img style="width:250px" src="img/logo.png"class="simple-text logo-normal">
+    <img style="width:250px" src="{{ asset ('img/logo.png')}}" class="simple-text logo-normal">
   </div>
   <div class="container">
     <div class="navbar-wrapper">

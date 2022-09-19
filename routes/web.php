@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
+Route::get('/register/verify/{code}', 'App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::get('/', function () {
 
@@ -40,6 +41,7 @@ Auth::routes();
 Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
 Route::get('/docente', 'App\Http\Controllers\DocenteController@index')->name('docente')->middleware('docente');
 Route::get('/familia', 'App\Http\Controllers\FamiliaController@index')->name('familia')->middleware('familia');
+Route::get('/noverificado', 'App\Http\Controllers\FamiliaController@noverificado')->name('noverificado');
 
 /*Verificación de email*/
 Auth::routes(['verify' => true]);

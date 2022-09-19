@@ -12,7 +12,7 @@
             </div>
             <div class="card-body" align="center">
                  <div class="logo" align="center">
-                    <img style="width:65px" src="img/registroOK.png" >
+                    <img style="width:65px" src="{{ asset ('img/registroOK.png')}}" >
                 </div>
                 <p class="card-description text-center" align="center"></p>
                   {{ __('El usuario ha sido registrado con éxito. Se le ha enviado el enlace para confirmar la cuenta al correo electrónico con el que se hizo el registro.') }}

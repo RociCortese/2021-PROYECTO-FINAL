@@ -44,7 +44,7 @@ class emailverify extends Notification
                     ->subject('Verificación de correo electrónico')
                     ->greeting('¡Bienvenido a Snotra!')
                     ->line('Estás recibiendo este correo porque te registraste en la plataforma y necesitas validar el correo electrónico.')
-                    ->action('Verificar correo electrónico', url('verificadoemail'));
+                    ->action('Verificar correo electrónico', url('verificadoemail/'. $confirmation_code));
     }
 
     /**
