@@ -17,10 +17,15 @@
                   <h5><span class="badge badge-success">El año escolar activo es el {{$año->descripcion}}.</span></h5>
                   </div>
                 @endforeach
-                @if(empty($success))
+             
+            @if(empty($infoasistencia))
+            <div class="col-md-12 text-center">
+            <h4><span class="badge badge-warning">No tienes inasistencias para justificar.</span></h4>
+            </div>    
             @else
-            <div class="alert alert-success">
-            {{$success}}
+            @if(session('success'))
+            <div class="alert alert-success" role="success">
+            {{session('success')}}
             </div>
             <script type="text/javascript">
             window.setTimeout(function() {
@@ -30,16 +35,17 @@
             }, 1000);
             </script>
             @endif
-                <form action="#" class="form-horizontal">
-                <?php 
-                $contadorasis=count($infoasistencia)-1;
-                for($i=0;$i<=$contadorasis;$i++){
-                foreach($infoasistencia[$i] as $infoasist[$i]){?>
-                <strong><u><p>Alumno {{$infoasist[$i]->nombrealumno}}</p></u></strong>
-                <?php
-                break;
-                }
-                ?>
+            <form action="#" class="form-horizontal">
+              <?php 
+              $contadorasis=count($infoasistencia)-1;
+              for($i=0;$i<=$contadorasis;$i++){
+              foreach($infoasistencia[$i] as $infoasist[$i]){?>
+              <strong><u><p>Alumno {{$infoasist[$i]->nombrealumno}}</p></u></strong>
+              <?php
+              break;
+              }
+              ?>
+
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -65,8 +71,13 @@
                      </td>
                      <td>{{\Carbon\Carbon::parse($infoasist[$i]->fecha)->format('d-m-Y')}}</td>
                      <td class="td-actions v-align-middle">
+                      @if($infoasist[$i]->justificacion == 0)
                       <button class="btn btn-warning" data-toggle="modal" data-target="#myModal{{$infoasist[$i]->id}}"> <i class="bi bi-journal-check"></i>
                       </button> 
+                      @else
+                      <button disabled class="btn btn-default" data-toggle="modal" data-target="#myModal{{$infoasist[$i]->id}}"> <i class="bi bi-journal-check"></i>
+                      </button>
+                      @endif 
                       <div class="modal fade bd-example-modal-lg" id="myModal{{$infoasist[$i]->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg">
                       <div class="modal-content">
@@ -106,6 +117,7 @@
                     }
                     ?>
                 </form>
+                @endif
             </div>
           </div>
         </div>

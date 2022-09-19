@@ -9531,8 +9531,8 @@ a.text-dark:focus {
 .btn:hover,
 .btn.btn-default:hover {
   color: #fff;
-  background-color: #B2BABB;
-  border-color: #7a7a7a;
+  background-color: #BFC9CA;
+  border-color: #999999;
 }
 
 .btn:focus,
@@ -9542,8 +9542,8 @@ a.text-dark:focus {
 .btn.btn-default.focus,
 .btn.btn-default:hover {
   color: #fff;
-  background-color: #B2BABB;
-  border-color: #7a7a7a;
+  background-color: #BFC9CA;
+  border-color: #999999;
 }
 
 .btn:active,
