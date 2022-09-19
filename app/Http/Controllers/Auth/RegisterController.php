@@ -87,5 +87,6 @@ class RegisterController extends Controller
             'idpersona' =>$directivo->id,
         ]);
         $usuario->notify(new emailverify($directivo->email));
+        return $usuario;
     }
 }

@@ -51,6 +51,7 @@ class InformacionAcademicaController extends Controller
     foreach($grado as $infogrado){
         $informaciongrado[]="$infogrado->descripcion";
     }
+
     return view('InformacionAcademica.buscador',compact('años','nombreespacio','informaciongrado'));
     }
      public function index(Request $request)

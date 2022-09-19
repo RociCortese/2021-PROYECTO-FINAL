@@ -26,13 +26,7 @@ use Carbon\Carbon;
       <?php 
       foreach($eventosproximos as $event){?>
         <div class="card" style="border: solid lightgrey;width: 300px">
-          <?php 
-          if ($detect->isMobile() or $detect->isTablet()) {?>
-          <br>
-          <br>
-          <br>
-          <?php 
-          }?>
+          
           <div class="card-header card-header-icon card-header-rose">
             <div class="card-icon">
               <i class="material-icons">event</i>
@@ -326,6 +320,11 @@ use Carbon\Carbon;
             <h4 class="card-title">Eventos anteriores</h4>
             </div>
           <div class="card-body">
+            @if(empty($eventosanteriores))
+            <div class="col-md-12 text-center">
+        <h4><span class="badge badge-warning">No tienes próximos eventos</span></h4>
+      </div>    
+      @else
             <div class="table-responsive">
               <table class="table">
                 <thead class="text-primary">
@@ -394,7 +393,7 @@ use Carbon\Carbon;
                 </table>
                 </div>
                 </div> <!-- cierra el card body de eventos anteriores -->
-                    
+                    @endif
                 </div> <!-- cierra el card  de eventos anteriores -->
                    
                 

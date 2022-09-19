@@ -182,7 +182,7 @@
                   }
                   $nuevajustif = preg_replace('/[\[\]\.\;\" "]+/', '', $nuevajustificacion);
                   ?>
-                  <span>{{$nuevajustif[$i]}}</span>
+                 
                   <?php 
                   if(empty($nuevajustif)){?>
                   <span>No hay justificaciones para gestionar</span>

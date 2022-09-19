@@ -1,4 +1,4 @@
-@extends('layouts.main' , ['activePage' => 'notas', 'titlePage => Buscador pase grado'])
+@extends('layouts.main' , ['activePage' => 'pasegrado', 'titlePage => Buscador pase grado'])
 
 @section ('content')
  <div class="content">
