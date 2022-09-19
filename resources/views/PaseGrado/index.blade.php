@@ -52,6 +52,11 @@
                     }, 1000);
                     </script>
                     @endif
+                    @if($notasfinales->isEmpty())
+                  <div class="col-md-12 text-center">
+                  <h4><span class="badge badge-warning">No hay alumnos para el grado seleccionado. </span></h4>
+                  </div>    
+                  @else
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -180,6 +185,7 @@
                     @endforeach
                   </table>
                   </div>
+                
                   </div>
                   <div class="row">
                   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h4><span class="badge badge-info"><i class="bi bi-exclamation-square"></i></span></h4>&nbsp Pendiente
@@ -221,6 +227,7 @@
       
     </div>
   </div> 
+    @endif
                        <div class="card-footer mr-auto">
                     {{$notasfinales->links()}}
                 </div>

@@ -443,7 +443,7 @@ else{?>
             <li class="nav-item{{ $activePage == 'añoescolar' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('añoescolar')}}">
                <div class="items-dashboard"> 
-                <i class="bi bi-calendar4-event"></i>
+                <i class="bi bi-calendar2-plus"></i>
                 <span class="sidebar-normal">{{ __('Creación de Año Escolar') }}</span>
                 </div>
               </a>
@@ -472,7 +472,7 @@ else{?>
             <li class="nav-item{{ $activePage == 'informacionacademica' ? ' active' : '' }}">
               <a class="nav-link" href="{{url('informacionacademica')}}">
                 <div class="items-dashboard">
-                 <i class="bi bi-person-plus"></i>
+                 <i class="bi bi-clock-history"></i>
                 <span class="sidebar-normal">{{ __('Historial académico') }} </span>
                 </div>
               </a>
@@ -488,7 +488,7 @@ else{?>
             <li class="nav-item{{ $activePage == 'pasegrado' ? ' active' : '' }}">
               <a class="nav-link" href="{{route('buscadorpase')}}">
                 <div class="items-dashboard">
-               <i class="bi bi-journal-text"></i>
+               <i class="bi bi-forward"></i>
                 <span class="sidebar-normal"> {{ __('Pase de grado') }} </span>
                 </div>
               </a>

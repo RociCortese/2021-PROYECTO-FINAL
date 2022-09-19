@@ -287,6 +287,58 @@ $detect = new Mobile_Detect;
           @endif
         </div>
 
+        <div class="col">
+        <label>Género</label>
+        <select name="generodocente" id="opciongenero" class="form-control" value="{{ old('generodocente') }}">
+        <option value="">Seleccione una opción</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Masculino">Masculino</option>
+        </select>
+        <script
+        src="https://code.jquery.com/jquery-3.2.0.min.js"
+        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+        crossorigin="anonymous">
+        </script>
+        <script>
+        $(function(){
+        $("#opciongenero").val(value="{{ old('generodocente') }}")
+        });
+        </script>
+        @if ($errors->has('generodocente'))
+        <div id="generodocente-error" class="error text-danger pl-3" for="generodocente" style="display: block;">
+        <strong>{{ $errors->first('generodocente') }}</strong>
+        </div>
+        @endif
+      </div>
+
+       <div class="col">
+        <label>Estado civil</label>
+        <select name="estadocivildoc" id="opcionestadocivil" class="form-control" value="{{ old('estadocivildoc') }}" >
+        <option value="">Seleccione una opción</option>
+        <option value="Soltera/o">Soltera/o</option>
+        <option value="Casada/o">Casada/o</option>
+        <option value="Divorciada/o">Divorciada/o</option>
+        <option value="Viuda/o">Viuda/o</option>
+        <option value="En concubitato">En concubitato</option>
+        </select>
+        <script
+        src="https://code.jquery.com/jquery-3.2.0.min.js"
+        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+        crossorigin="anonymous">
+        </script>
+        <script>
+        $(function(){
+        $("#opcionestadocivil").val(value="{{ old('estadocivildoc') }}")
+        });
+        </script>
+        @if ($errors->has('estadocivildoc'))
+        <div id="estadocivil-error" class="error text-danger pl-3" for="estadocivildoc" style="display: block;">
+        <strong>{{ $errors->first('estadocivildoc') }}</strong>
+        </div>
+        @endif
+      </div>
+        </div>
+
         <br>
         <div class="row">
           <div class="col">
@@ -319,16 +371,7 @@ $detect = new Mobile_Detect;
        
         </div>
         
-        <div class="col">
-          <label>Domicilio</label>
-          <input type="text" name="domiciliodocente" class="form-control" value="{{ old('domiciliodocente') }}">
-          @if ($errors->has('domiciliodocente'))
-          <div id="domiciliodocente-error" class="error text-danger pl-3" for="domiciliodocente" style="display: block;">
-          <strong>{{ $errors->first('domiciliodocente') }}</strong>
-          </div>
-          @endif
-        </div> 
-      </div>
+        
       <br>
 
       <div class="row">

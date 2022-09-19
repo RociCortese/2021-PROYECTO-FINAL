@@ -214,12 +214,13 @@ if($colegio->isEmpty()){?>
                   </tr>
                   <tr>
                     <td class="v-align-middle" style="width: 100%;" >
-                    <label >Logo institucional</label>&nbsp;&nbsp;
+              <label >Logo institucional</label>&nbsp;&nbsp;
                         <?php
-        $Host ="127.0.0.1";
-        $uname = "u471978310_SofiaBovo";
-        $pwd = 'Sofia2022';
-        $db_name = "u471978310_centro";
+        $Host ="localhost";
+        $uname = "root";
+        $pwd = '';
+        $db_name = "centro";
+
         $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
         mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
         $image_query = mysqli_query($result,"select file from files where id=$col->files_id");
@@ -227,13 +228,8 @@ if($colegio->isEmpty()){?>
         {
             $img_src = $rows['file'];
         }
-        $rutaimagen='file/'.$img_src.'';
-        if ($detect->isMobile() or $detect->isTablet()) {
-        echo'<img src="'.$rutaimagen.'" width="100px" height="100px" class="first" onClick="click()"/>';
-        }
-      else{
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';
-      }?>
+        $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
+        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';?>
         <script>
         document.querySelector(".first").addEventListener("click", function() {
         Swal.fire({
@@ -289,10 +285,11 @@ if($colegio->isEmpty()){?>
                                 <td >
                             <label >Logo institucional</label>&nbsp;&nbsp;
                         <?php
-        $Host ="127.0.0.1";
-        $uname = "u471978310_SofiaBovo";
-        $pwd = 'Sofia2022';
-        $db_name = "u471978310_centro";
+        $Host ="localhost";
+        $uname = "root";
+        $pwd = '';
+        $db_name = "centro";
+
         $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
         mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
         $image_query = mysqli_query($result,"select file from files where id=$col->files_id");
@@ -300,13 +297,8 @@ if($colegio->isEmpty()){?>
         {
             $img_src = $rows['file'];
         }
-        $rutaimagen='file/'.$img_src.'';
-        if ($detect->isMobile() or $detect->isTablet()) {
-        echo'<img src="'.$rutaimagen.'" width="100px" height="100px" class="first" onClick="click()"/>';
-        }
-      else{
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';
-      }?>
+        $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
+        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';?>
         <script>
         document.querySelector(".first").addEventListener("click", function() {
         Swal.fire({

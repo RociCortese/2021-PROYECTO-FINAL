@@ -35,6 +35,7 @@ class PaseGradoController extends Controller
     {
     $idcolegio=Auth::user()->colegio_id;
     $infgrado = trim($request->get('grado'));
+
     $años=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->orderBy('descripcion','ASC')->pluck("descripcion");
     $años = preg_replace('/[\[\]\.\;\" "]+/', '', $años);
     $idaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->orderBy('descripcion','ASC')->pluck("id");

@@ -30,9 +30,11 @@ class AsistenciaController extends Controller
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
+
     $meses = array('Marzo', 'Abril', 'Mayo', 'Junio',
        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
     if($tipodoc=='Grado'){
+        
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
     $mes=date("m");
     if($mes==1){
@@ -163,6 +165,7 @@ class AsistenciaController extends Controller
     } 
     }
     if($tipodoc=='Grado'){
+
     $gradodocente=Grado::where('id_docentes',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('id_anio',$idaño)->pluck('descripcion');
     $infoasistencias=Asistencia::where('docente',Auth::user()->idpersona)->where('colegio_id',$idcolegio)->where('grado',$gradodocente)->where('año_id',$idaño)->where('mes',$mes)->get();
     $infoasistencia=$infoasistencias->unique('nombrealumno');
@@ -381,7 +384,7 @@ class AsistenciaController extends Controller
         }
         $asistencia->mes=$mes;
         $asistencia->estado='Ausente';  
-        $infoasistencia[$i]->justificacion=0;
+        $asistencia->justificacion=0;
         $presentes=$request->estadoasistencia;
         if(empty($presentes)){
         }

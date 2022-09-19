@@ -26,11 +26,22 @@ class AsistenciaFamiliaController extends Controller
     $nombrealumno=Alumno::where('familias_id',$idfamilia)->pluck('nombrecompleto');
     $contadoralumnos=count($nombrealumno)-1;
     for($i=0;$i<=$contadoralumnos;$i++){
-    $infoasistencia[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->orderby('justificacion','ASC')->orderby('fecha','ASC')->get(); 
+    $infoasistencias[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->get(); 
     $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
     }
+    $cuentainfo=count($infoasistencias)-1;
+    for($i=0; $i<=$cuentainfo;$i++){
+      if (sizeof($infoasistencias[$i])!=0) {
+        $infoasistencia[]=$infoasistencias[$i];
+      }
+      } 
 
+      if (empty($infoasistencia)) {
+        return view('AsistenciaFamilia.buscador',compact('infoaño'));
+      }
+      else{
     return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia'));
+    }
     }
 
     public function enviarjustificacion(Request $request,$id){

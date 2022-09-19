@@ -15,6 +15,9 @@
                 <h4 class="card-title ">Información académica</h4>
               </div>
               <div class="card-body">
+                @if(empty($grado))
+                <h4><span class="badge badge-warning">Por el momento na hay información académica para mostrar.</span></h4>
+                @else
                 <div class="text-left col">
                   <h5><span class="badge badge-info">Para una búsqueda eficiente se recomienda seleccionar <br> al menos dos criterios.</span></h5>
                   </div>
@@ -131,6 +134,7 @@
                 </div>
                 </form>
             </div>
+            @endif
           </div>
         </div>
       </div>

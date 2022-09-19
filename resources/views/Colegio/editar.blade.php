@@ -98,25 +98,24 @@
                 <div class="col-sm-7">
         
                   <?php
-                   $Host ="127.0.0.1";
-                   $uname = "u471978310_SofiaBovo";
-                   $pwd = 'Sofia2022';
-                   $db_name = "u471978310_centro";
-                $detect = new Mobile_Detect;
-                $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
-        mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
-        $image_query = mysqli_query($result,"select file from files where id=$id->files_id");
-        while($rows = mysqli_fetch_array($image_query))
-        {
-            $img_src = $rows['file'];
-        }
-        $rutaimagen='../../file/'.$img_src.'';
-        if ($detect->isMobile() or $detect->isTablet()) {
-        echo'<img src="'.$rutaimagen.'" width="100px" height="100px" class="first" onClick="click()"/>';
-        }
-      else{
-        echo'<img src="'.$rutaimagen.'" width="120px" height="120px" class="first" onClick="click()"/>';
-      }?>
+                  $Host ="localhost";
+                  $uname = "root";
+                  $pwd = '';
+                  $db_name = "centro";
+
+                  $result = mysqli_connect($Host,$uname,$pwd) or die("Could not connect to database." .mysqli_error());
+                  mysqli_select_db($result,$db_name) or die("Could not select the databse." .mysqli_error());
+                  $image_query = mysqli_query($result,"select file from files where id=$id->files_id");
+                  while($rows = mysqli_fetch_array($image_query))
+                    {
+                      $img_src = $rows['file'];
+                    }
+                  $rutaimagen='http://127.0.0.1:8000/file/'.$img_src.'';
+                  ?>
+                  <div style=" display: inline-block;">
+                    <?php
+                  echo'<img src="'.$rutaimagen.'" width="80px" height="80px"/>';?>
+                </div>
                 <div style=" display: inline-block;">
                 <input type="file" class="form-control" name="file" id="file" accept="image/*">
                 @error('file')
