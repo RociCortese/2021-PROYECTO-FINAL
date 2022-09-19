@@ -200,8 +200,7 @@ if($infoco==NULL)   {
     foreach($tipodocente as $tipo){
         $tipodoc="$tipo->especialidad";
     }
-    $alumnonota=Notas::findOrFail($id_alumno);
-    $alu=Notas::where('id',$id_alumno)->get();
+    $alu=Notas::where('id_alumno',$id_alumno)->get();
     foreach($alu as $nombre){
       $nomalu="$nombre->nombrealumno";
       $apealu="$nombre->apellidoalumno";
@@ -215,12 +214,15 @@ if($infoco==NULL)   {
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
     $conta=count($infonotas)-1;
     $data= $request->observacion;
-    for($i=0;$i<=$conta;$i++){
-        if($infonotas[$i]==$id_alumno){
-            $busquedaInformes=Informes::where('id_alumno', $id_alumno)->where('grado',$grado)->first();
-            $busquedaInformes->observacion=$data[$i]; 
-            $busquedaInformes->save();
-        }
+    $idalumnos=Informes::where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
+    $idalumnos = preg_replace('/[\[\]\.\;\""]+/', '', $idalumnos);
+    $idalumnos=explode(',',$idalumnos);
+    for ($i=0; $i <=$conta ; $i++) { 
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->first();
+    if($idalumnos[$i]==$id_alumno){
+    $busquedaInformes->observacion=$data[$i]; 
+    $busquedaInformes->save();
+    }
     }
     return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }
@@ -239,12 +241,15 @@ if($infoco==NULL)   {
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
     $conta=count($infonotas)-1;
     $data= $request->observacion;
-    for($i=0;$i<=$conta;$i++){
-        if($infonotas[$i]==$id_alumno){
-            $busquedaInformes=Informes::where('id_alumno', $id_alumno)->where('espacio',$espacio)->first();
-            $busquedaInformes->observacion=$data[$i]; 
-            $busquedaInformes->save();
-        }
+    $idalumnos=Informes::where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
+    $idalumnos = preg_replace('/[\[\]\.\;\""]+/', '', $idalumnos);
+    $idalumnos=explode(',',$idalumnos);
+    for ($i=0; $i <=$conta ; $i++) { 
+    $busquedaInformes=Informes::where('id_alumno', $id_alumno)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->first();
+    if($idalumnos[$i]==$id_alumno){
+    $busquedaInformes->observacion=$data[$i]; 
+    $busquedaInformes->save();
+    }
     }
     return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }  
@@ -272,6 +277,8 @@ if($infoco==NULL)   {
       }
     if($tipodoc=='Grado'){
     $espacio=$request->espacio;
+    $grado=Grado::where('id_docentes',$idpersona)->where('id_anio',$añoactivo)->where('colegio_id',$idcolegio)->pluck("descripcion");
+    $grado= preg_replace('/[\[\]\.\;\""]+/', '', $grado);
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
     $infoalumnos=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infonot=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
@@ -398,16 +405,18 @@ if($infoco==NULL)   {
     }
 }
 $informacion->nota=$infonota[$i];
-Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('espacio',$espacio)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->pluck('nota');
+$listadonotas=NotaFinal::where('docente',Auth::user()->id)->where('espacio',$espacio)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->get();
+if($listadonotas->isEmpty()){
 $informacion->save();
 $notafinal=new NotaFinal();
 $notafinal->id_alumno=$idalumnos[$i];
 $notafinal->docente=Auth::user()->id;
-//$notafinal->grado=$grado;
+$notafinal->grado=$grado;
 $notafinal->espacio=$espacio;
 $notafinal->año=$añoactivo;
 $notafinal->colegio_id=$idcolegio;
 $notafinal->save();
+}
 }
 }
 }
@@ -420,15 +429,18 @@ $notafinal->save();
         $redondeo[$i]= round($calculototal[$i]);
         $informacion->nota=$redondeo[$i];
         $informacion->save();
-        $notafinal=new NotaFinal();
+$listadonotas=NotaFinal::where('docente',Auth::user()->id)->where('espacio',$espacio)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->get();
+if($listadonotas->isEmpty()){
+$notafinal=new NotaFinal();
 $notafinal->id_alumno=$idalumnos[$i];
 $notafinal->docente=Auth::user()->id;
-//$notafinal->grado=$grado;
+$notafinal->grado=$grado;
 $notafinal->espacio=$espacio;
 $notafinal->año=$añoactivo;
 $notafinal->colegio_id=$idcolegio;
 $notafinal->save();
     }
+}
     }   
     }
     }
@@ -437,6 +449,8 @@ $notafinal->save();
     }
     if($tipodoc!='Grado'){
     $grado=$request->grado;
+    $espacio=Docente::where('id',$idpersona)->pluck("especialidad");
+    $espacio = preg_replace('/[\[\]\.\;\""]+/', '', $espacio);
     $infonotas=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
     $infoalumnos=Informes::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
     $infonot=Notas::where('docente',Auth::user()->id)->where('periodo',$periodo)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->get();
@@ -562,13 +576,17 @@ $notafinal->save();
 }
 $informacion->nota=$infonota[$i];
 $informacion->save();
+$listadonotas=NotaFinal::where('docente',Auth::user()->id)->where('espacio',$espacio)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->get();
+if($listadonotas->isEmpty()){
 $notafinal=new NotaFinal();
 $notafinal->id_alumno=$idalumnos[$i];
 $notafinal->docente=Auth::user()->id;
 $notafinal->grado=$grado;
+$notafinal->espacio=$espacio;
 $notafinal->año=$añoactivo;
 $notafinal->colegio_id=$idcolegio;
 $notafinal->save();
+}
 }
 }
 }
@@ -584,14 +602,18 @@ $notafinal->save();
     }
     }   
     }
+$listadonotas=NotaFinal::where('docente',Auth::user()->id)->where('espacio',$espacio)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->where('id_alumno',$idalumnos[$i])->get();
+if($listadonotas->isEmpty()){
 $notafinal=new NotaFinal();
 $notafinal->id_alumno=$idalumnos[$i];
 $notafinal->docente=Auth::user()->id;
 $notafinal->grado=$grado;
+$notafinal->espacio=$espacio;
 $notafinal->año=$añoactivo;
 $notafinal->colegio_id=$idcolegio;
 $notafinal->save();
     }
+}
 
     return redirect()->back()->with('success', 'Las notas se guardaron correctamente.');
     }
@@ -791,14 +813,17 @@ public function updateobservacionfinal(Request $request,$id_alumnos)
     $grado=$request->grado;
     $data= $request->observacion;
     $contador=count($data)-1;
-    $busquedaInformes=NotaFinal::where('id_alumno', $id_alumnos)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->first();
+    $idalumnos=NotaFinal::where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->pluck("id_alumno");
+    $idalumnos = preg_replace('/[\[\]\.\;\""]+/', '', $idalumnos);
+    $idalumnos=explode(',',$idalumnos);
     for ($i=0; $i <=$contador ; $i++) { 
-       if($data[$i]!=null){
+    $busquedaInformes=NotaFinal::where('id_alumno', $id_alumnos)->where('grado',$grado)->where('colegio_id',$idcolegio)->where('año',$añoactivo)->first();
+    if($idalumnos[$i]==$id_alumnos){
     $busquedaInformes->observacion=$data[$i]; 
     $busquedaInformes->save();
     }
     }
-    return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
+     return redirect()->back()->with('success', 'Los observaciones se guardaron correctamente.');
     }
     if($tipodoc=='Grado'){
     $infocolegio=Colegio::where('id',$idcolegio)->get();

@@ -60,12 +60,28 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
+                      <th>Estado</th>
                       <th>Alumnos</th>
                       <th>Acciones</th>
                     </thead>    
                     @foreach($notasunica as $alumno)  
                     <tbody>
                     <tr>
+                    <td class="v-align-middle">
+                    @foreach($pasegrado as $pase)
+                    @if($alumno->id_alumno==$pase->id_alumno)
+                    @if($pase->estado=='No pasa')
+                    <h4><span class="badge badge-danger"><i class="bi bi-x-square"></i></span></h4>
+                    @endif
+                     @if($pase->estado=='Pendiente')
+                     <h4><span class="badge badge-info"><i class="bi bi-exclamation-square"></i></span></h4>
+                    @endif
+                     @if($pase->estado=='Pasa')
+                     <h4><span class="badge badge-success"><i class="bi bi-check-square"></i></span></h4>
+                    @endif
+                    @endif
+                    @endforeach  
+                    </td>
                     <?php 
                     $nombrealumno=App\Models\Alumno::where('id',$alumno->id_alumno)->pluck("nombrecompleto");
                     $nombrealumno = preg_replace('/[\[\]\.\;\""]+/', '', $nombrealumno);
@@ -103,31 +119,65 @@
                        </div>
                      </div>
                    </div>
-                   <button class="btn btn-success" data-toggle="modal" data-target="#myModal2{{$alumno->id}}" title="Pasar de grado">
-                            Pasar de grado
-                          </button>
-                          <div class="modal fade" id="myModal2{{$alumno->id}}" role="dialog">
+                    @foreach($pasegrado as $pase)
+                    @if($alumno->id_alumno==$pase->id_alumno and $pase->estado =='Pendiente')
+                   <button class="btn btn-success" data-toggle="modal" data-target="#myModal2{{$alumno->id}}" title="Pase de grado">
+                            Pase de grado
+                    </button>
+                    <div class="modal fade" id="myModal2{{$alumno->id}}" role="dialog">
                           <div class="modal-dialog">
                           <div class="modal-content">
                           <div class="modal-header">
+                          <span class="text-center">Pase de grado del alumno {{$nombrealumno}}</span>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
-                          <div class="modal-body">
-                          <p class="text-center">¿Está seguro que desea pasar de grado al alumno {{$nombrealumno}}?</p>
-                          </div>
                           <div class="modal-footer justify-content-center">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('accionnopasegrado',$alumno->id_alumno)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('PUT')
+                          <button class="btn btn-lg btn-danger" type="submit" rel="tooltip">No pasa</button>
+                          </form>
                           <form action="{{route('accionpasegrado',$alumno->id_alumno)}}" method="POST" style="display: inline-block;">
                           @csrf
                           @METHOD('PUT')
-                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          <button class="btn btn-lg btn-success" type="submit" rel="tooltip">Si pasa</button>
                           </form>
-          
-        </div>
+                          </div>
       </div>
       
     </div>
-  </div>    
+  </div> 
+                    @endif
+                    @if($alumno->id_alumno==$pase->id_alumno and $pase->estado !='Pendiente')
+                   <button class="btn btn-danger" data-toggle="modal" data-target="#myModal2{{$alumno->id}}" title="Pase de grado">
+                    Modificar pase de grado
+                    </button>
+                    <div class="modal fade" id="myModal2{{$alumno->id}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <span class="text-center">Pase de grado del alumno {{$nombrealumno}}</span>
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                           <div class="modal-footer justify-content-center">
+                          <form action="{{route('nopasegrado',$alumno->id_alumno)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('PUT')
+                          <button class="btn btn-lg btn-danger" type="submit" rel="tooltip">No pasa</button>
+                          </form>
+                          <form action="{{route('accionpasegrado',$alumno->id_alumno)}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('PUT')
+                          <button class="btn btn-lg btn-success" type="submit" rel="tooltip">Si pasa</button>
+                          </form>
+                          </div>
+      </div>
+      
+    </div>
+  </div> 
+                    @endif
+                    @endforeach
+                             
                     </td>
                       
                     </tr>
@@ -136,6 +186,11 @@
                   </table>
                   </div>
                 
+                  </div>
+                  <div class="row">
+                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h4><span class="badge badge-info"><i class="bi bi-exclamation-square"></i></span></h4>&nbsp Pendiente
+                  &nbsp<h4><span class="badge badge-danger"><i class="bi bi-x-square"></i></span></h4>&nbsp No pasó
+                  &nbsp<h4><span class="badge badge-success"><i class="bi bi-check-square"></i></span></h4>&nbsp Pasó
                   </div>
                   <div class="text-center">
                 <button class="btn btn-sm btn-facebook" data-toggle="modal" data-target="#myModal2" title="Pasar todos">
@@ -146,20 +201,25 @@
                           <div class="modal-dialog">
                           <div class="modal-content">
                           <div class="modal-header">
+                            <span class="text-center">Pase de grado de todos los alumnos de {{$infgrado}}</span>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
-                          <div class="modal-body">
-                          <p class="text-center">¿Está seguro que desea pasar de grado a todos los alumnos de {{$infgrado}}?</p>
-                          </div>
                           <div class="modal-footer justify-content-center">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form action="{{route('nopasartodos')}}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @METHOD('PUT')
+                          <div style="display:none">
+                          <input type="text" name="grado" value="{{$infgrado}}">
+                          </div>
+                          <button class="btn btn-danger" type="submit" rel="tooltip">No pasa</button>
+                          </form>
                           <form action="{{route('pasartodos')}}" method="POST" style="display: inline-block;">
                           @csrf
                           @METHOD('PUT')
-                          <div style="display: none;">
+                          <div style="display:none">
                           <input type="text" name="grado" value="{{$infgrado}}">
                           </div>
-                          <button class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          <button class="btn btn-success" type="submit" rel="tooltip">Si pasa</button>
                           </form>
           
         </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
+Route::get('/register/verify/{code}', 'App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::get('/', function () {
 
@@ -40,6 +41,7 @@ Auth::routes();
 Route::get('/directivo', 'App\Http\Controllers\DirectivoController@index')->name('directivo')->middleware('directivo');
 Route::get('/docente', 'App\Http\Controllers\DocenteController@index')->name('docente')->middleware('docente');
 Route::get('/familia', 'App\Http\Controllers\FamiliaController@index')->name('familia')->middleware('familia');
+Route::get('/noverificado', 'App\Http\Controllers\FamiliaController@noverificado')->name('noverificado');
 
 /*Verificación de email*/
 Auth::routes(['verify' => true]);
@@ -189,4 +191,10 @@ Route::put('notafinal/editar', 'App\Http\Controllers\NotasController@updatenotaf
 Route::get('buscadorpasegrado', 'App\Http\Controllers\PaseGradoController@buscador')->name('buscadorpase');
 Route::get('listadopasegrado', 'App\Http\Controllers\PaseGradoController@index')->name('listadopase');
 Route::put('pasedegrado/{id_alumno}', 'App\Http\Controllers\PaseGradoController@pasedegrado')->name('accionpasegrado');
+Route::put('nopasedegrado/{id_alumno}', 'App\Http\Controllers\PaseGradoController@nopasedegrado')->name('nopasegrado');
+
+Route::put('modificarpasedegrado/{id_alumno}', 'App\Http\Controllers\PaseGradoController@modificarpasedegrado')->name('modificarpasegrado');
+Route::put('modificarnopasedegrado/{id_alumno}', 'App\Http\Controllers\PaseGradoController@modificarnopasedegrado')->name('modificarnopasegrado');
+
 Route::put('pasartodos', 'App\Http\Controllers\PaseGradoController@pasartodos')->name('pasartodos');
+Route::put('nopasartodos', 'App\Http\Controllers\PaseGradoController@nopasartodos')->name('nopasartodos');

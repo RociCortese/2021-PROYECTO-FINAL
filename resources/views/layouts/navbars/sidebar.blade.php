@@ -371,6 +371,9 @@ var navigation = responsiveNav("#nav");
 
 else{?>
 <div class="sidebar" data-color="azure" data-background-color="white">
+  <div class="logo">
+    <img style="width:50%;margin-right: 15%;margin-left:20%;" src="{{ asset ('img/logo.png')}}">
+  </div>
   <?php
   if (Auth::user()->role =='directivo') { ?>
   <div class="sidebar-wrapper">

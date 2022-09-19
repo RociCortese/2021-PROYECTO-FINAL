@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -29,7 +30,9 @@ class LoginController extends Controller
      */
     protected $redirectTo;
     public function redirectTo()
-        {        
+    {
+    $cuentaverificada=Auth::user()->confirmed;
+    if($cuentaverificada==1){     
         switch (Auth::user()->role) {
         case 'directivo':
         $this->redirectTo = '/directivo';
@@ -43,12 +46,14 @@ class LoginController extends Controller
         $this->redirectTo = '/familia';
         return $this->redirectTo;
         break;
-        default:
-        $this->redirectTo = '/login';
+    }      
+    }
+    else{
+    Auth::logout();
+    $this->redirectTo = '/noverificado';
         return $this->redirectTo;
-}           
-// return $next($request);
-}
+    }     
+    }
 
     /**
      * Create a new controller instance.

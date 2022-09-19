@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\InvoicePaid;
 use App\Notifications\emailverify;
-
+use Mail;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -71,6 +73,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $password = "";
+        for($i=0;$i<12;$i++) {
+        $password .= substr($str,rand(0,62),1);
+        }
+        $data['confirmation_code'] =  $password;
         $directivo=Directivo::create([
             'nombre' => $data['nombre'],
             'apellido' => $data['apellido'],
@@ -85,8 +93,25 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'passwordenc' => Crypt::encrypt($data['password']),
             'idpersona' =>$directivo->id,
+            'confirmation_code' => $data['confirmation_code']
         ]);
-        $usuario->notify(new emailverify($directivo->email));
-        return $usuario;
+        Mail::send('emails.confirmation_code', $data, function($message) use ($data) {
+        $message->to($data['email'], $data['nombre'])->subject('Verificación de correo electrónico');
+        return view('auth.verify');
+    });
     }
+    public function verify($code)
+    {
+    $user = User::where('confirmation_code', $code)->first();
+    $confirmeduser=User::where('confirmation_code', $code)->pluck("confirmed");
+    $confirmeduser = preg_replace('/[\[\]\.\;\" "]+/', '', $confirmeduser);
+    if($confirmeduser==1){
+    return view('enlaceinvalido');    
+    }
+    else{
+    $user->confirmed = true;
+    $user->save();
+    return view('auth.verificado');
+    }
+}
 }

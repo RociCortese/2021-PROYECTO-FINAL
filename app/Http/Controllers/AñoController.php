@@ -12,6 +12,8 @@ use App\Models\Colegio;
 use App\Models\Alumno;
 use App\Models\Abecedario;
 use App\Models\Asistencia;
+use App\Models\EstadoPaseGrado;
+
 
 class AñoController extends Controller
 {
@@ -139,7 +141,8 @@ class AñoController extends Controller
       else{
       /*Busca el id de los años que están activos y pertenecen al colegio que se encuentra logueado*/
       $estado= Año::where('estado','activo')->where('id_colegio',$idcolegio)->get();
-
+      $año_id= Año::where('estado','activo')->where('id_colegio',$idcolegio)->pluck("id");
+      $pasegrado=EstadoPaseGrado::where('colegio_id',$idcolegio)->where('año_id',$año_id)->get();
       /*Busca todos los años que pertenecen al colegio que se encuentra logueado*/
       $todoestado= Año::where('id_colegio',$idcolegio)->orderBy('descripcion','ASC')->get();
       foreach ($todoestado as $todoest) {
@@ -159,17 +162,16 @@ class AñoController extends Controller
         $descripcionaño="$idaños->descripcion";
       }
       $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado')->where('colegio_id',$idcolegio);
-      /*Busca todos los grados que están relacionados con el año activo y los ordena*/
-      if(empty($idest)){
+      /*Busca todos los grados que están relacionados con el año activo y los ordena*/      if(empty($idest)){
         $descripcionaño=" ";
         $descripcionselect=" ";
         $estadoselect=" "; 
         $grado = Grado::where('id_anio',$todoesta)->orderBy('num_grado','ASC')->get();
-        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado'));
+        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado','pasegrado'));
       }
       else{
       $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();                                           
-      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado'));
+      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado','pasegrado'));
     }
           }
         }
@@ -265,6 +267,7 @@ class AñoController extends Controller
       foreach ($todoestado as $todoest) {
           $idaño="$todoest->id";
         }
+      $pasegrado=EstadoPaseGrado::where('colegio_id',$idcolegio)->where('año_id',$idaño)->get();
       $grado=Grado::where('id_anio',$idaño)->get();
       if($grado->isEmpty()){
       $request->validate([
@@ -363,20 +366,28 @@ class AñoController extends Controller
     $creacionasistencia->colegio_id=$idcolegio;
     $creacionasistencia->estado='No registrada';
     $creacionasistencia->save();
+    $pasegrado=EstadoPaseGrado::where('colegio_id',$idcolegio)->where('año_id',$idaño)->where('id_alumno',$idalumno[$i])->get();
+    if($pasegrado->isEmpty()){
+    $creacionestadopase=new EstadoPaseGrado();
+    $creacionestadopase->id_alumno=$idalumno[$i];
+    $creacionestadopase->año_id=$idest;
+    $creacionestadopase->colegio_id=$idcolegio;
+    $creacionestadopase->estado='Pendiente';
+    $creacionestadopase->save();
     }
-
+    }
       if(empty($idest)){
         $descripcionaño=" ";
         $descripcionselect=" ";
         $estadoselect=" "; 
         $grado = Grado::where('id_anio',$todoesta)->orderBy('num_grado','ASC')->get();
-        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado'));
+        return view('añoescolar.listadogrado',compact('todoestado','docentesespe','colegio','estado','descripcionaño','descripcionselect','estadoselect','grado','pasegrado'));
       }
       else{
       $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
       $grados = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->pluck("id_alumnos");                         
                                 
-      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado','todosalumnos'));
+      return view('añoescolar.listadogrado',compact('grado','todoestado','docentesespe','descripcionselect','colegio','estadoselect','descripcionaño','estado','todosalumnos','pasegrado'));
     }
 
     }
