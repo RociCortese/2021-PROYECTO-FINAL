@@ -298,8 +298,34 @@ function valoracioncualitativa() {
     <?php 
     }
     ?>
+    <script type="text/javascript">
+    function modificarradio() {
+    var num = document.getElementById('calificacionnumerica');
+    var cuali = document.getElementById('calificacioncualitativa');
+    var numerico = document.getElementById('numerico');
+    var cualitativo = document.getElementById('cualitativo');
+    var cualitativa= document.getElementById('calicualitativas');
+    var numerica= document.getElementById('califinumericas');
+    var numericas= document.getElementById('califinumericass');
+    if(num.checked){
+    if (numerico.style.display =='none') {
+        numerico.style.display = 'block';
+        cualitativo.style.display = 'none';
+        cualitativa.disabled=true;
+    } 
+    }
+    if(cuali.checked){
+    if (cualitativo.style.display =='none') {
+        cualitativo.style.display = 'block';
+        numerico.style.display = 'none';
+        numerica.disabled=true;
+        numericas.disabled=true;
+    }
+    }
+}
+    </script>
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calinumerica" value="calificacion"<?php if(empty($colegios->calicualitativa)) echo 'checked ';?> onclick="valoracionnumerica(),calificualitativa.disabled =this.checked">Calificación Numérica
+        <input class="form-check-input" type="radio" name="calificacion" value="calificacion" id="calificacionnumerica" onchange="modificarradio()" <?php if(empty($colegios->calicualitativa)) echo 'checked ';?>>Calificación Numérica
         </label>&nbsp&nbsp&nbsp&nbsp
         <br>
         @if ($errors->has('calinumerica'))
@@ -307,30 +333,97 @@ function valoracioncualitativa() {
             </div>
        @endif
         <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="calificualitativa" value="Cualitativa" <?php if(empty($colegios->calinumerica)) echo 'checked ';?> onclick="valoracioncualitativa(),calinumerica.disabled =this.checked">Calificación Cualitativa
+        <input class="form-check-input" id="calificacioncualitativa" type="radio" name="calificacion" value="Cualitativa" onchange="modificarradio()" <?php if(empty($colegios->calinumerica)) echo 'checked ';?>>Calificación Cualitativa
         </label>
     </div> 
     </div>
-    </div>
-    <div id="valoracionnumerica" style = "display: none;">
-
-       <br>
-       <br>
-      <div class="col">
-      <label>Valor Mínimo:</label> 
-          <input type="number" name="minimo" style="width: 8%" value="{{$colegios->calinumerica}}">
+    <div id="numerico" style="display:none;">
+    <small><u><strong>Valores a modificar</strong></u></small>
+      <br>
+      <label>Valor Mínimo</label> 
+          <input type="number" name="minimo" style="width: 6%" min="1">
           &nbsp&nbsp 
-      <label>Valor Máximo:</label>
-        <input type="number" name="maximo" style="width: 8%">
-      </div>
+      <label>Valor Máximo</label>
+      <input type="number" name="maximo" style="width: 6%" min="1" max="100">
     </div>
-
-    <div id="valoracioncualitativa" style = "display: none;">
-    <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%"><?php echo 'selected="selected" ';?>
+    <div id="cualitativo" style="display:none;">
+      <small><u><strong>Valores a modificar</strong></u></small>
+     <select class="form-control calicualitativa" name="calicualitativa[]" id="calicualitativa" multiple="multiple" lang="es" style="width: 100%">
     </select>
     <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
     <script type="text/javascript">
     $('.calicualitativa').select2({
+    placeholder: 'Ingrese las calificaciones que desea agregar',
+    tokenSeparators: [','],
+    tags: true,
+    tokenSeparatrs : [ ',' , ' ' ],
+    ajax: {
+    url: '/autocomplete/calificacion/',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.calificacion,
+                  id: item.id_calificacion
+              }
+          })
+      };
+    },
+    cache: true
+    }
+});
+</script>
+    </div>
+      <?php 
+      if(empty($colegios->calicualitativa)){
+      $caracteres=$colegios->calinumerica;
+      $caracteres = preg_replace('/[\[\]\.\;\""]+/', '', $caracteres);
+      $caracteres=explode(',',$caracteres);
+      $valormaximo = $caracteres[1];
+      $valorminimo = $caracteres[0];
+      ?>
+      <div>
+      <small><u><strong>Valores actuales</strong></u></small>
+      <br>
+      <label>Valor Mínimo</label> 
+          <input type="number" name="minimo" style="width: 6%" min="1" value="{{$valorminimo}}" id="califinumericas">
+          &nbsp&nbsp 
+      <label>Valor Máximo</label>
+      <input type="number" name="maximo" id="califinumericass" style="width: 6%" value="{{$valormaximo}}" min="1" max="100">
+    </div>
+    </div>
+
+    <?php 
+    }
+    if(empty($colegios->calinumerica)){?>
+    <small><u><strong>Valores actuales</strong></u></small>
+    <select class="form-control calicualitativas" name="calicualitativas[]" id="calicualitativas" multiple="multiple" lang="es" style="width: 100%"><?php echo 'selected="selected" ';?>
+    @if(empty($colegios->calicualitativa))
+      @else
+      <?php
+        $res = preg_replace('/[\[\]\.\;\" "]+/', '', $colegios->calicualitativa);
+        $array=explode(',', $res);
+     for ($i=0;$i<=count($array)-1;$i++)    
+      {     
+       $calificaciones=App\Models\calificacioncualitativa::where('id_calificacion',$array[$i])->get();
+        foreach ($calificaciones as $cali) {
+          $nombrecali="$cali->calificacion";
+          $idcali="$cali->id_calificacion";
+        }
+      ?>
+        <option value="{{$idcali}}"<?php echo 'selected="selected" ';?>>
+       {{$nombrecali}}
+       </option>
+       <?php
+      }
+      ?>
+      @endif
+    </select>
+    <small id="eventoHelp" class="form-text text-muted">Por ejemplo: Excelente.</small>
+    <script type="text/javascript">
+    $('.calicualitativas').select2({
     placeholder: 'Ingrese las calificaciones que desea agregar',
     tokenSeparators: [','],
     tags: true,
@@ -359,6 +452,9 @@ function valoracioncualitativa() {
       </div>
       @endif
    </div>
+   <?php 
+    }
+    ?>
     </div>
 
 

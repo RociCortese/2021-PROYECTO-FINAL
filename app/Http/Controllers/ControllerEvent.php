@@ -33,11 +33,7 @@ class ControllerEvent extends Controller
     public function getAutocomplete(Request $request){
     $data = [];
     $idusuario= Auth::user()->id;
-    $colegio= Colegio::all()->where('users_id',$idusuario);
-    foreach($colegio as $col)
-        {   
-          $idcolegio= "$col->id";
-        }
+    $idcolegio= Auth::user()->colegio_id;
     if($request->has('q')){
     $search = $request->q;
     $data =User::select("id","name")
@@ -99,7 +95,7 @@ class ControllerEvent extends Controller
       $estadoevento->save();
     }
       
-      return redirect()->route('calendario')->with('success', 'El evento se creo correctamente.');
+      return redirect()->route('calendario')->with('success', 'El evento se creó correctamente.');
     }
 
     public function details($id){
@@ -384,8 +380,8 @@ class ControllerEvent extends Controller
         elseif ($month=="Oct") {
           $mes = "Octubre";
         }
-        elseif ($month=="Oct") {
-          $mes = "December";
+        elseif ($month=="Nov") {
+          $mes = "Noviembre";
         }
         elseif ($month=="Dec") {
           $mes = "Diciembre";
@@ -399,8 +395,6 @@ class ControllerEvent extends Controller
 
     public function listadofamilias(){
     $idautenticado=Auth::user()->id;
-    
-    
     $eventosanteriores=Event::where('participantes', $idautenticado)->where('fecha', '<', Carbon::now()->format('Y-m-d'))->orderBy('fecha','DESC');
     return view('evento.eventosfamilia',compact('eventosanteriores','idautenticado'));
     }

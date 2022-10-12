@@ -14,6 +14,17 @@
             <h4 class="card-title">Editar información de colegio</h4>
             </div>
             <div class="card-body">
+              <div class="row">
+                <label class="col-sm-2 col-form-label">CUE (clave única de establecimiento)</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="cue" id="cue" autocomplete="off" value="{{$id->cue}}">
+                @error('cue')
+                <div id="cue-error" class="error text-danger pl-3" for="cue" style="display: block;">
+                <strong>El campo debe ser del tipo numérico y contener 9 caracteres.</strong>
+                </div>
+              @enderror 
+              </div>
+            </div>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Nombre del Colegio</label>
                 <div class="col-sm-7">

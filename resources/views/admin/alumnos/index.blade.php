@@ -110,7 +110,7 @@ $detect = new Mobile_Detect;
                     $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
                     $(this).remove(); 
                     });
-                    }, 1000);
+                    }, 2000);
                     </script>
                     @endif
 

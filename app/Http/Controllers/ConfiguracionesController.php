@@ -59,34 +59,26 @@ class ConfiguracionesController extends Controller
             'espacioscurriculares'=> ['required'],
             ]);
         $idpersona= Auth::user()->id;
-        $colegio= Colegio::all()->where('users_id',$idpersona);
-        foreach($colegio as $col)
-            {   
-                $idcolegio= "$col->id";
-            };
+        $colegio= Colegio::where('users_id',$idpersona)->pluck("id");
+        $idcolegio = preg_replace('/[\[\]\.\;\" "]+/', '', $colegio);
         $modificar = Colegio::findOrFail($idcolegio);
         $modificar->periodo=$request->periodo;
         $modificar->turno=$request->turno;
         $modificar->grados=$request->grados;
         $modificar->divisiones=$request->divisiones;
         $modificar->espacioscurriculares=$espacio;
-        if($request->calificualitativa){
-            $request->validate([
-            'calicualitativa' => ['required'],
-            ]);
+        if($request->calicualitativa){
         $calificacion=$request->input("calicualitativa");
         $modificar->calicualitativa=$calificacion;
+        $modificar->calinumerica=null;
         }
-        if($request->calinumerica)
+        if($request->maximo and $request->minimo)
         {
-            $request->validate([
-            'minimo' => ['required'],
-            'maximo' => ['required'],
-            ]);
             $valorminimo=$request->input("minimo");
             $valormaximo=$request->input("maximo");
             $datos = array($valorminimo, $valormaximo);
             $modificar->calinumerica=$datos;
+            $modificar->calicualitativa=null;
         }
         $modificar->save();
         return redirect()->route('configuraciones',compact('colegio'))->with('success', 'Las configuraciones se modificaron correctamente.');

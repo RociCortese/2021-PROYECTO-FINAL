@@ -541,15 +541,8 @@ class AñoController extends Controller
     }
     public function armadoespeciales(Request $request, $id)
     {
-      $request->validate([
-            'id_docentesespe' => ['required'],
-        ]);
         $idpersona= Auth::user()->id;
-        $colegio= Colegio::all()->where('users_id',$idpersona);
-        foreach($colegio as $col)
-            {   
-                $idcolegio= "$col->id";
-            };
+        $idcolegio= Auth::user()->colegio_id;
         $todoestado= Año::where('id_colegio',$idcolegio)->get();
         $estado= Año::where('estado','activo')->where('id_colegio',$idcolegio)->get();
         foreach ($estado as $idaño) {
@@ -558,9 +551,9 @@ class AñoController extends Controller
         $grado = Grado::where('id_anio',$idest)->orderBy('num_grado','ASC')->get();
         $docentesespe= Docente::all()->sortBy('nombredocente')->where('especialidad','!=','Grado');
         $checkBoxs = $request->id_docentesespe;
-        $modificar = Grado::findOrFail($id);
-        $data= $request->only('id_docentesespe');
-        $modificar->update($data);
-        return redirect()->route('armadogrado',compact('todoestado','grado','docentesespe'));
+        $modificar = Grado::where('id',$id)->first();
+        $modificar->id_docentesespe=$checkBoxs;
+        $modificar->save();
+        return redirect()->route('armadogrado',compact('todoestado','grado','docentesespe'))->with('success', 'Las docentes especiales fueron agregadas o quitadas con éxito.');
     }
 }

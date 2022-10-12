@@ -173,6 +173,7 @@ Route::put('enviarjustificacion/{id}', 'App\Http\Controllers\AsistenciaFamiliaCo
 Route::get('justificacioninasistencias','App\Http\Controllers\AsistenciaFamiliaController@justificacioninasistencias')->name('justificacioninasistencias');
 Route::put('aceptarjustificacion/{id}', 'App\Http\Controllers\AsistenciaFamiliaController@aceptarjustificacion')->name('aceptarjustificacion');
 Route::put('descargararchivo/{id}','App\Http\Controllers\AsistenciaFamiliaController@descargararchivo')->name('descargararchivo');
+Route::get('busquedasasistencias','App\Http\Controllers\AsistenciaFamiliaController@busquedasasistencias')->name('busquedasasistencias');
 
 /*Información académica*/
 Route::get('informacionacademica','App\Http\Controllers\InformacionAcademicaController@buscador')->name('informacionacademica');
