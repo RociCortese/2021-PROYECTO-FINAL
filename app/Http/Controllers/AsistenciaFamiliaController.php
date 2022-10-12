@@ -22,12 +22,51 @@ class AsistenciaFamiliaController extends Controller
       $idaño="$activo->id";
       $descripcionaño="$activo->descripcion";
     }
+    $mes=date("m");
+                if($mes==1){
+                $mes='Enero';
+                }
+                if($mes==2){
+                $mes='Febrero';
+                }
+                if($mes==3){
+                $mes='Marzo';
+                }
+                if($mes==4){
+                $mes='Abril';
+                }
+                if($mes==5){
+                $mes='Mayo';
+                }
+                if($mes==6){
+                $mes='Junio';
+                }
+                if($mes==7){
+                $mes='Julio';
+                }
+                if($mes==8){
+                $mes='Agosto';
+                }
+                if($mes==9){
+                $mes='Septiembre';
+                }
+                if($mes==10){
+                $mes='Octubre';
+                }
+                if($mes==11){
+                $mes='Noviembre';
+                }
+                if($mes==12){
+                $mes='Diciembre';
+                }
+    $meses = array('Marzo', 'Abril', 'Mayo', 'Junio',
+       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
     $idfamilia=Auth::user()->idpersona;
     $nombrealumno=Alumno::where('familias_id',$idfamilia)->pluck('nombrecompleto');
     $contadoralumnos=count($nombrealumno)-1;
     for($i=0;$i<=$contadoralumnos;$i++){
-    $infoasistencias[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->get(); 
-    $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->get();
+    $infoasistencias[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('mes',$mes)->get(); 
+    $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->where('mes',$mes)->get();
     }
     $cuentainfo=count($infoasistencias)-1;
     for($i=0; $i<=$cuentainfo;$i++){
@@ -37,12 +76,45 @@ class AsistenciaFamiliaController extends Controller
       } 
 
       if (empty($infoasistencia)) {
-        return view('AsistenciaFamilia.buscador',compact('infoaño'));
+        return view('AsistenciaFamilia.buscador',compact('infoaño','meses'));
       }
       else{
-    return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia'));
+    return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia','meses'));
     }
     }
+    public function busquedasasistencias(Request $request)
+    {
+    $idcolegio=Auth::user()->colegio_id;
+    $infoaño=Año::where('id_colegio',$idcolegio)->where('estado','=','activo')->get();
+     foreach($infoaño as $activo){
+      $idaño="$activo->id";
+      $descripcionaño="$activo->descripcion";
+    }
+    $mess=$request->mes;
+    $meses = array('Marzo', 'Abril', 'Mayo', 'Junio',
+       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+    $idfamilia=Auth::user()->idpersona;
+    $nombrealumno=Alumno::where('familias_id',$idfamilia)->pluck('nombrecompleto');
+    $contadoralumnos=count($nombrealumno)-1;
+    for($i=0;$i<=$contadoralumnos;$i++){
+    $infoasistencias[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('mes',$mess)->get(); 
+    $nuevajustificacion[]=Asistencia::where('nombrealumno',$nombrealumno[$i])->where('estado','Ausente')->where('justificacion',0)->where('mes',$mess)->get();
+    }
+    $cuentainfo=count($infoasistencias)-1;
+    for($i=0; $i<=$cuentainfo;$i++){
+      if (sizeof($infoasistencias[$i])!=0) {
+        $infoasistencia[]=$infoasistencias[$i];
+      }
+      } 
+
+      if (empty($infoasistencia)) {
+        return view('AsistenciaFamilia.buscador',compact('infoaño','meses','mess'));
+      }
+      else{
+    return view('AsistenciaFamilia.buscador',compact('infoaño','infoasistencia','meses','mess'));
+    }
+    }
+
 
     public function enviarjustificacion(Request $request,$id){
       $infoasistencia=Asistencia::where('id',$id)->first();

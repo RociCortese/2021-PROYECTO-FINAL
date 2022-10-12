@@ -56,18 +56,18 @@ class LibretasController extends Controller
   if(sizeof($infogrado)==0) 
   {
     if($informacionperiodo=='Bimestre' and $periodo=='Cuarto período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Trimestre' and $periodo=='Tercer período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Cuatrimestre' and $periodo=='Segundo período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Semestre' and $periodo=='Segundo período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','grado','periodo','infogrado','descripcionaño'));
     }
-    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','grado','periodo','infogrado'));
+    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','grado','periodo','infogrado','descripcionaño'));
   }
   else
   {
@@ -83,18 +83,18 @@ class LibretasController extends Controller
     $apellidoalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $apellidoalumno);
     $idalumno = preg_replace('/[\[\]\.\;\" "]+/', '', $idalumno);
     if($informacionperiodo=='Bimestre' and $periodo=='Cuarto período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Trimestre' and $periodo=='Tercer período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Cuatrimestre' and $periodo=='Segundo período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado','descripcionaño'));
     }
     if($informacionperiodo=='Semestre' and $periodo=='Segundo período'){
-    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    return view('libretas.informefinal',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado','descripcionaño'));
     }
-    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado'));
+    return view('libretas.listadoalumnos',compact('infoaño','informacionperiodo','nombrealumno','nombresgrado','apellidoalumno','grado','periodo','idalumno','infogrado','descripcionaño'));
     }
     }
     public function generarlibreta(Request $request, $nombrecompleto)

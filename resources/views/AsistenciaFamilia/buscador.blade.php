@@ -19,9 +19,82 @@
                 @endforeach
              
             @if(empty($infoasistencia))
+            <form action="busquedasasistencias" class="form-horizontal">
+                @csrf
+                <div class="row">
+                <div class="col">
+                <label>Mes</label>
+                <select name="mes" id="mes" class="form-control">
+                <?php 
+                if(empty($mess)){
+                $mes=date("m");
+                if($mes==1){
+                $mes='Enero';
+                }
+                if($mes==2){
+                $mes='Febrero';
+                }
+                if($mes==3){
+                $mes='Marzo';
+                }
+                if($mes==4){
+                $mes='Abril';
+                }
+                if($mes==5){
+                $mes='Mayo';
+                }
+                if($mes==6){
+                $mes='Junio';
+                }
+                if($mes==7){
+                $mes='Julio';
+                }
+                if($mes==8){
+                $mes='Agosto';
+                }
+                if($mes==9){
+                $mes='Septiembre';
+                }
+                if($mes==10){
+                $mes='Octubre';
+                }
+                if($mes==11){
+                $mes='Noviembre';
+                }
+                if($mes==12){
+                $mes='Diciembre';
+                }
+                }
+                else{
+                $mes=$mess; 
+                }
+                ?>
+                <option value="{{$mes}}">{{$mes}}</option>
+                 <?php
+                $cont=count($meses)-1;
+                for($i=0;$i<=$cont;$i++){
+                    ?>
+                <option value="{{$meses[$i]}}">{{$meses[$i]}}</option>
+                <?php
+                }
+                ?>
+                </select>
+                @if ($errors->has('mes'))
+                <div id="mes-error" class="error text-danger pl-3" for="mes" style="display: block;">
+                  <strong>{{ $errors->first('mes') }}</strong>
+                </div>
+                @endif
+                </div>
+              </div>
+                <br>
+                <div class="text-right">
+                  <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                </div>
+            </form>
             <div class="col-md-12 text-center">
-            <h4><span class="badge badge-warning">No tienes inasistencias para justificar.</span></h4>
-            </div>    
+            <h4><span class="badge badge-warning">No hay inasistencias para justificar.</span></h4>
+            </div> 
+
             @else
             @if(session('success'))
             <div class="alert alert-success" role="success">
@@ -35,6 +108,81 @@
             }, 1000);
             </script>
             @endif
+            <?php
+
+            ?>
+            <form action="busquedasasistencias" class="form-horizontal">
+                @csrf
+                <div class="row">
+                <div class="col">
+                <label>Mes</label>
+                <select name="mes" id="mes" class="form-control">
+                <?php 
+                if(empty($mess)){
+                $mes=date("m");
+                if($mes==1){
+                $mes='Enero';
+                }
+                if($mes==2){
+                $mes='Febrero';
+                }
+                if($mes==3){
+                $mes='Marzo';
+                }
+                if($mes==4){
+                $mes='Abril';
+                }
+                if($mes==5){
+                $mes='Mayo';
+                }
+                if($mes==6){
+                $mes='Junio';
+                }
+                if($mes==7){
+                $mes='Julio';
+                }
+                if($mes==8){
+                $mes='Agosto';
+                }
+                if($mes==9){
+                $mes='Septiembre';
+                }
+                if($mes==10){
+                $mes='Octubre';
+                }
+                if($mes==11){
+                $mes='Noviembre';
+                }
+                if($mes==12){
+                $mes='Diciembre';
+                }
+                }
+                else{
+                $mes=$mess;
+                }
+                ?>
+                <option value="{{$mes}}">{{$mes}}</option>
+                 <?php
+                $cont=count($meses)-1;
+                for($i=0;$i<=$cont;$i++){
+                    ?>
+                <option value="{{$meses[$i]}}">{{$meses[$i]}}</option>
+                <?php
+                }
+                ?>
+                </select>
+                @if ($errors->has('mes'))
+                <div id="mes-error" class="error text-danger pl-3" for="mes" style="display: block;">
+                  <strong>{{ $errors->first('mes') }}</strong>
+                </div>
+                @endif
+                </div>
+              </div>
+                <br>
+                <div class="text-right">
+                  <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>
+                </div>
+            </form>
             <form action="#" class="form-horizontal">
               <?php 
               $contadorasis=count($infoasistencia)-1;

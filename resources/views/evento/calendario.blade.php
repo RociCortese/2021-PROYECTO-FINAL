@@ -100,7 +100,7 @@ else{?>
                 <?php
                 }
                 else{?>
-                <a class="badge badge-evento" data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}">{{$event->titulo}}</a>  
+                <a class="badge badge-info" style="font-size: 15px;"data-toggle="modal" data-target="#evento{{$event->id}}" href="{{ ($event->id) }}"><i class="bi bi-calendar2-check"></i></a> 
                 <?php
                 }
                 }
@@ -109,7 +109,7 @@ else{?>
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                           <div class="modal-header">
-                          <i class="material-icons">event</i><h5 class="modal-title" id="exampleModalLabel"><strong> Vista detallada del Evento</strong></h5> 
+                          <i class="material-icons">event</i>&nbsp<h5 class="modal-title" id="exampleModalLabel"><strong> Vista detallada del Evento "{{$event->titulo}}"</strong></h5> 
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
 
@@ -125,11 +125,6 @@ else{?>
                                 <label><strong>Tipo de Evento:</strong></label>  {{$event->tipo}}
                                 </td>
                             </tr>
-                              <tr>
-                                <td class="v-align-middle" >
-                                <label><strong>Título:</strong></label>  {{$event->titulo}}
-                                </td>
-                              </tr>
                               <tr>
                                 <?php 
                                 if(empty($event->descripcion)){

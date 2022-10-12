@@ -83,7 +83,7 @@ $detect = new Mobile_Detect;
                 <br>
                 <div style="display : flex; flex-direction : row;">
                   <div>
-                  <strong><p>Si busca a través del último período podrá descargar los informes finales.</p></strong>
+                  <strong><p>Si se busca el último período se podrán descargar los informes finales.</p></strong>
                   </div>
                 <div style="margin-left:43%;">
                   <button class="btn btn-sm btn-facebook" type="submit">Buscar</button>

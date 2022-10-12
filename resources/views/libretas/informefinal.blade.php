@@ -132,9 +132,6 @@
                     ?>
                       <td class="td-actions v-align-middle ">
                         <form>
-                          <div style="display: none;">
-                          <input type="text" value="{{$periodo}}" name="periodo">
-                          </div>
                         <button formaction= "{{route('informefinal',$nombrecompleto)}}" class="btn btn-success" title="Descargar informe">
                         <i class="bi bi-download"></i>
                         </button>

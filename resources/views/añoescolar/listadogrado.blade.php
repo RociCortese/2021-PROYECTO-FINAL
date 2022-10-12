@@ -83,6 +83,18 @@ $detect = new Mobile_Detect;
           @if($grado->isEmpty())
           <div class="text-center"> No hay grados asociados a ese año escolar.</div>
           @else
+          @if(session('success'))
+                    <div class="alert alert-success" role="success">
+                    {{session('success')}}
+                    </div>
+                    <script type="text/javascript">
+                    window.setTimeout(function() {
+                    $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    });
+                    }, 1500);
+                    </script>
+                    @endif
                   <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -165,25 +177,29 @@ $detect = new Mobile_Detect;
                       <div class="modal fade bd-example-modal-lg" id="myModal{{$grados->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                           <div class="modal-content">
-                          <div class="modal-header" style="background-color: lightblue;">
+                          <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel"><strong></strong>Docentes especiales de {{$grados->descripcion}}</h5>
                           <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <label><strong>Seleccionar docentes especiales</strong></label> 
+                            <label><strong>Seleccionar docentes especiales</strong></label>
                             @foreach($docentesespe as $espe)
                             <form action="{{route('armado.especiales',$grados->id)}}" method="POST" class="form-horizontal">
                             @csrf
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle">
-                                  <input type="checkbox" id="check" name="id_docentesespe[]" value="{{$espe->id}}" <?php 
-                                  $longitud= strlen($grados->id_docentesespe); 
-                                  for($i=2;$i<=$longitud;$i=$i+4){
-                                    $doce=$grados->id_docentesespe[$i];
-                                    if($espe->id==$doce) echo 'checked="" ';
+                                  <input type="checkbox" id="check" name="id_docentesespe[]" value="{{$espe->id}}"
+                                  <?php
+                                     $docentesespecia=$grados->id_docentesespe;
+                                     $docentesespecia = preg_replace('/[\[\]\.\;\" "]+/', '', $docentesespecia);
+                                     $docentesespecia=explode(',',$docentesespecia);
+                                     $longitud= count($docentesespecia)-1;
+                                  for($i=0;$i<=$longitud;$i++){
+                                    if($espe->id==$docentesespecia[$i]) echo 'checked="" ';
                                   }
-                                  ?>>
+                                  ?>
+                                  >
                                   &nbsp
                                  <strong>Docente de {{$espe->especialidad}}:</strong> &nbsp{{$espe->nombredocente}} {{$espe->apellidodocente}}. 
                                  

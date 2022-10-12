@@ -14,7 +14,10 @@
              @if(sizeof($infogrado)==0)
               <br>
           <div class="col-md-12 text-center">
-          <h4><span class="badge badge-warning">Aún no hay Informes creados para el Grado y Periodo seleccionado </span></h4>
+            <div class="text-left">
+                  <h5><span class="badge badge-success">El año escolar activo es el {{$descripcionaño}}.</span></h5>
+                  </div>
+          <h4><span class="badge badge-warning">Aún no hay informes creados para el grado y período seleccionado. </span></h4>
           <u><strong><a class="text-primary" href="{{route('libretas')}}">Volver al buscador.</a></strong></u>
           </div>
 
@@ -129,11 +132,10 @@
                     $descripcionaño="$activo->descripcion";
                     }
                     ?>
-                      <td class="td-actions v-align-middle ">
+                      <td class="td-actions v-align-middle">
+                        <div>
+                        <div style="display: inline-block;">
                         <form>
-                          <div style="display: none;">
-                          <input type="text" value="{{$periodo}}" name="periodo">
-                          </div>
                         <button formaction= "{{route('generarlibreta',$nombrecompleto)}}" class="btn btn-success" title="Descargar informe">
                         <i class="bi bi-download"></i>
                         </button>
@@ -150,10 +152,45 @@
                           <input type="text" value="{{$emailcolegio}}" name="emailcolegio">
                           <input type="text" value="{{$descripcionaño}}" name="descripcionaño">
                           </div>
-                        <button formaction="{{route('compartirinforme',$nombrecompleto)}}" class="btn btn-info" title="Compartir informe">
+                          </form>
+                        </div>
+                        <div style="display: inline-block;">
+                        <button class="btn btn-info" title="Compartir informe" data-toggle="modal" data-target="#Compartirinforme{{$nombrecompleto}}">
                         <i class="bi bi-share"></i>
                         </button>
-                        </form>
+                          <div class="modal fade" id="Compartirinforme{{$nombrecompleto}}" role="dialog">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                          <h5 class="modal-title" id="Compartirinforme"><strong>  Informe escolar del alumno {{$nombrecompleto}}</strong></h5>
+                          <button type="button" class="close" data-dismiss="modal" title="Cerrar">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                          <p class="text-center">¿Está seguro que desea compartir por email el informe del alumno <strong>{{$nombrecompleto}}</strong>?</p>
+                          </div>
+                          <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                          <form>
+                          <div style="display: none;">
+                          <input type="text" value="{{$periodo}}" name="periodo">
+                          <input type="text" value="{{$idalumno[$i]}}" name="idalumno">
+                          <input type="text" value="{{$nombrecompleto}}" name="nombrecompleto">
+                          <input type="text" value="{{$gradoalumno}}" name="gradoalumno">
+                          <input type="text" value="{{$nombrecolegio}}" name="nombrecolegio">
+                          <input type="text" value="{{$direccioncolegio}}" name="direccioncolegio">
+                          <input type="text" value="{{$localidadcolegio}}" name="localidadcolegio">
+                          <input type="text" value="{{$provinciacolegio}}" name="provinciacolegio">
+                          <input type="text" value="{{$telefonocolegio}}" name="telefonocolegio">
+                          <input type="text" value="{{$emailcolegio}}" name="emailcolegio">
+                          <input type="text" value="{{$descripcionaño}}" name="descripcionaño">
+                          </div>
+                          <button formaction="{{route('compartirinforme',$nombrecompleto)}}" class="btn btn-success" type="submit" rel="tooltip">Aceptar</button>
+                          </form>
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                          </div>     
                       </td>
                     </tr>
                     <?php 

@@ -23,6 +23,29 @@ if($colegio->isEmpty()){?>
             <h4 class="card-title">Cargar información de colegio</h4>
             </div>
             <div class="card-body">
+            @if(session('danger'))
+            <div class="alert alert-danger" role="danger">
+            {{session('danger')}}
+            </div>
+            <script type="text/javascript">
+            window.setTimeout(function() {
+            $(".alert-danger").fadeTo(400, 0).slideUp(400, function(){
+            $(this).remove(); 
+            });
+            }, 1500);
+            </script>
+            @endif
+            <div class="row">
+                <label class="col-sm-2 col-form-label">CUE (clave única de establecimiento)</label>
+                <div class="col-sm-7">
+                <input type="text" class="form-control" name="cue" id="cue" autocomplete="off" value="{{ old('cue') }}">
+                @error('cue')
+                <div id="cue-error" class="error text-danger pl-3" for="cue" style="display: block;">
+                <strong>El campo debe ser del tipo numérico y contener 9 caracteres.</strong>
+                </div>
+              @enderror 
+              </div>
+            </div>
             <div class="row">
                 <label class="col-sm-2 col-form-label">Nombre del Colegio</label>
                 <div class="col-sm-7">
@@ -175,6 +198,18 @@ if($colegio->isEmpty()){?>
       });
       }, 1000);
       </script>
+      @endif
+       @if(session('danger'))
+      <div class="alert alert-danger" role="danger">
+      {{session('danger')}}
+      </div>
+      <script type="text/javascript">
+      window.setTimeout(function() {
+      $(".alert-success").fadeTo(400, 0).slideUp(400, function(){
+      $(this).remove(); 
+      });
+      }, 1000);
+      </script>
   @endif
       @foreach($colegio as $col)
       
@@ -182,6 +217,11 @@ if($colegio->isEmpty()){?>
       if ($detect->isMobile() or $detect->isTablet()) {?>
       <h3 class="tittle mt-3 text-center" style="font-size:18px;"><strong>Establecimiento "{{$col->nombre}}"</strong></h3>   
               <table class="table">
+                  <tr>
+                    <td class="v-align-middle" style="width: 100%;">
+                    <label>Cue</label>&nbsp;&nbsp;{{$col->cue}}
+                    </td>
+                  </tr>
                   <tr>
                     <td class="v-align-middle" style="width: 100%;">
                     <label>Teléfono</label>&nbsp;&nbsp;{{$col->telefono}}
@@ -259,6 +299,11 @@ if($colegio->isEmpty()){?>
                             <table class="table">
                               <tr>
                                 <td class="v-align-middle">
+                                  <label>CUE</label>&nbsp;&nbsp;{{$col->cue}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="v-align-middle">
                                   <label>Teléfono</label>&nbsp;&nbsp;{{$col->telefono}}
                                 </td>
                                 <td>
@@ -281,9 +326,10 @@ if($colegio->isEmpty()){?>
                                   <label>Email</label>&nbsp;&nbsp;{{$col->email}}
                                 </td>
                               </tr>
-                              <tr>
-                                <td >
-                            <label >Logo institucional</label>&nbsp;&nbsp;
+                            </table>
+                            <div class="text-center">
+                            <label>Logo institucional</label>
+                            <br>
                         <?php
         $Host ="localhost";
         $uname = "root";
@@ -310,9 +356,7 @@ if($colegio->isEmpty()){?>
   imageAlt: 'Custom image',
 })
         </script>
-      </td>
-    </tr>
-      </table>
+      </div>
           <div class="text-right">
         <a href="{{route('edit',$col->id)}}">
             <button class="btn btn-sm btn-facebook" value="Editar">

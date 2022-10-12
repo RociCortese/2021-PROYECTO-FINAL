@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\Familia;
 use App\Models\User;
+use App\Models\Año;
+use App\Models\Grado;
 use App\Models\Colegio;
 use App\Models\Abecedario;
 use Auth;
@@ -128,10 +130,33 @@ class CargaAlumnoController extends Controller
                 $idcolegio= "$col->id";
             };
         $alumno->colegio_id=$idcolegio;
-        $alumno->save();        
+        $alumno->save();
+        $fechacreacion=Alumno::where('dnialumno',$alumno->dnialumno)->pluck("created_at");
+        $fechacreacion = preg_replace('/[\[\]\.\;\" "]+/', '', $fechacreacion);
+        $añoactual = substr($fechacreacion, 0, 4);
+        $añolectivo=Año::where('descripcion',$añoactual)->where('id_colegio',$idcolegio)->get();
+        foreach($añolectivo as $añolect){
+        $estado="$añolect->estado";
+        $idaño="$añolect->id";
+        }
+        $gradoexiste=Grado::where('descripcion',$alumno->grado)->where('id_anio',$idaño)->where('colegio_id',$idcolegio)->get();
+        if($estado=='activo' and sizeof($gradoexiste)!=0){
+        $idalumnos=Grado::where('descripcion',$alumno->grado)->where('id_anio',$idaño)->where('colegio_id',$idcolegio)->get();
+        foreach($idalumnos as $idalu){
+        $alumnos="$idalu->id_alumnos";
+        }
+        $alumnos = preg_replace('/[\[\]\.\;\" "]+/', '', $alumnos);
+        $idalumnos='['.$alumnos . ',' .$alumno->id.']';
+        $gradoamodificar=Grado::where('descripcion',$alumno->grado)->where('id_anio',$idaño)->where('colegio_id',$idcolegio)->first();
+        $gradoamodificar->id_alumnos=$idalumnos;
+        $gradoamodificar->save();
+        return redirect()->route('alumnos.index')
+                        ->with('success', 'El alumno se cargó correctamente y se agregó al grado correspondiente.');
+        }
+
          return redirect()->route('alumnos.index')
                         ->with('success', 'El alumno se cargó correctamente.');
-    }
+        }
     public function crearfamilia(Request $request){
         $idusuario= Auth::user()->id;
         $colegio= Colegio::all()->where('users_id',$idusuario);
